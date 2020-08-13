@@ -7,4 +7,9 @@
     <string name="noAccountQuestion">حساب کاربری ندارید؟</string>
     <string name="register">عضو شوید</string>
     <string name="icon">icon</string>
+    <string name="homePage">صفحه اول</string>
+    <string name="writeArticleIcon">نوشتن مقاله</string>
+    <string name="homeSearchHint">جست وجوی مقاله</string>
+    <string name="topArticles">برترین مقالات</string>
+    <string name="news">تازه‌ترین اخبار و تحلیل‌ها و درباره اخبار ورزشی، حوادث، سیاسی، اقتصادی، فرهنگی و گردشگری را در خبرآنلاین بخوانید.</string>
 </resources>
