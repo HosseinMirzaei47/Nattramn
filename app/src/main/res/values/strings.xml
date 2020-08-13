@@ -2,7 +2,7 @@
     <string name="app_name">Nattramn</string>
     <string name="enter">ورود</string>
     <string name="enterSubtitle">ورود به حساب کاربری</string>
-    <string name="loginUsernameHint">نام کاربری (ایمیل)</string>
+    <string name="loginUsernameHint">نام کاربری (یا ایمیل)</string>
     <string name="loginPasswordHint">کلمه عبور</string>
     <string name="noAccountQuestion">حساب کاربری ندارید؟</string>
     <string name="register">عضو شوید</string>
