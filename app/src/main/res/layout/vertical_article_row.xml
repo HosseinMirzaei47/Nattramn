@@ -2,15 +2,12 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/horizontalArticleCard"
+    android:id="@+id/verticalArticleCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="4dp"
-    android:layout_marginEnd="4dp"
+    android:layout_marginBottom="12dp"
     android:background="@color/whiteBackground"
-    android:layoutDirection="rtl"
-    app:cardCornerRadius="10dp"
-    app:cardElevation="2dp">
+    app:cardCornerRadius="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -23,21 +20,20 @@
             android:layout_height="50dp"
             android:layout_margin="16dp"
             android:src="@drawable/test02"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/itemAuthorName"
             style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:text="حسین میرزایی"
             android:textColor="@color/black"
             android:textSize="12sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/itemAuthorImage"
+            app:layout_constraintEnd_toStartOf="@+id/itemAuthorImage"
             app:layout_constraintTop_toTopOf="@+id/itemAuthorImage" />
 
         <TextView
@@ -45,13 +41,12 @@
             style="@style/TextAppearance.App.Subtitle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:text="3 روز پیش"
             android:textColor="@color/hint"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@id/itemAuthorImage"
-            app:layout_constraintStart_toEndOf="@id/itemAuthorImage"
+            app:layout_constraintEnd_toStartOf="@id/itemAuthorImage"
             app:layout_constraintTop_toBottomOf="@id/itemAuthorName"
             tools:ignore="SmallSp" />
 
@@ -64,14 +59,17 @@
             android:contentDescription="@null"
             android:src="@drawable/ic_bookmark_checked"
             app:layout_constraintBottom_toBottomOf="@id/itemAuthorImage"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/itemAuthorImage" />
 
         <TextView
             android:id="@+id/itemArticlePreview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/iran_sans"
             android:lineSpacingExtra="10dp"
             android:maxLines="2"
@@ -79,10 +77,8 @@
             android:textColor="@color/black"
             android:textSize="12sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/itemAuthorImage"
-            app:layout_constraintEnd_toEndOf="@id/itemAuthorImage"
-            app:layout_constraintStart_toStartOf="@id/itemBookmark"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/itemAuthorImage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

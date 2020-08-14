@@ -77,14 +77,13 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerHomeArticle"
                     android:layout_width="match_parent"
-                    android:layout_height="600dp"
+                    android:layout_height="300dp"
                     android:layout_margin="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputSearch"
-                    tools:listitem="@layout/horizontal_article_row" />
+                    app:layout_constraintTop_toBottomOf="@+id/textInputSearch" />
 
-                <!--<TextView
+                <TextView
                     android:id="@+id/topArticlesTextView"
                     style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
                     android:layout_width="wrap_content"
@@ -95,15 +94,24 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/guideline1" />-->
+                    app:layout_constraintBottom_toTopOf="@+id/recyclerHomeTopArticles"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline1"
-                    android:layout_width="wrap_content"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerHomeTopArticles"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:clipToPadding="false"
+                    android:layoutDirection="rtl"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent=".7" />
+                    android:paddingStart="35dp"
+                    android:paddingEnd="16dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:listitem="@layout/horizontal_article_row" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

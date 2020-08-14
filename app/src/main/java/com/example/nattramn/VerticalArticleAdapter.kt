@@ -8,14 +8,14 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.horizontal_article_row.view.*
+import kotlinx.android.synthetic.main.vertical_article_row.view.*
 
-class HorizontalArticleAdapter(private val context: Context) :
-    RecyclerView.Adapter<HorizontalArticleAdapter.ViewHolder>() {
+class VerticalArticleAdapter(private val context: Context) :
+    RecyclerView.Adapter<VerticalArticleAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.horizontal_article_row, parent, false)
+            .inflate(R.layout.vertical_article_row, parent, false)
         return ViewHolder(view)
     }
 
@@ -28,7 +28,7 @@ class HorizontalArticleAdapter(private val context: Context) :
     }
 
     override fun getItemCount(): Int {
-        return 20
+        return 15
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

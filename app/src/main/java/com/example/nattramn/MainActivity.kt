@@ -10,9 +10,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        val adapter = HorizontalArticleAdapter(this)
+        val verticalAdapter = VerticalArticleAdapter(this)
         recyclerHomeArticle.layoutManager = LinearLayoutManager(this)
-        recyclerHomeArticle.adapter = adapter
+        recyclerHomeArticle.adapter = verticalAdapter
+
+        val horizontalAdapter = HorizontalArticleAdapter(this)
+        recyclerHomeTopArticles.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recyclerHomeTopArticles.adapter = horizontalAdapter
 
     }
 }
