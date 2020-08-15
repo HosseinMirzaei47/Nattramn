@@ -7,6 +7,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="textAppearanceHeadline6">@style/TextAppearance.Shrine.Headline6</item>
         <item name="textAppearanceSubtitle1">@style/TextAppearance.App.Subtitle1</item>
+        <item name="fontFamily">@font/iran_sans</item>
     </style>
 
     <style name="TextAppearance.Shrine.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
