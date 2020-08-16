@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/whiteBackground"
-    tools:context=".MainActivity">
+    tools:context=".LoginActivity">
 
     <ImageView
         android:id="@+id/partLogo"
@@ -53,7 +53,7 @@
         android:layout_marginStart="35dp"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="35dp"
-        android:hint="@string/loginUsernameHint"
+        android:hint="@string/usernameHint"
         android:layoutDirection="rtl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,7 +77,7 @@
         android:layout_marginStart="35dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="35dp"
-        android:hint="@string/loginPasswordHint"
+        android:hint="@string/passwordHint"
         android:layoutDirection="rtl"
         app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
@@ -119,6 +119,7 @@
         app:layout_constraintStart_toEndOf="@id/guideline1" />
 
     <Button
+        android:id="@+id/loginRegisterButton"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
