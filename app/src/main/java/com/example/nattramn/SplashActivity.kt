@@ -12,6 +12,11 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        showNextPage()
+
+    }
+
+    private fun showNextPage() {
         Handler().postDelayed({
             startActivity(Intent(this, LoginActivity::class.java))
             finish()

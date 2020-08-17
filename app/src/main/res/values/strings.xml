@@ -27,5 +27,14 @@
     <string name="addComment">ارسال دیدگاه</string>
     <string name="relatedArticlesSA">مقالات مرتبط</string>
     <string name="commentsTitle">نظرات کاربران</string>
+    <string name="open_profile_to_do">Open Profile</string>
+    <string name="write_article_to_do">Write Article</string>
+    <string name="hosseinMirzaei">حسین میرزایی</string>
+    <string name="sampleComment">واکنش ایران به خبر لغو موقت بخشی از تحریم‌ها پیام واشنگتن به تهران چه بود؟</string>
+    <string name="sampleDate">3 روز قبل</string>
+    <string name="economy">اقتصاد</string>
+    <string name="stockMarket">بورس</string>
+    <string name="apple">apple</string>
+    <string name="investment">سرمایه گذاری</string>
 
 </resources>

@@ -1,4 +1,4 @@
-package com.example.nattramn
+package com.example.nattramn.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,15 +7,16 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.nattramn.R
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.vertical_article_row.view.*
+import kotlinx.android.synthetic.main.horizontal_article_row.view.*
 
-class VerticalArticleAdapter(private val context: Context) :
-    RecyclerView.Adapter<VerticalArticleAdapter.ViewHolder>() {
+class SuggestedArticleAdapter(private val context: Context) :
+    RecyclerView.Adapter<SuggestedArticleAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.vertical_article_row, parent, false)
+            .inflate(R.layout.horizontal_article_row, parent, false)
         return ViewHolder(view)
     }
 
@@ -28,15 +29,15 @@ class VerticalArticleAdapter(private val context: Context) :
     }
 
     override fun getItemCount(): Int {
-        return 15
+        return 10
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val authorImage: CircleImageView = itemView.itemAuthorImage
-        val authorName: TextView = itemView.itemAuthorName
-        val articleTime: TextView = itemView.itemTime
         val bookmarkItem: ImageButton = itemView.itemBookmark
         val articlePreview: TextView = itemView.itemArticlePreview
+        /*val authorName: TextView = itemView.itemAuthorName
+        val articleTime: TextView = itemView.itemTime*/
     }
 
 }
