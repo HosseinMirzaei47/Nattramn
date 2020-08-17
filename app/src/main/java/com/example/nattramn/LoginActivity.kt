@@ -24,14 +24,10 @@ class LoginActivity : AppCompatActivity() {
 
             val fragmentArticle = FragmentArticle()
 
-            println("1")
-
             supportFragmentManager.beginTransaction()
                 .replace(R.id.loginFrame, fragmentArticle)
                 .addToBackStack(null)
                 .commit()
-
-            println("2")
 
         }
     }
