@@ -23,9 +23,23 @@ class FragmentArticle : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        showDialogOnCommentClick()
+
         setBackButtonClick()
 
         setRecyclers()
+
+    }
+
+    private fun showDialogOnCommentClick() {
+
+        articleCommentButton.setOnClickListener {
+
+            val commentDialogFragment = CommentDialogFragment()
+            commentDialogFragment.dialog
+            commentDialogFragment.show(childFragmentManager, tag)
+
+        }
 
     }
 
