@@ -25,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
             val registerFragment = RegisterFragment()
 
             supportFragmentManager.beginTransaction()
-                .add(R.id.loginFrame, registerFragment)
+                .replace(R.id.loginFrame, registerFragment)
                 .addToBackStack(null)
                 .commit()
 
