@@ -55,6 +55,10 @@
         android:layout_marginEnd="35dp"
         android:hint="@string/usernameHint"
         android:layoutDirection="rtl"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/enterSubtitle"
@@ -79,6 +83,10 @@
         android:layout_marginEnd="35dp"
         android:hint="@string/passwordHint"
         android:layoutDirection="rtl"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
         app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,6 +107,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:background="@drawable/shape_register_button"
         android:fontFamily="@font/iran_sans"
         android:text="@string/enter"
         android:textColor="@color/whiteBackground"
@@ -136,7 +145,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.47" />
+        app:layout_constraintGuide_percent="0.43" />
 
     <FrameLayout
         android:id="@+id/loginFrame"
