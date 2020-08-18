@@ -1,12 +1,14 @@
 package com.example.nattramn
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.adapters.ProfileArticleAdapter
+import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment() {
@@ -29,6 +31,10 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setRecyclers() {
+
+        val snapVertical = GravitySnapHelper(Gravity.TOP)
+        snapVertical.attachToRecyclerView(recyclerProfileArticles)
+
         val profileArticleAdapter = ProfileArticleAdapter(requireContext())
         recyclerProfileArticles.apply {
 
