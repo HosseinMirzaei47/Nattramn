@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardArticleSA"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@color/whiteBackground"
+    android:elevation="2dp"
+    android:layoutDirection="rtl"
+    app:cardCornerRadius="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/itemArticleAuthorImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/test02"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/itemArticleAuthorName"
+            style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/hosseinMirzaei"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/itemArticleDate"
+            app:layout_constraintStart_toEndOf="@+id/itemArticleAuthorImage"
+            app:layout_constraintTop_toTopOf="@+id/itemArticleAuthorImage" />
+
+        <TextView
+            android:id="@+id/itemArticleDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/sampleDate"
+            android:textColor="@color/hint"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/itemArticleAuthorImage"
+            app:layout_constraintStart_toEndOf="@+id/itemArticleAuthorImage"
+            app:layout_constraintTop_toBottomOf="@+id/itemArticleAuthorName" />
+
+        <ImageButton
+            android:id="@+id/shareArticleSA"
+            style="@style/Widget.AppCompat.ActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_more"
+            app:layout_constraintBottom_toBottomOf="@id/itemArticleAuthorImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/itemArticleAuthorImage" />
+
+        <ImageButton
+            android:id="@+id/addFavoriteSA"
+            style="@style/Widget.AppCompat.ActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="13dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_bookmark"
+            app:layout_constraintBottom_toBottomOf="@id/itemArticleAuthorImage"
+            app:layout_constraintEnd_toStartOf="@+id/shareArticleSA"
+            app:layout_constraintTop_toTopOf="@id/itemArticleAuthorImage" />
+
+        <TextView
+            android:id="@+id/itemArticleTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            android:letterSpacing=".02"
+            android:lineSpacingExtra="3dp"
+            android:text="@string/news"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/itemArticleAuthorImage" />
+
+        <TextView
+            android:id="@+id/itemArticleDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="10dp"
+            android:lineSpacingExtra="7sp"
+            android:padding="10dp"
+            android:text="@string/news"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/itemArticleTitle" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/itemCommentsButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="@string/comment"
+            android:textColor="@color/hint"
+            app:icon="@drawable/ic_comment"
+            app:iconGravity="textStart"
+            app:iconPadding="12dp"
+            app:iconTint="@color/hint"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/itemLikesIcon" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/itemLikesIcon"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="2.5k"
+            android:textColor="@color/hint"
+            app:icon="@drawable/ic_favorite"
+            app:iconGravity="textStart"
+            app:iconPadding="12dp"
+            app:iconTint="@color/hint"
+            app:layout_constraintBottom_toBottomOf="pa"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/itemArticleDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
