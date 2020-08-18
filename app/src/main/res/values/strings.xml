@@ -42,5 +42,8 @@
     <string name="comment">20 دیدگاه</string>
     <string name="_248">248</string>
     <string name="_2379">2379</string>
+    <string name="oneK">1k</string>
+    <string name="englishTeacher">مدرس زبان انگلیسی</string>
+    <string name="profile">پروفایل</string>
 
 </resources>

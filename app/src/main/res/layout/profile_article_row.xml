@@ -51,7 +51,7 @@
             app:layout_constraintTop_toBottomOf="@+id/itemArticleAuthorName" />
 
         <ImageButton
-            android:id="@+id/shareArticleSA"
+            android:id="@+id/itemArticleOptions"
             style="@style/Widget.AppCompat.ActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
             app:layout_constraintTop_toTopOf="@id/itemArticleAuthorImage" />
 
         <ImageButton
-            android:id="@+id/addFavoriteSA"
+            android:id="@+id/itemArticleBookmark"
             style="@style/Widget.AppCompat.ActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
             android:contentDescription="@null"
             android:src="@drawable/ic_bookmark"
             app:layout_constraintBottom_toBottomOf="@id/itemArticleAuthorImage"
-            app:layout_constraintEnd_toStartOf="@+id/shareArticleSA"
+            app:layout_constraintEnd_toStartOf="@+id/itemArticleOptions"
             app:layout_constraintTop_toTopOf="@id/itemArticleAuthorImage" />
 
         <TextView
@@ -139,7 +139,7 @@
             app:iconGravity="textStart"
             app:iconPadding="12dp"
             app:iconTint="@color/hint"
-            app:layout_constraintBottom_toBottomOf="pa"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/itemArticleDescription" />
 
