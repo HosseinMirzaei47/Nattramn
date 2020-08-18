@@ -25,22 +25,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/iran_sans"
-                android:text="@string/articleFragAppbarTitle"
+                android:text="@string/profile"
                 android:textColor="@color/whiteBackground"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
             <ImageButton
-                android:id="@+id/articleBookmark"
-                style="@style/Widget.AppCompat.ActionButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:src="@drawable/ic_bookmark_article_fragment"
-                tools:ignore="ContentDescription" />
-
-            <ImageButton
-                android:id="@+id/articleRightArrow"
+                android:id="@+id/profileRightArrow"
                 style="@style/Widget.AppCompat.ActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -116,7 +107,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:text="@string/sampleDate"
+                        android:text="@string/englishTeacher"
                         android:textColor="@color/hint"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@id/profileInfo"
@@ -193,7 +184,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerArticleComments"
+                android:id="@+id/recyclerProfileArticles"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="16dp"

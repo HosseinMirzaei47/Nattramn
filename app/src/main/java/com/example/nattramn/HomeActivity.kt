@@ -12,8 +12,23 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        setOnProfileClicked()
+
         setRecyclers()
 
+    }
+
+    private fun setOnProfileClicked() {
+        articleProfileIcon.setOnClickListener {
+
+            val profileFragment = ProfileFragment()
+
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.homeFrame, profileFragment)
+                .addToBackStack(null)
+                .commit()
+
+        }
     }
 
     private fun setRecyclers() {
