@@ -14,11 +14,27 @@ class HomeActivity : AppCompatActivity() {
 
         setOnProfileClicked()
 
+        setOnWriteClicked()
+
         setRecyclers()
 
     }
 
+    private fun setOnWriteClicked() {
+
+        homeWriteButton.setOnClickListener {
+            val fragmentArticle = FragmentArticle()
+
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.homeFrame, fragmentArticle)
+                .addToBackStack(null)
+                .commit()
+        }
+
+    }
+
     private fun setOnProfileClicked() {
+
         articleProfileIcon.setOnClickListener {
 
             val profileFragment = ProfileFragment()
@@ -29,6 +45,7 @@ class HomeActivity : AppCompatActivity() {
                 .commit()
 
         }
+
     }
 
     private fun setRecyclers() {

@@ -107,6 +107,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:background="@drawable/shape_register_button"
         android:fontFamily="@font/iran_sans"
         android:text="@string/enter"
         android:textColor="@color/whiteBackground"

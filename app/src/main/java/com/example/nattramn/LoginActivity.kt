@@ -22,10 +22,10 @@ class LoginActivity : AppCompatActivity() {
 
         loginRegisterButton.setOnClickListener {
 
-            val fragmentArticle = FragmentArticle()
+            val registerFragment = RegisterFragment()
 
             supportFragmentManager.beginTransaction()
-                .replace(R.id.loginFrame, fragmentArticle)
+                .add(R.id.loginFrame, registerFragment)
                 .addToBackStack(null)
                 .commit()
 
