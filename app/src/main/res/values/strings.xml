@@ -36,5 +36,11 @@
     <string name="stockMarket">بورس</string>
     <string name="apple">apple</string>
     <string name="investment">سرمایه گذاری</string>
+    <string name="follow">دنبال کردن</string>
+    <string name="followers">دنبال کننده</string>
+    <string name="articlesInfo">نوشته</string>
+    <string name="comment">20 دیدگاه</string>
+    <string name="_248">248</string>
+    <string name="_2379">2379</string>
 
 </resources>
