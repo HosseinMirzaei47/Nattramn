@@ -1,11 +1,14 @@
 package com.example.nattramn
 
 import android.os.Bundle
+import android.view.Gravity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.adapters.HorizontalArticleAdapter
 import com.example.nattramn.adapters.VerticalArticleAdapter
+import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import kotlinx.android.synthetic.main.activity_home.*
+
 
 class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,11 +53,19 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setRecyclers() {
 
+        /*Home articles vertical RecyclerView*/
+        val snapVertical = GravitySnapHelper(Gravity.TOP)
+        snapVertical.attachToRecyclerView(recyclerHomeArticle)
+
         val verticalAdapter = VerticalArticleAdapter(this)
         recyclerHomeArticle.apply {
             adapter = verticalAdapter
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
+
+        /*Home top articles horizontal RecyclerView*/
+        val snapHorizontal = GravitySnapHelper(Gravity.CENTER)
+        snapHorizontal.attachToRecyclerView(recyclerHomeTopArticles)
 
         val horizontalAdapter = HorizontalArticleAdapter(this)
         recyclerHomeTopArticles.apply {
