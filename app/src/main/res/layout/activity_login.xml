@@ -62,7 +62,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/enterSubtitle"
-        app:startIconDrawable="@mipmap/ic_person">
+        app:startIconDrawable="@mipmap/ic_person"
+        app:startIconTint="@color/textInputIcon">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -91,7 +92,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loginTextFieldUsername"
-        app:startIconDrawable="@mipmap/lock">
+        app:startIconDrawable="@mipmap/lock"
+        app:startIconTint="@color/textInputIcon">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
