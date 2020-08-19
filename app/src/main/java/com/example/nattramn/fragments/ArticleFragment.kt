@@ -1,21 +1,21 @@
-package com.example.nattramn
+package com.example.nattramn.fragments
 
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.Gravity
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.nattramn.R
 import com.example.nattramn.adapters.CommentAdapter
 import com.example.nattramn.adapters.SuggestedArticleAdapter
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import kotlinx.android.synthetic.main.dialog_comment.*
 import kotlinx.android.synthetic.main.fragment_article.*
 
-class FragmentArticle : Fragment() {
+class ArticleFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
