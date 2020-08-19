@@ -126,6 +126,7 @@
             app:layout_constraintTop_toTopOf="@id/itemLikesIcon" />
 
         <com.google.android.material.button.MaterialButton
+            android:checkable="false"
             android:id="@+id/itemLikesIcon"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"

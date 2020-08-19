@@ -81,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:hint="@string/homeSearchHint"
+                app:hintEnabled="false"
                 android:layoutDirection="rtl"
                 app:boxBackgroundMode="none"
                 app:layout_constraintEnd_toEndOf="parent"

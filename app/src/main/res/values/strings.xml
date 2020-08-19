@@ -45,5 +45,7 @@
     <string name="oneK">1k</string>
     <string name="englishTeacher">مدرس زبان انگلیسی</string>
     <string name="profile">پروفایل</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
