@@ -36,7 +36,7 @@ class FragmentArticle : Fragment() {
 
     private fun setAddCommentAction() {
 
-        commentButton.setOnClickListener {
+        articleCommentButton.setOnClickListener {
             val dialog = Dialog(requireContext(), 0)
             dialog.apply {
 
