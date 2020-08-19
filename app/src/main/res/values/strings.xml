@@ -38,6 +38,7 @@
     <string name="follow">دنبال کردن</string>
     <string name="followers">دنبال کننده</string>
     <string name="articlesInfo">نوشته</string>
+    <string name="profileArticlesTitle">نوشته ها</string>
     <string name="comment">20 دیدگاه</string>
     <string name="_248">248</string>
     <string name="_2379">2379</string>
@@ -46,5 +47,6 @@
     <string name="profile">پروفایل</string>
     <string name="writeCommentHint">دیدگاه خود را اینجا بنویسید</string>
     <string name="writeCommentTitle">ارسال دیدگاه</string>
+    <string name="favorites">علاقه مندی ها</string>
 
 </resources>

@@ -171,6 +171,7 @@
                         android:text="@string/followers"
                         android:textColor="@color/hint"
                         android:textSize="12sp"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@id/followButton"
                         app:layout_constraintEnd_toEndOf="@+id/followersCount"
                         app:layout_constraintStart_toStartOf="@id/followersCount"
@@ -180,16 +181,50 @@
 
             </com.google.android.material.card.MaterialCardView>
 
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/profileTab"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/whiteGlobalBackground"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineProfileTab"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardProfileInfo"
+                app:tabMode="fixed">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profileArticlesTitle" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/favorites" />
+
+            </com.google.android.material.tabs.TabLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerProfileArticles"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardProfileInfo"
+                app:layout_constraintTop_toBottomOf="@+id/profileTab"
                 app:layout_constraintVertical_bias="0"
                 tools:listitem="@layout/profile_article_row" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineProfileTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.55" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
