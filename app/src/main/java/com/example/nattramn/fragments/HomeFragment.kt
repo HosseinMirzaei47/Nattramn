@@ -5,17 +5,19 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
 import com.example.nattramn.adapters.HorizontalArticleAdapter
 import com.example.nattramn.adapters.VerticalArticleAdapter
+import com.example.nattramn.recyclerItemListeners.OnArticleListener
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), OnArticleListener {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,7 +62,7 @@ class HomeFragment : Fragment() {
         val snapVertical = GravitySnapHelper(Gravity.TOP)
         snapVertical.attachToRecyclerView(recyclerHomeArticle)
 
-        val verticalAdapter = VerticalArticleAdapter(requireContext())
+        val verticalAdapter = VerticalArticleAdapter(requireContext(), this)
         recyclerHomeArticle.apply {
             adapter = verticalAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -70,11 +72,27 @@ class HomeFragment : Fragment() {
         val snapHorizontal = GravitySnapHelper(Gravity.CENTER)
         snapHorizontal.attachToRecyclerView(recyclerHomeTopArticles)
 
-        val horizontalAdapter = HorizontalArticleAdapter(requireContext())
+        val horizontalAdapter = HorizontalArticleAdapter(requireContext(), this)
         recyclerHomeTopArticles.apply {
             adapter = horizontalAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
+    }
+
+    override fun onArticleSaveClick(position: Int) {
+        Toast.makeText(context, getString(R.string.bookmarkArticleToast), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onAuthorNameClick(position: Int) {
+        Toast.makeText(context, getString(R.string.openProfileToast), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onAuthorIconClick(position: Int) {
+        Toast.makeText(context, getString(R.string.openProfileToast), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onArticleTitleClick(position: Int) {
+        Toast.makeText(context, getString(R.string.openArticleToast), Toast.LENGTH_SHORT).show()
     }
 
 }

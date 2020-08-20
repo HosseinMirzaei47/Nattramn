@@ -8,10 +8,14 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nattramn.R
+import com.example.nattramn.recyclerItemListeners.OnArticleListener
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.vertical_article_row.view.*
 
-class VerticalArticleAdapter(private val context: Context) :
+class VerticalArticleAdapter(
+    private val context: Context,
+    private val onArticleListener: OnArticleListener
+) :
     RecyclerView.Adapter<VerticalArticleAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,16 +34,24 @@ class VerticalArticleAdapter(private val context: Context) :
         }
     }
 
-    override fun getItemCount(): Int {
-        return 15
-    }
+    override fun getItemCount() = 15
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val authorImage: CircleImageView = itemView.itemAuthorImage
         val articlePreview: TextView = itemView.itemArticlePreview
         val bookmarkItem: ImageButton = itemView.itemBookmark
-        /*val authorName: TextView = itemView.itemAuthorName
-        val articleTime: TextView = itemView.itemTime*/
+        val authorName: TextView = itemView.itemAuthorName
+        /*val articleTime: TextView = itemView.itemTime*/
+
+        init {
+
+            bookmarkItem.setOnClickListener { onArticleListener.onArticleSaveClick(layoutPosition) }
+            articlePreview.setOnClickListener { onArticleListener.onArticleTitleClick(layoutPosition) }
+            authorImage.setOnClickListener { onArticleListener.onAuthorIconClick(layoutPosition) }
+            authorName.setOnClickListener { onArticleListener.onAuthorNameClick(layoutPosition) }
+
+        }
+
     }
 
 }

@@ -6,16 +6,18 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
 import com.example.nattramn.adapters.ProfileArticleAdapter
+import com.example.nattramn.recyclerItemListeners.OnProfileArticleListener
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_profile.*
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment(), OnProfileArticleListener {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,7 +73,7 @@ class ProfileFragment : Fragment() {
         val snapVertical = GravitySnapHelper(Gravity.TOP)
         snapVertical.attachToRecyclerView(recyclerProfileArticles)
 
-        val profileArticleAdapter = ProfileArticleAdapter(requireContext())
+        val profileArticleAdapter = ProfileArticleAdapter(requireContext(), this)
         recyclerProfileArticles.apply {
 
             adapter = profileArticleAdapter
@@ -85,6 +87,34 @@ class ProfileFragment : Fragment() {
             Navigation.findNavController(view)
                 .navigate(ProfileFragmentDirections.actionProfileFragmentToHomeFragment())
         }
+    }
+
+    override fun onBookmarkClick(position: Int) {
+        Toast.makeText(context, "Bookmark Clicked", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onMoreOptionsClick(position: Int) {
+        Toast.makeText(context, "More Options Clicked", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onAuthorIconClick(position: Int) {
+        Toast.makeText(context, "Author Icon Clicked", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onAuthorNameClick(position: Int) {
+        Toast.makeText(context, "Author Name Clicked", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onArticleCommentsClick(position: Int) {
+        Toast.makeText(context, "Article Comments Clicked", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onArticleTitleClick(position: Int) {
+        Toast.makeText(context, "Article Title Clicked", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onArticleDescriptionClick(position: Int) {
+        Toast.makeText(context, "Article Description Clicked", Toast.LENGTH_SHORT).show()
     }
 
 }

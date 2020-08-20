@@ -49,5 +49,8 @@
     <string name="writeCommentTitle">ارسال دیدگاه</string>
     <string name="favorites">علاقه مندی ها</string>
     <string name="_2_5k">2.5k</string>
+    <string name="bookmarkArticleToast">This article is now added to your favorites</string>
+    <string name="openProfileToast">TODO: Open Profile</string>
+    <string name="openArticleToast">TODO: Open Article</string>
 
 </resources>
