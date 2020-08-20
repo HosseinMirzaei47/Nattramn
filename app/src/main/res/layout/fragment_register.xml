@@ -4,15 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/whiteGlobalBackground">
+    android:background="@color/whiteBackground">
 
     <ImageView
         android:id="@+id/img_logo"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="109dp"
         android:layout_marginTop="65dp"
-        android:layout_marginEnd="109dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -178,12 +176,12 @@
         android:layout_marginStart="35dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="35dp"
-        android:background="@drawable/shape_register_button"
         android:ems="10"
-        android:padding="10dp"
+        android:padding="15dp"
         android:text="@string/membership"
         android:textColor="@color/whiteBackground"
         android:textSize="16sp"
+        app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

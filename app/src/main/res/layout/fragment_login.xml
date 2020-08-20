@@ -11,9 +11,9 @@
         android:id="@+id/partLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="63dp"
+        android:layout_marginTop="65dp"
         android:contentDescription="@string/icon"
-        android:src="@mipmap/logo"
+        android:src="@drawable/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -102,15 +102,16 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/loginEnterButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:background="@drawable/shape_register_button"
+        android:padding="15dp"
         android:text="@string/enter"
         android:textColor="@color/whiteBackground"
         android:textSize="16sp"
+        app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="@+id/loginTextFieldPassword"
         app:layout_constraintStart_toStartOf="@id/loginTextFieldPassword"
         app:layout_constraintTop_toBottomOf="@+id/loginTextFieldPassword" />
