@@ -35,7 +35,7 @@ class RegisterFragment : Fragment() {
 
         btn_membership.setOnClickListener { view ->
             Navigation.findNavController(view)
-                .navigate(RegisterFragmentDirections.actionRegisterFragmentToHomeFragment())
+                .navigate(RegisterFragmentDirections.actionRegisterFragmentToHomerFragment())
         }
 
     }
