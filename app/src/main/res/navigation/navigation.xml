@@ -61,7 +61,8 @@
         <action
             android:id="@+id/action_profileFragment_to_homeFragment"
             app:destination="@id/homeFragment"
-            app:popUpTo="@id/homeFragment" />
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_profileFragment_to_articleFragment"
             app:destination="@id/articleFragment" />
@@ -77,7 +78,9 @@
             app:destination="@id/tagFragment" />
         <action
             android:id="@+id/action_articleFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -87,9 +90,13 @@
         tools:layout="@layout/fragment_tag">
         <action
             android:id="@+id/action_tagFragment_to_articleFragment"
-            app:destination="@id/articleFragment" />
+            app:destination="@id/articleFragment"
+            app:popUpTo="@id/articleFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_tagFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
