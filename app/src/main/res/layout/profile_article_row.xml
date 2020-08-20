@@ -133,7 +133,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:text="2.5k"
+            android:text="@string/_2_5k"
             android:textColor="@color/hint"
             app:icon="@drawable/ic_favorite"
             app:iconGravity="textStart"

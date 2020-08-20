@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
 import com.example.nattramn.adapters.ProfileArticleAdapter
@@ -80,8 +81,9 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setBackButtonClick() {
-        profileRightArrow.setOnClickListener {
-            fragmentManager?.popBackStack()
+        profileRightArrow.setOnClickListener { view ->
+            Navigation.findNavController(view)
+                .navigate(ProfileFragmentDirections.actionProfileFragmentToHomeFragment())
         }
     }
 

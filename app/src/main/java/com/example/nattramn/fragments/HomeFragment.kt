@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
 import com.example.nattramn.adapters.HorizontalArticleAdapter
@@ -37,28 +38,18 @@ class HomeFragment : Fragment() {
 
     private fun setOnWriteClicked() {
 
-        homeWriteButton.setOnClickListener {
-            val fragmentArticle = ArticleFragment()
-
-            fragmentManager?.beginTransaction()
-                ?.replace(R.id.homeFrame, fragmentArticle)
-                ?.addToBackStack(null)
-                ?.commit()
+        homeWriteButton.setOnClickListener { view ->
+            Navigation.findNavController(view)
+                .navigate(HomeFragmentDirections.actionHomeFragmentToArticleFragment())
         }
 
     }
 
     private fun setOnProfileClicked() {
 
-        articleProfileIcon.setOnClickListener {
-
-            val profileFragment = ProfileFragment()
-
-            fragmentManager?.beginTransaction()
-                ?.replace(R.id.homeFrame, profileFragment)
-                ?.addToBackStack(null)
-                ?.commit()
-
+        articleProfileIcon.setOnClickListener { view ->
+            Navigation.findNavController(view)
+                .navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
         }
 
     }

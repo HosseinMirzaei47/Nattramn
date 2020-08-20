@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
 import com.example.nattramn.adapters.VerticalArticleAdapter
@@ -46,8 +47,9 @@ class TagFragment : Fragment() {
     }
 
     private fun setBackButtonClick() {
-        articleRightArrow.setOnClickListener {
-            fragmentManager?.popBackStack()
+        articleRightArrow.setOnClickListener { view ->
+            Navigation.findNavController(view)
+                .navigate(TagFragmentDirections.actionTagFragmentToHomeFragment())
         }
     }
 

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
 import com.example.nattramn.adapters.CommentAdapter
@@ -37,7 +38,6 @@ class ArticleFragment : Fragment() {
     }
 
     private fun setAddCommentAction() {
-
         articleCommentButton.setOnClickListener {
             val dialog = Dialog(requireContext(), 0)
             dialog.apply {
@@ -65,8 +65,9 @@ class ArticleFragment : Fragment() {
     }
 
     private fun setBackButtonClick() {
-        articleRightArrow.setOnClickListener {
-            fragmentManager?.popBackStack()
+        articleRightArrow.setOnClickListener { view ->
+            Navigation.findNavController(view)
+                .navigate(ArticleFragmentDirections.actionArticleFragmentToHomeFragment())
         }
     }
 
