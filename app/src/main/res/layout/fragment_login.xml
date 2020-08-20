@@ -23,7 +23,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="58dp"
-        android:fontFamily="@font/iran_sans"
         android:lineSpacingExtra="14sp"
         android:text="@string/enter"
         android:textColor="@color/black"
@@ -38,7 +37,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:fontFamily="@font/iran_sans"
         android:text="@string/enterSubtitle"
         android:textColor="@color/hint"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +67,6 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/iran_sans"
             android:inputType="textEmailAddress"
             android:maxLines="1" />
 
@@ -100,7 +97,6 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/iran_sans"
             android:inputType="textPassword"
             android:maxLines="1" />
 
@@ -112,7 +108,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:background="@drawable/shape_register_button"
-        android:fontFamily="@font/iran_sans"
         android:text="@string/enter"
         android:textColor="@color/whiteBackground"
         android:textSize="16sp"
@@ -125,7 +120,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="45dp"
-        android:fontFamily="@font/iran_sans"
         android:text="@string/noAccountQuestion"
         android:textColor="@color/hint"
         android:textSize="16sp"
@@ -137,7 +131,6 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/iran_sans"
         android:text="@string/register"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/noAccountTextView"
