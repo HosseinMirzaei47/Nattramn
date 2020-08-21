@@ -1,6 +1,7 @@
 package com.example.nattramn.fragments
 
 import android.os.Bundle
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,9 +35,58 @@ class RegisterFragment : Fragment() {
         }
 
         btn_membership.setOnClickListener { view ->
-            Navigation.findNavController(view)
-                .navigate(RegisterFragmentDirections.actionRegisterFragmentToHomerFragment())
+            if (registerUsername.text!!.isValidUsername() && registerUsernameConfirm.text.isValidEmail()) {
+
+                Navigation.findNavController(view)
+                    .navigate(RegisterFragmentDirections.actionRegisterFragmentToHomerFragment())
+
+            }
         }
 
     }
+
+    private fun CharSequence.isValidUsername(): Boolean {
+
+        if (isNullOrEmpty()) {
+
+            registerUsername.requestFocus()
+            registerUsername.error = getString(R.string.errorEnterUsername)
+            return false
+
+        } else if (registerUsername.text!!.length > LoginFragment.minUsernameLength
+            && !Patterns.EMAIL_ADDRESS.matcher(this).matches()
+        ) {
+
+            return true
+
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(this).matches()) {
+
+            registerUsername.requestFocus()
+            registerUsername.error = getString(R.string.errorEmailOrUsernameFormat)
+            return false
+
+        }
+
+        registerUsername.error = null
+        return true
+    }
+
+    private fun CharSequence?.isValidEmail(): Boolean {
+
+        if (isNullOrEmpty()) {
+            registerUsernameConfirm.requestFocus()
+            registerUsernameConfirm.error = getString(R.string.errorEnterEmail)
+            return false
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(this).matches()) {
+            registerUsernameConfirm.requestFocus()
+            registerUsernameConfirm.error = getString(R.string.errorEmailFormat)
+            return false
+        }
+
+        return true
+    }
+
+
 }

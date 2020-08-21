@@ -64,6 +64,7 @@
         app:startIconTint="@color/textInputIcon">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/registerUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -95,6 +96,7 @@
         app:startIconTint="@color/textInputIcon">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/registerUsernameConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -127,6 +129,7 @@
         app:startIconTint="@color/textInputIcon">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/registerPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -160,6 +163,7 @@
         app:startIconTint="@color/textInputIcon">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/registerPasswordConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"

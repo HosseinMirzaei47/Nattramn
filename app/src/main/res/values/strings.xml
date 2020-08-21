@@ -52,5 +52,9 @@
     <string name="bookmarkArticleToast">This article is now added to your favorites</string>
     <string name="openProfileToast">TODO: Open Profile</string>
     <string name="openArticleToast">TODO: Open Article</string>
+    <string name="errorEmailFormat">ایمیل وارد شده صحیح نیست</string>
+    <string name="errorEnterEmail">لطفا ایمیل خود را وارد نمایید</string>
+    <string name="errorEmailOrUsernameFormat">نام کاربری یا ایمیل وارد شده صحیح نیست</string>
+    <string name="errorEnterUsername">نام کاربری خود را وارد نمایید</string>
 
 </resources>

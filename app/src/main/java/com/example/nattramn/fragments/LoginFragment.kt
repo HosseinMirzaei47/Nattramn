@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_login.*
 class LoginFragment : Fragment() {
 
     companion object {
-        private const val minUsernameLength = 7
+        const val minUsernameLength = 7
     }
 
     override fun onCreateView(
@@ -54,7 +54,7 @@ class LoginFragment : Fragment() {
         if (isNullOrEmpty()) {
 
             loginUsername.requestFocus()
-            loginUsername.error = "نام کاربری خود را وارد نمایید"
+            loginUsername.error = getString(R.string.errorEnterUsername)
             return false
 
         } else if (loginUsername.text!!.length > minUsernameLength
@@ -66,7 +66,7 @@ class LoginFragment : Fragment() {
         } else if (!Patterns.EMAIL_ADDRESS.matcher(this).matches()) {
 
             loginUsername.requestFocus()
-            loginUsername.error = "نام کاربری یا ایمیل وارد شده صحیح نیست"
+            loginUsername.error = getString(R.string.errorEmailOrUsernameFormat)
             return false
 
         }
@@ -74,7 +74,6 @@ class LoginFragment : Fragment() {
         loginUsername.error = null
         return true
     }
-
 
     private fun showSystemUI() {
         requireActivity().window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
