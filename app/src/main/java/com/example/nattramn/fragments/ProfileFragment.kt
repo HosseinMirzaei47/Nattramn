@@ -94,7 +94,12 @@ class ProfileFragment : Fragment(), OnProfileArticleListener {
     }
 
     override fun onMoreOptionsClick(position: Int) {
-        Toast.makeText(context, "More Options Clicked", Toast.LENGTH_SHORT).show()
+        val addPhotoBottomDialogFragment =
+            ActionBottomDialogFragment.newInstance()
+        addPhotoBottomDialogFragment.show(
+            requireFragmentManager(),
+            ActionBottomDialogFragment.TAG
+        )
     }
 
     override fun onAuthorIconClick(position: Int) {
@@ -116,5 +121,6 @@ class ProfileFragment : Fragment(), OnProfileArticleListener {
     override fun onArticleDescriptionClick(position: Int) {
         Toast.makeText(context, "Article Description Clicked", Toast.LENGTH_SHORT).show()
     }
+
 
 }

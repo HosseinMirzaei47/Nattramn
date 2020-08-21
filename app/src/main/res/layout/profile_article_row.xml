@@ -53,6 +53,7 @@
         <ImageButton
             android:id="@+id/itemArticleOptions"
             style="@style/Widget.AppCompat.ActionButton"
+            android:background="@android:color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -65,6 +66,7 @@
         <ImageButton
             android:id="@+id/itemArticleBookmark"
             style="@style/Widget.AppCompat.ActionButton"
+            android:background="@android:color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="13dp"
@@ -110,6 +112,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/itemCommentsButton"
             style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:background="@android:color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
@@ -128,6 +131,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/itemLikesIcon"
             style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:background="@android:color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"

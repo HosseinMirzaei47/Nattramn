@@ -56,5 +56,7 @@
     <string name="errorEnterEmail">لطفا ایمیل خود را وارد نمایید</string>
     <string name="errorEmailOrUsernameFormat">نام کاربری یا ایمیل وارد شده صحیح نیست</string>
     <string name="errorEnterUsername">نام کاربری خود را وارد نمایید</string>
+    <string name="EditArticle">ویرایش مقاله</string>
+    <string name="DeleteArticle">حذف مقاله</string>
 
 </resources>
