@@ -133,7 +133,6 @@
             android:layout_marginStart="12dp"
             android:layout_marginBottom="10dp"
             android:checkable="false"
-            android:clickable="false"
             android:gravity="center"
             android:text="@string/_2_5k"
             android:textColor="@color/hint"
