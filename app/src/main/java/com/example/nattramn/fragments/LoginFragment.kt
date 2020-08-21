@@ -22,6 +22,8 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        /*showSystemUI()*/
+
         buttonOnClicks()
 
     }
@@ -38,4 +40,11 @@ class LoginFragment : Fragment() {
                 .navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
         }
     }
+
+    private fun showSystemUI() {
+        requireActivity().window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+    }
+
 }
