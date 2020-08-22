@@ -186,6 +186,8 @@
         android:textColor="@color/whiteBackground"
         android:textSize="16sp"
         app:cornerRadius="10dp"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
