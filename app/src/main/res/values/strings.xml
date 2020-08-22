@@ -57,5 +57,12 @@
     <string name="errorEmailOrUsernameFormat">نام کاربری یا ایمیل وارد شده صحیح نیست</string>
     <string name="errorEnterUsername">نام کاربری خود را وارد نمایید</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tagShare">سهام</string>
+    <string name="publishArticle">انتشار مقاله</string>
+    <string name="writePageTitle">نوشتن مقاله</string>
+    <string name="articleDraft">پیش نویس</string>
+    <string name="title">عنوان</string>
+    <string name="writeArticleBody">متن مقاله</string>
+    <string name="writeKeywords">کلمه کلیدی</string>
 
 </resources>

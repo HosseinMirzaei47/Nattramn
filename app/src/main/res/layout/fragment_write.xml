@@ -20,19 +20,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/iran_sans"
-                android:text="نوشتن مقاله"
+                android:text="@string/writePageTitle"
                 android:textColor="@color/whiteBackground"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
 
             <TextView
-                android:id="@+id/toolvar_draft"
+                android:id="@+id/toolbar_draft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/iran_sans"
-                android:text="پیش نویس"
+                android:text="@string/articleDraft"
                 android:textColor="@color/whiteBackground"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -72,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
-                android:text="عنوان"
+                android:text="@string/title"
                 android:textColor="@color/absoluteBlack"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -96,25 +94,24 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/iran_sans"
                     android:maxLines="1" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/write_diescription_title"
+                android:id="@+id/write_description_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
-                android:text="متن مقاله"
+                android:text="@string/writeArticleBody"
                 android:textColor="@color/absoluteBlack"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/write_et_title" />
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/write_et_diescription"
+                android:id="@+id/write_et_description"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -127,12 +124,11 @@
                 app:boxCornerRadiusTopEnd="10dp"
                 app:boxCornerRadiusTopStart="10dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/write_diescription_title">
+                app:layout_constraintTop_toBottomOf="@id/write_description_title">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/iran_sans"
                     android:gravity="top"
                     android:minLines="5" />
 
@@ -144,10 +140,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
-                android:text="کلمه کلیدی"
+                android:text="@string/writeKeywords"
                 android:textColor="@color/absoluteBlack"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/write_et_diescription" />
+                app:layout_constraintTop_toBottomOf="@id/write_et_description" />
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -169,7 +165,6 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/iran_sans"
                     android:maxLines="1" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -191,21 +186,21 @@
                     style="@style/Widget.MaterialComponents.Chip.Entry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="اقتصاد" />
+                    android:text="@string/economy" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip7"
                     style="@style/Widget.MaterialComponents.Chip.Entry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="بورس" />
+                    android:text="@string/stockMarket" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip8"
                     style="@style/Widget.MaterialComponents.Chip.Entry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="سهام" />
+                    android:text="@string/tagShare" />
             </com.google.android.material.chip.ChipGroup>
 
             <com.google.android.material.button.MaterialButton
@@ -217,7 +212,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="16dp"
-                android:text="انتشار مقاله"
+                android:text="@string/publishArticle"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
