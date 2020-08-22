@@ -53,28 +53,32 @@
         <ImageButton
             android:id="@+id/itemArticleOptions"
             style="@style/Widget.AppCompat.ActionButton"
-            android:background="@android:color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:background="@android:color/transparent"
+            android:clickable="true"
             android:contentDescription="@null"
             android:src="@drawable/ic_more"
             app:layout_constraintBottom_toBottomOf="@id/itemArticleAuthorImage"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/itemArticleAuthorImage" />
+            app:layout_constraintTop_toTopOf="@id/itemArticleAuthorImage"
+            android:focusable="true" />
 
         <ImageButton
             android:id="@+id/itemArticleBookmark"
             style="@style/Widget.AppCompat.ActionButton"
-            android:background="@android:color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="13dp"
+            android:background="@android:color/transparent"
+            android:clickable="true"
             android:contentDescription="@null"
             android:src="@drawable/ic_bookmark"
             app:layout_constraintBottom_toBottomOf="@id/itemArticleAuthorImage"
             app:layout_constraintEnd_toStartOf="@+id/itemArticleOptions"
-            app:layout_constraintTop_toTopOf="@id/itemArticleAuthorImage" />
+            app:layout_constraintTop_toTopOf="@id/itemArticleAuthorImage"
+            android:focusable="true" />
 
         <TextView
             android:id="@+id/itemArticleTitle"
@@ -112,11 +116,12 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/itemCommentsButton"
             style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:background="@android:color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="10dp"
+            android:background="@android:color/transparent"
+            android:clickable="false"
             android:gravity="center"
             android:text="@string/comment"
             android:textColor="@color/hint"
@@ -129,14 +134,15 @@
             app:layout_constraintTop_toTopOf="@id/itemLikesIcon" />
 
         <com.google.android.material.button.MaterialButton
-            android:checkable="false"
             android:id="@+id/itemLikesIcon"
             style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:background="@android:color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginBottom="10dp"
+            android:background="@android:color/transparent"
+            android:checkable="false"
+            android:clickable="false"
             android:gravity="center"
             android:text="@string/_2_5k"
             android:textColor="@color/hint"
