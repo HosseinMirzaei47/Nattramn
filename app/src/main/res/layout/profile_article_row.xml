@@ -129,6 +129,7 @@
             app:layout_constraintTop_toTopOf="@id/itemLikesIcon" />
 
         <com.google.android.material.button.MaterialButton
+            android:checkable="false"
             android:id="@+id/itemLikesIcon"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:background="@android:color/transparent"
@@ -136,7 +137,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginBottom="10dp"
-            android:checkable="false"
             android:gravity="center"
             android:text="@string/_2_5k"
             android:textColor="@color/hint"
