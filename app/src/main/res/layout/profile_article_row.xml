@@ -59,11 +59,11 @@
             android:background="@android:color/transparent"
             android:clickable="true"
             android:contentDescription="@null"
+            android:focusable="true"
             android:src="@drawable/ic_more"
             app:layout_constraintBottom_toBottomOf="@id/itemArticleAuthorImage"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/itemArticleAuthorImage"
-            android:focusable="true" />
+            app:layout_constraintTop_toTopOf="@id/itemArticleAuthorImage" />
 
         <ImageButton
             android:id="@+id/itemArticleBookmark"
@@ -74,11 +74,11 @@
             android:background="@android:color/transparent"
             android:clickable="true"
             android:contentDescription="@null"
+            android:focusable="true"
             android:src="@drawable/ic_bookmark"
             app:layout_constraintBottom_toBottomOf="@id/itemArticleAuthorImage"
             app:layout_constraintEnd_toStartOf="@+id/itemArticleOptions"
-            app:layout_constraintTop_toTopOf="@id/itemArticleAuthorImage"
-            android:focusable="true" />
+            app:layout_constraintTop_toTopOf="@id/itemArticleAuthorImage" />
 
         <TextView
             android:id="@+id/itemArticleTitle"
