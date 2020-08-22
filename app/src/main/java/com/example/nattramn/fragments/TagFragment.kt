@@ -13,7 +13,6 @@ import com.example.nattramn.R
 import com.example.nattramn.adapters.VerticalArticleAdapter
 import com.example.nattramn.recyclerItemListeners.OnArticleListener
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
-import kotlinx.android.synthetic.main.fragment_article.*
 import kotlinx.android.synthetic.main.fragment_tag.*
 
 class TagFragment : Fragment(), OnArticleListener {
@@ -49,9 +48,8 @@ class TagFragment : Fragment(), OnArticleListener {
     }
 
     private fun setBackButtonClick() {
-        articleRightArrow.setOnClickListener { view ->
-            Navigation.findNavController(view)
-                .navigate(TagFragmentDirections.actionTagFragmentToHomeFragment())
+        tagRightArrow.setOnClickListener { view ->
+            Navigation.findNavController(view).popBackStack()
         }
     }
 
@@ -60,15 +58,18 @@ class TagFragment : Fragment(), OnArticleListener {
     }
 
     override fun onAuthorNameClick(position: Int) {
-        Toast.makeText(context, getString(R.string.openProfileToast), Toast.LENGTH_SHORT).show()
+        Navigation.findNavController(requireView())
+            .navigate(TagFragmentDirections.actionTagFragmentToProfileFragment())
     }
 
     override fun onAuthorIconClick(position: Int) {
-        Toast.makeText(context, getString(R.string.openProfileToast), Toast.LENGTH_SHORT).show()
+        Navigation.findNavController(requireView())
+            .navigate(TagFragmentDirections.actionTagFragmentToProfileFragment())
     }
 
     override fun onArticleTitleClick(position: Int) {
-        Toast.makeText(context, getString(R.string.openArticleToast), Toast.LENGTH_SHORT).show()
+        Navigation.findNavController(requireView())
+            .navigate(TagFragmentDirections.actionTagFragmentToArticleFragment())
     }
 
 }

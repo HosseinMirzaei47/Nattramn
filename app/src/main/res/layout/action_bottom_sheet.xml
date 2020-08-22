@@ -8,11 +8,22 @@
     android:paddingBottom="20dp">
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_share_article"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:padding="18dp"
+        android:text="@string/shareArticle"
+        app:backgroundTint="@color/hint"
+        app:cornerRadius="10dp" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_edit_article"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:padding="18dp"
         android:text="@string/EditArticle"
         app:backgroundTint="@color/blueFollow"
@@ -22,8 +33,8 @@
         android:id="@+id/btn_delete_article"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:padding="18dp"
         android:text="@string/DeleteArticle"
         app:backgroundTint="@color/redButton"

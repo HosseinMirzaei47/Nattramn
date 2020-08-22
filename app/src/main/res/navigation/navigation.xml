@@ -71,6 +71,9 @@
         <action
             android:id="@+id/action_profileFragment_to_articleFragment"
             app:destination="@id/articleFragment" />
+        <action
+            android:id="@+id/action_profileFragment_self"
+            app:destination="@id/profileFragment" />
     </fragment>
 
     <fragment
@@ -89,6 +92,9 @@
         <action
             android:id="@+id/action_articleFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_articleFragment_self"
+            app:destination="@id/articleFragment" />
     </fragment>
 
     <fragment
@@ -106,6 +112,9 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_tagFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 
     <fragment
@@ -127,5 +136,8 @@
         <action
             android:id="@+id/action_writeFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_writeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 </navigation>
