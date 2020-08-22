@@ -35,12 +35,10 @@ class LoginFragment : Fragment() {
     private fun buttonOnClicks() {
 
         loginEnterButton.setOnClickListener { view ->
-            Navigation.findNavController(view)
-                .navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
-            /*if (loginUsername.text!!.isValidUsername()) {
+            if (loginUsername.text!!.isValidUsername()) {
                 Navigation.findNavController(view)
                     .navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
-            } */
+            }
 
         }
 
