@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:padding="8dp"
+        android:padding="18dp"
         android:text="@string/EditArticle"
         app:backgroundTint="@color/blueFollow"
         app:cornerRadius="10dp" />
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:padding="8dp"
+        android:padding="18dp"
         android:text="@string/DeleteArticle"
         app:backgroundTint="@color/redButton"
         app:cornerRadius="10dp" />
