@@ -9,16 +9,6 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
-    <FrameLayout
-        android:id="@+id/homeFrame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:elevation="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -34,7 +24,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/iran_sans"
                 android:text="@string/homePage"
                 android:textColor="@color/whiteBackground"
                 android:textSize="16sp"
@@ -50,6 +39,7 @@
                 android:src="@drawable/ic_profile" />
 
             <ImageButton
+                android:id="@+id/homeWriteButton"
                 style="@style/Widget.AppCompat.ActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -135,12 +125,13 @@
                 android:id="@+id/recyclerHomeTopArticles"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:clipToPadding="false"
                 android:layoutDirection="rtl"
                 android:orientation="horizontal"
-                android:paddingStart="35dp"
-                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="100dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

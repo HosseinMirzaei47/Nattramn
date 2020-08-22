@@ -3,12 +3,16 @@ package com.example.nattramn.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nattramn.R
+import com.example.nattramn.recyclerItemListeners.OnCommentListener
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.comment_row.view.*
 
-class CommentAdapter() :
+class CommentAdapter(
+    private val commentListener: OnCommentListener
+) :
     RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,8 +32,17 @@ class CommentAdapter() :
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image: CircleImageView = itemView.itemCommentImage
-        /*val name: TextView = itemView.itemCommentName
-        val comment: TextView = itemView.itemCommentText*/
+        val name: TextView = itemView.itemCommentName
+        /*val comment: TextView = itemView.itemCommentText*/
+
+        init {
+
+            name.setOnClickListener { commentListener.onCommentIconClick() }
+
+            image.setOnClickListener { commentListener.onCommentIconClick() }
+
+        }
+
     }
 
 }

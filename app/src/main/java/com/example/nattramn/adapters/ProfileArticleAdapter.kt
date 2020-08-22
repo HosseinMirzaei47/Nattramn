@@ -9,11 +9,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.nattramn.R
+import com.example.nattramn.recyclerItemListeners.OnProfileArticleListener
 import com.google.android.material.button.MaterialButton
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.profile_article_row.view.*
 
-class ProfileArticleAdapter(private val context: Context) :
+class ProfileArticleAdapter(
+    private val context: Context,
+    private val onProfileArticleListener: OnProfileArticleListener
+) :
     RecyclerView.Adapter<ProfileArticleAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,9 +26,7 @@ class ProfileArticleAdapter(private val context: Context) :
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return 7
-    }
+    override fun getItemCount() = 7
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (position % 3 == 0) {
@@ -48,11 +50,56 @@ class ProfileArticleAdapter(private val context: Context) :
         val articleBookmark: ImageButton = itemView.itemArticleBookmark
         val articleDescription: TextView = itemView.itemArticleDescription
         val articleLikes: MaterialButton = itemView.itemLikesIcon
-        /*val articleTitle: TextView = itemView.itemArticleTitle
+        val articleTitle: TextView = itemView.itemArticleTitle
         val articleComments: MaterialButton = itemView.itemCommentsButton
         val authorName: TextView = itemView.itemArticleAuthorName
-        val articleDate: TextView = itemView.itemArticleDate
-        val articleOptions: ImageButton = itemView.itemArticleOptions*/
+        val articleOptions: ImageButton = itemView.itemArticleOptions
+        /*val articleDate: TextView = itemView.itemArticleDate*/
+
+        init {
+
+            authorImage.setOnClickListener {
+                onProfileArticleListener.onAuthorIconClick(
+                    layoutPosition
+                )
+            }
+            authorName.setOnClickListener {
+                onProfileArticleListener.onAuthorNameClick(
+                    layoutPosition
+                )
+            }
+            articleBookmark.setOnClickListener {
+                onProfileArticleListener.onArticleDescriptionClick(
+                    layoutPosition
+                )
+            }
+            articleBookmark.setOnClickListener {
+                onProfileArticleListener.onBookmarkClick(
+                    layoutPosition
+                )
+            }
+            articleDescription.setOnClickListener {
+                onProfileArticleListener.onArticleDescriptionClick(
+                    layoutPosition
+                )
+            }
+            articleTitle.setOnClickListener {
+                onProfileArticleListener.onArticleTitleClick(
+                    layoutPosition
+                )
+            }
+            articleComments.setOnClickListener {
+                onProfileArticleListener.onArticleCommentsClick(
+                    layoutPosition
+                )
+            }
+            articleOptions.setOnClickListener {
+                onProfileArticleListener.onMoreOptionsClick(
+                    layoutPosition
+                )
+            }
+
+        }
 
     }
 

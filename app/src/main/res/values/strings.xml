@@ -17,7 +17,6 @@
     <string name="create_new_account">ایجاد حساب کاربری جدید</string>
     <string name="email">ایمیل</string>
     <string name="rep_password">تکرار کلمه عبور</string>
-    <string name="membeship">عضویت</string>
     <string name="alreadyUser">حساب کاربری دارید ؟</string>
     <string name="join">وارد شوید !</string>
     <string name="splashSubtitle">به بهترین ها فکر کنید! خوش آمدید</string>
@@ -39,13 +38,24 @@
     <string name="follow">دنبال کردن</string>
     <string name="followers">دنبال کننده</string>
     <string name="articlesInfo">نوشته</string>
+    <string name="profileArticlesTitle">نوشته ها</string>
     <string name="comment">20 دیدگاه</string>
     <string name="_248">248</string>
     <string name="_2379">2379</string>
     <string name="oneK">1k</string>
     <string name="englishTeacher">مدرس زبان انگلیسی</string>
     <string name="profile">پروفایل</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="writeCommentHint">دیدگاه خود را اینجا بنویسید</string>
+    <string name="writeCommentTitle">ارسال دیدگاه</string>
+    <string name="favorites">علاقه مندی ها</string>
+    <string name="_2_5k">2.5k</string>
+    <string name="bookmarkArticleToast">This article is now added to your favorites</string>
+    <string name="openProfileToast">TODO: Open Profile</string>
+    <string name="openArticleToast">TODO: Open Article</string>
+    <string name="errorEmailFormat">ایمیل وارد شده صحیح نیست</string>
+    <string name="errorEnterEmail">لطفا ایمیل خود را وارد نمایید</string>
+    <string name="errorEmailOrUsernameFormat">نام کاربری یا ایمیل وارد شده صحیح نیست</string>
+    <string name="errorEnterUsername">نام کاربری خود را وارد نمایید</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
