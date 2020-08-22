@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/whiteBackground"
+    android:layoutDirection="rtl"
     tools:context=".fragments.LoginFragment">
 
     <ImageView
@@ -127,7 +128,7 @@
         android:textColor="@color/hint"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/guideline1" />
+        app:layout_constraintEnd_toStartOf="@id/guideline1" />
 
     <Button
         android:id="@+id/loginRegisterButton"
@@ -137,7 +138,7 @@
         android:text="@string/register"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/noAccountTextView"
-        app:layout_constraintEnd_toStartOf="@+id/guideline1"
+        app:layout_constraintStart_toEndOf="@+id/guideline1"
         app:layout_constraintTop_toTopOf="@+id/noAccountTextView" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -145,6 +146,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.43" />
+        app:layout_constraintGuide_percent="0.57" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
