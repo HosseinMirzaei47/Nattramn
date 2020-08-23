@@ -94,15 +94,20 @@ class ProfileFragment : Fragment(), OnProfileArticleListener {
     }
 
     override fun onMoreOptionsClick(position: Int) {
-        Toast.makeText(context, "More Options Clicked", Toast.LENGTH_SHORT).show()
+        val addPhotoBottomDialogFragment =
+            ActionBottomDialogFragment.newInstance()
+
+        addPhotoBottomDialogFragment.show(requireFragmentManager(), ActionBottomDialogFragment.TAG)
     }
 
     override fun onAuthorIconClick(position: Int) {
-        Toast.makeText(context, "Author Icon Clicked", Toast.LENGTH_SHORT).show()
+        Navigation.findNavController(requireView())
+            .navigate(ProfileFragmentDirections.actionProfileFragmentSelf())
     }
 
     override fun onAuthorNameClick(position: Int) {
-        Toast.makeText(context, "Author Name Clicked", Toast.LENGTH_SHORT).show()
+        Navigation.findNavController(requireView())
+            .navigate(ProfileFragmentDirections.actionProfileFragmentSelf())
     }
 
     override fun onArticleCommentsClick(position: Int) {
@@ -110,11 +115,17 @@ class ProfileFragment : Fragment(), OnProfileArticleListener {
     }
 
     override fun onArticleTitleClick(position: Int) {
-        Toast.makeText(context, "Article Title Clicked", Toast.LENGTH_SHORT).show()
+
+        Navigation.findNavController(requireView())
+            .navigate(ProfileFragmentDirections.actionProfileFragmentToArticleFragment())
+
     }
 
     override fun onArticleDescriptionClick(position: Int) {
-        Toast.makeText(context, "Article Description Clicked", Toast.LENGTH_SHORT).show()
+
+        Navigation.findNavController(requireView())
+            .navigate(ProfileFragmentDirections.actionProfileFragmentToArticleFragment())
+
     }
 
 }

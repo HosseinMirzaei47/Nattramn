@@ -6,9 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
+    /*private var navController: NavController? = null*/
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        /*navController = Navigation.findNavController(this, R.id.navHostFragment)*/
 
         hideSystemUI()
 
@@ -19,5 +23,9 @@ class MainActivity : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 or View.SYSTEM_UI_FLAG_FULLSCREEN)
     }
+
+    /*override fun onSupportNavigateUp(): Boolean {
+        return NavigationUI.navigateUp(navController!!, null as DrawerLayout)
+    }*/
 
 }

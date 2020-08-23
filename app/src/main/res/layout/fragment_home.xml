@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="rtl"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -11,15 +12,14 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:elevation="0dp">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:elevation="0dp">
+            app:contentInsetStart="@dimen/toolbar_inset_start">
 
             <TextView
                 android:id="@+id/toolbar_title"
@@ -36,7 +36,8 @@
                 style="@style/Widget.AppCompat.ActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/margin_ten"
                 android:contentDescription="@string/open_profile_to_do"
                 android:src="@drawable/ic_profile" />
 
@@ -45,92 +46,13 @@
                 style="@style/Widget.AppCompat.ActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginEnd="10dp"
+                android:layout_gravity="start"
+                android:layout_marginStart="@dimen/margin_ten"
                 android:contentDescription="@string/write_article_to_do"
                 android:src="@drawable/ic_write" />
 
 
         </com.google.android.material.appbar.MaterialToolbar>
-
-        <HorizontalScrollView
-            android:id="@+id/chipGroupFrameSA"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:layoutDirection="rtl">
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroupSA"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_1"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/whiteBackground"
-                    android:checkable="false"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="@string/economy"
-                    android:textColor="@color/black" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_2"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:checkable="false"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="@string/stockMarket"
-                    android:textColor="@color/whiteBackground" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_3"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:checkable="false"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="@string/apple"
-                    android:textColor="@color/whiteBackground" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:checkable="false"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="@string/investment"
-                    android:textColor="@color/whiteBackground"
-                    app:chipBackgroundColor="@android:color/transparent" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_5"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:checkable="false"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="@string/economy"
-                    android:textColor="@color/whiteBackground" />
-
-            </com.google.android.material.chip.ChipGroup>
-
-        </HorizontalScrollView>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -146,39 +68,70 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/et_search"
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/homeTabLayout"
+                style="@style/TabTextAppearance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/shape_search_field"
-                android:hint="@string/homeSearchHint"
-                android:drawableEnd="@drawable/ic_search"
-                android:drawablePadding="8dp"
-                android:inputType="text"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/home_tab_margin_top"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:background="@drawable/tab_layout_background"
+                android:layoutDirection="rtl"
+                app:layout_constraintBottom_toTopOf="@id/textInputSearch"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:maxLines="1"
-                android:padding="16dp"
-                android:textSize="14sp" />
+                app:tabBackground="@drawable/tab_layout_selector"
+                app:tabGravity="fill"
+                app:tabIndicatorHeight="@dimen/home_tab_indicator_height"
+                app:tabMaxWidth="@dimen/home_tab_max_width"
+                app:tabMode="fixed"
+                app:tabRippleColor="@null"
+                app:tabSelectedTextColor="@color/colorPrimaryDark">
 
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/HomeForYou" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/HomeTabTitleKeywords" />
+
+            </com.google.android.material.tabs.TabLayout>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_normal"
+                android:background="@drawable/shape_search_field"
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="@dimen/home_search_icon_padding"
+                android:gravity="start"
+                android:hint="@string/homeSearchHint"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="@dimen/padding_normal"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/homeTabLayout" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerHomeArticle"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:layout_marginBottom="@dimen/margin_micro"
                 app:layout_constraintBottom_toTopOf="@+id/topArticlesTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_search"
+                app:layout_constraintTop_toBottomOf="@+id/textInputSearch"
                 app:layout_constraintVertical_bias="0"
                 tools:listitem="@layout/vertical_article_row" />
 
@@ -187,15 +140,15 @@
                 style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:layout_marginBottom="@dimen/margin_micro"
                 android:text="@string/topArticles"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/recyclerHomeTopArticles"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recyclerHomeArticle"
                 app:layout_constraintVertical_bias="1" />
 
@@ -203,13 +156,13 @@
                 android:id="@+id/recyclerHomeTopArticles"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginBottom="@dimen/margin_normal"
                 android:clipToPadding="false"
                 android:layoutDirection="rtl"
                 android:orientation="horizontal"
-                android:paddingStart="16dp"
-                android:paddingEnd="100dp"
+                android:paddingStart="@dimen/padding_large"
+                android:paddingEnd="@dimen/padding_very_large"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

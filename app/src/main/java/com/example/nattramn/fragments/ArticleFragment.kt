@@ -68,8 +68,8 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
 
     private fun setBackButtonClick() {
         articleRightArrow.setOnClickListener { view ->
-            Navigation.findNavController(view)
-                .navigate(ArticleFragmentDirections.actionArticleFragmentToHomeFragment())
+            Navigation.findNavController(view).popBackStack()/*
+                .navigate(ArticleFragmentDirections.actionArticleFragmentToHomeFragment())*/
         }
     }
 
@@ -105,15 +105,18 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
     }
 
     override fun onAuthorNameClick(position: Int) {
-        Toast.makeText(context, getString(R.string.openProfileToast), Toast.LENGTH_SHORT).show()
+        Navigation.findNavController(requireView())
+            .navigate(ArticleFragmentDirections.actionArticleFragmentToProfileFragment())
     }
 
     override fun onAuthorIconClick(position: Int) {
-        Toast.makeText(context, getString(R.string.openProfileToast), Toast.LENGTH_SHORT).show()
+        Navigation.findNavController(requireView())
+            .navigate(ArticleFragmentDirections.actionArticleFragmentToProfileFragment())
     }
 
     override fun onArticleTitleClick(position: Int) {
-        Toast.makeText(context, getString(R.string.openArticleToast), Toast.LENGTH_SHORT).show()
+        Navigation.findNavController(requireView())
+            .navigate(ArticleFragmentDirections.actionArticleFragmentSelf())
     }
 
 }

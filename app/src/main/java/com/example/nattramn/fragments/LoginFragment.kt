@@ -35,7 +35,6 @@ class LoginFragment : Fragment() {
     private fun buttonOnClicks() {
 
         loginEnterButton.setOnClickListener { view ->
-
             if (loginUsername.text!!.isValidUsername()) {
                 Navigation.findNavController(view)
                     .navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
@@ -47,6 +46,7 @@ class LoginFragment : Fragment() {
             Navigation.findNavController(view)
                 .navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
         }
+
     }
 
     private fun CharSequence.isValidUsername(): Boolean {

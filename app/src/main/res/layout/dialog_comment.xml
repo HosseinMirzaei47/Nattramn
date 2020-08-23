@@ -9,7 +9,7 @@
     android:background="@color/whiteBackground"
     android:elevation="2dp"
     android:layoutDirection="rtl"
-    app:cardCornerRadius="10dp">
+    app:cardCornerRadius="@dimen/radius_normal">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,8 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="@dimen/dialog_title_text_margin_start"
+            android:layout_marginTop="@dimen/margin_normal"
             android:text="@string/writeCommentTitle"
             android:textColor="@color/absoluteBlack"
             android:textSize="17sp"
@@ -32,15 +32,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="20dp"
+            android:layout_margin="@dimen/dialog_comment_text_margin"
             android:background="@drawable/edit_text_shape"
             android:gravity="top"
             android:hint="@string/writeCommentHint"
             android:inputType="textMultiLine"
             android:lineSpacingExtra="3dp"
-            android:minHeight="150dp"
-            android:padding="15dp"
-            android:maxHeight="164dp"
+            android:maxHeight="@dimen/dialog_comment_max_height"
+            android:minHeight="@dimen/dialog_comment_min_height"
+            android:padding="@dimen/padding_large"
             android:textSize="14sp" />
 
         <com.google.android.material.button.MaterialButton
@@ -48,38 +48,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_ten"
             android:backgroundTint="@color/blueFollow"
             android:gravity="center"
-            android:padding="15dp"
+            android:padding="@dimen/padding_large"
             android:text="@string/writeCommentTitle"
-            app:cornerRadius="15dp" />
-
-        <!--<com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/loginTextFieldUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
-            android:layout_marginEnd="35dp"
-            android:background="@drawable/shape_register_button"
-            android:layoutDirection="rtl"
-            app:boxCornerRadiusBottomEnd="10dp"
-            app:boxCornerRadiusBottomStart="10dp"
-            app:boxCornerRadiusTopEnd="10dp"
-            app:boxCornerRadiusTopStart="10dp"
-            app:hintEnabled="false"
-            app:startIconDrawable="@mipmap/ic_person">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/whiteBackground"
-                android:hint="@string/usernameHint"
-                android:inputType="textEmailAddress"
-                android:maxLines="1" />
-
-        </com.google.android.material.textfield.TextInputLayout>-->
+            app:cornerRadius="@dimen/radius_large" />
 
     </LinearLayout>
 

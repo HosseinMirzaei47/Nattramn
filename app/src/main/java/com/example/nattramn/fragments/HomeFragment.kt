@@ -5,7 +5,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,7 +41,7 @@ class HomeFragment : Fragment(), OnArticleListener {
 
         homeWriteButton.setOnClickListener { view ->
             Navigation.findNavController(view)
-                .navigate(HomeFragmentDirections.actionHomeFragmentToArticleFragment())
+                .navigate(HomeFragmentDirections.actionHomeFragmentToWriteFragment())
         }
 
     }
@@ -80,19 +79,23 @@ class HomeFragment : Fragment(), OnArticleListener {
     }
 
     override fun onArticleSaveClick(position: Int) {
-        Toast.makeText(context, getString(R.string.bookmarkArticleToast), Toast.LENGTH_SHORT).show()
+        Navigation.findNavController(requireView())
+            .navigate(HomeFragmentDirections.actionHomeFragmentToTagFragment())
     }
 
     override fun onAuthorNameClick(position: Int) {
-        Toast.makeText(context, getString(R.string.openProfileToast), Toast.LENGTH_SHORT).show()
+        Navigation.findNavController(requireView())
+            .navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
     }
 
     override fun onAuthorIconClick(position: Int) {
-        Toast.makeText(context, getString(R.string.openProfileToast), Toast.LENGTH_SHORT).show()
+        Navigation.findNavController(requireView())
+            .navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
     }
 
     override fun onArticleTitleClick(position: Int) {
-        Toast.makeText(context, getString(R.string.openArticleToast), Toast.LENGTH_SHORT).show()
+        Navigation.findNavController(requireView())
+            .navigate(HomeFragmentDirections.actionHomeFragmentToArticleFragment())
     }
 
 }
