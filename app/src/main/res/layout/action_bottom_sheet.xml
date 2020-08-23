@@ -11,33 +11,33 @@
         android:id="@+id/btn_share_article"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:padding="18dp"
+        android:layout_marginStart="@dimen/action_twenty"
+        android:layout_marginEnd="@dimen/action_twenty"
+        android:padding="@dimen/action_button_padding"
         android:text="@string/shareArticle"
         app:backgroundTint="@color/hint"
-        app:cornerRadius="10dp" />
+        app:cornerRadius="@dimen/radius_normal" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_edit_article"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:padding="18dp"
+        android:layout_marginStart="@dimen/action_twenty"
+        android:layout_marginEnd="@dimen/action_twenty"
+        android:padding="@dimen/action_button_padding"
         android:text="@string/EditArticle"
         app:backgroundTint="@color/blueFollow"
-        app:cornerRadius="10dp" />
+        app:cornerRadius="@dimen/radius_normal" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_delete_article"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:padding="18dp"
+        android:layout_marginStart="@dimen/action_twenty"
+        android:layout_marginEnd="@dimen/action_twenty"
+        android:padding="@dimen/action_button_padding"
         android:text="@string/DeleteArticle"
         app:backgroundTint="@color/redButton"
-        app:cornerRadius="10dp" />
+        app:cornerRadius="@dimen/radius_normal" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

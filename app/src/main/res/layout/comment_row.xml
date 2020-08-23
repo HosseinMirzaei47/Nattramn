@@ -4,10 +4,10 @@
     android:id="@+id/verticalArticleCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
+    android:layout_marginBottom="@dimen/comment_bottom_margin"
     android:background="@color/whiteBackground"
     android:layoutDirection="rtl"
-    app:cardCornerRadius="10dp">
+    app:cardCornerRadius="@dimen/radius_normal">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,9 +16,9 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/itemCommentImage"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="16dp"
+            android:layout_width="@dimen/global_item_image_size"
+            android:layout_height="@dimen/global_item_image_size"
+            android:layout_margin="@dimen/margin_normal"
             android:src="@drawable/test02"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -28,7 +28,7 @@
             style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="@dimen/margin_normal"
             android:text="@string/hosseinMirzaei"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -40,11 +40,11 @@
             android:id="@+id/itemCommentText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:lineSpacingExtra="10dp"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/comment_text_margin_top"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:lineSpacingExtra="@dimen/spacing_large"
             android:maxLines="2"
             android:text="@string/sampleComment"
             android:textColor="@color/black"

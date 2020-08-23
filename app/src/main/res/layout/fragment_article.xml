@@ -15,7 +15,7 @@
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:contentInsetStart="@dimen/article_toolbar_inset_start">
+            app:contentInsetStart="@dimen/toolbar_inset_start">
 
             <TextView
                 android:id="@+id/toolbar_title"
