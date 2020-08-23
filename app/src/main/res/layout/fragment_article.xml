@@ -125,7 +125,6 @@
 
                     <ImageButton
                         android:id="@+id/shareArticleSA"
-                        android:background="@android:color/transparent"
                         style="@style/Widget.AppCompat.ActionButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -138,7 +137,6 @@
 
                     <ImageButton
                         android:id="@+id/addFavoriteSA"
-                        android:background="@android:color/transparent"
                         style="@style/Widget.AppCompat.ActionButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
