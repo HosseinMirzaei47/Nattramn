@@ -11,7 +11,7 @@ import com.example.nattramn.R
 
 class SplashFragment : Fragment() {
 
-    private val splashTimeOut = 2500.toLong()
+    private val splashTimeOut = 1000.toLong()
 
     override fun onCreateView(
         inflater: LayoutInflater,

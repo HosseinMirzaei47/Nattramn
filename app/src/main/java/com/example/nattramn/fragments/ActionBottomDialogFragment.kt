@@ -1,6 +1,5 @@
 package com.example.nattramn.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,21 +15,15 @@ class ActionBottomDialogFragment : BottomSheetDialogFragment() {
         return inflater.inflate(R.layout.action_bottom_sheet, container, false)
     }
 
-    override fun onViewCreated(
-        view: View,
-        savedInstanceState: Bundle?
-    ) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
+        /*btn_share_article.setOnClickListener {
+            Navigation.findNavController(btn_share_article)
+                .navigate(ActionBottomDialogFragmentDirections.actionActionBottomDialogFragmentToTagFragment())
+        }*/
 
-    override fun onDetach() {
-        super.onDetach()
     }
-
 
     companion object {
         const val TAG = "ActionBottomDialog"

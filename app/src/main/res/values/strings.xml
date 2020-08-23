@@ -66,5 +66,8 @@
     <string name="writeKeywords">کلمه کلیدی</string>
     <string name="EditArticle">ویرایش مقاله</string>
     <string name="DeleteArticle">حذف مقاله</string>
+    <string name="HomeTabTitleKeywords">کلید واژه ها</string>
+    <string name="HomeForYou">برای شما</string>
+    <string name="shareArticle">اشتراک گذاری مقاله</string>
 
 </resources>
