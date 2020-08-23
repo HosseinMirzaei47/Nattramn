@@ -76,8 +76,8 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
     private fun setRecyclers() {
 
         /*Home articles vertical RecyclerView*/
-        val snapVertical = GravitySnapHelper(Gravity.TOP)
-        snapVertical.attachToRecyclerView(recyclerArticleComments)
+        /*val snapVertical = GravitySnapHelper(Gravity.TOP)
+        snapVertical.attachToRecyclerView(recyclerArticleComments)*/
 
         val commentAdapter = CommentAdapter(this)
         recyclerArticleComments.apply {

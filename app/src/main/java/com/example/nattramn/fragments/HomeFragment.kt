@@ -58,8 +58,8 @@ class HomeFragment : Fragment(), OnArticleListener {
     private fun setRecyclers() {
 
         /*Home articles vertical RecyclerView*/
-        val snapVertical = GravitySnapHelper(Gravity.TOP)
-        snapVertical.attachToRecyclerView(recyclerHomeArticle)
+        /*val snapVertical = GravitySnapHelper(Gravity.TOP)
+        snapVertical.attachToRecyclerView(recyclerHomeArticle)*/
 
         val verticalAdapter = VerticalArticleAdapter(requireContext(), this)
         recyclerHomeArticle.apply {
