@@ -29,6 +29,7 @@
 
             <ImageButton
                 android:id="@+id/articleBookmark"
+                android:background="@android:color/transparent"
                 style="@style/Widget.AppCompat.ActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,6 +40,7 @@
 
             <ImageButton
                 android:id="@+id/articleRightArrow"
+                android:background="@android:color/transparent"
                 style="@style/Widget.AppCompat.ActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -214,40 +216,47 @@
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="@color/whiteBackground"
                         android:checkable="false"
                         android:clickable="true"
                         android:focusable="true"
-                        android:text="@string/economy" />
+                        android:text="@string/economy"
+                        android:textColor="@color/black" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_2"
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="@color/whiteBackground"
                         android:checkable="false"
                         android:clickable="true"
                         android:focusable="true"
-                        android:text="@string/stockMarket" />
+                        android:text="@string/stockMarket"
+                        android:textColor="@color/black" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_3"
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="@color/whiteBackground"
                         android:checkable="false"
                         android:clickable="true"
                         android:focusable="true"
-                        android:text="@string/apple" />
+                        android:text="@string/apple"
+                        android:textColor="@color/black" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_4"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="@color/whiteBackground"
                         android:checkable="false"
                         android:clickable="true"
                         android:focusable="true"
-                        android:text="@string/investment" />
+                        android:text="@string/investment"
+                        android:textColor="@color/black" />
 
                 </com.google.android.material.chip.ChipGroup>
 

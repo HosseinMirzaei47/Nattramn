@@ -57,6 +57,7 @@
         <ImageButton
             android:id="@+id/itemBookmark"
             style="@style/Widget.AppCompat.ActionButton"
+            android:background="@android:color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_normal"

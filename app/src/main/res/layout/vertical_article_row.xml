@@ -59,6 +59,7 @@
             android:layout_margin="@dimen/margin_normal"
             android:contentDescription="@null"
             android:src="@drawable/ic_bookmark_checked"
+            android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="@id/itemAuthorImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/itemAuthorImage" />
