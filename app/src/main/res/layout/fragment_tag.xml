@@ -28,7 +28,7 @@
                 android:layout_gravity="center"
                 android:text="@string/economy"
                 android:textColor="@color/whiteBackground"
-                android:textSize="16sp"
+                android:textSize="@dimen/text_size_b1"
                 android:textStyle="bold" />
 
             <ImageButton

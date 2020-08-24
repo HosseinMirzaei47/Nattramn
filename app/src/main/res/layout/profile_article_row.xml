@@ -91,7 +91,7 @@
             android:lineSpacingExtra="@dimen/spacing_micro"
             android:text="@string/news"
             android:textColor="@color/black"
-            android:textSize="17sp"
+            android:textSize="@dimen/text_size_h3"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -108,7 +108,7 @@
             android:padding="@dimen/padding_normal"
             android:text="@string/news"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="@dimen/text_size_b1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/itemArticleTitle" />

@@ -24,10 +24,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/login_margin_top"
-        android:lineSpacingExtra="14sp"
         android:text="@string/enter"
         android:textColor="@color/black"
-        android:textSize="23sp"
+        android:textSize="@dimen/text_size_h1"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -113,7 +112,7 @@
         android:padding="@dimen/login_enter_button_padding"
         android:text="@string/enter"
         android:textColor="@color/whiteBackground"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_size_b1"
         app:cornerRadius="@dimen/radius_normal"
         app:layout_constraintEnd_toEndOf="@+id/loginTextFieldPassword"
         app:layout_constraintStart_toStartOf="@id/loginTextFieldPassword"
@@ -126,7 +125,7 @@
         android:layout_marginBottom="@dimen/login_no_account_margin_top"
         android:text="@string/noAccountQuestion"
         android:textColor="@color/hint"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_size_b1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guideline1" />
 
@@ -136,7 +135,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/register"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_size_b1"
         app:layout_constraintBottom_toBottomOf="@+id/noAccountTextView"
         app:layout_constraintStart_toEndOf="@+id/guideline1"
         app:layout_constraintTop_toTopOf="@+id/noAccountTextView" />

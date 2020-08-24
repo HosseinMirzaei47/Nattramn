@@ -24,7 +24,7 @@
         android:layout_marginTop="@dimen/register_join_text_margin_top"
         android:text="@string/membership"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="@dimen/text_size_h1"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/img_logo"
         app:layout_constraintStart_toStartOf="@+id/img_logo"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:text="@string/create_new_account"
         android:textColor="@color/hint"
-        android:textSize="14sp"
+        android:textSize="@dimen/text_size_b2"
         app:layout_constraintEnd_toEndOf="@+id/tv_membership"
         app:layout_constraintStart_toStartOf="@+id/tv_membership"
         app:layout_constraintTop_toBottomOf="@+id/tv_membership" />
@@ -70,7 +70,7 @@
             android:inputType="textPersonName"
             android:maxLines="1"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text_size_b1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -102,7 +102,7 @@
             android:inputType="textPersonName"
             android:maxLines="1"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text_size_b1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -135,7 +135,7 @@
             android:inputType="textPassword"
             android:maxLines="1"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text_size_b1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -169,7 +169,7 @@
             android:inputType="textPassword"
             android:maxLines="1"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text_size_b1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -184,7 +184,7 @@
         android:padding="@dimen/padding_large"
         android:text="@string/membership"
         android:textColor="@color/whiteBackground"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_size_b1"
         app:cornerRadius="@dimen/radius_normal"
         app:layout_constraintBottom_toTopOf="@id/tv_account"
         app:layout_constraintEnd_toEndOf="parent"
@@ -199,7 +199,7 @@
         android:layout_marginBottom="@dimen/register_a_user_margin_bottom"
         android:text="@string/alreadyUser"
         android:textColor="@color/hint"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_size_b1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -213,7 +213,7 @@
         android:layout_marginBottom="@dimen/register_enter_button_margin_bottom"
         android:text="@string/join"
         android:textColor="@color/colorAccent"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_size_b1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintHorizontal_bias="0.95"

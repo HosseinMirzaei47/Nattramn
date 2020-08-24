@@ -24,7 +24,7 @@
             android:layout_marginTop="@dimen/margin_normal"
             android:text="@string/writeCommentTitle"
             android:textColor="@color/absoluteBlack"
-            android:textSize="17sp"
+            android:textSize="@dimen/text_size_h3"
             android:textStyle="bold" />
 
         <EditText
@@ -41,7 +41,7 @@
             android:maxHeight="@dimen/dialog_comment_max_height"
             android:minHeight="@dimen/dialog_comment_min_height"
             android:padding="@dimen/padding_large"
-            android:textSize="14sp" />
+            android:textSize="@dimen/text_size_b2" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/dialogSendComment"
