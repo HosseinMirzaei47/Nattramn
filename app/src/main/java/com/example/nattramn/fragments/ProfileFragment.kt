@@ -82,8 +82,8 @@ class ProfileFragment : Fragment(), OnProfileArticleListener {
 
     private fun setBackButtonClick() {
         profileRightArrow.setOnClickListener { view ->
-            Navigation.findNavController(view)
-                .navigate(ProfileFragmentDirections.actionProfileFragmentToHomeFragment())
+            Navigation.findNavController(view).navigateUp()
+            /*.navigate(ProfileFragmentDirections.actionProfileFragmentToHomeFragment())*/
         }
     }
 

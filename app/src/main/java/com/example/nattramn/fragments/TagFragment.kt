@@ -49,7 +49,7 @@ class TagFragment : Fragment(), OnArticleListener {
 
     private fun setBackButtonClick() {
         tagRightArrow.setOnClickListener { view ->
-            Navigation.findNavController(view).popBackStack()
+            Navigation.findNavController(view).navigateUp()
         }
     }
 

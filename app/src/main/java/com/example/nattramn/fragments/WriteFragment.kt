@@ -28,7 +28,7 @@ class WriteFragment : Fragment() {
 
     private fun setBackButtonClick() {
         writeRightArrow.setOnClickListener { view ->
-            Navigation.findNavController(view).popBackStack()
+            Navigation.findNavController(view).navigateUp()
         }
     }
 

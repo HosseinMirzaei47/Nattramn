@@ -68,7 +68,7 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
 
     private fun setBackButtonClick() {
         articleRightArrow.setOnClickListener { view ->
-            Navigation.findNavController(view).popBackStack()/*
+            Navigation.findNavController(view).navigateUp()/*
                 .navigate(ArticleFragmentDirections.actionArticleFragmentToHomeFragment())*/
         }
     }
