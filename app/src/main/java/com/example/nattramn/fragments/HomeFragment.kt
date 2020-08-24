@@ -23,7 +23,7 @@ class HomeFragment : Fragment(), OnArticleListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return LayoutInflater.from(context).inflate(R.layout.fragment_home, container, false)
+        return LayoutInflater.from(context).inflate(R.layout.fragment_login, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
