@@ -95,7 +95,7 @@
             android:id="@+id/registerUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
+            android:inputType="textEmailAddress"
             android:maxLines="1"
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_b1" />
@@ -127,7 +127,7 @@
             android:id="@+id/registerUsernameConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
+            android:inputType="textEmailAddress"
             android:maxLines="1"
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_b1" />
