@@ -35,7 +35,7 @@ class RegisterFragment : Fragment() {
         }
 
         btn_membership.setOnClickListener { view ->
-            if (registerUsername.text!!.isValidUsername() && registerUsernameConfirm.text.isValidEmail()) {
+            if (registerUsername.text.isValidUsername() && registerUsernameConfirm.text.isValidEmail()) {
 
                 Navigation.findNavController(view)
                     .navigate(RegisterFragmentDirections.actionRegisterFragmentToHomerFragment())
@@ -45,7 +45,15 @@ class RegisterFragment : Fragment() {
 
     }
 
-    private fun CharSequence.isValidUsername(): Boolean {
+    private fun CharSequence?.isValidUsername(): Boolean {
+
+        if (this == null) {
+
+            registerUsername.requestFocus()
+            registerUsername.error = getString(R.string.errorEnterUsername)
+            return false
+
+        }
 
         if (isNullOrEmpty()) {
 
