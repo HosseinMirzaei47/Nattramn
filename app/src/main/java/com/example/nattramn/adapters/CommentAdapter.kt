@@ -1,44 +1,56 @@
 package com.example.nattramn.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nattramn.R
+import com.example.nattramn.databinding.CommentRowBinding
+import com.example.nattramn.models.Comment
 import com.example.nattramn.recyclerItemListeners.OnCommentListener
-import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.comment_row.view.*
 
 class CommentAdapter(
+    private val comments: ArrayList<Comment>,
     private val commentListener: OnCommentListener
 ) :
     RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.comment_row, parent, false)
-        return ViewHolder(view)
+
+        val binding: CommentRowBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.comment_row, parent, false
+        )
+
+        return ViewHolder(binding)
+
     }
 
-    override fun getItemCount(): Int {
-        return 3
-    }
+    override fun getItemCount() = comments.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (position % 3 == 0) {
-            holder.image.setImageResource(R.drawable.test01)
-        }
+
+        holder.binding.comment = comments[position]
+
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val image: CircleImageView = itemView.itemCommentImage
-        val name: TextView = itemView.itemCommentName
-        /*val comment: TextView = itemView.itemCommentText*/
+    inner class ViewHolder(binding: CommentRowBinding) : RecyclerView.ViewHolder(binding.root) {
+
+
+        val binding: CommentRowBinding = binding
 
         init {
 
-            name.setOnClickListener { commentListener.onCommentIconClick(layoutPosition) }
-            image.setOnClickListener { commentListener.onCommentIconClick(layoutPosition) }
+            binding.itemCommentName.setOnClickListener {
+                commentListener.onCommentIconClick(
+                    layoutPosition
+                )
+            }
+            binding.itemCommentImage.setOnClickListener {
+                commentListener.onCommentIconClick(
+                    layoutPosition
+                )
+            }
 
         }
 
