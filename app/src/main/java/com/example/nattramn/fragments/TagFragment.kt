@@ -1,7 +1,6 @@
 package com.example.nattramn.fragments
 
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
 import com.example.nattramn.adapters.VerticalArticleAdapter
 import com.example.nattramn.recyclerItemListeners.OnArticleListener
-import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import kotlinx.android.synthetic.main.fragment_tag.*
 
 class TagFragment : Fragment(), OnArticleListener {
@@ -37,8 +35,8 @@ class TagFragment : Fragment(), OnArticleListener {
 
     private fun setRecyclers() {
 
-        val snapVertical = GravitySnapHelper(Gravity.TOP)
-        snapVertical.attachToRecyclerView(recyclerTagArticles)
+        /*val snapVertical = GravitySnapHelper(Gravity.TOP)
+        snapVertical.attachToRecyclerView(recyclerTagArticles)*/
 
         val verticalAdapter = VerticalArticleAdapter(requireContext(), this)
         recyclerTagArticles.apply {
