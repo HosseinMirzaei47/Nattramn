@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nattramn.R
 import com.example.nattramn.recyclerItemListeners.OnArticleListener
+import com.google.android.material.card.MaterialCardView
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.horizontal_article_row.view.*
 
@@ -21,9 +22,7 @@ class HorizontalArticleAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.horizontal_article_row, parent, false)
-        return ViewHolder(
-            view
-        )
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -37,6 +36,8 @@ class HorizontalArticleAdapter(
     override fun getItemCount() = 20
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        val cardView: MaterialCardView = itemView.horizontalArticleCard
         val authorImage: CircleImageView = itemView.itemAuthorImage
         val bookmarkItem: ImageButton = itemView.itemBookmark
         val articlePreview: TextView = itemView.itemArticlePreview
@@ -45,6 +46,7 @@ class HorizontalArticleAdapter(
 
         init {
 
+            cardView.setOnClickListener { onArticleListener.onCardClick(layoutPosition) }
             bookmarkItem.setOnClickListener { onArticleListener.onArticleSaveClick(layoutPosition) }
             articlePreview.setOnClickListener { onArticleListener.onArticleTitleClick(layoutPosition) }
             authorImage.setOnClickListener { onArticleListener.onAuthorIconClick(layoutPosition) }

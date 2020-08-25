@@ -78,6 +78,11 @@ class HomeFragment : Fragment(), OnArticleListener {
         }
     }
 
+    override fun onCardClick(position: Int) {
+        Navigation.findNavController(requireView())
+            .navigate(HomeFragmentDirections.actionHomeFragmentToArticleFragment())
+    }
+
     override fun onArticleSaveClick(position: Int) {
         Navigation.findNavController(requireView())
             .navigate(HomeFragmentDirections.actionHomeFragmentToTagFragment())

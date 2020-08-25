@@ -53,6 +53,11 @@ class TagFragment : Fragment(), OnArticleListener {
         }
     }
 
+    override fun onCardClick(position: Int) {
+        Navigation.findNavController(requireView())
+            .navigate(TagFragmentDirections.actionTagFragmentToArticleFragment())
+    }
+
     override fun onArticleSaveClick(position: Int) {
         Toast.makeText(context, "Tag page. Article clicked", Toast.LENGTH_SHORT).show()
     }

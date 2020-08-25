@@ -34,7 +34,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginEnd="@dimen/article_toolbar_buttons_margin"
-                android:background="@android:color/transparent"
                 android:src="@drawable/ic_bookmark_article_fragment"
                 tools:ignore="ContentDescription" />
 
@@ -45,7 +44,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginStart="@dimen/article_toolbar_buttons_margin"
-                android:background="@android:color/transparent"
                 android:src="@drawable/ic_arrow_right"
                 tools:ignore="ContentDescription" />
 

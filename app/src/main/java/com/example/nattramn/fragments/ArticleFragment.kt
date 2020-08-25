@@ -96,8 +96,13 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
         }
     }
 
-    override fun onCommentIconClick() {
+    override fun onCommentIconClick(position: Int) {
         Toast.makeText(context, getString(R.string.openProfileToast), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onCardClick(position: Int) {
+        Navigation.findNavController(requireView())
+            .navigate(ArticleFragmentDirections.actionArticleFragmentSelf())
     }
 
     override fun onArticleSaveClick(position: Int) {

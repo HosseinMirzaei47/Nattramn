@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nattramn.R
 import com.example.nattramn.recyclerItemListeners.OnArticleListener
+import com.google.android.material.card.MaterialCardView
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.horizontal_article_row.view.*
 
@@ -32,12 +33,11 @@ class SuggestedArticleAdapter(
         }
     }
 
-    override fun getItemCount(): Int {
-        return 10
-    }
+    override fun getItemCount() = 10
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        val cardView: MaterialCardView = itemView.horizontalArticleCard
         val authorImage: CircleImageView = itemView.itemAuthorImage
         val bookmarkItem: ImageButton = itemView.itemBookmark
         val articlePreview: TextView = itemView.itemArticlePreview
@@ -46,6 +46,7 @@ class SuggestedArticleAdapter(
 
         init {
 
+            cardView.setOnClickListener { onArticleListener.onCardClick(layoutPosition) }
             bookmarkItem.setOnClickListener { onArticleListener.onArticleSaveClick(layoutPosition) }
             articlePreview.setOnClickListener { onArticleListener.onArticleTitleClick(layoutPosition) }
             authorImage.setOnClickListener { onArticleListener.onAuthorIconClick(layoutPosition) }

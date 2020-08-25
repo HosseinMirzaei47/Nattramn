@@ -87,6 +87,11 @@ class ProfileFragment : Fragment(), OnProfileArticleListener {
         }
     }
 
+    override fun onProfileArticleCardClick(position: Int) {
+        Navigation.findNavController(requireView())
+            .navigate(ProfileFragmentDirections.actionProfileFragmentToArticleFragment())
+    }
+
     override fun onBookmarkClick(position: Int) {
         Toast.makeText(context, "Bookmark Clicked", Toast.LENGTH_SHORT).show()
     }

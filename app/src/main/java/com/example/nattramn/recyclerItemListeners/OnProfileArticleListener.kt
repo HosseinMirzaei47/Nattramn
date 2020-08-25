@@ -2,6 +2,8 @@ package com.example.nattramn.recyclerItemListeners
 
 interface OnProfileArticleListener {
 
+    fun onProfileArticleCardClick(position: Int)
+
     fun onBookmarkClick(position: Int)
 
     fun onMoreOptionsClick(position: Int)

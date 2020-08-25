@@ -37,9 +37,8 @@ class CommentAdapter(
 
         init {
 
-            name.setOnClickListener { commentListener.onCommentIconClick() }
-
-            image.setOnClickListener { commentListener.onCommentIconClick() }
+            name.setOnClickListener { commentListener.onCommentIconClick(layoutPosition) }
+            image.setOnClickListener { commentListener.onCommentIconClick(layoutPosition) }
 
         }
 

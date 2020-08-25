@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.nattramn.R
 import com.example.nattramn.recyclerItemListeners.OnProfileArticleListener
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.profile_article_row.view.*
 
@@ -46,6 +47,7 @@ class ProfileArticleAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        val cardView: MaterialCardView = itemView.profileArticleCard
         val authorImage: CircleImageView = itemView.itemArticleAuthorImage
         val articleBookmark: ImageButton = itemView.itemArticleBookmark
         val articleDescription: TextView = itemView.itemArticleDescription
@@ -58,6 +60,11 @@ class ProfileArticleAdapter(
 
         init {
 
+            cardView.setOnClickListener {
+                onProfileArticleListener.onProfileArticleCardClick(
+                    layoutPosition
+                )
+            }
             authorImage.setOnClickListener {
                 onProfileArticleListener.onAuthorIconClick(
                     layoutPosition
