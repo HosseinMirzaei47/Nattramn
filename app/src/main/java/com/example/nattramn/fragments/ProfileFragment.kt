@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
+import com.example.nattramn.Utils
 import com.example.nattramn.adapters.ProfileArticleAdapter
 import com.example.nattramn.recyclerItemListeners.OnProfileArticleListener
 import com.google.android.material.tabs.TabLayout
@@ -71,7 +72,8 @@ class ProfileFragment : Fragment(), OnProfileArticleListener {
         /*val snapVertical = GravitySnapHelper(Gravity.TOP)
         snapVertical.attachToRecyclerView(recyclerProfileArticles)*/
 
-        val profileArticleAdapter = ProfileArticleAdapter(requireContext(), this)
+        val profileArticleAdapter =
+            ProfileArticleAdapter(Utils(requireContext()).initArticles(), this)
         recyclerProfileArticles.apply {
 
             adapter = profileArticleAdapter

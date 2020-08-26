@@ -7,5 +7,8 @@ data class Article(
     val body: String,
     val tags: ArrayList<Tag>,
     val comments: ArrayList<Comment>,
-    val suggestions: ArrayList<Suggestions>
+    val suggestions: ArrayList<Suggestions>,
+    val likes: String,
+    val commentsNumber: Int,
+    val bookmarked: Boolean
 )

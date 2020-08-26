@@ -1,86 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/verticalArticleCard"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/vertical_article_layout_margin_bottom"
-    android:background="@color/whiteBackground"
-    android:layoutDirection="rtl"
-    app:cardCornerRadius="@dimen/radius_normal">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="article"
+            type="com.example.nattramn.models.Article" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/verticalArticleCard"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/whiteBackground">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/vertical_article_layout_margin_bottom"
+        android:background="@color/whiteBackground"
+        android:layoutDirection="rtl"
+        app:cardCornerRadius="@dimen/radius_normal">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/itemAuthorImage"
-            android:layout_width="@dimen/global_item_image_size"
-            android:layout_height="@dimen/global_item_image_size"
-            android:layout_margin="@dimen/margin_normal"
-            android:src="@drawable/test02"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/itemAuthorName"
-            style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_micro"
-            android:text="@string/hosseinMirzaei"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_b2"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/itemAuthorImage"
-            app:layout_constraintTop_toTopOf="@+id/itemAuthorImage" />
-
-        <TextView
-            android:id="@+id/itemTime"
-            style="@style/TextAppearance.App.Subtitle1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_micro"
-            android:text="@string/sampleDate"
-            android:textColor="@color/hint"
-            android:textSize="@dimen/text_size_small"
-            app:layout_constraintBottom_toBottomOf="@id/itemAuthorImage"
-            app:layout_constraintStart_toEndOf="@id/itemAuthorImage"
-            app:layout_constraintTop_toBottomOf="@id/itemAuthorName"
-            tools:ignore="SmallSp" />
-
-        <ImageButton
-            android:id="@+id/itemBookmark"
-            style="@style/Widget.AppCompat.ActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_normal"
-            android:background="@android:color/transparent"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_bookmark_checked"
-            app:layout_constraintBottom_toBottomOf="@id/itemAuthorImage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/itemAuthorImage" />
-
-        <TextView
-            android:id="@+id/itemArticlePreview"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginTop="@dimen/vertical_article_title_margin_top"
-            android:layout_marginEnd="@dimen/margin_normal"
-            android:layout_marginBottom="@dimen/margin_small"
-            android:lineSpacingExtra="@dimen/spacing_large"
-            android:maxLines="2"
-            android:text="@string/sampleComment"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_b2"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/itemAuthorImage" />
+            android:layout_height="match_parent"
+            android:background="@color/whiteBackground">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/itemAuthorImage"
+                android:layout_width="@dimen/global_item_image_size"
+                android:layout_height="@dimen/global_item_image_size"
+                android:layout_margin="@dimen/margin_normal"
+                android:src="@drawable/test02"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-</com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/itemAuthorName"
+                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_micro"
+                android:text="@{article.user.name}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_b2"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/itemAuthorImage"
+                app:layout_constraintTop_toTopOf="@+id/itemAuthorImage" />
+
+            <TextView
+                android:id="@+id/itemTime"
+                style="@style/TextAppearance.App.Subtitle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_micro"
+                android:text="@{article.date}"
+                android:textColor="@color/hint"
+                android:textSize="@dimen/text_size_small"
+                app:layout_constraintBottom_toBottomOf="@id/itemAuthorImage"
+                app:layout_constraintStart_toEndOf="@id/itemAuthorImage"
+                app:layout_constraintTop_toBottomOf="@id/itemAuthorName"
+                tools:ignore="SmallSp" />
+
+            <ImageButton
+                android:id="@+id/itemBookmark"
+                style="@style/Widget.AppCompat.ActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_normal"
+                android:background="@android:color/transparent"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_bookmark_checked"
+                app:layout_constraintBottom_toBottomOf="@id/itemAuthorImage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/itemAuthorImage" />
+
+            <TextView
+                android:id="@+id/itemArticlePreview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/vertical_article_title_margin_top"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:lineSpacingExtra="@dimen/spacing_large"
+                android:maxLines="2"
+                android:text="@{article.title}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_b2"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/itemAuthorImage" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

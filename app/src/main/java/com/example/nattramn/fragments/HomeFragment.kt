@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
+import com.example.nattramn.Utils
 import com.example.nattramn.adapters.HorizontalArticleAdapter
 import com.example.nattramn.adapters.VerticalArticleAdapter
 import com.example.nattramn.recyclerItemListeners.OnArticleListener
@@ -57,21 +58,17 @@ class HomeFragment : Fragment(), OnArticleListener {
 
     private fun setRecyclers() {
 
-        /*Home articles vertical RecyclerView*/
-        /*val snapVertical = GravitySnapHelper(Gravity.TOP)
-        snapVertical.attachToRecyclerView(recyclerHomeArticle)*/
-
-        val verticalAdapter = VerticalArticleAdapter(requireContext(), this)
+        val verticalAdapter = VerticalArticleAdapter(Utils(requireContext()).initArticles(), this)
         recyclerHomeArticle.apply {
             adapter = verticalAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
 
-        /*Home top articles horizontal RecyclerView*/
         val snapHorizontal = GravitySnapHelper(Gravity.CENTER)
         snapHorizontal.attachToRecyclerView(recyclerHomeTopArticles)
 
-        val horizontalAdapter = HorizontalArticleAdapter(requireContext(), this)
+        val horizontalAdapter =
+            HorizontalArticleAdapter(Utils(requireContext()).initArticles(), this)
         recyclerHomeTopArticles.apply {
             adapter = horizontalAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

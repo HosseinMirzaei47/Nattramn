@@ -10,15 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
+import com.example.nattramn.Utils
 import com.example.nattramn.adapters.CommentAdapter
 import com.example.nattramn.adapters.SuggestedArticleAdapter
-import com.example.nattramn.models.Comment
 import com.example.nattramn.recyclerItemListeners.OnArticleListener
 import com.example.nattramn.recyclerItemListeners.OnCommentListener
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import kotlinx.android.synthetic.main.dialog_comment.*
 import kotlinx.android.synthetic.main.fragment_article.*
-import java.util.*
 
 class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
 
@@ -77,42 +76,20 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
 
     private fun setRecyclers() {
 
-        /*Home articles vertical RecyclerView*/
-        /*val snapVertical = GravitySnapHelper(Gravity.TOP)
-        snapVertical.attachToRecyclerView(recyclerArticleComments)*/
-
-        val commentAdapter = CommentAdapter(initComments(), this)
+        val commentAdapter = CommentAdapter(Utils(requireContext()).initComments(), this)
         recyclerArticleComments.apply {
             adapter = commentAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
 
-        /*Home articles horizontal RecyclerView*/
         val snapHorizontal = GravitySnapHelper(Gravity.CENTER)
         snapHorizontal.attachToRecyclerView(recyclerArticleRelated)
 
-        val suggestedAdapter = SuggestedArticleAdapter(requireContext(), this)
+        val suggestedAdapter = SuggestedArticleAdapter(Utils(requireContext()).initArticles(), this)
         recyclerArticleRelated.apply {
             adapter = suggestedAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
-    }
-
-    private fun initComments(): ArrayList<Comment> {
-        val comments = arrayListOf<Comment>()
-
-        comments.add(Comment("حسین میرزایی", R.drawable.test01, getString(R.string.sampleComment)))
-        comments.add(Comment("حضرت جلیل", R.drawable.test02, getString(R.string.sampleComment)))
-        comments.add(
-            Comment(
-                "استاد علیرضا باقری",
-                R.drawable.test01,
-                getString(R.string.sampleComment)
-            )
-        )
-
-        return comments
-
     }
 
     override fun onCommentIconClick(position: Int) {
