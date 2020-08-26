@@ -9,18 +9,17 @@ class Utils(val context: Context) {
 
     private val articles = arrayListOf<Article>()
     private val comments = arrayListOf<Comment>()
+    private val user = User(
+        "حسین میرزایی",
+        "مدرس زبان انگلیسی",
+        "https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg",
+        145,
+        ArrayList(),
+        ArrayList(),
+        true
+    )
 
     fun initArticles(): ArrayList<Article> {
-
-        val user = User(
-            "حسین میرزایی",
-            "مدرس زبان انگلیسی",
-            R.drawable.test02,
-            145,
-            ArrayList(),
-            ArrayList(),
-            true
-        )
 
         repeat(10) {
 
@@ -50,21 +49,21 @@ class Utils(val context: Context) {
 
         comments.add(
             Comment(
-                "حسین میرزایی",
+                user,
                 R.drawable.test01,
                 context.getString(R.string.sampleComment)
             )
         )
         comments.add(
             Comment(
-                "حضرت جلیل",
+                user,
                 R.drawable.test02,
                 context.getString(R.string.sampleComment)
             )
         )
         comments.add(
             Comment(
-                "استاد علیرضا باقری",
+                user,
                 R.drawable.test01,
                 context.getString(R.string.sampleComment)
             )

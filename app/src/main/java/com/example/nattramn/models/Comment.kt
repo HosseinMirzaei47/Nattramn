@@ -1,7 +1,7 @@
 package com.example.nattramn.models
 
 data class Comment(
-    val name: String,
+    val user: User,
     val image: Int,
     val body: String
 )
