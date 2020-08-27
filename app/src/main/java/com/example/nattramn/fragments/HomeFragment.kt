@@ -5,6 +5,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,7 @@ import com.example.nattramn.R
 import com.example.nattramn.Utils
 import com.example.nattramn.adapters.HorizontalArticleAdapter
 import com.example.nattramn.adapters.VerticalArticleAdapter
+import com.example.nattramn.databinding.FragmentHomeBinding
 import com.example.nattramn.recyclerItemListeners.OnArticleListener
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -24,7 +26,12 @@ class HomeFragment : Fragment(), OnArticleListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return LayoutInflater.from(context).inflate(R.layout.fragment_home, container, false)
+
+        val binding: FragmentHomeBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_home, container, false
+        )
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,7 +58,13 @@ class HomeFragment : Fragment(), OnArticleListener {
 
         articleProfileIcon.setOnClickListener { view ->
             Navigation.findNavController(view)
-                .navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
+                .navigate(
+                    HomeFragmentDirections.actionHomeFragmentToProfileFragment(
+                        Utils(
+                            requireContext()
+                        ).user
+                    )
+                )
         }
 
     }
@@ -87,12 +100,24 @@ class HomeFragment : Fragment(), OnArticleListener {
 
     override fun onAuthorNameClick(position: Int) {
         Navigation.findNavController(requireView())
-            .navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
+            .navigate(
+                HomeFragmentDirections.actionHomeFragmentToProfileFragment(
+                    Utils(
+                        requireContext()
+                    ).user
+                )
+            )
     }
 
     override fun onAuthorIconClick(position: Int) {
         Navigation.findNavController(requireView())
-            .navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
+            .navigate(
+                HomeFragmentDirections.actionHomeFragmentToProfileFragment(
+                    Utils(
+                        requireContext()
+                    ).user
+                )
+            )
     }
 
     override fun onArticleTitleClick(position: Int) {

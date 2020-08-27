@@ -74,6 +74,10 @@
         <action
             android:id="@+id/action_profileFragment_self"
             app:destination="@id/profileFragment" />
+        <argument
+            android:name="User"
+            app:argType="com.example.nattramn.models.User"
+            app:nullable="false" />
     </fragment>
 
     <fragment

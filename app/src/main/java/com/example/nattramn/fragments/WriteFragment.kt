@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.nattramn.R
+import com.example.nattramn.databinding.FragmentWriteBinding
 import kotlinx.android.synthetic.main.fragment_write.*
 
 class WriteFragment : Fragment() {
@@ -17,7 +19,10 @@ class WriteFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return LayoutInflater.from(context).inflate(R.layout.fragment_write, container, false)
+        val binding: FragmentWriteBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_write, container, false
+        )
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

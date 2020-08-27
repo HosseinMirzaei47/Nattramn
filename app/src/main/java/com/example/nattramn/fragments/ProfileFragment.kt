@@ -6,24 +6,39 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
 import com.example.nattramn.Utils
 import com.example.nattramn.adapters.ProfileArticleAdapter
+import com.example.nattramn.databinding.FragmentProfileBinding
 import com.example.nattramn.recyclerItemListeners.OnProfileArticleListener
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment(), OnProfileArticleListener {
 
+    private val args: ProfileFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return LayoutInflater.from(context).inflate(R.layout.fragment_profile, container, false)
+
+        val user = args.User
+
+        val binding: FragmentProfileBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(context), R.layout.fragment_profile, container, false
+        )
+
+        binding.profile = user
+
+        return binding.root
+
     }
 
     @SuppressLint("InflateParams")
@@ -69,9 +84,6 @@ class ProfileFragment : Fragment(), OnProfileArticleListener {
 
     private fun setRecyclers() {
 
-        /*val snapVertical = GravitySnapHelper(Gravity.TOP)
-        snapVertical.attachToRecyclerView(recyclerProfileArticles)*/
-
         val profileArticleAdapter =
             ProfileArticleAdapter(Utils(requireContext()).initArticles(), this)
         recyclerProfileArticles.apply {
@@ -85,7 +97,6 @@ class ProfileFragment : Fragment(), OnProfileArticleListener {
     private fun setBackButtonClick() {
         profileRightArrow.setOnClickListener { view ->
             Navigation.findNavController(view).navigateUp()
-            /*.navigate(ProfileFragmentDirections.actionProfileFragmentToHomeFragment())*/
         }
     }
 
@@ -107,12 +118,24 @@ class ProfileFragment : Fragment(), OnProfileArticleListener {
 
     override fun onAuthorIconClick(position: Int) {
         Navigation.findNavController(requireView())
-            .navigate(ProfileFragmentDirections.actionProfileFragmentSelf())
+            .navigate(
+                ProfileFragmentDirections.actionProfileFragmentSelf(
+                    Utils(
+                        requireContext()
+                    ).user
+                )
+            )
     }
 
     override fun onAuthorNameClick(position: Int) {
         Navigation.findNavController(requireView())
-            .navigate(ProfileFragmentDirections.actionProfileFragmentSelf())
+            .navigate(
+                ProfileFragmentDirections.actionProfileFragmentSelf(
+                    Utils(
+                        requireContext()
+                    ).user
+                )
+            )
     }
 
     override fun onArticleCommentsClick(position: Int) {
