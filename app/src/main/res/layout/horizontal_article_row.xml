@@ -29,10 +29,10 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/itemAuthorImage"
+                imageSource="@{article.user.image}"
                 android:layout_width="@dimen/global_item_image_size"
                 android:layout_height="@dimen/global_item_image_size"
                 android:layout_margin="@dimen/margin_normal"
-                android:src="@drawable/test02"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
