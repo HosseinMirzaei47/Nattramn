@@ -118,6 +118,10 @@
             app:exitAnim="@anim/to_right"
             app:popEnterAnim="@anim/from_right"
             app:popExitAnim="@anim/to_left" />
+        <argument
+            android:name="User"
+            app:argType="com.example.nattramn.models.User"
+            app:nullable="false" />
     </fragment>
 
     <fragment

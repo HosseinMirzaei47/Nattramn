@@ -3,19 +3,15 @@ package com.example.nattramn
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import com.example.nattramn.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    /*private var navController: NavController? = null*/
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        /*navController = Navigation.findNavController(this, R.id.navHostFragment)*/
-
+        DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         hideSystemUI()
-
     }
 
     private fun hideSystemUI() {
@@ -23,9 +19,5 @@ class MainActivity : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 or View.SYSTEM_UI_FLAG_FULLSCREEN)
     }
-
-    /*override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(navController!!, null as DrawerLayout)
-    }*/
 
 }

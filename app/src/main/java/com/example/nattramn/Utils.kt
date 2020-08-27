@@ -9,7 +9,7 @@ class Utils(val context: Context) {
 
     private val articles = arrayListOf<Article>()
     private val comments = arrayListOf<Comment>()
-    private val user = User(
+    val user = User(
         "حسین میرزایی",
         "مدرس زبان انگلیسی",
         "https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg",

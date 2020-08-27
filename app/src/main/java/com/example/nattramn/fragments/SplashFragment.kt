@@ -5,9 +5,11 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.nattramn.R
+import com.example.nattramn.databinding.FragmentSplashBinding
 
 class SplashFragment : Fragment() {
 
@@ -19,15 +21,17 @@ class SplashFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = LayoutInflater.from(context).inflate(R.layout.fragment_splash, container, false)
+        val binding: FragmentSplashBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_splash, container, false
+        )
 
         Handler().postDelayed({
             /*findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToRegisterFragment())*/
-            Navigation.findNavController(view)
+            Navigation.findNavController(binding.root)
                 .navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment())
         }, splashTimeOut)
 
-        return view
+        return binding.root
     }
 
 }

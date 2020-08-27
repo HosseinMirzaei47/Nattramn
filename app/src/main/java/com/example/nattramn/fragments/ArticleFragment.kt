@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +14,7 @@ import com.example.nattramn.R
 import com.example.nattramn.Utils
 import com.example.nattramn.adapters.CommentAdapter
 import com.example.nattramn.adapters.SuggestedArticleAdapter
+import com.example.nattramn.databinding.FragmentArticleBinding
 import com.example.nattramn.recyclerItemListeners.OnArticleListener
 import com.example.nattramn.recyclerItemListeners.OnCommentListener
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
@@ -26,7 +28,12 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return LayoutInflater.from(context).inflate(R.layout.fragment_article, container, false)
+
+        val binding: FragmentArticleBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_article, container, false
+        )
+        return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -106,12 +113,24 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
 
     override fun onAuthorNameClick(position: Int) {
         Navigation.findNavController(requireView())
-            .navigate(ArticleFragmentDirections.actionArticleFragmentToProfileFragment())
+            .navigate(
+                ArticleFragmentDirections.actionArticleFragmentToProfileFragment(
+                    Utils(
+                        requireContext()
+                    ).user
+                )
+            )
     }
 
     override fun onAuthorIconClick(position: Int) {
         Navigation.findNavController(requireView())
-            .navigate(ArticleFragmentDirections.actionArticleFragmentToProfileFragment())
+            .navigate(
+                ArticleFragmentDirections.actionArticleFragmentToProfileFragment(
+                    Utils(
+                        requireContext()
+                    ).user
+                )
+            )
     }
 
     override fun onArticleTitleClick(position: Int) {
