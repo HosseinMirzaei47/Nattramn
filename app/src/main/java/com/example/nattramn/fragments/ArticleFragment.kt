@@ -23,13 +23,15 @@ import kotlinx.android.synthetic.main.fragment_article.*
 
 class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
 
+    private lateinit var binding: FragmentArticleBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        val binding: FragmentArticleBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_article, container, false
         )
         return binding.root
@@ -48,7 +50,7 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
     }
 
     private fun setAddCommentAction() {
-        articleCommentButton.setOnClickListener {
+        binding.articleCommentButton.setOnClickListener {
             val dialog = Dialog(requireContext(), 0)
             dialog.apply {
 
@@ -75,7 +77,7 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
     }
 
     private fun setBackButtonClick() {
-        articleRightArrow.setOnClickListener { view ->
+        binding.articleRightArrow.setOnClickListener { view ->
             Navigation.findNavController(view).navigateUp()
         }
     }
@@ -83,7 +85,7 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
     private fun setRecyclers() {
 
         val commentAdapter = CommentAdapter(Utils(requireContext()).initComments(), this)
-        recyclerArticleComments.apply {
+        binding.recyclerArticleComments.apply {
             adapter = commentAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
@@ -92,7 +94,7 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
         snapHorizontal.attachToRecyclerView(recyclerArticleRelated)
 
         val suggestedAdapter = SuggestedArticleAdapter(Utils(requireContext()).initArticles(), this)
-        recyclerArticleRelated.apply {
+        binding.recyclerArticleRelated.apply {
             adapter = suggestedAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }

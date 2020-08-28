@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment(), OnProfileArticleListener {
 
+    private lateinit var binding: FragmentProfileBinding
     private val args: ProfileFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -31,7 +32,7 @@ class ProfileFragment : Fragment(), OnProfileArticleListener {
 
         val user = args.User
 
-        val binding: FragmentProfileBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             LayoutInflater.from(context), R.layout.fragment_profile, container, false
         )
 
@@ -54,13 +55,13 @@ class ProfileFragment : Fragment(), OnProfileArticleListener {
     }
 
     private fun setTabItemsView() {
-        profileTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        binding.profileTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
             @SuppressLint("InflateParams")
             override fun onTabSelected(tab: TabLayout.Tab?) {
 
-                profileTab.getTabAt(0)?.customView = null
-                profileTab.getTabAt(1)?.customView = null
+                binding.profileTab.getTabAt(0)?.customView = null
+                binding.profileTab.getTabAt(1)?.customView = null
 
                 val tabSelectedView: View? =
                     LayoutInflater.from(context).inflate(R.layout.custom_tab_selected, null)
@@ -86,7 +87,7 @@ class ProfileFragment : Fragment(), OnProfileArticleListener {
 
         val profileArticleAdapter =
             ProfileArticleAdapter(Utils(requireContext()).initArticles(), this)
-        recyclerProfileArticles.apply {
+        binding.recyclerProfileArticles.apply {
 
             adapter = profileArticleAdapter
             layoutManager = LinearLayoutManager(context)
@@ -95,7 +96,7 @@ class ProfileFragment : Fragment(), OnProfileArticleListener {
     }
 
     private fun setBackButtonClick() {
-        profileRightArrow.setOnClickListener { view ->
+        binding.profileRightArrow.setOnClickListener { view ->
             Navigation.findNavController(view).navigateUp()
         }
     }
@@ -113,6 +114,7 @@ class ProfileFragment : Fragment(), OnProfileArticleListener {
         val addPhotoBottomDialogFragment =
             ActionBottomDialogFragment.newInstance()
 
+        @Suppress("DEPRECATION")
         addPhotoBottomDialogFragment.show(requireFragmentManager(), ActionBottomDialogFragment.TAG)
     }
 

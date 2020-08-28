@@ -13,6 +13,7 @@ import com.example.nattramn.databinding.FragmentSplashBinding
 
 class SplashFragment : Fragment() {
 
+    private lateinit var binding: FragmentSplashBinding
     private val splashTimeOut = 1000.toLong()
 
     override fun onCreateView(
@@ -21,12 +22,11 @@ class SplashFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val binding: FragmentSplashBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_splash, container, false
         )
 
         Handler().postDelayed({
-            /*findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToRegisterFragment())*/
             Navigation.findNavController(binding.root)
                 .navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment())
         }, splashTimeOut)

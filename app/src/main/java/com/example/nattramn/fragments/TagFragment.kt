@@ -14,9 +14,10 @@ import com.example.nattramn.Utils
 import com.example.nattramn.adapters.VerticalArticleAdapter
 import com.example.nattramn.databinding.FragmentTagBinding
 import com.example.nattramn.recyclerItemListeners.OnArticleListener
-import kotlinx.android.synthetic.main.fragment_tag.*
 
 class TagFragment : Fragment(), OnArticleListener {
+
+    private lateinit var binding: FragmentTagBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,7 +25,7 @@ class TagFragment : Fragment(), OnArticleListener {
         savedInstanceState: Bundle?
     ): View? {
 
-        val binding: FragmentTagBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_tag, container, false
         )
         return binding.root
@@ -43,14 +44,14 @@ class TagFragment : Fragment(), OnArticleListener {
     private fun setRecyclers() {
 
         val verticalAdapter = VerticalArticleAdapter(Utils(requireContext()).initArticles(), this)
-        recyclerTagArticles.apply {
+        binding.recyclerTagArticles.apply {
             adapter = verticalAdapter
             layoutManager = LinearLayoutManager(context)
         }
     }
 
     private fun setBackButtonClick() {
-        tagRightArrow.setOnClickListener { view ->
+        binding.tagRightArrow.setOnClickListener { view ->
             Navigation.findNavController(view).navigateUp()
         }
     }

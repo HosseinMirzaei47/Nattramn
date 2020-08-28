@@ -10,9 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.nattramn.R
 import com.example.nattramn.databinding.FragmentRegisterBinding
-import kotlinx.android.synthetic.main.fragment_register.*
 
 class RegisterFragment : Fragment() {
+
+    private lateinit var binding: FragmentRegisterBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,7 +21,7 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val binding: FragmentRegisterBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_register, container, false
         )
         return binding.root
@@ -36,13 +37,13 @@ class RegisterFragment : Fragment() {
 
     private fun setOnClicks() {
 
-        tv_enter.setOnClickListener { view ->
+        binding.tvEnter.setOnClickListener { view ->
             Navigation.findNavController(view)
                 .navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
         }
 
-        btn_membership.setOnClickListener { view ->
-            if (registerUsername.text.isValidUsername() && registerUsernameConfirm.text.isValidEmail()) {
+        binding.btnMembership.setOnClickListener { view ->
+            if (binding.registerUsername.text.isValidUsername() && binding.registerUsernameConfirm.text.isValidEmail()) {
 
                 Navigation.findNavController(view)
                     .navigate(RegisterFragmentDirections.actionRegisterFragmentToHomerFragment())
@@ -56,19 +57,19 @@ class RegisterFragment : Fragment() {
 
         if (this == null) {
 
-            registerUsername.requestFocus()
-            registerUsername.error = getString(R.string.errorEnterUsername)
+            binding.registerUsername.requestFocus()
+            binding.registerUsername.error = getString(R.string.errorEnterUsername)
             return false
 
         }
 
         if (isNullOrEmpty()) {
 
-            registerUsername.requestFocus()
-            registerUsername.error = getString(R.string.errorEnterUsername)
+            binding.registerUsername.requestFocus()
+            binding.registerUsername.error = getString(R.string.errorEnterUsername)
             return false
 
-        } else if (registerUsername.text!!.length > LoginFragment.minUsernameLength
+        } else if (binding.registerUsername.text!!.length > LoginFragment.minUsernameLength
             && !Patterns.EMAIL_ADDRESS.matcher(this).matches()
         ) {
 
@@ -76,27 +77,27 @@ class RegisterFragment : Fragment() {
 
         } else if (!Patterns.EMAIL_ADDRESS.matcher(this).matches()) {
 
-            registerUsername.requestFocus()
-            registerUsername.error = getString(R.string.errorEmailOrUsernameFormat)
+            binding.registerUsername.requestFocus()
+            binding.registerUsername.error = getString(R.string.errorEmailOrUsernameFormat)
             return false
 
         }
 
-        registerUsername.error = null
+        binding.registerUsername.error = null
         return true
     }
 
     private fun CharSequence?.isValidEmail(): Boolean {
 
         if (isNullOrEmpty()) {
-            registerUsernameConfirm.requestFocus()
-            registerUsernameConfirm.error = getString(R.string.errorEnterEmail)
+            binding.registerUsernameConfirm.requestFocus()
+            binding.registerUsernameConfirm.error = getString(R.string.errorEnterEmail)
             return false
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(this).matches()) {
-            registerUsernameConfirm.requestFocus()
-            registerUsernameConfirm.error = getString(R.string.errorEmailFormat)
+        if (!Patterns.EMAIL_ADDRESS.matcher(this!!).matches()) {
+            binding.registerUsernameConfirm.requestFocus()
+            binding.registerUsernameConfirm.error = getString(R.string.errorEmailFormat)
             return false
         }
 

@@ -9,32 +9,37 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.nattramn.R
 import com.example.nattramn.databinding.FragmentWriteBinding
-import kotlinx.android.synthetic.main.fragment_write.*
 
 class WriteFragment : Fragment() {
 
+    private lateinit var binding: FragmentWriteBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentWriteBinding = DataBindingUtil.inflate(
+
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_write, container, false
         )
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setBackButtonClick()
 
     }
 
     private fun setBackButtonClick() {
-        writeRightArrow.setOnClickListener { view ->
+
+        binding.writeRightArrow.setOnClickListener { view ->
             Navigation.findNavController(view).navigateUp()
         }
+
     }
 
 }

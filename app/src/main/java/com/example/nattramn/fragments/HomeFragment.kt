@@ -21,13 +21,15 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment(), OnArticleListener {
 
+    private lateinit var binding: FragmentHomeBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        val binding: FragmentHomeBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_home, container, false
         )
 
@@ -47,7 +49,7 @@ class HomeFragment : Fragment(), OnArticleListener {
 
     private fun setOnWriteClicked() {
 
-        homeWriteButton.setOnClickListener { view ->
+        binding.homeWriteButton.setOnClickListener { view ->
             Navigation.findNavController(view)
                 .navigate(HomeFragmentDirections.actionHomeFragmentToWriteFragment())
         }
@@ -56,7 +58,7 @@ class HomeFragment : Fragment(), OnArticleListener {
 
     private fun setOnProfileClicked() {
 
-        articleProfileIcon.setOnClickListener { view ->
+        binding.articleProfileIcon.setOnClickListener { view ->
             Navigation.findNavController(view)
                 .navigate(
                     HomeFragmentDirections.actionHomeFragmentToProfileFragment(
@@ -72,7 +74,7 @@ class HomeFragment : Fragment(), OnArticleListener {
     private fun setRecyclers() {
 
         val verticalAdapter = VerticalArticleAdapter(Utils(requireContext()).initArticles(), this)
-        recyclerHomeArticle.apply {
+        binding.recyclerHomeArticle.apply {
             adapter = verticalAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
@@ -82,7 +84,7 @@ class HomeFragment : Fragment(), OnArticleListener {
 
         val horizontalAdapter =
             HorizontalArticleAdapter(Utils(requireContext()).initArticles(), this)
-        recyclerHomeTopArticles.apply {
+        binding.recyclerHomeTopArticles.apply {
             adapter = horizontalAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }

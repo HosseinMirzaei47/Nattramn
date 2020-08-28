@@ -34,10 +34,8 @@ class CommentAdapter(
 
     }
 
-    inner class ViewHolder(binding: CommentRowBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: CommentRowBinding) : RecyclerView.ViewHolder(binding.root) {
 
-
-        val binding: CommentRowBinding = binding
 
         init {
 
