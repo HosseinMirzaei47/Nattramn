@@ -42,10 +42,15 @@ class HomeFragment : Fragment() /*, OnArticleListener */ {
 
         // setRecyclers()
 
-        val adapter = ViewPagerAdapter(requireActivity().supportFragmentManager)
-        adapter.addFragment(ForYouFragment(), resources.getString(R.string.HomeForYou))
-        adapter.addFragment(KeyWordFragment(), resources.getString(R.string.HomeTabTitleKeywords))
-        binding.viewPager.adapter = adapter
+        val pagerAdapter = ViewPagerAdapter(childFragmentManager!!).apply {
+            addFragment(KeyWordFragment(), resources.getString(R.string.HomeTabTitleKeywords))
+            addFragment(ForYouFragment(), resources.getString(R.string.HomeForYou))
+        }
+
+        binding.viewPager.apply {
+            adapter = pagerAdapter
+        }
+
         binding.homeTabLayout.setupWithViewPager(viewPager)
 
     }
