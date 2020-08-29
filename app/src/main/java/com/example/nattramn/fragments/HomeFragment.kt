@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
@@ -15,13 +17,17 @@ import com.example.nattramn.adapters.HorizontalArticleAdapter
 import com.example.nattramn.adapters.VerticalArticleAdapter
 import com.example.nattramn.databinding.FragmentHomeBinding
 import com.example.nattramn.recyclerItemListeners.OnArticleListener
+import com.example.nattramn.viewModels.HomeViewModel
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
-import kotlinx.android.synthetic.main.fragment_home.*
-
 
 class HomeFragment : Fragment(), OnArticleListener {
 
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var feedArticlesAdapter: VerticalArticleAdapter
+    private lateinit var topArticlesAdapter: HorizontalArticleAdapter
+
+    private val snapHorizontal = GravitySnapHelper(Gravity.CENTER)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,11 +39,15 @@ class HomeFragment : Fragment(), OnArticleListener {
             inflater, R.layout.fragment_home, container, false
         )
 
+        binding.lifecycleOwner = viewLifecycleOwner
+        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        snapHorizontal.attachToRecyclerView(binding.recyclerHomeTopArticles)
 
         setOnProfileClicked()
 
@@ -73,21 +83,34 @@ class HomeFragment : Fragment(), OnArticleListener {
 
     private fun setRecyclers() {
 
-        val verticalAdapter = VerticalArticleAdapter(Utils(requireContext()).initArticles(), this)
-        binding.recyclerHomeArticle.apply {
-            adapter = verticalAdapter
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        }
+        observeRecyclersContent()
 
-        val snapHorizontal = GravitySnapHelper(Gravity.CENTER)
-        snapHorizontal.attachToRecyclerView(recyclerHomeTopArticles)
-
-        val horizontalAdapter =
+        feedArticlesAdapter =
+            VerticalArticleAdapter(Utils(requireContext()).initArticles(), this)
+        topArticlesAdapter =
             HorizontalArticleAdapter(Utils(requireContext()).initArticles(), this)
-        binding.recyclerHomeTopArticles.apply {
-            adapter = horizontalAdapter
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        }
+
+
+        /*These two lines of codes trigger content observers*/
+        homeViewModel.initFeedArticles()
+        homeViewModel.initTopArticles()
+
+    }
+
+    private fun observeRecyclersContent() {
+        homeViewModel.feedArticles.observe(viewLifecycleOwner, Observer {
+            binding.recyclerHomeArticle.apply {
+                adapter = feedArticlesAdapter
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            }
+        })
+
+        homeViewModel.topArticles.observe(viewLifecycleOwner, Observer {
+            binding.recyclerHomeTopArticles.apply {
+                adapter = topArticlesAdapter
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            }
+        })
     }
 
     override fun onCardClick(position: Int) {
