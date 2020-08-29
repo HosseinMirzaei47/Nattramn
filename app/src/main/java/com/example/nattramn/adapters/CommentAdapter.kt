@@ -8,9 +8,10 @@ import com.example.nattramn.R
 import com.example.nattramn.databinding.CommentRowBinding
 import com.example.nattramn.models.Comment
 import com.example.nattramn.recyclerItemListeners.OnCommentListener
+import java.util.*
 
 class CommentAdapter(
-    private val comments: ArrayList<Comment>,
+    var comments: ArrayList<Comment>,
     private val commentListener: OnCommentListener
 ) :
     RecyclerView.Adapter<CommentAdapter.ViewHolder>() {

@@ -54,8 +54,8 @@ dependencies {
     /*Material design*/
     implementation 'com.google.android.material:material:1.1.0'
 
-    /*RecyclerView & CardView*/
-
+    /*ViewModel*/
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
 
     /*Room*/
     def room_version = "2.3.0-alpha02" // alpha06 has bugs
@@ -76,12 +76,9 @@ dependencies {
     def nav_version = "2.3.0"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
-    /*implementation "androidx.navigation:navigation-fragment:$nav_version"
-    implementation "androidx.navigation:navigation-ui:$nav_version"
-    implementation "androidx.navigation:navigation-runtime:$nav_version"*/
 
     /*Gson converter*/
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.google.code.gson:gson:2.8.6'
 
     /*Circular ImageView*/
     implementation 'de.hdodenhof:circleimageview:3.1.0'

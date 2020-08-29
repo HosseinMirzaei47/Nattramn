@@ -6,13 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.nattramn.R
 import com.example.nattramn.databinding.FragmentWriteBinding
+import com.example.nattramn.viewModels.WriteViewModel
 
 class WriteFragment : Fragment() {
 
     private lateinit var binding: FragmentWriteBinding
+    private lateinit var writeViewModel: WriteViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,8 +26,11 @@ class WriteFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_write, container, false
         )
-        return binding.root
 
+        binding.lifecycleOwner = viewLifecycleOwner
+        writeViewModel = ViewModelProvider(this).get(WriteViewModel::class.java)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

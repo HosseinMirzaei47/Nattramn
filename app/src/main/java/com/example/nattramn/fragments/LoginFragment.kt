@@ -7,14 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.nattramn.R
 import com.example.nattramn.databinding.FragmentLoginBinding
+import com.example.nattramn.viewModels.LoginViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
+    private lateinit var loginViewModel: LoginViewModel
 
     companion object {
         const val minUsernameLength = 7
@@ -29,8 +32,11 @@ class LoginFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_login, container, false
         )
-        return binding.root
 
+        binding.lifecycleOwner = viewLifecycleOwner
+        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

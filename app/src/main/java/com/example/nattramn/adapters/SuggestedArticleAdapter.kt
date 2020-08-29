@@ -11,7 +11,7 @@ import com.example.nattramn.recyclerItemListeners.OnArticleListener
 import java.util.*
 
 class SuggestedArticleAdapter(
-    private val suggestions: ArrayList<Article>,
+    var suggestions: ArrayList<Article>,
     private val onArticleListener: OnArticleListener
 ) :
     RecyclerView.Adapter<SuggestedArticleAdapter.ViewHolder>() {

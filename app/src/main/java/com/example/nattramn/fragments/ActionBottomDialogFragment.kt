@@ -5,11 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.example.nattramn.R
 import com.example.nattramn.databinding.ActionBottomSheetBinding
+import com.example.nattramn.viewModels.ActionDialogViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class ActionBottomDialogFragment : BottomSheetDialogFragment() {
+
+    private lateinit var actionDialogViewModel: ActionDialogViewModel
 
     companion object {
         const val TAG = "ActionBottomDialog"
@@ -26,7 +30,10 @@ class ActionBottomDialogFragment : BottomSheetDialogFragment() {
         val binding: ActionBottomSheetBinding = DataBindingUtil.inflate(
             inflater, R.layout.action_bottom_sheet, container, false
         )
-        return binding.root
 
+        binding.lifecycleOwner = viewLifecycleOwner
+        actionDialogViewModel = ViewModelProvider(this).get(ActionDialogViewModel::class.java)
+
+        return binding.root
     }
 }
