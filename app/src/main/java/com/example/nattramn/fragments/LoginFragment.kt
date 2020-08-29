@@ -34,7 +34,7 @@ class LoginFragment : Fragment() {
         )
 
         binding.lifecycleOwner = viewLifecycleOwner
-        loginViewModel = ViewModelProvider(this).get(loginViewModel::class.java)
+        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
         return binding.root
     }
