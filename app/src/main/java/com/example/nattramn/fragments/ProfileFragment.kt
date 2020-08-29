@@ -91,10 +91,10 @@ class ProfileFragment : Fragment(), OnProfileArticleListener {
 
         observeProfileArticles()
 
-        profileArticleAdapter =
-            ProfileArticleAdapter(Utils(requireContext()).initArticles(), this)
-
         profileViewModel.setProfileArticles()
+
+        profileArticleAdapter =
+            ProfileArticleAdapter(profileViewModel.profileArticles.value!!, this)
 
     }
 

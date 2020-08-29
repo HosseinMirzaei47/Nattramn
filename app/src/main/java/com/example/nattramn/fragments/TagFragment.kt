@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
@@ -14,10 +16,13 @@ import com.example.nattramn.Utils
 import com.example.nattramn.adapters.VerticalArticleAdapter
 import com.example.nattramn.databinding.FragmentTagBinding
 import com.example.nattramn.recyclerItemListeners.OnArticleListener
+import com.example.nattramn.viewModels.TagViewModel
 
 class TagFragment : Fragment(), OnArticleListener {
 
     private lateinit var binding: FragmentTagBinding
+    private lateinit var tagViewModel: TagViewModel
+    private lateinit var tagAdapter: VerticalArticleAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,8 +33,11 @@ class TagFragment : Fragment(), OnArticleListener {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_tag, container, false
         )
-        return binding.root
 
+        binding.lifecycleOwner = viewLifecycleOwner
+        tagViewModel = ViewModelProvider(this).get(TagViewModel::class.java)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,11 +51,25 @@ class TagFragment : Fragment(), OnArticleListener {
 
     private fun setRecyclers() {
 
-        val verticalAdapter = VerticalArticleAdapter(Utils(requireContext()).initArticles(), this)
-        binding.recyclerTagArticles.apply {
-            adapter = verticalAdapter
-            layoutManager = LinearLayoutManager(context)
-        }
+        tagViewModel.setTagArticles()
+
+        tagAdapter = VerticalArticleAdapter(tagViewModel.tagArticles.value!!, this)
+
+        observeTagArticles()
+
+    }
+
+    private fun observeTagArticles() {
+        tagViewModel.tagArticles.observe(viewLifecycleOwner, Observer {
+
+            tagAdapter.articles = it
+
+            binding.recyclerTagArticles.apply {
+                adapter = tagAdapter
+                layoutManager = LinearLayoutManager(context)
+            }
+
+        })
     }
 
     private fun setBackButtonClick() {

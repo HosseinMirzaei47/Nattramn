@@ -85,14 +85,13 @@ class HomeFragment : Fragment(), OnArticleListener {
 
         observeRecyclersContent()
 
-        feedArticlesAdapter =
-            VerticalArticleAdapter(Utils(requireContext()).initArticles(), this)
-        topArticlesAdapter =
-            HorizontalArticleAdapter(Utils(requireContext()).initArticles(), this)
-
-        /*These two lines of codes trigger content observers*/
         homeViewModel.setFeedArticles()
         homeViewModel.setTopArticles()
+
+        feedArticlesAdapter =
+            VerticalArticleAdapter(homeViewModel.feedArticles.value!!, this)
+        topArticlesAdapter =
+            HorizontalArticleAdapter(homeViewModel.topArticles.value!!, this)
 
     }
 

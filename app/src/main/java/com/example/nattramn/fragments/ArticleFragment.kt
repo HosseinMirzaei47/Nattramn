@@ -8,6 +8,8 @@ import android.view.*
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
@@ -17,6 +19,7 @@ import com.example.nattramn.adapters.SuggestedArticleAdapter
 import com.example.nattramn.databinding.FragmentArticleBinding
 import com.example.nattramn.recyclerItemListeners.OnArticleListener
 import com.example.nattramn.recyclerItemListeners.OnCommentListener
+import com.example.nattramn.viewModels.ArticleViewModel
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import kotlinx.android.synthetic.main.dialog_comment.*
 import kotlinx.android.synthetic.main.fragment_article.*
@@ -24,6 +27,11 @@ import kotlinx.android.synthetic.main.fragment_article.*
 class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
 
     private lateinit var binding: FragmentArticleBinding
+    private lateinit var articleViewModel: ArticleViewModel
+    private lateinit var commentAdapter: CommentAdapter
+    private lateinit var suggestedArticleAdapter: SuggestedArticleAdapter
+
+    private val snapHorizontal = GravitySnapHelper(Gravity.CENTER)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,12 +42,16 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_article, container, false
         )
-        return binding.root
 
+        binding.lifecycleOwner = viewLifecycleOwner
+        articleViewModel = ViewModelProvider(this).get(ArticleViewModel::class.java)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        snapHorizontal.attachToRecyclerView(recyclerArticleRelated)
 
         setBackButtonClick()
 
@@ -84,20 +96,39 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
 
     private fun setRecyclers() {
 
-        val commentAdapter = CommentAdapter(Utils(requireContext()).initComments(), this)
-        binding.recyclerArticleComments.apply {
-            adapter = commentAdapter
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        }
+        observeRecyclersContent()
 
-        val snapHorizontal = GravitySnapHelper(Gravity.CENTER)
-        snapHorizontal.attachToRecyclerView(recyclerArticleRelated)
+        articleViewModel.setSuggestedArticles()
+        articleViewModel.setComments()
 
-        val suggestedAdapter = SuggestedArticleAdapter(Utils(requireContext()).initArticles(), this)
-        binding.recyclerArticleRelated.apply {
-            adapter = suggestedAdapter
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        }
+        suggestedArticleAdapter =
+            SuggestedArticleAdapter(articleViewModel.suggestedArticles.value!!, this)
+        commentAdapter = CommentAdapter(articleViewModel.comments.value!!, this)
+
+    }
+
+    private fun observeRecyclersContent() {
+        articleViewModel.suggestedArticles.observe(viewLifecycleOwner, Observer {
+
+            suggestedArticleAdapter.suggestions = it
+
+            binding.recyclerArticleRelated.apply {
+                adapter = suggestedArticleAdapter
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            }
+
+        })
+
+        articleViewModel.comments.observe(viewLifecycleOwner, Observer {
+
+            commentAdapter.comments = it
+
+            binding.recyclerArticleComments.apply {
+                adapter = commentAdapter
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            }
+
+        })
     }
 
     override fun onCommentIconClick(position: Int) {
