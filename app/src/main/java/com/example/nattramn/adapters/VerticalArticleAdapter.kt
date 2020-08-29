@@ -11,7 +11,7 @@ import com.example.nattramn.recyclerItemListeners.OnArticleListener
 import java.util.*
 
 class VerticalArticleAdapter(
-    private val articles: ArrayList<Article>,
+    var articles: ArrayList<Article>,
     private val onArticleListener: OnArticleListener
 ) :
     RecyclerView.Adapter<VerticalArticleAdapter.ViewHolder>() {

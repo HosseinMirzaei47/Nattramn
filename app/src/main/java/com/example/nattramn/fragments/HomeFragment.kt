@@ -90,15 +90,17 @@ class HomeFragment : Fragment(), OnArticleListener {
         topArticlesAdapter =
             HorizontalArticleAdapter(Utils(requireContext()).initArticles(), this)
 
-
         /*These two lines of codes trigger content observers*/
-        homeViewModel.initFeedArticles()
-        homeViewModel.initTopArticles()
+        homeViewModel.setFeedArticles()
+        homeViewModel.setTopArticles()
 
     }
 
     private fun observeRecyclersContent() {
         homeViewModel.feedArticles.observe(viewLifecycleOwner, Observer {
+
+            feedArticlesAdapter.articles = it
+
             binding.recyclerHomeArticle.apply {
                 adapter = feedArticlesAdapter
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -106,6 +108,9 @@ class HomeFragment : Fragment(), OnArticleListener {
         })
 
         homeViewModel.topArticles.observe(viewLifecycleOwner, Observer {
+
+            topArticlesAdapter.articles = it
+
             binding.recyclerHomeTopArticles.apply {
                 adapter = topArticlesAdapter
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

@@ -12,11 +12,11 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     var feedArticles = MutableLiveData<ArrayList<Article>>()
     var topArticles = MutableLiveData<ArrayList<Article>>()
 
-    fun initFeedArticles() {
+    fun setFeedArticles() {
         feedArticles.value = Utils(getApplication()).initArticles()
     }
 
-    fun initTopArticles() {
+    fun setTopArticles() {
         topArticles.value = Utils(getApplication()).initArticles()
     }
 }
