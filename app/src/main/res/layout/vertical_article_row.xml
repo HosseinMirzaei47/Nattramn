@@ -50,10 +50,10 @@
             <TextView
                 android:id="@+id/itemTime"
                 style="@style/TextAppearance.App.Subtitle1"
+                persianText="@{article.date}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_micro"
-                android:text="@{article.date}"
                 android:textColor="@color/hint"
                 android:textSize="@dimen/text_size_small"
                 app:layout_constraintBottom_toBottomOf="@id/itemAuthorImage"
@@ -76,6 +76,7 @@
 
             <TextView
                 android:id="@+id/itemArticlePreview"
+                persianText="@{article.title}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_normal"
@@ -84,7 +85,6 @@
                 android:layout_marginBottom="@dimen/margin_small"
                 android:lineSpacingExtra="@dimen/spacing_large"
                 android:maxLines="2"
-                android:text="@{article.title}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_b2"
                 android:textStyle="bold"

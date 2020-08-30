@@ -50,10 +50,10 @@
 
             <TextView
                 android:id="@+id/itemArticleDate"
+                persianText="@{profileData.date}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_micro"
-                android:text="@{profileData.date}"
                 android:textColor="@color/hint"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/itemArticleAuthorImage"
@@ -92,6 +92,7 @@
 
             <TextView
                 android:id="@+id/itemArticleTitle"
+                persianText="@{profileData.title}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/profile_article_row_horizontal_margin"
@@ -99,7 +100,6 @@
                 android:layout_marginEnd="@dimen/profile_article_row_horizontal_margin"
                 android:letterSpacing=".02"
                 android:lineSpacingExtra="@dimen/spacing_micro"
-                android:text="@{profileData.title}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_h3"
                 android:textStyle="bold"
@@ -109,6 +109,7 @@
 
             <TextView
                 android:id="@+id/itemArticleDescription"
+                persianText="@{profileData.body}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/profile_article_row_horizontal_margin"
@@ -116,7 +117,6 @@
                 android:layout_marginEnd="@dimen/profile_article_row_horizontal_margin"
                 android:lineSpacingExtra="7sp"
                 android:padding="@dimen/padding_normal"
-                android:text="@{profileData.body}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_b1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -126,6 +126,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/itemCommentsButton"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
+                persianText='@{profileData.commentsNumber + "  دیدگاه"}'
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/profile_article_row_horizontal_margin"
@@ -133,7 +134,6 @@
                 android:background="@android:color/transparent"
                 android:clickable="false"
                 android:gravity="center"
-                android:text='@{profileData.commentsNumber + "  دیدگاه"}'
                 android:textColor="@color/hint"
                 app:icon="@drawable/ic_comment"
                 app:iconGravity="textStart"
@@ -146,6 +146,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/itemLikesIcon"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
+                persianText="@{profileData.likes}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/profile_article_row_horizontal_margin"
@@ -154,7 +155,6 @@
                 android:checkable="false"
                 android:clickable="false"
                 android:gravity="center"
-                android:text="@{profileData.likes}"
                 android:textColor="@color/hint"
                 app:icon="@drawable/ic_favorite"
                 app:iconGravity="textStart"
