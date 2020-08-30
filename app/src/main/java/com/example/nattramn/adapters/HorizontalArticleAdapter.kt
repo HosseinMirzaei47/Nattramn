@@ -10,7 +10,7 @@ import com.example.nattramn.models.Article
 import com.example.nattramn.recyclerItemListeners.OnArticleListener
 
 class HorizontalArticleAdapter(
-    private val articles: ArrayList<Article>,
+    var articles: ArrayList<Article>,
     private val onArticleListener: OnArticleListener
 ) :
     RecyclerView.Adapter<HorizontalArticleAdapter.ViewHolder>() {

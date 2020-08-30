@@ -1,24 +1,33 @@
 package com.example.nattramn.fragments
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
 import com.example.nattramn.Utils
-import com.example.nattramn.adapters.ViewPagerAdapter
+import com.example.nattramn.adapters.HorizontalArticleAdapter
+import com.example.nattramn.adapters.VerticalArticleAdapter
 import com.example.nattramn.databinding.FragmentHomeBinding
-import com.example.nattramn.fragments.pager.ForYouFragment
-import com.example.nattramn.fragments.pager.KeyWordFragment
-import kotlinx.android.synthetic.main.fragment_home.*
+import com.example.nattramn.recyclerItemListeners.OnArticleListener
+import com.example.nattramn.viewModels.HomeViewModel
+import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 
-
-class HomeFragment : Fragment() /*, OnArticleListener */ {
+class HomeFragment : Fragment(), OnArticleListener {
 
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var feedArticlesAdapter: VerticalArticleAdapter
+    private lateinit var topArticlesAdapter: HorizontalArticleAdapter
+
+    private val snapHorizontal = GravitySnapHelper(Gravity.CENTER)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,28 +39,21 @@ class HomeFragment : Fragment() /*, OnArticleListener */ {
             inflater, R.layout.fragment_home, container, false
         )
 
+        binding.lifecycleOwner = viewLifecycleOwner
+        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        snapHorizontal.attachToRecyclerView(binding.recyclerHomeTopArticles)
 
         setOnProfileClicked()
 
         setOnWriteClicked()
 
-        // setRecyclers()
-
-        val pagerAdapter = ViewPagerAdapter(childFragmentManager!!).apply {
-            addFragment(KeyWordFragment(), resources.getString(R.string.HomeTabTitleKeywords))
-            addFragment(ForYouFragment(), resources.getString(R.string.HomeForYou))
-        }
-
-        binding.viewPager.apply {
-            adapter = pagerAdapter
-        }
-
-        binding.homeTabLayout.setupWithViewPager(viewPager)
+        setRecyclers()
 
     }
 
@@ -79,60 +81,77 @@ class HomeFragment : Fragment() /*, OnArticleListener */ {
 
     }
 
-    /* private fun setRecyclers() {
+    private fun setRecyclers() {
 
-         val verticalAdapter = VerticalArticleAdapter(Utils(requireContext()).initArticles(), this)
-         binding.recyclerHomeArticle.apply {
-             adapter = verticalAdapter
-             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-         }
+        observeRecyclersContent()
 
-         val snapHorizontal = GravitySnapHelper(Gravity.CENTER)
-         snapHorizontal.attachToRecyclerView(recyclerHomeTopArticles)
+        homeViewModel.setFeedArticles()
+        homeViewModel.setTopArticles()
 
-         val horizontalAdapter =
-             HorizontalArticleAdapter(Utils(requireContext()).initArticles(), this)
-         binding.recyclerHomeTopArticles.apply {
-             adapter = horizontalAdapter
-             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-         }
-     }
+        feedArticlesAdapter =
+            VerticalArticleAdapter(homeViewModel.feedArticles.value!!, this)
+        topArticlesAdapter =
+            HorizontalArticleAdapter(homeViewModel.topArticles.value!!, this)
 
-     override fun onCardClick(position: Int) {
-         Navigation.findNavController(requireView())
-             .navigate(HomeFragmentDirections.actionHomeFragmentToArticleFragment())
-     }
+    }
 
-     override fun onArticleSaveClick(position: Int) {
-         Navigation.findNavController(requireView())
-             .navigate(HomeFragmentDirections.actionHomeFragmentToTagFragment())
-     }
+    private fun observeRecyclersContent() {
+        homeViewModel.feedArticles.observe(viewLifecycleOwner, Observer {
 
-     override fun onAuthorNameClick(position: Int) {
-         Navigation.findNavController(requireView())
-             .navigate(
-                 HomeFragmentDirections.actionHomeFragmentToProfileFragment(
-                     Utils(
-                         requireContext()
-                     ).user
-                 )
-             )
-     }
+            feedArticlesAdapter.articles = it
 
-     override fun onAuthorIconClick(position: Int) {
-         Navigation.findNavController(requireView())
-             .navigate(
-                 HomeFragmentDirections.actionHomeFragmentToProfileFragment(
-                     Utils(
-                         requireContext()
-                     ).user
-                 )
-             )
-     }
+            binding.recyclerHomeArticle.apply {
+                adapter = feedArticlesAdapter
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            }
+        })
 
-     override fun onArticleTitleClick(position: Int) {
-         Navigation.findNavController(requireView())
-             .navigate(HomeFragmentDirections.actionHomeFragmentToArticleFragment())
-     } */
+        homeViewModel.topArticles.observe(viewLifecycleOwner, Observer {
+
+            topArticlesAdapter.articles = it
+
+            binding.recyclerHomeTopArticles.apply {
+                adapter = topArticlesAdapter
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            }
+        })
+    }
+
+    override fun onCardClick(position: Int) {
+        Navigation.findNavController(requireView())
+            .navigate(HomeFragmentDirections.actionHomeFragmentToArticleFragment())
+    }
+
+    override fun onArticleSaveClick(position: Int) {
+        Navigation.findNavController(requireView())
+            .navigate(HomeFragmentDirections.actionHomeFragmentToTagFragment())
+    }
+
+    override fun onAuthorNameClick(position: Int) {
+        Navigation.findNavController(requireView())
+            .navigate(
+                HomeFragmentDirections.actionHomeFragmentToProfileFragment(
+                    Utils(
+                        requireContext()
+                    ).user
+                )
+            )
+    }
+
+    override fun onAuthorIconClick(position: Int) {
+        Navigation.findNavController(requireView())
+            .navigate(
+                HomeFragmentDirections.actionHomeFragmentToProfileFragment(
+                    Utils(
+                        requireContext()
+                    ).user
+                )
+            )
+    }
+
+    override fun onArticleTitleClick(position: Int) {
+        Navigation.findNavController(requireView())
+            .navigate(HomeFragmentDirections.actionHomeFragmentToArticleFragment())
+    }
 
 }

@@ -11,7 +11,7 @@ import com.example.nattramn.recyclerItemListeners.OnProfileArticleListener
 import java.util.*
 
 class ProfileArticleAdapter(
-    private val profileArticles: ArrayList<Article>,
+    var profileArticles: ArrayList<Article>,
     private val onProfileArticleListener: OnProfileArticleListener
 ) :
     RecyclerView.Adapter<ProfileArticleAdapter.ViewHolder>() {

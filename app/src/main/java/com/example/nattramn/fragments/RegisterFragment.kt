@@ -7,13 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.nattramn.R
 import com.example.nattramn.databinding.FragmentRegisterBinding
+import com.example.nattramn.viewModels.RegisterViewModel
 
 class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
+    private lateinit var registerViewModel: RegisterViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,8 +27,11 @@ class RegisterFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_register, container, false
         )
-        return binding.root
 
+        binding.lifecycleOwner = viewLifecycleOwner
+        registerViewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -103,6 +109,5 @@ class RegisterFragment : Fragment() {
 
         return true
     }
-
 
 }

@@ -27,10 +27,10 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/itemAuthorImage"
+                imageSource="@{article.user.image}"
                 android:layout_width="@dimen/global_item_image_size"
                 android:layout_height="@dimen/global_item_image_size"
                 android:layout_margin="@dimen/margin_normal"
-                imageSource="@{article.user.image}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -69,7 +69,7 @@
                 android:layout_margin="@dimen/margin_normal"
                 android:background="@android:color/transparent"
                 android:contentDescription="@null"
-                android:src="@drawable/ic_bookmark_checked"
+                android:src='@{article.bookmarked ? @drawable/ic_bookmark_checked : @drawable/ic_bookmark}'
                 app:layout_constraintBottom_toBottomOf="@id/itemAuthorImage"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/itemAuthorImage" />
