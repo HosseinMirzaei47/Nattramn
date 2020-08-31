@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.nattramn.fragments.RegisterFragment"
+        android:name="com.example.nattramn.features.user.ui.fragments.RegisterFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/fragment_register">
         <action
@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.nattramn.fragments.LoginFragment"
+        android:name="com.example.nattramn.features.user.ui.fragments.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action
@@ -57,7 +57,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.nattramn.fragments.HomeFragment"
+        android:name="com.example.nattramn.features.home.ui.fragments.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
@@ -92,7 +92,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.nattramn.fragments.ProfileFragment"
+        android:name="com.example.nattramn.features.user.ui.fragments.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile">
         <action
@@ -126,7 +126,7 @@
 
     <fragment
         android:id="@+id/articleFragment"
-        android:name="com.example.nattramn.fragments.ArticleFragment"
+        android:name="com.example.nattramn.features.article.ui.fragments.ArticleFragment"
         android:label="ArticleFragment"
         tools:layout="@layout/fragment_article">
         <action
@@ -163,7 +163,7 @@
 
     <fragment
         android:id="@+id/tagFragment"
-        android:name="com.example.nattramn.fragments.TagFragment"
+        android:name="com.example.nattramn.features.article.ui.fragments.TagFragment"
         android:label="TagFragment"
         tools:layout="@layout/fragment_tag">
         <action
@@ -195,7 +195,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.example.nattramn.fragments.SplashFragment"
+        android:name="com.example.nattramn.features.home.ui.fragments.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash">
         <action
@@ -206,7 +206,7 @@
     </fragment>
     <fragment
         android:id="@+id/writeFragment"
-        android:name="com.example.nattramn.fragments.WriteFragment"
+        android:name="com.example.nattramn.features.article.ui.fragments.WriteFragment"
         android:label="WriteFragment"
         tools:layout="@layout/fragment_write">
         <action
