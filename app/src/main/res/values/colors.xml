@@ -14,5 +14,6 @@
     <color name="textInputIcon">#E4E4E4</color>
     <color name="absoluteBlack">#000</color>
     <color name="transparentSplashBackground">#B38c45cc</color>
+    <color name="writeTagChipBackground">#f2f2f2</color>
 
 </resources>

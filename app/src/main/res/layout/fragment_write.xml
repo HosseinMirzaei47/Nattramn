@@ -157,6 +157,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="24dp"
                     android:background="@drawable/shape_register_button"
+                    android:padding="@dimen/padding_normal"
+                    app:chipBackground="@color/writeTagChipBackground"
+                    app:chipTextColor="@color/whiteBackground"
                     app:layout_constraintBottom_toTopOf="@id/followButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -178,7 +181,6 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-
                     app:layout_constraintVertical_bias="0.0" />
 
 
