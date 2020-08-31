@@ -83,7 +83,7 @@ class HomeFragment : Fragment(), OnArticleListener {
 
     private fun setRecyclers() {
 
-        //observeRecyclersContent()
+        observeRecyclersContent()
 
         homeViewModel.setFeedArticles()
         homeViewModel.setTopArticles()
