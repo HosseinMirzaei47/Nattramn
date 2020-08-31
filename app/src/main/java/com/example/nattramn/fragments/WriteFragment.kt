@@ -11,6 +11,8 @@ import androidx.navigation.Navigation
 import com.example.nattramn.R
 import com.example.nattramn.databinding.FragmentWriteBinding
 import com.example.nattramn.viewModels.WriteViewModel
+import com.hootsuite.nachos.terminator.ChipTerminatorHandler
+import kotlinx.android.synthetic.main.fragment_write.*
 
 class WriteFragment : Fragment() {
 
@@ -35,6 +37,9 @@ class WriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        nacho_tag.addChipTerminator('\n', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_ALL)
+        nacho_tag.addChipTerminator(' ', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_ALL)
 
         setBackButtonClick()
 
