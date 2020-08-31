@@ -151,62 +151,20 @@
                     app:layout_constraintTop_toBottomOf="@id/write_et_description" />
 
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/write_et_tag"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <com.hootsuite.nachos.NachoTextView
+                    android:id="@+id/nacho_tag"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/tag_horizontal_margin"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:layout_marginEnd="@dimen/tag_horizontal_margin"
-                    android:layoutDirection="rtl"
-                    app:boxCornerRadiusBottomEnd="@dimen/radius_normal"
-                    app:boxCornerRadiusBottomStart="@dimen/radius_normal"
-                    app:boxCornerRadiusTopEnd="@dimen/radius_normal"
-                    app:boxCornerRadiusTopStart="@dimen/radius_normal"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/write_add_word">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/chipGroup"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/tag_horizontal_margin"
-                    android:layout_marginTop="@dimen/tag_chips_margin_top"
-                    android:layout_marginEnd="@dimen/tag_horizontal_margin"
+                    android:layout_margin="24dp"
+                    android:background="@drawable/shape_register_button"
+                    android:padding="@dimen/padding_normal"
+                    app:chipBackground="@color/writeTagChipBackground"
+                    app:chipTextColor="@color/whiteBackground"
+                    app:layout_constraintBottom_toTopOf="@id/followButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/write_et_tag">
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip6"
-                        style="@style/Widget.MaterialComponents.Chip.Entry"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/economy" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip7"
-                        style="@style/Widget.MaterialComponents.Chip.Entry"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/stockMarket" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip8"
-                        style="@style/Widget.MaterialComponents.Chip.Entry"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tagShare" />
-                </com.google.android.material.chip.ChipGroup>
+                    app:layout_constraintTop_toBottomOf="@id/write_add_word"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/followButton"
@@ -223,7 +181,6 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/chipGroup"
                     app:layout_constraintVertical_bias="0.0" />
 
 
