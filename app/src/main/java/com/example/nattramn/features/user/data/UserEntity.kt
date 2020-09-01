@@ -22,11 +22,15 @@ data class UserEntity(
     val isMe: Boolean
 ) : Parcelable
 
+/*
+
 @BindingAdapter("imageSource")
 fun setImageUrl(imageView: ImageView, imageSource: String?) {
 
     imageSource?.let {
-        /*val imgUri = it.toUri().buildUpon().scheme("https://ibb.co/19Z3rbG").build()*/
+        */
+/*val imgUri = it.toUri().buildUpon().scheme("https://ibb.co/19Z3rbG").build()*//*
+
         Glide.with(imageView.context)
             .load(imageSource)
             .apply(
@@ -40,4 +44,4 @@ fun setImageUrl(imageView: ImageView, imageSource: String?) {
 @BindingAdapter("textNumber")
 fun setTextNumber(textView: TextView, number: Int) {
     textView.text = number.toString()
-}
+}*/

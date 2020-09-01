@@ -75,7 +75,7 @@ class HomeFragment : Fragment(),
                     HomeFragmentDirections.actionHomeFragmentToProfileFragment(
                         Utils(
                             requireContext()
-                        ).user
+                        ).userView
                     )
                 )
         }
@@ -140,7 +140,7 @@ class HomeFragment : Fragment(),
                 HomeFragmentDirections.actionHomeFragmentToProfileFragment(
                     Utils(
                         requireContext()
-                    ).user
+                    ).userView
                 )
             )
     }
@@ -151,7 +151,7 @@ class HomeFragment : Fragment(),
                 HomeFragmentDirections.actionHomeFragmentToProfileFragment(
                     Utils(
                         requireContext()
-                    ).user
+                    ).userView
                 )
             )
     }

@@ -35,12 +35,12 @@ class ProfileFragment : Fragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val user = args.User
+        val userView = args.UserView
         binding = DataBindingUtil.inflate(
             LayoutInflater.from(context), R.layout.fragment_profile, container, false
         )
 
-        binding.profile = user
+        binding.profile = userView
         binding.lifecycleOwner = viewLifecycleOwner
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
@@ -146,7 +146,7 @@ class ProfileFragment : Fragment(),
                 ProfileFragmentDirections.actionProfileFragmentSelf(
                     Utils(
                         requireContext()
-                    ).user
+                    ).userView
                 )
             )
     }
@@ -157,7 +157,7 @@ class ProfileFragment : Fragment(),
                 ProfileFragmentDirections.actionProfileFragmentSelf(
                     Utils(
                         requireContext()
-                    ).user
+                    ).userView
                 )
             )
     }

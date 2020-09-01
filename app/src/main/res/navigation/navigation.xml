@@ -119,8 +119,8 @@
             app:popEnterAnim="@anim/from_right"
             app:popExitAnim="@anim/to_left" />
         <argument
-            android:name="User"
-            app:argType="com.example.nattramn.models.User"
+            android:name="UserView"
+            app:argType="com.example.nattramn.features.user.ui.UserView"
             app:nullable="false" />
     </fragment>
 

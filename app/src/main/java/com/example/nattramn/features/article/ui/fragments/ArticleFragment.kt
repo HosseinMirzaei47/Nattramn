@@ -159,7 +159,7 @@ class ArticleFragment : Fragment(),
                 ArticleFragmentDirections.actionArticleFragmentToProfileFragment(
                     Utils(
                         requireContext()
-                    ).user
+                    ).userView
                 )
             )
     }
@@ -170,7 +170,7 @@ class ArticleFragment : Fragment(),
                 ArticleFragmentDirections.actionArticleFragmentToProfileFragment(
                     Utils(
                         requireContext()
-                    ).user
+                    ).userView
                 )
             )
     }

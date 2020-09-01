@@ -27,7 +27,7 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/itemArticleAuthorImage"
-                imageSource="@{profileData.user.image}"
+                imageSource="@{profileData.userView.image}"
                 android:layout_width="@dimen/global_item_image_size"
                 android:layout_height="@dimen/global_item_image_size"
                 android:layout_marginStart="@dimen/profile_article_row_horizontal_margin"
@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_micro"
-                android:text="@{profileData.user.name}"
+                android:text="@{profileData.userView.name}"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/itemArticleDate"

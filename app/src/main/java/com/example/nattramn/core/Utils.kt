@@ -4,13 +4,13 @@ import android.content.Context
 import com.example.nattramn.R
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.CommentView
-import com.example.nattramn.models.User
+import com.example.nattramn.features.user.ui.UserView
 
 class Utils(val context: Context) {
 
     private val articles = arrayListOf<ArticleView>()
     private val comments = arrayListOf<CommentView>()
-    val user = User(
+    val userView = UserView(
         "حسین میرزایی",
         "مدرس زبان انگلیسی",
         "https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg",
@@ -27,7 +27,7 @@ class Utils(val context: Context) {
             articles.add(
 
                 ArticleView(
-                    user,
+                    userView,
                     context.getString(R.string.sampleDate),
                     context.getString(R.string.news),
                     context.getString(R.string.news),
@@ -50,21 +50,21 @@ class Utils(val context: Context) {
 
         comments.add(
             CommentView(
-                user,
+                userView,
                 R.drawable.test01,
                 context.getString(R.string.sampleComment)
             )
         )
         comments.add(
             CommentView(
-                user,
+                userView,
                 R.drawable.test02,
                 context.getString(R.string.sampleComment)
             )
         )
         comments.add(
             CommentView(
-                user,
+                userView,
                 R.drawable.test01,
                 context.getString(R.string.sampleComment)
             )

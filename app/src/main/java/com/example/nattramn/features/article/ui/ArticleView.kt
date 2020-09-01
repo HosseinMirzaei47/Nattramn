@@ -1,9 +1,9 @@
 package com.example.nattramn.features.article.ui
 
-import com.example.nattramn.models.User
+import com.example.nattramn.features.user.ui.UserView
 
 data class ArticleView(
-    val user: User,
+    val userView: UserView,
     val date: String,
     val title: String,
     val body: String,

@@ -97,7 +97,7 @@ class TagFragment : Fragment(),
                 TagFragmentDirections.actionTagFragmentToProfileFragment(
                     Utils(
                         requireContext()
-                    ).user
+                    ).userView
                 )
             )
     }
@@ -108,7 +108,7 @@ class TagFragment : Fragment(),
                 TagFragmentDirections.actionTagFragmentToProfileFragment(
                     Utils(
                         requireContext()
-                    ).user
+                    ).userView
                 )
             )
     }
