@@ -7,7 +7,7 @@
 
         <variable
             name="article"
-            type="com.example.nattramn.models.Article" />
+            type="com.example.nattramn.features.article.ui.ArticleView" />
 
     </data>
 
@@ -27,7 +27,7 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/itemAuthorImage"
-                imageSource="@{article.user.image}"
+                imageSource="@{article.userView.image}"
                 android:layout_width="@dimen/global_item_image_size"
                 android:layout_height="@dimen/global_item_image_size"
                 android:layout_margin="@dimen/margin_normal"
@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_micro"
-                android:text="@{article.user.name}"
+                android:text="@{article.userView.name}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_b2"
                 android:textStyle="bold"

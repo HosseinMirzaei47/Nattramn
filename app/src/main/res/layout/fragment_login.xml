@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:background="@color/whiteBackground"
         android:layoutDirection="rtl"
-        tools:context=".fragments.LoginFragment">
+        tools:context=".features.user.ui.fragments.LoginFragment">
 
         <ImageView
             android:id="@+id/partLogo"
