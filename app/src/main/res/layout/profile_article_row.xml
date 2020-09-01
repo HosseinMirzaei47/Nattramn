@@ -6,7 +6,7 @@
 
         <variable
             name="profileData"
-            type="com.example.nattramn.models.Article" />
+            type="com.example.nattramn.features.article.ui.ArticleView" />
 
     </data>
 

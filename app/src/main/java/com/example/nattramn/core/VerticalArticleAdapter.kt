@@ -6,12 +6,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nattramn.R
 import com.example.nattramn.databinding.VerticalArticleRowBinding
+import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.OnArticleListener
-import com.example.nattramn.models.Article
 import java.util.*
 
 class VerticalArticleAdapter(
-    var articles: ArrayList<Article>,
+    var articleViews: ArrayList<ArticleView>,
     private val onArticleListener: OnArticleListener
 ) :
     RecyclerView.Adapter<VerticalArticleAdapter.ViewHolder>() {
@@ -29,11 +29,11 @@ class VerticalArticleAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.binding.article = articles[position]
+        holder.binding.article = articleViews[position]
 
     }
 
-    override fun getItemCount() = articles.size
+    override fun getItemCount() = articleViews.size
 
     inner class ViewHolder(val binding: VerticalArticleRowBinding) :
         RecyclerView.ViewHolder(binding.root) {

@@ -2,14 +2,14 @@ package com.example.nattramn.core
 
 import android.content.Context
 import com.example.nattramn.R
-import com.example.nattramn.models.Article
-import com.example.nattramn.models.Comment
+import com.example.nattramn.features.article.ui.ArticleView
+import com.example.nattramn.features.article.ui.CommentView
 import com.example.nattramn.models.User
 
 class Utils(val context: Context) {
 
-    private val articles = arrayListOf<Article>()
-    private val comments = arrayListOf<Comment>()
+    private val articles = arrayListOf<ArticleView>()
+    private val comments = arrayListOf<CommentView>()
     val user = User(
         "حسین میرزایی",
         "مدرس زبان انگلیسی",
@@ -20,13 +20,13 @@ class Utils(val context: Context) {
         true
     )
 
-    fun initArticles(): ArrayList<Article> {
+    fun initArticles(): ArrayList<ArticleView> {
 
         repeat(10) {
 
             articles.add(
 
-                Article(
+                ArticleView(
                     user,
                     context.getString(R.string.sampleDate),
                     context.getString(R.string.news),
@@ -46,24 +46,24 @@ class Utils(val context: Context) {
 
     }
 
-    fun initComments(): ArrayList<Comment> {
+    fun initComments(): ArrayList<CommentView> {
 
         comments.add(
-            Comment(
+            CommentView(
                 user,
                 R.drawable.test01,
                 context.getString(R.string.sampleComment)
             )
         )
         comments.add(
-            Comment(
+            CommentView(
                 user,
                 R.drawable.test02,
                 context.getString(R.string.sampleComment)
             )
         )
         comments.add(
-            Comment(
+            CommentView(
                 user,
                 R.drawable.test01,
                 context.getString(R.string.sampleComment)

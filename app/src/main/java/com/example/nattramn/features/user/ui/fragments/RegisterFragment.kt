@@ -12,7 +12,6 @@ import androidx.navigation.Navigation
 import com.example.nattramn.R
 import com.example.nattramn.databinding.FragmentRegisterBinding
 import com.example.nattramn.features.user.ui.viewmodels.RegisterViewModel
-import com.example.nattramn.fragments.RegisterFragmentDirections
 
 class RegisterFragment : Fragment() {
 

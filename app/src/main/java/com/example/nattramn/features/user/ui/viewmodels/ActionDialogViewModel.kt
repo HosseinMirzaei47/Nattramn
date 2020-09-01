@@ -1,19 +1,19 @@
 package com.example.nattramn.features.user.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
-import com.example.nattramn.models.Article
+import com.example.nattramn.features.article.ui.ArticleView
 
 class ActionDialogViewModel : ViewModel() {
 
-    fun shareArticle(article: Article) {
+    fun shareArticle(articleView: ArticleView) {
 
     }
 
-    fun editArticle(article: Article) {
+    fun editArticle(articleView: ArticleView) {
 
     }
 
-    fun deleteArticle(article: Article) {
+    fun deleteArticle(articleView: ArticleView) {
 
     }
 

@@ -20,7 +20,6 @@ import com.example.nattramn.features.article.ui.OnCommentListener
 import com.example.nattramn.features.article.ui.adapters.CommentAdapter
 import com.example.nattramn.features.article.ui.adapters.SuggestedArticleAdapter
 import com.example.nattramn.features.article.ui.viewmodels.ArticleViewModel
-import com.example.nattramn.fragments.ArticleFragmentDirections
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import kotlinx.android.synthetic.main.dialog_comment.*
 import kotlinx.android.synthetic.main.fragment_article.*
@@ -131,7 +130,7 @@ class ArticleFragment : Fragment(),
 
         articleViewModel.comments.observe(viewLifecycleOwner, Observer {
 
-            commentAdapter.comments = it
+            commentAdapter.commentViews = it
 
             binding.recyclerArticleComments.apply {
                 adapter = commentAdapter

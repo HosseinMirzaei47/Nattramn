@@ -18,7 +18,6 @@ import com.example.nattramn.core.VerticalArticleAdapter
 import com.example.nattramn.databinding.FragmentHomeBinding
 import com.example.nattramn.features.article.ui.OnArticleListener
 import com.example.nattramn.features.home.ui.viewmodels.HomeViewModel
-import com.example.nattramn.fragments.HomeFragmentDirections
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 
 class HomeFragment : Fragment(),
@@ -106,7 +105,7 @@ class HomeFragment : Fragment(),
     private fun observeRecyclersContent() {
         homeViewModel.feedArticles.observe(viewLifecycleOwner, Observer {
 
-            feedArticlesAdapter.articles = it
+            feedArticlesAdapter.articleViews = it
 
             binding.recyclerHomeArticle.apply {
                 adapter = feedArticlesAdapter
@@ -116,7 +115,7 @@ class HomeFragment : Fragment(),
 
         homeViewModel.topArticles.observe(viewLifecycleOwner, Observer {
 
-            topArticlesAdapter.articles = it
+            topArticlesAdapter.articleViews = it
 
             binding.recyclerHomeTopArticles.apply {
                 adapter = topArticlesAdapter

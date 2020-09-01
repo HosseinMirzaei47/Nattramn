@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.nattramn.R
 import com.example.nattramn.databinding.FragmentSplashBinding
-import com.example.nattramn.fragments.SplashFragmentDirections
 
 class SplashFragment : Fragment() {
 

@@ -17,7 +17,6 @@ import com.example.nattramn.core.VerticalArticleAdapter
 import com.example.nattramn.databinding.FragmentTagBinding
 import com.example.nattramn.features.article.ui.OnArticleListener
 import com.example.nattramn.features.article.ui.viewmodels.TagViewModel
-import com.example.nattramn.fragments.TagFragmentDirections
 
 class TagFragment : Fragment(),
     OnArticleListener {
@@ -67,7 +66,7 @@ class TagFragment : Fragment(),
     private fun observeTagArticles() {
         tagViewModel.tagArticles.observe(viewLifecycleOwner, Observer {
 
-            tagAdapter.articles = it
+            tagAdapter.articleViews = it
 
             binding.recyclerTagArticles.apply {
                 adapter = tagAdapter

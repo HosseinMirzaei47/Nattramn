@@ -7,6 +7,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.nattramn.R
+import com.example.nattramn.features.article.ui.ArticleView
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 
@@ -16,8 +17,8 @@ data class User(
     val job: String,
     val image: String,
     val followers: Int,
-    val favoriteArticles: @RawValue ArrayList<Article>,
-    val publishedArticle: @RawValue ArrayList<Article>,
+    val favoriteArticleViews: @RawValue ArrayList<ArticleView>,
+    val publishedArticleView: @RawValue ArrayList<ArticleView>,
     val isMe: Boolean
 ) : Parcelable
 

@@ -6,7 +6,7 @@
 
         <variable
             name="comment"
-            type="com.example.nattramn.models.Comment" />
+            type="com.example.nattramn.features.article.ui.CommentView" />
 
     </data>
 

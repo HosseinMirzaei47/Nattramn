@@ -12,7 +12,6 @@ import androidx.navigation.Navigation
 import com.example.nattramn.R
 import com.example.nattramn.databinding.FragmentLoginBinding
 import com.example.nattramn.features.user.ui.viewmodels.LoginViewModel
-import com.example.nattramn.fragments.LoginFragmentDirections
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment() {

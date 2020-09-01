@@ -6,12 +6,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nattramn.R
 import com.example.nattramn.databinding.HorizontalArticleRowBinding
+import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.OnArticleListener
-import com.example.nattramn.models.Article
 import java.util.*
 
 class SuggestedArticleAdapter(
-    var suggestions: ArrayList<Article>,
+    var suggestions: ArrayList<ArticleView>,
     private val onArticleListener: OnArticleListener
 ) :
     RecyclerView.Adapter<SuggestedArticleAdapter.ViewHolder>() {

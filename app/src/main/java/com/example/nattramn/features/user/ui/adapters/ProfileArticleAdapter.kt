@@ -6,12 +6,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nattramn.R
 import com.example.nattramn.databinding.ProfileArticleRowBinding
+import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.user.ui.OnProfileArticleListener
-import com.example.nattramn.models.Article
 import java.util.*
 
 class ProfileArticleAdapter(
-    var profileArticles: ArrayList<Article>,
+    var profileArticleViews: ArrayList<ArticleView>,
     private val onProfileArticleListener: OnProfileArticleListener
 ) :
     RecyclerView.Adapter<ProfileArticleAdapter.ViewHolder>() {
@@ -27,11 +27,11 @@ class ProfileArticleAdapter(
 
     }
 
-    override fun getItemCount() = profileArticles.size
+    override fun getItemCount() = profileArticleViews.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.binding.profileData = profileArticles[position]
+        holder.binding.profileData = profileArticleViews[position]
 
     }
 

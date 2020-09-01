@@ -6,11 +6,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nattramn.R
 import com.example.nattramn.databinding.HorizontalArticleRowBinding
+import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.OnArticleListener
-import com.example.nattramn.models.Article
 
 class HorizontalArticleAdapter(
-    var articles: ArrayList<Article>,
+    var articleViews: ArrayList<ArticleView>,
     private val onArticleListener: OnArticleListener
 ) :
     RecyclerView.Adapter<HorizontalArticleAdapter.ViewHolder>() {
@@ -27,10 +27,10 @@ class HorizontalArticleAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.article = articles[position]
+        holder.binding.article = articleViews[position]
     }
 
-    override fun getItemCount() = articles.size
+    override fun getItemCount() = articleViews.size
 
     inner class ViewHolder(val binding: HorizontalArticleRowBinding) :
         RecyclerView.ViewHolder(binding.root) {

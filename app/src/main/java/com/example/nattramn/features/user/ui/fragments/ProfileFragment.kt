@@ -19,8 +19,6 @@ import com.example.nattramn.databinding.FragmentProfileBinding
 import com.example.nattramn.features.user.ui.OnProfileArticleListener
 import com.example.nattramn.features.user.ui.adapters.ProfileArticleAdapter
 import com.example.nattramn.features.user.ui.viewmodels.ProfileViewModel
-import com.example.nattramn.fragments.ProfileFragmentArgs
-import com.example.nattramn.fragments.ProfileFragmentDirections
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_profile.*
 
@@ -107,7 +105,7 @@ class ProfileFragment : Fragment(),
     private fun observeProfileArticles() {
         profileViewModel.profileArticles.observe(viewLifecycleOwner, Observer {
 
-            profileArticleAdapter.profileArticles = it
+            profileArticleAdapter.profileArticleViews = it
 
             binding.recyclerProfileArticles.apply {
                 adapter = profileArticleAdapter
