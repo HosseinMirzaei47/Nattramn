@@ -7,21 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
 import com.example.nattramn.core.HorizontalArticleAdapter
 import com.example.nattramn.core.Utils
 import com.example.nattramn.core.VerticalArticleAdapter
+import com.example.nattramn.core.ViewPagerAdapter
 import com.example.nattramn.databinding.FragmentHomeBinding
-import com.example.nattramn.features.article.ui.OnArticleListener
 import com.example.nattramn.features.home.ui.viewmodels.HomeViewModel
+import com.example.nattramn.fragments.pager.ForYouFragment
+import com.example.nattramn.fragments.pager.KeyWordFragment
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 
-class HomeFragment : Fragment(),
-    OnArticleListener {
+class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeViewModel: HomeViewModel
@@ -48,13 +47,20 @@ class HomeFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        snapHorizontal.attachToRecyclerView(binding.recyclerHomeTopArticles)
+        //snapHorizontal.attachToRecyclerView(binding.recyclerHomeTopArticles)
 
         setOnProfileClicked()
 
         setOnWriteClicked()
 
-        setRecyclers()
+        // setRecyclers()
+
+        val adapter = ViewPagerAdapter(childFragmentManager)
+        adapter.addFragment(ForYouFragment(), resources.getString(R.string.HomeForYou))
+        adapter.addFragment(KeyWordFragment(), resources.getString(R.string.HomeTabTitleKeywords))
+
+        binding.viewPager.adapter = adapter
+        binding.homeTabLayout.setupWithViewPager(binding.viewPager)
 
     }
 
@@ -82,7 +88,7 @@ class HomeFragment : Fragment(),
 
     }
 
-    private fun setRecyclers() {
+    /*private fun setRecyclers() {
 
         observeRecyclersContent()
 
@@ -159,6 +165,6 @@ class HomeFragment : Fragment(),
     override fun onArticleTitleClick(position: Int) {
         Navigation.findNavController(requireView())
             .navigate(HomeFragmentDirections.actionHomeFragmentToArticleFragment())
-    }
+    }*/
 
 }

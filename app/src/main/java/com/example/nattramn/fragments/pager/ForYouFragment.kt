@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
-import com.example.nattramn.Utils
-import com.example.nattramn.adapters.HorizontalArticleAdapter
-import com.example.nattramn.adapters.VerticalArticleAdapter
-import com.example.nattramn.fragments.HomeFragmentDirections
-import com.example.nattramn.recyclerItemListeners.OnArticleListener
+import com.example.nattramn.core.HorizontalArticleAdapter
+import com.example.nattramn.core.Utils
+import com.example.nattramn.core.VerticalArticleAdapter
+import com.example.nattramn.features.article.ui.OnArticleListener
+import com.example.nattramn.features.home.ui.fragments.HomeFragmentDirections
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import kotlinx.android.synthetic.main.fragment_for_you.*
 
@@ -71,7 +71,7 @@ class ForYouFragment : Fragment(), OnArticleListener {
                 HomeFragmentDirections.actionHomeFragmentToProfileFragment(
                     Utils(
                         requireContext()
-                    ).user
+                    ).userView
                 )
             )
     }
@@ -82,7 +82,7 @@ class ForYouFragment : Fragment(), OnArticleListener {
                 HomeFragmentDirections.actionHomeFragmentToProfileFragment(
                     Utils(
                         requireContext()
-                    ).user
+                    ).userView
                 )
             )
     }
