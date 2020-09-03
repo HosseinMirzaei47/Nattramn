@@ -1,7 +1,6 @@
 package com.example.nattramn.features.home.ui.fragments
 
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,24 +9,21 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.nattramn.R
-import com.example.nattramn.core.HorizontalArticleAdapter
 import com.example.nattramn.core.Utils
-import com.example.nattramn.core.VerticalArticleAdapter
 import com.example.nattramn.core.ViewPagerAdapter
 import com.example.nattramn.databinding.FragmentHomeBinding
 import com.example.nattramn.features.home.ui.viewmodels.HomeViewModel
 import com.example.nattramn.fragments.pager.ForYouFragment
 import com.example.nattramn.fragments.pager.KeyWordFragment
-import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeViewModel: HomeViewModel
-    private lateinit var feedArticlesAdapter: VerticalArticleAdapter
-    private lateinit var topArticlesAdapter: HorizontalArticleAdapter
+    //private lateinit var feedArticlesAdapter: VerticalArticleAdapter
+    // private lateinit var topArticlesAdapter: HorizontalArticleAdapter
 
-    private val snapHorizontal = GravitySnapHelper(Gravity.CENTER)
+    //private val snapHorizontal = GravitySnapHelper(Gravity.CENTER)
 
     override fun onCreateView(
         inflater: LayoutInflater,
