@@ -4,18 +4,17 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Relation
-import com.example.nattramn.features.user.data.UserEntity
 
 @Entity(tableName = "articles")
 data class ArticleEntity(
     @PrimaryKey val articleId: Int,
-    val user: UserEntity,
+    val userId: Int,
     val date: String,
     val title: String,
     val body: String,
-    val tags: ArrayList<TagEntity>,
+    /*val tags: ArrayList<TagEntity>,
     val comments: ArrayList<CommentEntity>,
-    val suggestions: ArrayList<SuggestionsEntity>,
+    val suggestions: ArrayList<ArticleEntity>,*/
     val likes: String,
     val commentsNumber: Int,
     val bookmarked: Boolean,
@@ -39,7 +38,3 @@ data class ArticleAndComments(
     )
     val commentEntity: List<CommentEntity>
 )
-
-/*
-data class ArticlesAndTagsAndComments(
-)*/

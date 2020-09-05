@@ -1,15 +1,16 @@
 package com.example.nattramn.core
 
-import androidx.room.*
-import com.example.nattramn.features.article.data.ArticleAndComments
-import com.example.nattramn.features.article.data.ArticleAndTags
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import com.example.nattramn.features.article.data.ArticleEntity
 
 @Dao
 interface ArticleDao {
 
-    @Query("select * from articles")
-    fun getAllArticles(): ArrayList<ArticleEntity>
+    /*@Query("select * from articles")
+    fun getAllArticles(): ArrayList<ArticleEntity>*/
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertArticle(articleEntity: ArticleEntity)
@@ -17,13 +18,13 @@ interface ArticleDao {
     @Delete
     fun deleteArticle(articleEntity: ArticleEntity)
 
-    @Transaction
+    /*@Transaction
     @Query("select * from articles")
-    fun getArticleComments(articleEntity: ArticleEntity): ArrayList<ArticleAndComments>
+    fun getArticleComments(articleEntity: ArticleEntity): List<ArticleAndComments>
 
     @Transaction
     @Query("select * from articles")
-    fun getArticleTags(articleEntity: ArticleEntity): ArrayList<ArticleAndTags>
+    fun getArticleTags(articleEntity: ArticleEntity): List<ArticleAndTags>*/
 
     /*@Transaction
     @Query("select * from articles")

@@ -10,7 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.nattramn.R
+import com.example.nattramn.core.AppDatabase
 import com.example.nattramn.databinding.FragmentLoginBinding
+import com.example.nattramn.features.article.data.ArticleEntity
 import com.example.nattramn.features.user.ui.viewmodels.LoginViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
 
@@ -44,6 +46,13 @@ class LoginFragment : Fragment() {
         showSystemUI()
 
         buttonOnClicks()
+
+        val db = AppDatabase.buildDatabase(requireContext())
+
+
+        db.articleDao()
+            .insertArticle(ArticleEntity(1, 10, "hey", "title", "body", "132", 123, true, 1))
+
 
     }
 

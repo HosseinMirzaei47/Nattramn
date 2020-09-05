@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey
 import androidx.room.Relation
 import com.example.nattramn.features.article.data.ArticleEntity
 import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.RawValue
 
 @Entity(tableName = "users")
 @Parcelize
@@ -17,8 +16,8 @@ data class UserEntity(
     val job: String,
     val image: String,
     val followers: Int,
-    val favoriteArticles: @RawValue ArrayList<ArticleEntity>,
-    val publishedArticle: @RawValue ArrayList<ArticleEntity>,
+    /*val favoriteArticles: @RawValue ArrayList<ArticleEntity>,
+    val publishedArticle: @RawValue ArrayList<ArticleEntity>,*/
     val userOwnerId: Long
 ) : Parcelable
 
