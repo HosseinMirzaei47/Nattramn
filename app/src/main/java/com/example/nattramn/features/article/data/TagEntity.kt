@@ -1,7 +1,10 @@
 package com.example.nattramn.features.article.data
 
+import androidx.room.PrimaryKey
 import java.util.*
 
 data class TagEntity(
-    val arrayList: ArrayList<String>
+    @PrimaryKey val tagId: Int,
+    val arrayList: ArrayList<String>,
+    val tagOwnerArticleId: Long
 )

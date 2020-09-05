@@ -1,5 +1,9 @@
 package com.example.nattramn.features.article.data
 
+import androidx.room.PrimaryKey
+
 data class SuggestionsEntity(
-    val suggestions: ArrayList<ArticleEntity>
+    @PrimaryKey val suggestionId: Int,
+    val suggestions: ArrayList<ArticleEntity>,
+    val suggestedOwnerArticleId: Long
 )
