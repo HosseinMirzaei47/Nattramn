@@ -20,28 +20,25 @@ import com.example.nattramn.features.home.ui.fragments.HomeFragmentDirections
 import com.example.nattramn.features.home.ui.viewmodels.HomeViewModel
 
 class ForYouFragment : Fragment(), OnArticleListener {
+
     private lateinit var binding: FragmentForYouBinding
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var feedArticlesAdapter: VerticalArticleAdapter
     private lateinit var topArticlesAdapter: HorizontalArticleAdapter
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_for_you, container, false
         )
 
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
 
+        return binding.root
 
     }
 
@@ -49,6 +46,7 @@ class ForYouFragment : Fragment(), OnArticleListener {
         super.onViewCreated(view, savedInstanceState)
 
         setRecyclers()
+
     }
 
     private fun setRecyclers() {
