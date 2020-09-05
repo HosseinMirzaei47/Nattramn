@@ -4,10 +4,12 @@ import androidx.room.*
 import com.example.nattramn.features.article.data.ArticleAndComments
 import com.example.nattramn.features.article.data.ArticleAndTags
 import com.example.nattramn.features.article.data.ArticleEntity
-import java.util.*
 
 @Dao
 interface ArticleDao {
+
+    @Query("select * from articles")
+    fun getAllArticles(): ArrayList<ArticleEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertArticle(articleEntity: ArticleEntity)

@@ -6,6 +6,8 @@ import com.example.nattramn.features.article.ui.CommentView
 
 class LocalDataSource(private val application: Application) {
 
+    private val db = AppDatabase.buildDatabase(application)
+
     suspend fun getArticles(): ArrayList<ArticleView> {
         return Utils(application).initArticles()
     }
