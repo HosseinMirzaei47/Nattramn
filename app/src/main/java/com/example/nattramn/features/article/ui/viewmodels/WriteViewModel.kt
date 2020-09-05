@@ -2,7 +2,6 @@ package com.example.nattramn.features.article.ui.viewmodels
 
 import android.nfc.Tag
 import androidx.lifecycle.ViewModel
-import java.util.*
 
 class WriteViewModel : ViewModel() {
 

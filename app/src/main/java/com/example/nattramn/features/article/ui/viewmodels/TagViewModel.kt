@@ -9,7 +9,6 @@ import com.example.nattramn.core.RemoteDataSource
 import com.example.nattramn.features.article.data.ArticleRepository
 import com.example.nattramn.features.article.ui.ArticleView
 import kotlinx.coroutines.launch
-import java.util.*
 
 class TagViewModel(application: Application) : AndroidViewModel(application) {
 

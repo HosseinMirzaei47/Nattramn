@@ -4,7 +4,6 @@ import com.example.nattramn.core.LocalDataSource
 import com.example.nattramn.core.RemoteDataSource
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.CommentView
-import java.util.*
 
 class ArticleRepository(
     private val remoteDataSource: RemoteDataSource,

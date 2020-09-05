@@ -1,10 +1,12 @@
 package com.example.nattramn.features.article.data
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.Relation
 import com.example.nattramn.features.user.data.UserEntity
 
-@Entity
+@Entity(tableName = "articles")
 data class ArticleEntity(
     @PrimaryKey val articleId: Int,
     val user: UserEntity,
@@ -17,5 +19,27 @@ data class ArticleEntity(
     val likes: String,
     val commentsNumber: Int,
     val bookmarked: Boolean,
-    val articleOwnerId: Long
+    val userOwnerId: Long
 )
+
+data class ArticleAndTags(
+    @Embedded val articleEntity: ArticleEntity,
+    @Relation(
+        parentColumn = "articleId",
+        entityColumn = "tagOwnerArticleId"
+    )
+    val tagEntity: List<TagEntity>
+)
+
+data class ArticleAndComments(
+    @Embedded val articleEntity: ArticleEntity,
+    @Relation(
+        parentColumn = "articleId",
+        entityColumn = "commentOwnerArticleId"
+    )
+    val commentEntity: List<CommentEntity>
+)
+
+/*
+data class ArticlesAndTagsAndComments(
+)*/
