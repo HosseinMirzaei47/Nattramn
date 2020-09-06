@@ -22,20 +22,19 @@ data class ArticleEntity(
     val userOwnerId: Long
 )
 
-data class ArticleAndTags(
-    @Embedded val articleEntity: ArticleEntity,
-    @Relation(
-        parentColumn = "articleId",
-        entityColumn = "tagOwnerArticleId"
-    )
-    val tagEntity: List<TagEntity>
-)
+data class ArticleWithCommentsAndTags(
 
-data class ArticleAndComments(
     @Embedded val articleEntity: ArticleEntity,
     @Relation(
         parentColumn = "articleId",
         entityColumn = "commentOwnerArticleId"
     )
-    val commentEntity: List<CommentEntity>
+    val commentEntity: List<CommentEntity>,
+
+    @Relation(
+        parentColumn = "articleId",
+        entityColumn = "tagOwnerArticleId"
+    )
+    val tagEntity: List<TagEntity>
+
 )

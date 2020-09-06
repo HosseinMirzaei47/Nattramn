@@ -22,12 +22,8 @@ interface UserDao {
     @Query("select * from users")
     fun getUsersAndArticles(): LiveData<List<UserAndArticle>>
 
-    /*@Transaction
-    @Query("select * from users")
-    fun getUserWithArticlesAndComments(): LiveData<List<UserWithArticleAndComments>>
-
     @Transaction
     @Query("select * from users")
-    fun getUserWithArticlesAndTags(): LiveData<List<UserWithArticleAndTag>>*/
+    fun getUserWithArticlesAndCommentsAndTags(): List<UserWithArticleAndCommentsAndTags>
 
 }

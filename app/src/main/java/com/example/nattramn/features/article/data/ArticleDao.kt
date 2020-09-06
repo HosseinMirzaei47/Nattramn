@@ -18,14 +18,6 @@ interface ArticleDao {
     @Query("select * from articles order by articleId desc")
     fun getAllArticles(): LiveData<List<ArticleEntity>>
 
-    @Transaction
-    @Query("select * from articles")
-    fun getArticleTags(): LiveData<List<ArticleAndTags>>
-
-    @Transaction
-    @Query("select * from articles")
-    fun getArticleComments(): LiveData<List<ArticleAndComments>>
-
     @Query("select * from articles where title like :title")
     fun getArticle(title: String): LiveData<ArticleEntity>
 

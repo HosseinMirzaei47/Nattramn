@@ -6,6 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 import com.example.nattramn.features.article.data.ArticleEntity
+import com.example.nattramn.features.article.data.ArticleWithCommentsAndTags
 import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = "users")
@@ -35,25 +36,14 @@ data class UserAndArticleCount(
     @Embedded val user: UserEntity
 )
 
-/*
-data class UserWithArticleAndComments(
+data class UserWithArticleAndCommentsAndTags(
 
     @Embedded val userEntity: UserEntity,
     @Relation(
         parentColumn = "userId",
-        entityColumn = "userOwnerId"
+        entityColumn = "userOwnerId",
+        entity = ArticleEntity::class
     )
-    val commentEntity: List<ArticleAndComments>
+    val articleWithCommentsAndTags: List<ArticleWithCommentsAndTags>
 
 )
-
-data class UserWithArticleAndTag(
-
-    @Embedded val userEntity: UserEntity,
-    @Relation(
-        parentColumn = "userId",
-        entityColumn = "userOwnerId"
-    )
-    val commentEntity: List<ArticleAndTags>
-
-)*/
