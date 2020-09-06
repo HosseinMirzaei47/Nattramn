@@ -11,7 +11,8 @@ import com.example.nattramn.features.user.data.UserEntity
 
 @Database(
     entities = [ArticleEntity::class, UserEntity::class, TagEntity::class, CommentEntity::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
 
