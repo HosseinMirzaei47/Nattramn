@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import androidx.room.migration.Migration
 import com.example.nattramn.features.article.data.*
 import com.example.nattramn.features.user.data.UserDao
 import com.example.nattramn.features.user.data.UserEntity
@@ -26,10 +27,14 @@ abstract class AppDatabase : RoomDatabase() {
 
         private const val databaseName = "nattramn-db"
 
-        fun buildDatabase(context: Context): AppDatabase {
+        fun buildDatabase(
+            context: Context,
+            migration: Migration
+        ): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, databaseName)
                 .fallbackToDestructiveMigration()
                 .allowMainThreadQueries()
+                .addMigrations(migration)
                 .build()
         }
 
