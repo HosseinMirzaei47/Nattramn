@@ -25,4 +25,7 @@ interface ArticleDao {
     @Query("select * from articles")
     fun getArticleComments(): List<ArticleAndComments>
 
+    @Query("select * from articles where title like :title")
+    fun getArticle(title: String): ArticleEntity
+
 }

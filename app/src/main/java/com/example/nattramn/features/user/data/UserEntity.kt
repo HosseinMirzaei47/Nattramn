@@ -29,3 +29,8 @@ data class UserAndArticle(
     )
     val articleEntity: List<ArticleEntity>
 )
+
+data class UserAndArticleCount(
+    val count: Int,
+    @Embedded val user: UserEntity
+)

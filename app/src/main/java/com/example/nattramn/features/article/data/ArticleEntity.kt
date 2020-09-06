@@ -38,3 +38,10 @@ data class ArticleAndComments(
     )
     val commentEntity: List<CommentEntity>
 )
+
+/*
+@Entity(primaryKeys = ["commentId", "tagId"])
+data class CommentTagCrossRef(
+    val commentId: Long,
+    val tagId: Long
+)*/
