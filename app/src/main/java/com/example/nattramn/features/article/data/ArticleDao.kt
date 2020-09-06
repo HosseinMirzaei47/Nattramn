@@ -1,5 +1,6 @@
 package com.example.nattramn.features.article.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -15,17 +16,17 @@ interface ArticleDao {
     fun editArticle(articleEntity: ArticleEntity)
 
     @Query("select * from articles order by articleId desc")
-    fun getAllArticles(): List<ArticleEntity>
+    fun getAllArticles(): LiveData<List<ArticleEntity>>
 
     @Transaction
     @Query("select * from articles")
-    fun getArticleTags(): List<ArticleAndTags>
+    fun getArticleTags(): LiveData<List<ArticleAndTags>>
 
     @Transaction
     @Query("select * from articles")
-    fun getArticleComments(): List<ArticleAndComments>
+    fun getArticleComments(): LiveData<List<ArticleAndComments>>
 
     @Query("select * from articles where title like :title")
-    fun getArticle(title: String): ArticleEntity
+    fun getArticle(title: String): LiveData<ArticleEntity>
 
 }

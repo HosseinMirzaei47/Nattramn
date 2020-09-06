@@ -34,3 +34,26 @@ data class UserAndArticleCount(
     val count: Int,
     @Embedded val user: UserEntity
 )
+
+/*
+data class UserWithArticleAndComments(
+
+    @Embedded val userEntity: UserEntity,
+    @Relation(
+        parentColumn = "userId",
+        entityColumn = "userOwnerId"
+    )
+    val commentEntity: List<ArticleAndComments>
+
+)
+
+data class UserWithArticleAndTag(
+
+    @Embedded val userEntity: UserEntity,
+    @Relation(
+        parentColumn = "userId",
+        entityColumn = "userOwnerId"
+    )
+    val commentEntity: List<ArticleAndTags>
+
+)*/

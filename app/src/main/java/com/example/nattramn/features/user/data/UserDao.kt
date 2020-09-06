@@ -1,5 +1,6 @@
 package com.example.nattramn.features.user.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -14,11 +15,19 @@ interface UserDao {
     @Update
     fun editUser(userEntity: UserEntity)
 
+    @Query("select * , count(article.title) as count from articles article join users user on user.userId = article .userId ")
+    fun getUsersWithArticleCount(): LiveData<List<UserAndArticleCount>>
+
     @Transaction
     @Query("select * from users")
-    fun getUsersAndArticles(): List<UserAndArticle>
+    fun getUsersAndArticles(): LiveData<List<UserAndArticle>>
 
-    @Query("select * , count(article.title) as count from articles article join users user on user.userId = article .userId ")
-    fun getUsersWithArticleCount(): List<UserAndArticleCount>
+    /*@Transaction
+    @Query("select * from users")
+    fun getUserWithArticlesAndComments(): LiveData<List<UserWithArticleAndComments>>
+
+    @Transaction
+    @Query("select * from users")
+    fun getUserWithArticlesAndTags(): LiveData<List<UserWithArticleAndTag>>*/
 
 }
