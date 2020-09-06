@@ -17,8 +17,6 @@ data class UserEntity(
     val job: String,
     val image: String,
     val followers: Int,
-    /*val favoriteArticles: @RawValue ArrayList<ArticleEntity>,
-    val publishedArticle: @RawValue ArrayList<ArticleEntity>,*/
     val userOwnerId: Long
 ) : Parcelable
 

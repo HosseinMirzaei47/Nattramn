@@ -1,7 +1,6 @@
 package com.example.nattramn.features.user.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -71,7 +70,8 @@ class LoginFragment : Fragment() {
         db.userDao().addNewUser(UserEntity(1, "Hossein", "Teacher", "URL", 123, 1))
         db.userDao().addNewUser(UserEntity(2, "jalil", "Teacher", "URL", 123, 1))
 
-        Log.i("jalil", db.userDao().getUsersWithArticleCount().toString())
+        db.userDao().deleteUser(UserEntity(1, "Hossein", "Teacher", "URL", 123, 1))
+
     }
 
     private fun buttonOnClicks() {

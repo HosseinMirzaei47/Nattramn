@@ -12,6 +12,9 @@ interface UserDao {
     @Query("select * from users")
     fun getAllUsers(): LiveData<List<UserEntity>>
 
+    @Query("select * from users")
+    fun getAllUsers2(): List<UserEntity>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addNewUser(userEntity: UserEntity)
 
