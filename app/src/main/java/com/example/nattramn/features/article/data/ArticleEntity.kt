@@ -4,12 +4,13 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Relation
+import java.util.*
 
 @Entity(tableName = "articles")
 data class ArticleEntity(
     @PrimaryKey val articleId: Int,
     val userId: Int,
-    val date: String,
+    val date: Date,
     val title: String,
     val body: String,
     /*val tags: ArrayList<TagEntity>,
