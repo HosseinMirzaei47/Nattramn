@@ -4,9 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.nattramn.features.article.data.ArticleEntity
-import com.example.nattramn.features.article.data.CommentEntity
-import com.example.nattramn.features.article.data.TagEntity
+import com.example.nattramn.features.article.data.*
+import com.example.nattramn.features.user.data.UserDao
 import com.example.nattramn.features.user.data.UserEntity
 
 @Database(
@@ -18,6 +17,8 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun articleDao(): ArticleDao
     abstract fun userDao(): UserDao
+    abstract fun commentDao(): CommentDao
+    abstract fun tagDao(): TagDao
 
     companion object {
 

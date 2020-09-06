@@ -1,9 +1,6 @@
-package com.example.nattramn.core
+package com.example.nattramn.features.article.data
 
 import androidx.room.*
-import com.example.nattramn.features.article.data.ArticleAndComments
-import com.example.nattramn.features.article.data.ArticleAndTags
-import com.example.nattramn.features.article.data.ArticleEntity
 
 @Dao
 interface ArticleDao {

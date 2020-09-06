@@ -1,8 +1,6 @@
-package com.example.nattramn.core
+package com.example.nattramn.features.user.data
 
 import androidx.room.*
-import com.example.nattramn.features.user.data.UserAndArticle
-import com.example.nattramn.features.user.data.UserEntity
 
 @Dao
 interface UserDao {
