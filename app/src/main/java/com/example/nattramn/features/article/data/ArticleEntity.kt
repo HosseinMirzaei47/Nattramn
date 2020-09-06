@@ -9,7 +9,6 @@ import java.util.*
 @Entity(tableName = "articles")
 data class ArticleEntity(
     @PrimaryKey val articleId: Int,
-    val userId: Int,
     val date: Date,
     val title: String,
     val body: String,

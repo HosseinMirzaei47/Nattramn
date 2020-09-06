@@ -21,8 +21,8 @@ interface UserDao {
     @Update
     fun editUser(userEntity: UserEntity)
 
-    @Query("select *, count(article.title) as count from users user join articles article on user.userId = article.userId group by user.userId")
-    fun getUsersWithArticleCount(): List<UserEntity>
+    @Query("select *, count(article.title) as count from users user join articles article on user.userId = article.userOwnerId group by user.userId")
+    fun getUsersWithArticleCount(): List<UserAndArticleCount>
 
     /*user.userId, user.name, user.image, user.job, user.followers, user.userOwnerId*/
 

@@ -65,9 +65,9 @@ class LoginFragment : Fragment() {
         db.userDao().clearUserTable()
 
         db.articleDao()
-            .insertArticle(ArticleEntity(1, 1, date, "title", "body", "likes", 123, true, 1))
+            .insertArticle(ArticleEntity(1, date, "title", "body", "likes", 123, true, 1))
         db.articleDao()
-            .insertArticle(ArticleEntity(2, 2, date, "title", "kosmokh", "likes", 123, true, 2))
+            .insertArticle(ArticleEntity(2, date, "title", "kosmokh", "likes", 123, true, 2))
         db.userDao().addNewUser(UserEntity(1, "Hossein", "Teacher", "URL", 123, 1))
         db.userDao().addNewUser(UserEntity(2, "jalil", "Teacher", "URL", 123, 1))
 
