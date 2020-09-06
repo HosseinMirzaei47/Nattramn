@@ -6,6 +6,9 @@ import androidx.room.*
 @Dao
 interface ArticleDao {
 
+    @Query("delete from articles")
+    fun clearArticleTable()
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertArticle(articleEntity: ArticleEntity)
 

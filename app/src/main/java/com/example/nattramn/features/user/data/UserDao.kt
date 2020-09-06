@@ -6,6 +6,12 @@ import androidx.room.*
 @Dao
 interface UserDao {
 
+    @Query("delete from users")
+    fun clearUserTable()
+
+    @Query("select * from users")
+    fun getAllUsers(): LiveData<List<UserEntity>>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addNewUser(userEntity: UserEntity)
 
@@ -15,8 +21,10 @@ interface UserDao {
     @Update
     fun editUser(userEntity: UserEntity)
 
-    @Query("select * , count(article.title) as count from articles article join users user on user.userId = article .userId ")
-    fun getUsersWithArticleCount(): LiveData<List<UserAndArticleCount>>
+    @Query("select *, count(article.title) as count from users user join articles article on user.userId = article.userId group by user.userId")
+    fun getUsersWithArticleCount(): List<UserEntity>
+
+    /*user.userId, user.name, user.image, user.job, user.followers, user.userOwnerId*/
 
     @Transaction
     @Query("select * from users")

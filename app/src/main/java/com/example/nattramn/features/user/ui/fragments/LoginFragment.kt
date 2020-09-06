@@ -1,6 +1,7 @@
 package com.example.nattramn.features.user.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -13,13 +14,17 @@ import com.example.nattramn.R
 import com.example.nattramn.core.AppDatabase
 import com.example.nattramn.core.Utils
 import com.example.nattramn.databinding.FragmentLoginBinding
+import com.example.nattramn.features.article.data.ArticleEntity
+import com.example.nattramn.features.user.data.UserEntity
 import com.example.nattramn.features.user.ui.viewmodels.LoginViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
+import java.util.*
 
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
     private lateinit var loginViewModel: LoginViewModel
+    private var date: Date = Date()
 
     companion object {
         const val minUsernameLength = 7
@@ -47,19 +52,26 @@ class LoginFragment : Fragment() {
 
         buttonOnClicks()
 
-        val db = AppDatabase.buildDatabase(requireContext(), Utils(requireContext()).MIGRATION_1_2)
+        populateDatabase()
 
-        /*
+    }
+
+    private fun populateDatabase() {
+
+        val db =
+            AppDatabase.buildDatabase(requireContext(), Utils(requireContext()).MIGRATION_1_2)
+
+        db.articleDao().clearArticleTable()
+        db.userDao().clearUserTable()
+
         db.articleDao()
-            .insertArticle(ArticleEntity(1, 10, "hey", "title", "body", "132", 123, true, 1))
+            .insertArticle(ArticleEntity(1, 1, date, "title", "body", "likes", 123, true, 1))
+        db.articleDao()
+            .insertArticle(ArticleEntity(2, 2, date, "title", "kosmokh", "likes", 123, true, 2))
+        db.userDao().addNewUser(UserEntity(1, "Hossein", "Teacher", "URL", 123, 1))
+        db.userDao().addNewUser(UserEntity(2, "jalil", "Teacher", "URL", 123, 1))
 
-        db.userDao().addNewUser(UserEntity(10, "Hossein", "Teacher", "URL", 123, 1))
-
-        val list = db.userDao().getUsersAndArticles()
-        if (list.isNotEmpty()) {
-            Log.i("jalil", list.toString())
-        }*/
-
+        Log.i("jalil", db.userDao().getUsersWithArticleCount().toString())
     }
 
     private fun buttonOnClicks() {
