@@ -1,7 +1,6 @@
 package com.example.nattramn.features.user.data
 
 import android.os.Parcelable
-import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Relation
@@ -11,12 +10,10 @@ import kotlinx.android.parcel.Parcelize
 
 @Entity(
     tableName = "users",
-    primaryKeys = ["user_id"]
+    primaryKeys = ["userId"]
 )
 @Parcelize
 data class UserEntity(
-    /*@PrimaryKey val userId: Int,*/
-    @ColumnInfo(name = "user_id")
     val userId: Int = 1,
     val name: String,
     val job: String,
@@ -28,8 +25,8 @@ data class UserEntity(
 data class UserAndArticle(
     @Embedded val userEntity: UserEntity,
     @Relation(
-        parentColumn = "user_id",
-        entityColumn = "owner_id"
+        parentColumn = "userId",
+        entityColumn = "ownerId"
     )
     val articleEntity: List<ArticleEntity>
 )
@@ -43,8 +40,8 @@ data class UserWithArticleAndCommentsAndTags(
 
     @Embedded val userEntity: UserEntity,
     @Relation(
-        parentColumn = "user_id",
-        entityColumn = "owner_id",
+        parentColumn = "userId",
+        entityColumn = "ownerId",
         entity = ArticleEntity::class
     )
     val articleWithCommentsAndTags: List<ArticleWithCommentsAndTags>

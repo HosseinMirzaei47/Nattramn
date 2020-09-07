@@ -73,7 +73,7 @@ class LoginFragment : Fragment() {
         db.articleDao()
             .insertArticle(ArticleEntity(1, date, "title", "body", "likes", 123, true, 1))
         db.articleDao()
-            .insertArticle(ArticleEntity(2, date, "title", "kosmokh", "likes", 123, true, 1))
+            .insertArticle(ArticleEntity(2, date, "title", "body", "likes", 123, true, 1))
 
         /*Observers*/
         db.userDao().getAllUsers().observe(viewLifecycleOwner, androidx.lifecycle.Observer {

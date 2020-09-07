@@ -18,10 +18,10 @@ interface ArticleDao {
     @Update
     fun editArticle(articleEntity: ArticleEntity)
 
-    @Query("select * from articles order by article_id desc")
+    @Query("select * from articles order by articleId desc")
     fun getAllArticles(): LiveData<List<ArticleEntity>>
 
-    @Query("select * from articles order by article_id desc")
+    @Query("select * from articles order by articleId desc")
     fun getAllArticles2(): List<ArticleEntity>
 
     @Query("select * from articles where title like :title")
