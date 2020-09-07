@@ -59,7 +59,6 @@ class LoginFragment : Fragment() {
     private fun populateDatabase() {
 
         db = AppDatabase.buildDatabase(requireContext(), Utils(requireContext()).MIGRATION_1_2)
-
         db.articleDao().clearArticleTable()
         db.userDao().clearUserTable()
 
@@ -69,26 +68,65 @@ class LoginFragment : Fragment() {
         }
 
         /*Initialize Database*/
-        db.userDao().addNewUser(UserEntity(1, "Hossein", "Teacher", "URL", 123, 1))
-        db.articleDao()
-            .insertArticle(ArticleEntity(1, date, "title", "body", "likes", 123, true, 1))
-        db.articleDao()
-            .insertArticle(ArticleEntity(2, date, "title", "body", "likes", 123, true, 1))
+        initDatabase()
+
+        /*Update User*/
+        updateUser()
+
+        /*Search Article*/
+        searchArticleByTitle("title")
+
+        /*Users With Article Count*/
+        getUsersWithArticleCount()
+
+        /*Users With Articles And Tags And Comments*/
+        usersWithAllRelatedData()
 
         /*Observers*/
+        observeData()
+
+    }
+
+    private fun usersWithAllRelatedData() {
+        db.userDao().getUserWithArticlesAndCommentsAndTags()
+            .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                log(it.size.toString())
+            })
+    }
+
+    private fun getUsersWithArticleCount() {
+        db.userDao().getUsersWithArticleCount()
+            .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                log(it[0].user.name)
+                log(it[0].count.toString())
+            })
+    }
+
+    private fun searchArticleByTitle(title: String) {
+        db.articleDao().getArticle(title).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            log("There are ${it.size} articles with that title")
+        })
+    }
+
+    private fun observeData() {
         db.userDao().getAllUsers().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             log("Observer, users size: ${it.size}")
         })
         db.articleDao().getAllArticles().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             log("Observer, articles size: ${it.size}")
         })
-
-        log("Users Before Delete " + db.userDao().getAllUsers2().size.toString())
-
     }
 
-    private fun log(message: String) {
-        Log.i("jalil", message)
+    private fun initDatabase() {
+        db.userDao().addUser(UserEntity(1, "Hossein", "Teacher", "URL", 123, 1))
+        db.articleDao()
+            .addArticle(ArticleEntity(1, date, "title", "body", "likes", 123, true, 1))
+        db.articleDao()
+            .addArticle(ArticleEntity(2, date, "title", "body", "likes", 123, true, 1))
+    }
+
+    private fun updateUser() {
+        db.userDao().editUser(UserEntity(1, "Ghasem", "Teacher", "URL", 123, 1))
     }
 
     private fun buttonOnClicks() {
@@ -144,6 +182,10 @@ class LoginFragment : Fragment() {
 
     private fun showSystemUI() {
         requireActivity().window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
+    }
+
+    private fun log(message: String) {
+        Log.i("jalil", message)
     }
 
 }

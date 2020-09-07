@@ -10,7 +10,7 @@ interface ArticleDao {
     fun clearArticleTable()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertArticle(articleEntity: ArticleEntity)
+    fun addArticle(articleEntity: ArticleEntity)
 
     @Delete
     fun deleteArticle(articleEntity: ArticleEntity)
@@ -21,10 +21,7 @@ interface ArticleDao {
     @Query("select * from articles order by articleId desc")
     fun getAllArticles(): LiveData<List<ArticleEntity>>
 
-    @Query("select * from articles order by articleId desc")
-    fun getAllArticles2(): List<ArticleEntity>
-
     @Query("select * from articles where title like :title")
-    fun getArticle(title: String): LiveData<ArticleEntity>
+    fun getArticle(title: String): LiveData<List<ArticleEntity>>
 
 }

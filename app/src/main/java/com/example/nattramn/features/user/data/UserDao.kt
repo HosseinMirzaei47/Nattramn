@@ -12,11 +12,8 @@ interface UserDao {
     @Query("select * from users")
     fun getAllUsers(): LiveData<List<UserEntity>>
 
-    @Query("select * from users")
-    fun getAllUsers2(): List<UserEntity>
-
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addNewUser(userEntity: UserEntity)
+    fun addUser(userEntity: UserEntity)
 
     @Delete
     fun deleteUser(userEntity: UserEntity)
@@ -25,9 +22,7 @@ interface UserDao {
     fun editUser(userEntity: UserEntity)
 
     @Query("select *, count(article.title) as count from users user join articles article on user.userId = article.ownerId group by user.userId")
-    fun getUsersWithArticleCount(): List<UserAndArticleCount>
-
-    /*user.userId, user.name, user.image, user.job, user.followers, user.userOwnerId*/
+    fun getUsersWithArticleCount(): LiveData<List<UserAndArticleCount>>
 
     @Transaction
     @Query("select * from users")
@@ -35,6 +30,6 @@ interface UserDao {
 
     @Transaction
     @Query("select * from users")
-    fun getUserWithArticlesAndCommentsAndTags(): List<UserWithArticleAndCommentsAndTags>
+    fun getUserWithArticlesAndCommentsAndTags(): LiveData<List<UserWithArticleAndCommentsAndTags>>
 
 }
