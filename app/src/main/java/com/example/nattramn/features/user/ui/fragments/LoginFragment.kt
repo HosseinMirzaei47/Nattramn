@@ -1,6 +1,7 @@
 package com.example.nattramn.features.user.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -16,11 +17,11 @@ import com.example.nattramn.databinding.FragmentLoginBinding
 import com.example.nattramn.features.article.data.ArticleEntity
 import com.example.nattramn.features.user.data.UserEntity
 import com.example.nattramn.features.user.ui.viewmodels.LoginViewModel
-import kotlinx.android.synthetic.main.fragment_login.*
 import java.util.*
 
 class LoginFragment : Fragment() {
 
+    private lateinit var db: AppDatabase
     private lateinit var binding: FragmentLoginBinding
     private lateinit var loginViewModel: LoginViewModel
     private var date: Date = Date()
@@ -57,32 +58,48 @@ class LoginFragment : Fragment() {
 
     private fun populateDatabase() {
 
-        val db =
-            AppDatabase.buildDatabase(requireContext(), Utils(requireContext()).MIGRATION_1_2)
+        db = AppDatabase.buildDatabase(requireContext(), Utils(requireContext()).MIGRATION_1_2)
 
         db.articleDao().clearArticleTable()
         db.userDao().clearUserTable()
 
+        /*Delete User On Button Click*/
+        binding.loginEnterButton.setOnClickListener {
+            db.userDao().deleteUser(UserEntity(1, "Hossein", "Teacher", "URL", 123, 1))
+        }
+
+        /*Initialize Database*/
+        db.userDao().addNewUser(UserEntity(1, "Hossein", "Teacher", "URL", 123, 1))
         db.articleDao()
             .insertArticle(ArticleEntity(1, date, "title", "body", "likes", 123, true, 1))
         db.articleDao()
-            .insertArticle(ArticleEntity(2, date, "title", "kosmokh", "likes", 123, true, 2))
-        db.userDao().addNewUser(UserEntity(1, "Hossein", "Teacher", "URL", 123, 1))
-        db.userDao().addNewUser(UserEntity(2, "jalil", "Teacher", "URL", 123, 1))
+            .insertArticle(ArticleEntity(2, date, "title", "kosmokh", "likes", 123, true, 1))
 
-        db.userDao().deleteUser(UserEntity(1, "Hossein", "Teacher", "URL", 123, 1))
+        /*Observers*/
+        db.userDao().getAllUsers().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            log("Observer, users size: ${it.size}")
+        })
+        db.articleDao().getAllArticles().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            log("Observer, articles size: ${it.size}")
+        })
 
+        log("Users Before Delete " + db.userDao().getAllUsers2().size.toString())
+
+    }
+
+    private fun log(message: String) {
+        Log.i("jalil", message)
     }
 
     private fun buttonOnClicks() {
 
-        binding.loginEnterButton.setOnClickListener { view ->
+        /*binding.loginEnterButton.setOnClickListener { view ->
             if (loginUsername.text.isValidUsername()) {
                 Navigation.findNavController(view)
                     .navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
             }
 
-        }
+        }*/
 
         binding.loginRegisterButton.setOnClickListener { view ->
             Navigation.findNavController(view)
