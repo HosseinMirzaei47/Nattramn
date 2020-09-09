@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -14,7 +13,8 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/whiteGlobalBackground">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/topAppBar"
@@ -56,126 +56,34 @@
 
             </com.google.android.material.appbar.MaterialToolbar>
 
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/homeTabLayout"
+                style="@style/TabTextAppearance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_normal"
+                android:layout_marginTop="@dimen/padding_small"
+                android:layout_marginRight="@dimen/padding_normal"
+                android:layout_marginBottom="@dimen/padding_small"
+                android:background="@android:color/transparent"
+                app:tabBackground="@drawable/tab_layout_selector"
+                app:tabGravity="fill"
+                app:tabIndicatorHeight="@dimen/home_tab_indicator_height"
+                app:tabMaxWidth="@dimen/home_tab_max_width"
+                app:tabMode="fixed"
+                app:tabRippleColor="@null"
+                app:tabSelectedTextColor="@color/colorPrimaryDark">
+
+            </com.google.android.material.tabs.TabLayout>
+
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nestedScrollView"
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/whiteGlobalBackground"
-            android:fillViewport="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/homeTabLayout"
-                    style="@style/TabTextAppearance"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_normal"
-                    android:layout_marginTop="@dimen/home_tab_margin_top"
-                    android:layout_marginEnd="@dimen/margin_normal"
-                    android:background="@drawable/tab_layout_background"
-                    android:layoutDirection="rtl"
-                    app:layout_constraintBottom_toTopOf="@id/textInputSearch"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tabBackground="@drawable/tab_layout_selector"
-                    app:tabGravity="fill"
-                    app:tabIndicatorHeight="@dimen/home_tab_indicator_height"
-                    app:tabMaxWidth="@dimen/home_tab_max_width"
-                    app:tabMode="fixed"
-                    app:tabRippleColor="@null"
-                    app:tabSelectedTextColor="@color/colorPrimaryDark">
-
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/HomeForYou" />
-
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/HomeTabTitleKeywords" />
-
-                </com.google.android.material.tabs.TabLayout>
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputSearch"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_normal"
-                    android:background="@drawable/shape_search_field"
-                    android:drawableStart="@drawable/ic_search"
-                    android:drawablePadding="@dimen/home_search_icon_padding"
-                    android:gravity="start"
-                    android:hint="@string/homeSearchHint"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:padding="@dimen/padding_normal"
-                    android:textSize="@dimen/text_size_b2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/homeTabLayout" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerHomeArticle"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="@dimen/margin_normal"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:layout_marginEnd="@dimen/margin_normal"
-                    android:layout_marginBottom="@dimen/margin_micro"
-                    app:layout_constraintBottom_toTopOf="@+id/topArticlesTextView"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputSearch"
-                    app:layout_constraintVertical_bias="0"
-                    tools:listitem="@layout/vertical_article_row" />
-
-                <TextView
-                    android:id="@+id/topArticlesTextView"
-                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_normal"
-                    android:layout_marginTop="@dimen/margin_ten"
-                    android:layout_marginBottom="@dimen/margin_micro"
-                    android:text="@string/topArticles"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_b1"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/recyclerHomeTopArticles"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerHomeArticle"
-                    app:layout_constraintVertical_bias="1" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerHomeTopArticles"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:layout_marginBottom="@dimen/margin_normal"
-                    android:clipToPadding="false"
-                    android:layoutDirection="rtl"
-                    android:orientation="horizontal"
-                    android:paddingStart="@dimen/padding_large"
-                    android:paddingTop="@dimen/padding_small"
-                    android:paddingEnd="@dimen/padding_very_large"
-                    android:paddingBottom="@dimen/padding_small"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:listitem="@layout/horizontal_article_row" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.core.widget.NestedScrollView>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
