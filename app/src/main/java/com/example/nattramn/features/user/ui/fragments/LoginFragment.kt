@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.nattramn.R
 import com.example.nattramn.core.AppDatabase
+import com.example.nattramn.core.NetworkHelper
 import com.example.nattramn.core.Utils
 import com.example.nattramn.databinding.FragmentLoginBinding
 import com.example.nattramn.features.article.data.ArticleEntity
@@ -50,9 +51,11 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         showSystemUI()
 
+        Log.i("jalil", NetworkHelper.isOnline(requireContext()).toString())
+
         buttonOnClicks()
 
-        populateDatabase()
+        /*populateDatabase()*/
 
     }
 
