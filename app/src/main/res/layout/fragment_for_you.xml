@@ -9,7 +9,7 @@
         android:background="@color/whiteGlobalBackground"
         android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".fragments.pager.ForYouFragment">
+        tools:context=".features.home.ui.fragments.ForYouFragment">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

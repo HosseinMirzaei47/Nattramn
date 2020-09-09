@@ -1,4 +1,4 @@
-package com.example.nattramn.fragments.pager
+package com.example.nattramn.features.home.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
