@@ -11,8 +11,6 @@ import com.example.nattramn.R
 import com.example.nattramn.core.Utils
 import com.example.nattramn.core.ViewPagerAdapter
 import com.example.nattramn.databinding.FragmentHomeBinding
-import com.example.nattramn.fragments.pager.ForYouFragment
-import com.example.nattramn.fragments.pager.KeyWordFragment
 
 class HomeFragment : Fragment() {
 
