@@ -1,6 +1,8 @@
 package com.example.nattramn.core
 
 import android.content.Context
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.nattramn.R
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.CommentView
@@ -19,6 +21,14 @@ class Utils(val context: Context) {
         ArrayList(),
         true
     )
+
+    val MIGRATION_1_2 = object : Migration(2, 3) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL(
+                "alter table users add column testColumn text"
+            )
+        }
+    }
 
     fun initArticles(): ArrayList<ArticleView> {
 

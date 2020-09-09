@@ -10,7 +10,6 @@ import com.example.nattramn.features.article.data.ArticleRepository
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.CommentView
 import kotlinx.coroutines.launch
-import java.util.*
 
 class ArticleViewModel(application: Application) : AndroidViewModel(application) {
 

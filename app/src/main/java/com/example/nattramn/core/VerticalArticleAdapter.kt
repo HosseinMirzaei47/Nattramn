@@ -8,7 +8,6 @@ import com.example.nattramn.R
 import com.example.nattramn.databinding.VerticalArticleRowBinding
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.OnArticleListener
-import java.util.*
 
 class VerticalArticleAdapter(
     var articleViews: ArrayList<ArticleView>,

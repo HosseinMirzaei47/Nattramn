@@ -1,9 +1,13 @@
 package com.example.nattramn.features.article.data
 
-import com.example.nattramn.features.user.data.UserEntity
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity(tableName = "comments")
 data class CommentEntity(
-    val user: UserEntity,
+    @PrimaryKey val commentId: Int,
+    val userId: Int,
     val image: Int,
-    val body: String
+    val body: String,
+    val commentOwnerArticleId: Long
 )
