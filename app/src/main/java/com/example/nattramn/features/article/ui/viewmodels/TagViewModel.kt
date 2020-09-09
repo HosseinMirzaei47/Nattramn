@@ -4,16 +4,13 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.nattramn.core.LocalDataSource
-import com.example.nattramn.core.RemoteDataSource
 import com.example.nattramn.features.article.data.ArticleRepository
 import com.example.nattramn.features.article.ui.ArticleView
 import kotlinx.coroutines.launch
 
 class TagViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val articleRepository =
-        ArticleRepository(RemoteDataSource(), LocalDataSource(application))
+    private val articleRepository = ArticleRepository.getInstance(application)
     var tagArticles = MutableLiveData<ArrayList<ArticleView>>()
 
     fun setTagArticles() {
@@ -25,7 +22,7 @@ class TagViewModel(application: Application) : AndroidViewModel(application) {
         var tagArticles = ArrayList<ArticleView>()
 
         viewModelScope.launch {
-            tagArticles = articleRepository.getArticles()
+            tagArticles = articleRepository.getArticlesLocal()
         }
 
         return tagArticles

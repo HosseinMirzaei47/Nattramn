@@ -84,4 +84,13 @@ class Utils(val context: Context) {
 
     }
 
+    suspend inline fun <T> safeApiCall(responseFunction: () -> T): T? {
+        return try {
+            responseFunction.invoke()//Or responseFunction()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
 }

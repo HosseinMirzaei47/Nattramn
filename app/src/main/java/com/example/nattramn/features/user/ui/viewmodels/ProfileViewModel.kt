@@ -4,16 +4,13 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.nattramn.core.LocalDataSource
-import com.example.nattramn.core.RemoteDataSource
 import com.example.nattramn.features.article.data.ArticleRepository
 import com.example.nattramn.features.article.ui.ArticleView
 import kotlinx.coroutines.launch
 
 class ProfileViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val articleRepository =
-        ArticleRepository(RemoteDataSource(), LocalDataSource(application))
+    private val articleRepository = ArticleRepository.getInstance(application)
     var profileArticles = MutableLiveData<ArrayList<ArticleView>>()
 
     fun setProfileArticles() {
@@ -25,7 +22,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         var profileArticles = ArrayList<ArticleView>()
 
         viewModelScope.launch {
-            profileArticles = articleRepository.getArticles()
+            profileArticles = articleRepository.getArticlesLocal()
         }
 
         return profileArticles

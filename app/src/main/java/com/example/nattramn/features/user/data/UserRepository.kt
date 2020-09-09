@@ -12,8 +12,8 @@ class UserRepository private constructor() {
     companion object {
 
         private const val TAG = "jalil"
-
         private var myInstance: UserRepository? = null
+
         fun getInstance(): UserRepository {
             if (myInstance == null) {
                 synchronized(this) {
@@ -25,10 +25,9 @@ class UserRepository private constructor() {
     }
 
     suspend fun loginUser() {
-
         GlobalScope.launch {
 
-            val result = safeApiCall {
+            val loginResponse = safeApiCall {
                 RestClient.getInstance().getApiService().loginUser(
                     LoginRequest(
                         UserNetwork(
@@ -40,7 +39,7 @@ class UserRepository private constructor() {
                 )
             }
 
-            result?.let { response ->
+            loginResponse?.let { response ->
 
                 withContext(Dispatchers.Main) {
                     Log.i(TAG, response.userNetwork.username.toString())
@@ -53,7 +52,6 @@ class UserRepository private constructor() {
             }
 
         }
-
     }
 
     private suspend inline fun <T> safeApiCall(responseFunction: () -> T): T? {
