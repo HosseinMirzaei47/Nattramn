@@ -47,200 +47,198 @@
                     android:src="@drawable/ic_arrow_right"
                     tools:ignore="ContentDescription" />
 
-
             </com.google.android.material.appbar.MaterialToolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nestedScrollView"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/whiteGlobalBackground"
-            android:fillViewport="true"
-            android:layoutDirection="rtl"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:layoutDirection="rtl">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardProfileInfo"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layoutDirection="rtl">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/profile_card_margin_top"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:background="@color/whiteBackground"
+                android:elevation="@dimen/elevation"
+                android:layoutDirection="rtl"
+                app:cardCornerRadius="@dimen/radius_normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardProfileInfo"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_normal"
-                    android:layout_marginTop="@dimen/profile_card_margin_top"
-                    android:layout_marginEnd="@dimen/margin_normal"
-                    android:background="@color/whiteBackground"
-                    android:elevation="@dimen/elevation"
-                    android:layoutDirection="rtl"
-                    app:cardCornerRadius="@dimen/radius_normal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_height="match_parent"
+                    android:padding="5dp">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="5dp">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profileImageInfo"
+                        imageSource="@{profile.image}"
+                        android:layout_width="@dimen/global_item_image_size"
+                        android:layout_height="@dimen/global_item_image_size"
+                        android:layout_marginStart="@dimen/margin_ten"
+                        android:layout_marginTop="@dimen/margin_ten"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/profileImageInfo"
-                            imageSource="@{profile.image}"
-                            android:layout_width="@dimen/global_item_image_size"
-                            android:layout_height="@dimen/global_item_image_size"
-                            android:layout_marginStart="@dimen/margin_ten"
-                            android:layout_marginTop="@dimen/margin_ten"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/nameInfo"
-                            style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_micro"
-                            android:text="@{profile.name}"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toTopOf="@+id/jobInfo"
-                            app:layout_constraintStart_toEndOf="@+id/profileImageInfo"
-                            app:layout_constraintTop_toTopOf="@+id/profileImageInfo" />
-
-                        <TextView
-                            android:id="@+id/jobInfo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_micro"
-                            android:text="@{profile.job}"
-                            android:textColor="@color/hint"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="@id/profileImageInfo"
-                            app:layout_constraintStart_toEndOf="@+id/profileImageInfo"
-                            app:layout_constraintTop_toBottomOf="@+id/nameInfo" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/followButton"
-                            style="@style/Widget.MaterialComponents.Button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_normal"
-                            android:layout_marginEnd="@dimen/margin_normal"
-                            android:layout_marginBottom="@dimen/margin_ten"
-                            android:backgroundTint="@color/blueFollow"
-                            android:text="@string/follow"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/profileImageInfo" />
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/profileArticleCount"
-                            textNumber="@{profile.publishedArticleView.size()}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_ten"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/text_size_b1"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toTopOf="@+id/profileArticlesText"
-                            app:layout_constraintStart_toStartOf="@id/profileImageInfo"
-                            app:layout_constraintTop_toTopOf="@+id/followButton" />
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/profileArticlesText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/articlesInfo"
-                            android:textColor="@color/hint"
-                            android:textSize="@dimen/text_size_small"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="@id/followButton"
-                            app:layout_constraintEnd_toEndOf="@id/profileArticleCount"
-                            app:layout_constraintStart_toStartOf="@id/profileArticleCount"
-                            app:layout_constraintTop_toBottomOf="@id/profileArticleCount" />
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/followersCount"
-                            textNumber="@{profile.followers}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/profile_followers_margin_start"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/text_size_b1"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toTopOf="@+id/followersText"
-                            app:layout_constraintEnd_toEndOf="@id/followersText"
-                            app:layout_constraintStart_toEndOf="@+id/profileArticleCount"
-                            app:layout_constraintTop_toTopOf="@+id/followButton" />
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/followersText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_ten"
-                            android:text="@string/followers"
-                            android:textColor="@color/hint"
-                            android:textSize="@dimen/text_size_small"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="@id/followButton"
-                            app:layout_constraintStart_toEndOf="@+id/profileArticlesText"
-                            app:layout_constraintTop_toBottomOf="@id/followersCount" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/profileTab"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_normal"
-                    android:layout_marginTop="@dimen/margin_ten"
-                    android:background="@color/whiteGlobalBackground"
-                    app:layout_constraintEnd_toStartOf="@+id/guidelineProfileTab"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardProfileInfo"
-                    app:tabMode="fixed">
-
-                    <com.google.android.material.tabs.TabItem
+                    <TextView
+                        android:id="@+id/nameInfo"
+                        style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/profileArticlesTitle" />
+                        android:layout_marginStart="@dimen/margin_micro"
+                        android:text="@{profile.name}"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/jobInfo"
+                        app:layout_constraintStart_toEndOf="@+id/profileImageInfo"
+                        app:layout_constraintTop_toTopOf="@+id/profileImageInfo" />
 
-                    <com.google.android.material.tabs.TabItem
+                    <TextView
+                        android:id="@+id/jobInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/favorites" />
+                        android:layout_marginStart="@dimen/margin_micro"
+                        android:text="@{profile.job}"
+                        android:textColor="@color/hint"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/profileImageInfo"
+                        app:layout_constraintStart_toEndOf="@+id/profileImageInfo"
+                        app:layout_constraintTop_toBottomOf="@+id/nameInfo" />
 
-                </com.google.android.material.tabs.TabLayout>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/followButton"
+                        style="@style/Widget.MaterialComponents.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_normal"
+                        android:layout_marginEnd="@dimen/margin_normal"
+                        android:layout_marginBottom="@dimen/margin_ten"
+                        android:backgroundTint="@color/blueFollow"
+                        android:text="@string/follow"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/profileImageInfo" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerProfileArticles"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="@dimen/margin_normal"
-                    android:layout_marginTop="@dimen/margin_micro"
-                    android:layout_marginEnd="@dimen/margin_normal"
-                    android:layout_marginBottom="@dimen/margin_normal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/profileTab"
-                    app:layout_constraintVertical_bias="0"
-                    tools:listitem="@layout/profile_article_row" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/profileArticleCount"
+                        textNumber="@{profile.publishedArticleView.size()}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_ten"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_b1"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/profileArticlesText"
+                        app:layout_constraintStart_toStartOf="@id/profileImageInfo"
+                        app:layout_constraintTop_toTopOf="@+id/followButton" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guidelineProfileTab"
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/profileArticlesText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/articlesInfo"
+                        android:textColor="@color/hint"
+                        android:textSize="@dimen/text_size_small"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/followButton"
+                        app:layout_constraintEnd_toEndOf="@id/profileArticleCount"
+                        app:layout_constraintStart_toStartOf="@id/profileArticleCount"
+                        app:layout_constraintTop_toBottomOf="@id/profileArticleCount" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/followersCount"
+                        textNumber="@{profile.followers}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/profile_followers_margin_start"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_b1"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/followersText"
+                        app:layout_constraintEnd_toEndOf="@id/followersText"
+                        app:layout_constraintStart_toEndOf="@+id/profileArticleCount"
+                        app:layout_constraintTop_toTopOf="@+id/followButton" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/followersText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_ten"
+                        android:text="@string/followers"
+                        android:textColor="@color/hint"
+                        android:textSize="@dimen/text_size_small"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/followButton"
+                        app:layout_constraintStart_toEndOf="@+id/profileArticlesText"
+                        app:layout_constraintTop_toBottomOf="@id/followersCount" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/profileTab"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:background="@color/whiteGlobalBackground"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineProfileTab"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardProfileInfo"
+                app:tabMode="fixed">
+
+                <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.55" />
+                    android:text="@string/profileArticlesTitle" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/favorites" />
 
-        </androidx.core.widget.NestedScrollView>
+            </com.google.android.material.tabs.TabLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerProfileArticles"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_micro"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:layout_marginBottom="@dimen/margin_normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileTab"
+                app:layout_constraintVertical_bias="0"
+                tools:listitem="@layout/profile_article_row" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineProfileTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.55" />
+
+            <ProgressBar
+                android:id="@+id/profileProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerProfileArticles" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

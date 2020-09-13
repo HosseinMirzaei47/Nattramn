@@ -21,6 +21,9 @@ import com.example.nattramn.features.user.ui.adapters.ProfileArticleAdapter
 import com.example.nattramn.features.user.ui.viewmodels.ProfileViewModel
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment(),
     OnProfileArticleListener {
@@ -90,28 +93,38 @@ class ProfileFragment : Fragment(),
 
     private fun setRecyclers() {
 
-        observeProfileArticles()
-
-        profileViewModel.setProfileArticles()
-
-        profileArticleAdapter =
-            ProfileArticleAdapter(
-                profileViewModel.profileArticles.value!!,
-                this
-            )
+        CoroutineScope(Dispatchers.Main).launch {
+            setContent()
+        }
+        CoroutineScope(Dispatchers.IO).launch {
+            profileViewModel.setProfileArticles()
+        }
 
     }
 
-    private fun observeProfileArticles() {
+    private fun setContent() {
+        binding.profileProgressBar.visibility = View.VISIBLE
+
         profileViewModel.profileArticles.observe(viewLifecycleOwner, Observer {
 
-            profileArticleAdapter.profileArticleViews = it
+            profileArticleAdapter =
+                ProfileArticleAdapter(
+                    it,
+                    this@ProfileFragment
+                )
 
             binding.recyclerProfileArticles.apply {
                 adapter = profileArticleAdapter
-                layoutManager = LinearLayoutManager(context)
+                layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             }
+
+            binding.profileProgressBar.visibility = View.INVISIBLE
+            binding.profileTab.visibility = View.VISIBLE
+            binding.recyclerProfileArticles.visibility = View.VISIBLE
+
         })
+
     }
 
     private fun setBackButtonClick() {

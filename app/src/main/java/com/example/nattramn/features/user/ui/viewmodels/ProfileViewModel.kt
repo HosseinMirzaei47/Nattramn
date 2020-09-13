@@ -18,18 +18,10 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     var profileArticles = MutableLiveData<ArrayList<ArticleView>>()
 
     fun setProfileArticles() {
-        profileArticles.value = getProfileArticles()
-    }
-
-    private fun getProfileArticles(): ArrayList<ArticleView> {
-
-        var profileArticles = ArrayList<ArticleView>()
 
         viewModelScope.launch {
-            profileArticles = articleRepository.getArticles()
+            profileArticles.value = articleRepository.getArticles()
         }
-
-        return profileArticles
 
     }
 
