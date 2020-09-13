@@ -10,7 +10,7 @@ class RestClient private constructor() {
     companion object {
 
         private const val BASE_URL = "http://192.168.5.69:3000/api/"
-        private lateinit var userApi: UserApi
+        private lateinit var myApis: MyApis
         private var mInstance: RestClient? = null
 
         fun getInstance(): RestClient {
@@ -35,9 +35,9 @@ class RestClient private constructor() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        userApi = retrofit.create(userApi::class.java)
+        myApis = retrofit.create(myApis::class.java)
 
     }
 
-    fun getApiService() = userApi
+    fun getApiService() = myApis
 }

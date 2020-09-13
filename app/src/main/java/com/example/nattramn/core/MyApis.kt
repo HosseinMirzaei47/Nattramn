@@ -7,7 +7,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 
-interface UserApi {
+interface MyApis {
 
     @POST("users/login")
     suspend fun loginUser(@Body loginRequest: LoginRequest): LoginResponse

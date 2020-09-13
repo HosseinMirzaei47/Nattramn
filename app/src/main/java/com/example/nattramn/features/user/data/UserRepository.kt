@@ -24,19 +24,14 @@ class UserRepository private constructor() {
         }
     }
 
-    suspend fun loginUser() {
+    suspend fun loginUser(user: LoginRequest): Boolean {
+
+        var wasSuccessful = false
+
         GlobalScope.launch {
 
             val loginResponse = safeApiCall {
-                RestClient.getInstance().getApiService().loginUser(
-                    LoginRequest(
-                        UserNetwork(
-                            username = "username",
-                            email = "email@sample.com",
-                            password = "password"
-                        )
-                    )
-                )
+                RestClient.getInstance().getApiService().loginUser(user)
             }
 
             loginResponse?.let { response ->
@@ -45,13 +40,19 @@ class UserRepository private constructor() {
                     Log.i(TAG, response.userNetwork.username.toString())
                 }
 
+                wasSuccessful = true
+
             } ?: run {
                 withContext(Dispatchers.Main) {
                     Log.i(TAG, "Process Failed to complete.")
                 }
+
+                wasSuccessful = false
             }
 
         }
+
+        return wasSuccessful
     }
 
     private suspend inline fun <T> safeApiCall(responseFunction: () -> T): T? {

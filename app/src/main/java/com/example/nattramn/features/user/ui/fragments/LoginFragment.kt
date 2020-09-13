@@ -16,8 +16,13 @@ import com.example.nattramn.core.NetworkHelper
 import com.example.nattramn.core.Utils
 import com.example.nattramn.databinding.FragmentLoginBinding
 import com.example.nattramn.features.article.data.ArticleEntity
+import com.example.nattramn.features.user.data.LoginRequest
 import com.example.nattramn.features.user.data.UserEntity
+import com.example.nattramn.features.user.data.UserNetwork
 import com.example.nattramn.features.user.ui.viewmodels.LoginViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 
 class LoginFragment : Fragment() {
@@ -51,12 +56,84 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         showSystemUI()
 
-        Log.i("jalil", NetworkHelper.isOnline(requireContext()).toString())
+        Log.i("jalil", "Has connection => ${NetworkHelper.isOnline(requireContext())}")
 
         buttonOnClicks()
 
-        /*populateDatabase()*/
+    }
 
+    private fun authenticateAndLogin() {
+        CoroutineScope(Dispatchers.Main).launch {
+
+            if (binding.loginUsername.text.isValidUsername() &&
+                NetworkHelper.isOnline(requireContext())
+            ) {
+                val result = loginViewModel.loginUser(
+                    LoginRequest(
+                        UserNetwork(
+                            email = "sample@email.com",
+                            password = "password"
+                        )
+                    )
+                )
+
+                if (result) {
+                    Navigation.findNavController(requireView())
+                        .navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+                } else {
+                    binding.loginUsername.requestFocus()
+                    binding.loginUsername.error = "لطفا دوباره امتحان کنید"
+                }
+            }
+
+        }
+    }
+
+    private fun buttonOnClicks() {
+
+        binding.loginEnterButton.setOnClickListener {
+            authenticateAndLogin()
+        }
+
+        binding.loginRegisterButton.setOnClickListener { view ->
+            Navigation.findNavController(view)
+                .navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
+        }
+
+    }
+
+    private fun CharSequence?.isValidUsername(): Boolean {
+
+        if (this == null) {
+
+            binding.loginUsername.requestFocus()
+            binding.loginUsername.error = getString(R.string.errorEnterUsername)
+            return false
+
+        }
+
+        if (isNullOrEmpty()) {
+
+            binding.loginUsername.requestFocus()
+            binding.loginUsername.error = getString(R.string.errorEnterUsername)
+            return false
+
+        } else if (binding.loginUsername.text!!.length > minUsernameLength
+            && !Patterns.EMAIL_ADDRESS.matcher(this).matches()
+        ) {
+
+            return true
+
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(this).matches()) {
+
+            binding.loginUsername.requestFocus()
+            binding.loginUsername.error = getString(R.string.errorEmailOrUsernameFormat)
+            return false
+
+        }
+
+        binding.loginUsername.error = null
+        return true
     }
 
     private fun populateDatabase() {
@@ -66,9 +143,9 @@ class LoginFragment : Fragment() {
         db.userDao().clearUserTable()
 
         /*Delete User On Button Click*/
-        binding.loginEnterButton.setOnClickListener {
+        /*binding.loginEnterButton.setOnClickListener {
             db.userDao().deleteUser(UserEntity(1, "Hossein", "Teacher", "URL", 123, 1))
-        }
+        }*/
 
         /*Initialize Database*/
         initDatabase()
@@ -130,57 +207,6 @@ class LoginFragment : Fragment() {
 
     private fun updateUser() {
         db.userDao().editUser(UserEntity(1, "Ghasem", "Teacher", "URL", 123, 1))
-    }
-
-    private fun buttonOnClicks() {
-
-        /*binding.loginEnterButton.setOnClickListener { view ->
-            if (loginUsername.text.isValidUsername()) {
-                Navigation.findNavController(view)
-                    .navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
-            }
-
-        }*/
-
-        binding.loginRegisterButton.setOnClickListener { view ->
-            Navigation.findNavController(view)
-                .navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
-        }
-
-    }
-
-    private fun CharSequence?.isValidUsername(): Boolean {
-
-        if (this == null) {
-
-            binding.loginUsername.requestFocus()
-            binding.loginUsername.error = getString(R.string.errorEnterUsername)
-            return false
-
-        }
-
-        if (isNullOrEmpty()) {
-
-            binding.loginUsername.requestFocus()
-            binding.loginUsername.error = getString(R.string.errorEnterUsername)
-            return false
-
-        } else if (binding.loginUsername.text!!.length > minUsernameLength
-            && !Patterns.EMAIL_ADDRESS.matcher(this).matches()
-        ) {
-
-            return true
-
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(this).matches()) {
-
-            binding.loginUsername.requestFocus()
-            binding.loginUsername.error = getString(R.string.errorEmailOrUsernameFormat)
-            return false
-
-        }
-
-        binding.loginUsername.error = null
-        return true
     }
 
     private fun showSystemUI() {
