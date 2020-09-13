@@ -21,9 +21,6 @@ import com.example.nattramn.features.user.ui.adapters.ProfileArticleAdapter
 import com.example.nattramn.features.user.ui.viewmodels.ProfileViewModel
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment(),
     OnProfileArticleListener {
@@ -93,12 +90,8 @@ class ProfileFragment : Fragment(),
 
     private fun setRecyclers() {
 
-        CoroutineScope(Dispatchers.Main).launch {
-            setContent()
-        }
-        CoroutineScope(Dispatchers.IO).launch {
-            profileViewModel.setProfileArticles()
-        }
+        setContent()
+        profileViewModel.setProfileArticles()
 
     }
 

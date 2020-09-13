@@ -8,6 +8,7 @@ import com.example.nattramn.core.LocalDataSource
 import com.example.nattramn.core.RemoteDataSource
 import com.example.nattramn.features.article.data.ArticleRepository
 import com.example.nattramn.features.article.ui.ArticleView
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -18,11 +19,9 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     var profileArticles = MutableLiveData<ArrayList<ArticleView>>()
 
     fun setProfileArticles() {
-
-        viewModelScope.launch {
-            profileArticles.value = articleRepository.getArticles()
+        viewModelScope.launch(Dispatchers.IO) {
+            profileArticles.postValue(articleRepository.getArticles())
         }
-
     }
 
 }

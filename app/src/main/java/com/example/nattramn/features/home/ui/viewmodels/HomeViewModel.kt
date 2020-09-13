@@ -8,6 +8,7 @@ import com.example.nattramn.core.LocalDataSource
 import com.example.nattramn.core.RemoteDataSource
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.home.data.ArticleHomeRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
@@ -18,15 +19,14 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     var topArticles = MutableLiveData<ArrayList<ArticleView>>()
 
     fun setFeedArticles() {
-        viewModelScope.launch {
-            feedArticles.value = articleHomeRepository.getArticles()
+        viewModelScope.launch(Dispatchers.IO) {
+            feedArticles.postValue(articleHomeRepository.getArticles())
         }
     }
 
     fun setTopArticles() {
-
-        viewModelScope.launch {
-            topArticles.value = articleHomeRepository.getArticles()
+        viewModelScope.launch(Dispatchers.IO) {
+            topArticles.postValue(articleHomeRepository.getArticles())
         }
     }
 

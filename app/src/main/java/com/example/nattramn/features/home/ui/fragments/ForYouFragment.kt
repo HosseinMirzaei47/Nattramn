@@ -17,9 +17,6 @@ import com.example.nattramn.core.VerticalArticleAdapter
 import com.example.nattramn.databinding.FragmentForYouBinding
 import com.example.nattramn.features.article.ui.OnArticleListener
 import com.example.nattramn.features.home.ui.viewmodels.HomeViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class ForYouFragment : Fragment(), OnArticleListener {
 
@@ -51,13 +48,9 @@ class ForYouFragment : Fragment(), OnArticleListener {
     }
 
     private fun setRecyclers() {
-        CoroutineScope(Dispatchers.Main).launch {
-            setContent()
-        }
-        CoroutineScope(Dispatchers.IO).launch {
-            homeViewModel.setFeedArticles()
-            homeViewModel.setTopArticles()
-        }
+        setContent()
+        homeViewModel.setFeedArticles()
+        homeViewModel.setTopArticles()
     }
 
     private fun setContent() {
