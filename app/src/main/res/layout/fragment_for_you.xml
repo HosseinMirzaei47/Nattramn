@@ -11,11 +11,9 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".features.home.ui.fragments.ForYouFragment">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputSearch"
@@ -31,6 +29,7 @@
                 android:maxLines="1"
                 android:padding="@dimen/padding_normal"
                 android:textSize="@dimen/text_size_b2"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -86,8 +85,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 tools:listitem="@layout/horizontal_article_row" />
 
+            <ProgressBar
+                android:id="@+id/forYouProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     </androidx.core.widget.NestedScrollView>
+
 </layout>
