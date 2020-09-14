@@ -5,13 +5,17 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.nattramn.R
+import com.example.nattramn.core.resource.Status
 import com.example.nattramn.databinding.FragmentRegisterBinding
+import com.example.nattramn.features.user.data.UserNetwork
+import com.example.nattramn.features.user.data.models.AuthRequest
 import com.example.nattramn.features.user.ui.viewmodels.RegisterViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class RegisterFragment : Fragment() {
 
@@ -24,12 +28,21 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_register, container, false
-        )
-
-        binding.lifecycleOwner = viewLifecycleOwner
         registerViewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
+
+        binding = FragmentRegisterBinding.inflate(
+            inflater, container, false
+        ).apply {
+            lifecycleOwner = viewLifecycleOwner
+            viewModel = registerViewModel
+            registerRequest = AuthRequest(
+                UserNetwork(
+                    email = registerViewModel.email.value,
+                    username = registerViewModel.username.value,
+                    password = registerViewModel.password.value
+                )
+            )
+        }
 
         return binding.root
     }
@@ -37,8 +50,57 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        onRegisterClick()
+
         setOnClicks()
 
+    }
+
+    private fun onRegisterClick() {
+        registerViewModel.registerResult.observe(viewLifecycleOwner, Observer {
+            if (it.status == Status.SUCCESS) {
+
+                Snackbar.make(requireView(), "ثبت نام با موفقیت انجام شد", Snackbar.LENGTH_LONG)
+                    .show()
+
+                Navigation.findNavController(requireView())
+                    .navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
+            } else {
+                Snackbar.make(requireView(), "خطا در ساخت اکانت", Snackbar.LENGTH_LONG)
+                    .show()
+            }
+
+        })
+
+        registerViewModel.username.observe(viewLifecycleOwner, Observer { username ->
+            binding.registerRequest = AuthRequest(
+                UserNetwork(
+                    email = registerViewModel.email.value,
+                    username = username,
+                    password = registerViewModel.password.value
+                )
+            )
+        })
+
+        registerViewModel.email.observe(viewLifecycleOwner, Observer { email ->
+            binding.registerRequest = AuthRequest(
+                UserNetwork(
+                    email = email,
+                    username = registerViewModel.username.value,
+                    password = registerViewModel.password.value
+                )
+            )
+        })
+
+        registerViewModel.password.observe(viewLifecycleOwner, Observer { password ->
+            binding.registerRequest = AuthRequest(
+                UserNetwork(
+                    email = registerViewModel.email.value,
+                    username = registerViewModel.username.value,
+                    password = password
+                )
+            )
+        })
     }
 
     private fun setOnClicks() {
@@ -48,14 +110,14 @@ class RegisterFragment : Fragment() {
                 .navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
         }
 
-        binding.btnMembership.setOnClickListener { view ->
+        /*binding.btnMembership.setOnClickListener { view ->
             if (binding.registerUsername.text.isValidUsername() && binding.registerUsernameConfirm.text.isValidEmail()) {
 
                 Navigation.findNavController(view)
                     .navigate(RegisterFragmentDirections.actionRegisterFragmentToHomerFragment())
 
             }
-        }
+        }*/
 
     }
 

@@ -11,7 +11,7 @@
 
         <variable
             name="loginRequest"
-            type="com.example.nattramn.features.user.data.LoginRequest" />
+            type="com.example.nattramn.features.user.data.models.AuthRequest" />
 
     </data>
 

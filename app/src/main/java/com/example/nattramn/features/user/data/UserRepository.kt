@@ -7,6 +7,8 @@ import com.example.nattramn.core.NetworkHelper
 import com.example.nattramn.core.RemoteDataSource
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
+import com.example.nattramn.features.user.data.models.AuthRequest
+import com.example.nattramn.features.user.data.models.AuthResponse
 
 class UserRepository(
     private val remoteDataSource: RemoteDataSource,
@@ -29,9 +31,9 @@ class UserRepository(
         }
     }
 
-    suspend fun loginUser(context: Context, user: LoginRequest): Resource<LoginResponse> {
+    suspend fun loginUser(context: Context, user: AuthRequest): Resource<AuthResponse> {
 
-        var response: Resource<LoginResponse> = Resource<LoginResponse>(Status.ERROR, null, null)
+        var response: Resource<AuthResponse> = Resource<AuthResponse>(Status.ERROR, null, null)
 
         if (NetworkHelper.isOnline(context)) {
             response = remoteDataSource.login(user)
@@ -44,6 +46,16 @@ class UserRepository(
                     )
                 localDataSource.saveToken(token)
             }
+        }
+
+        return response
+    }
+
+    suspend fun registerUser(context: Context, user: AuthRequest): Resource<AuthResponse> {
+        var response: Resource<AuthResponse> = Resource<AuthResponse>(Status.ERROR, null, null)
+
+        if (NetworkHelper.isOnline(context)) {
+            response = remoteDataSource.register(user)
         }
 
         return response

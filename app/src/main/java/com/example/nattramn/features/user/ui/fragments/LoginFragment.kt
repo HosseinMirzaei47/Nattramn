@@ -12,8 +12,8 @@ import androidx.navigation.Navigation
 import com.example.nattramn.R
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.databinding.FragmentLoginBinding
-import com.example.nattramn.features.user.data.LoginRequest
 import com.example.nattramn.features.user.data.UserNetwork
+import com.example.nattramn.features.user.data.models.AuthRequest
 import com.example.nattramn.features.user.ui.viewmodels.LoginViewModel
 
 class LoginFragment : Fragment() {
@@ -38,7 +38,7 @@ class LoginFragment : Fragment() {
         ).apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = loginViewModel
-            loginRequest = LoginRequest(
+            loginRequest = AuthRequest(
                 UserNetwork(
                     email = loginViewModel.email.value,
                     password = loginViewModel.password.value
@@ -65,15 +65,13 @@ class LoginFragment : Fragment() {
             if (it.status == Status.SUCCESS) {
                 Navigation.findNavController(requireView())
                     .navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
-            } else {
-                println("jalil authentication failed")
             }
         })
 
         loginViewModel.email.observe(
             viewLifecycleOwner,
             Observer { username ->
-                binding.loginRequest = LoginRequest(
+                binding.loginRequest = AuthRequest(
                     UserNetwork(
                         email = username,
                         password = loginViewModel.password.value
@@ -84,7 +82,7 @@ class LoginFragment : Fragment() {
         loginViewModel.password.observe(
             viewLifecycleOwner,
             Observer { password ->
-                binding.loginRequest = LoginRequest(
+                binding.loginRequest = AuthRequest(
                     UserNetwork(
                         email = loginViewModel.email.value,
                         password = password
