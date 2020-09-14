@@ -3,8 +3,9 @@ package com.example.nattramn.features.article.data
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.example.nattramn.core.LocalDataSource
+import com.example.nattramn.core.MyApis
 import com.example.nattramn.core.RemoteDataSource
-import com.example.nattramn.core.RestClient
+import com.example.nattramn.core.ServiceBuilder
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.CommentView
 import kotlinx.coroutines.GlobalScope
@@ -47,7 +48,7 @@ class ArticleRepository(
             GlobalScope.launch {
 
                 val getArticlesResponse = safeApiCall {
-                    RestClient.getInstance().getApiService().getArticles()
+                    ServiceBuilder.buildService(MyApis::class.java).getArticles()
                 }
                 allArticlesRemote.postValue(getArticlesResponse)
 

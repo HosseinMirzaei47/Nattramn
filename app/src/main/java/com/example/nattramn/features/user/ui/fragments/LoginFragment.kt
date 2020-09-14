@@ -1,36 +1,25 @@
 package com.example.nattramn.features.user.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.nattramn.R
-import com.example.nattramn.core.AppDatabase
-import com.example.nattramn.core.NetworkHelper
-import com.example.nattramn.core.Utils
+import com.example.nattramn.core.resource.Status
 import com.example.nattramn.databinding.FragmentLoginBinding
-import com.example.nattramn.features.article.data.ArticleEntity
 import com.example.nattramn.features.user.data.LoginRequest
-import com.example.nattramn.features.user.data.UserEntity
 import com.example.nattramn.features.user.data.UserNetwork
 import com.example.nattramn.features.user.ui.viewmodels.LoginViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.util.*
 
 class LoginFragment : Fragment() {
 
-    private lateinit var db: AppDatabase
     private lateinit var binding: FragmentLoginBinding
     private lateinit var loginViewModel: LoginViewModel
-    private var date: Date = Date()
 
     companion object {
         const val minUsernameLength = 7
@@ -42,12 +31,20 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_login, container, false
-        )
-
-        binding.lifecycleOwner = viewLifecycleOwner
         loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+
+        binding = FragmentLoginBinding.inflate(
+            inflater, container, false
+        ).apply {
+            lifecycleOwner = viewLifecycleOwner
+            viewModel = loginViewModel
+            loginRequest = LoginRequest(
+                UserNetwork(
+                    email = loginViewModel.email.value,
+                    password = loginViewModel.password.value
+                )
+            )
+        }
 
         return binding.root
     }
@@ -56,44 +53,47 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         showSystemUI()
 
-        Log.i("jalil", "Has connection => ${NetworkHelper.isOnline(requireContext())}")
+        onEnterClick()
 
-        buttonOnClicks()
+        onRegisterClick()
 
     }
 
-    private fun authenticateAndLogin() {
-        CoroutineScope(Dispatchers.Main).launch {
+    private fun onEnterClick() {
 
-            if (binding.loginUsername.text.isValidUsername() &&
-                NetworkHelper.isOnline(requireContext())
-            ) {
-                val result = loginViewModel.loginUser(
-                    LoginRequest(
-                        UserNetwork(
-                            email = "sample@email.com",
-                            password = "password"
-                        )
+        loginViewModel.loginResult.observe(viewLifecycleOwner, Observer {
+            if (it.status == Status.SUCCESS) {
+                Navigation.findNavController(requireView())
+                    .navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+            } else {
+                println("jalil authentication failed")
+            }
+        })
+
+        loginViewModel.email.observe(
+            viewLifecycleOwner,
+            Observer { username ->
+                binding.loginRequest = LoginRequest(
+                    UserNetwork(
+                        email = username,
+                        password = loginViewModel.password.value
                     )
                 )
+            })
 
-                if (result) {
-                    Navigation.findNavController(requireView())
-                        .navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
-                } else {
-                    binding.loginUsername.requestFocus()
-                    binding.loginUsername.error = "لطفا دوباره امتحان کنید"
-                }
-            }
-
-        }
+        loginViewModel.password.observe(
+            viewLifecycleOwner,
+            Observer { password ->
+                binding.loginRequest = LoginRequest(
+                    UserNetwork(
+                        email = loginViewModel.email.value,
+                        password = password
+                    )
+                )
+            })
     }
 
-    private fun buttonOnClicks() {
-
-        binding.loginEnterButton.setOnClickListener {
-            authenticateAndLogin()
-        }
+    private fun onRegisterClick() {
 
         binding.loginRegisterButton.setOnClickListener { view ->
             Navigation.findNavController(view)
@@ -136,85 +136,8 @@ class LoginFragment : Fragment() {
         return true
     }
 
-    private fun populateDatabase() {
-
-        db = AppDatabase.buildDatabase(requireContext(), Utils(requireContext()).MIGRATION_1_2)
-        db.articleDao().clearArticleTable()
-        db.userDao().clearUserTable()
-
-        /*Delete User On Button Click*/
-        /*binding.loginEnterButton.setOnClickListener {
-            db.userDao().deleteUser(UserEntity(1, "Hossein", "Teacher", "URL", 123, 1))
-        }*/
-
-        /*Initialize Database*/
-        initDatabase()
-
-        /*Update User*/
-        updateUser()
-
-        /*Search Article*/
-        searchArticleByTitle("title")
-
-        /*Users With Article Count*/
-        getUsersWithArticleCount()
-
-        /*Users With Articles And Tags And Comments*/
-        usersWithAllRelatedData()
-
-        /*Observers*/
-        observeData()
-
-    }
-
-    private fun usersWithAllRelatedData() {
-        db.userDao().getUserWithArticlesAndCommentsAndTags()
-            .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-                log(it.size.toString())
-            })
-    }
-
-    private fun getUsersWithArticleCount() {
-        db.userDao().getUsersWithArticleCount()
-            .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-                log(it[0].user.name)
-                log(it[0].count.toString())
-            })
-    }
-
-    private fun searchArticleByTitle(title: String) {
-        db.articleDao().getArticle(title).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            log("There are ${it.size} articles with that title")
-        })
-    }
-
-    private fun observeData() {
-        db.userDao().getAllUsers().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            log("Observer, users size: ${it.size}")
-        })
-        db.articleDao().getAllArticles().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            log("Observer, articles size: ${it.size}")
-        })
-    }
-
-    private fun initDatabase() {
-        db.userDao().addUser(UserEntity(1, "Hossein", "Teacher", "URL", 123, 1))
-        db.articleDao()
-            .addArticle(ArticleEntity(1, date, "title", "body", "likes", 123, true, 1))
-        db.articleDao()
-            .addArticle(ArticleEntity(2, date, "title", "body", "likes", 123, true, 1))
-    }
-
-    private fun updateUser() {
-        db.userDao().editUser(UserEntity(1, "Ghasem", "Teacher", "URL", 123, 1))
-    }
-
     private fun showSystemUI() {
         requireActivity().window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
-    }
-
-    private fun log(message: String) {
-        Log.i("jalil", message)
     }
 
 }

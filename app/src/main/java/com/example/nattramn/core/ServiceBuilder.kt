@@ -3,8 +3,24 @@ package com.example.nattramn.core
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 
+object ServiceBuilder {
+
+    private val client = OkHttpClient.Builder()
+        .build()
+
+    private val retrofit = Retrofit.Builder()
+        .baseUrl("http://192.168.5.69:3000/api/")
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    fun <T> buildService(service: Class<T>): T {
+        return retrofit.create(service)
+    }
+}
+
+/*
 class RestClient private constructor() {
 
     companion object {
@@ -26,12 +42,12 @@ class RestClient private constructor() {
 
     init {
 
-        val okHttpClient = OkHttpClient().newBuilder().connectTimeout(15, TimeUnit.SECONDS)
-            .readTimeout(15, TimeUnit.SECONDS)
+        val client = OkHttpClient.Builder()
             .build()
 
-        val retrofit = Retrofit.Builder().baseUrl(BASE_URL)
-            .client(okHttpClient)
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -40,4 +56,4 @@ class RestClient private constructor() {
     }
 
     fun getApiService() = myApis
-}
+}*/

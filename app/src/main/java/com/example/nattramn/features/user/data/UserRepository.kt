@@ -1,66 +1,52 @@
 package com.example.nattramn.features.user.data
 
-import android.util.Log
-import com.example.nattramn.core.RestClient
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import android.app.Application
+import android.content.Context
+import com.example.nattramn.core.LocalDataSource
+import com.example.nattramn.core.NetworkHelper
+import com.example.nattramn.core.RemoteDataSource
+import com.example.nattramn.core.resource.Resource
+import com.example.nattramn.core.resource.Status
 
-class UserRepository private constructor() {
+class UserRepository(
+    private val remoteDataSource: RemoteDataSource,
+    private var localDataSource: LocalDataSource
+) {
 
     companion object {
 
-        private const val TAG = "jalil"
         private var myInstance: UserRepository? = null
-
-        fun getInstance(): UserRepository {
+        fun getInstance(application: Application): UserRepository {
             if (myInstance == null) {
                 synchronized(this) {
-                    myInstance = UserRepository()
+                    myInstance = UserRepository(
+                        RemoteDataSource(),
+                        LocalDataSource(application)
+                    )
                 }
             }
             return myInstance!!
         }
     }
 
-    suspend fun loginUser(user: LoginRequest): Boolean {
+    suspend fun loginUser(context: Context, user: LoginRequest): Resource<LoginResponse> {
 
-        var wasSuccessful = false
+        var response: Resource<LoginResponse> = Resource<LoginResponse>(Status.ERROR, null, null)
 
-        GlobalScope.launch {
+        if (NetworkHelper.isOnline(context)) {
+            response = remoteDataSource.login(user)
 
-            val loginResponse = safeApiCall {
-                RestClient.getInstance().getApiService().loginUser(user)
+            if (response.status == Status.SUCCESS) {
+                val token =
+                    response.data?.userNetwork?.token ?: return Resource.error(
+                        "Invalid token",
+                        response.data
+                    )
+                localDataSource.saveToken(token)
             }
-
-            loginResponse?.let { response ->
-
-                withContext(Dispatchers.Main) {
-                    Log.i(TAG, response.userNetwork.username.toString())
-                }
-
-                wasSuccessful = true
-
-            } ?: run {
-                withContext(Dispatchers.Main) {
-                    Log.i(TAG, "Process Failed to complete.")
-                }
-
-                wasSuccessful = false
-            }
-
         }
 
-        return wasSuccessful
+        return response
     }
 
-    private suspend inline fun <T> safeApiCall(responseFunction: () -> T): T? {
-        return try {
-            responseFunction.invoke()//Or responseFunction()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
-        }
-    }
 }
