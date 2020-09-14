@@ -20,7 +20,6 @@
         <action
             android:id="@+id/action_registerFragment_to_homerFragment"
             app:destination="@id/homeFragment"
-
             app:popUpTo="@id/registerFragment"
             app:popUpToInclusive="true" />
 

@@ -22,7 +22,7 @@ class TagViewModel(application: Application) : AndroidViewModel(application) {
         var tagArticles = ArrayList<ArticleView>()
 
         viewModelScope.launch {
-            tagArticles = articleRepository.getArticlesLocal()
+            tagArticles = articleRepository.getArticles()
         }
 
         return tagArticles

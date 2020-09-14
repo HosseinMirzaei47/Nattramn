@@ -8,7 +8,6 @@ import com.example.nattramn.features.article.ui.CommentView
 
 class LocalDataSource(private val application: Application) {
 
-    private val db = AppDatabase.buildDatabase(application, Utils(application).MIGRATION_1_2)
     private val settings = Settings(application.getPreferences())
 
     fun saveToken(token: String) {
