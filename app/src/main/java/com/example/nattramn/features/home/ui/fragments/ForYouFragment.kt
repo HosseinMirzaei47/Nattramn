@@ -16,7 +16,6 @@ import com.example.nattramn.core.Utils
 import com.example.nattramn.core.VerticalArticleAdapter
 import com.example.nattramn.databinding.FragmentForYouBinding
 import com.example.nattramn.features.article.ui.OnArticleListener
-import com.example.nattramn.features.home.ui.fragments.HomeFragmentDirections
 import com.example.nattramn.features.home.ui.viewmodels.HomeViewModel
 
 class ForYouFragment : Fragment(), OnArticleListener {
@@ -46,47 +45,47 @@ class ForYouFragment : Fragment(), OnArticleListener {
         super.onViewCreated(view, savedInstanceState)
 
         setRecyclers()
-
     }
 
     private fun setRecyclers() {
-
-        observeRecyclersContent()
-
+        setContent()
         homeViewModel.setFeedArticles()
         homeViewModel.setTopArticles()
-
-        feedArticlesAdapter =
-            VerticalArticleAdapter(
-                homeViewModel.feedArticles.value!!,
-                this
-            )
-        topArticlesAdapter =
-            HorizontalArticleAdapter(
-                homeViewModel.topArticles.value!!,
-                this
-            )
-
     }
 
-    private fun observeRecyclersContent() {
+    private fun setContent() {
+        binding.forYouProgress.visibility = View.VISIBLE
+
         homeViewModel.feedArticles.observe(viewLifecycleOwner, Observer {
 
-            feedArticlesAdapter.articleViews = it
+            feedArticlesAdapter =
+                VerticalArticleAdapter(
+                    it,
+                    this@ForYouFragment
+                )
 
             binding.recyclerHomeArticle.apply {
                 adapter = feedArticlesAdapter
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             }
+
+            binding.forYouProgress.visibility = View.INVISIBLE
+            binding.textInputSearch.visibility = View.VISIBLE
+
         })
 
         homeViewModel.topArticles.observe(viewLifecycleOwner, Observer {
-
-            topArticlesAdapter.articleViews = it
+            topArticlesAdapter =
+                HorizontalArticleAdapter(
+                    it,
+                    this@ForYouFragment
+                )
 
             binding.recyclerHomeTopArticles.apply {
                 adapter = topArticlesAdapter
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             }
         })
     }

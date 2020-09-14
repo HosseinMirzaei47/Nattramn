@@ -90,28 +90,34 @@ class ProfileFragment : Fragment(),
 
     private fun setRecyclers() {
 
-        observeProfileArticles()
-
+        setContent()
         profileViewModel.setProfileArticles()
-
-        profileArticleAdapter =
-            ProfileArticleAdapter(
-                profileViewModel.profileArticles.value!!,
-                this
-            )
 
     }
 
-    private fun observeProfileArticles() {
+    private fun setContent() {
+        binding.profileProgressBar.visibility = View.VISIBLE
+
         profileViewModel.profileArticles.observe(viewLifecycleOwner, Observer {
 
-            profileArticleAdapter.profileArticleViews = it
+            profileArticleAdapter =
+                ProfileArticleAdapter(
+                    it,
+                    this@ProfileFragment
+                )
 
             binding.recyclerProfileArticles.apply {
                 adapter = profileArticleAdapter
-                layoutManager = LinearLayoutManager(context)
+                layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             }
+
+            binding.profileProgressBar.visibility = View.INVISIBLE
+            binding.profileTab.visibility = View.VISIBLE
+            binding.recyclerProfileArticles.visibility = View.VISIBLE
+
         })
+
     }
 
     private fun setBackButtonClick() {
