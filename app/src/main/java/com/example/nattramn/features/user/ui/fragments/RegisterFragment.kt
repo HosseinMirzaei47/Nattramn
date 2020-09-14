@@ -62,14 +62,14 @@ class RegisterFragment : Fragment() {
 
                 Snackbar.make(requireView(), "ثبت نام با موفقیت انجام شد", Snackbar.LENGTH_LONG)
                     .show()
-
                 Navigation.findNavController(requireView())
                     .navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
+            } else if (it.status == Status.ERROR) {
+
             } else {
                 Snackbar.make(requireView(), "خطا در ساخت اکانت", Snackbar.LENGTH_LONG)
                     .show()
             }
-
         })
 
         registerViewModel.username.observe(viewLifecycleOwner, Observer { username ->

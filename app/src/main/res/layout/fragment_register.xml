@@ -224,7 +224,7 @@
             android:layout_marginTop="@dimen/register_join_button_margin_top"
             android:layout_marginEnd="@dimen/register_horizontal_margin"
             android:ems="10"
-            android:onClick="@{()->viewModel.registerUser(registerRequest)}"
+            android:onClick="@{()->viewModel.registerUser(viewModel.username, viewModel.email, viewModel.password)}"
             android:padding="@dimen/padding_large"
             android:text="@string/membership"
             android:textColor="@color/whiteBackground"
