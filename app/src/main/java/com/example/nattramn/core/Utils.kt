@@ -17,8 +17,6 @@ class Utils(val context: Context) {
         "مدرس زبان انگلیسی",
         "https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg",
         145,
-        ArrayList(),
-        ArrayList(),
         true
     )
 
@@ -43,7 +41,6 @@ class Utils(val context: Context) {
                     context.getString(R.string.news),
                     ArrayList(),
                     ArrayList(),
-                    ArrayList(),
                     "2.5k",
                     50,
                     true
@@ -60,22 +57,22 @@ class Utils(val context: Context) {
 
         comments.add(
             CommentView(
-                userView,
-                R.drawable.test01,
+                userView.name,
+                userView.image,
                 context.getString(R.string.sampleComment)
             )
         )
         comments.add(
             CommentView(
-                userView,
-                R.drawable.test02,
+                userView.name,
+                userView.image,
                 context.getString(R.string.sampleComment)
             )
         )
         comments.add(
             CommentView(
-                userView,
-                R.drawable.test01,
+                userView.name,
+                userView.image,
                 context.getString(R.string.sampleComment)
             )
         )

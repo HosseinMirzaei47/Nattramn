@@ -28,14 +28,21 @@ class ArticleHomeRepository(
         }
     }
 
-    suspend fun getFeedArticles(): Resource<FeedResponse> {
-        var response: Resource<FeedResponse> = Resource<FeedResponse>(Status.ERROR, null, null)
+    suspend fun getFeedArticles(): Resource<List<ArticleView>> {
+        var responseArticles: Resource<List<ArticleView>> =
+            Resource<List<ArticleView>>(Status.ERROR, null, null)
 
         if (NetworkHelper.isOnline(MyApp.app)) {
-            response = homeRemoteDataSource.getFeedArticles()
+            val feedArticles = homeRemoteDataSource.getFeedArticles()
+            if (feedArticles.status == Status.SUCCESS) {
+                val articleViews = feedArticles.data?.articleNetworks?.map {
+                    it.toArticleView(Resource.success(null))
+                }
+                responseArticles = Resource.success(articleViews)
+            }
         }
 
-        return response
+        return responseArticles
     }
 
     suspend fun getArticles(): ArrayList<ArticleView> {

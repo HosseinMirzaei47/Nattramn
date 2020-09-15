@@ -1,9 +1,7 @@
 package com.example.nattramn.features.user.ui
 
 import android.os.Parcelable
-import com.example.nattramn.features.article.ui.ArticleView
 import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.RawValue
 
 @Parcelize
 data class UserView(
@@ -11,7 +9,5 @@ data class UserView(
     val job: String,
     val image: String,
     val followers: Int,
-    val favoriteArticleViews: @RawValue ArrayList<ArticleView>,
-    val publishedArticleView: @RawValue ArrayList<ArticleView>,
     val isMe: Boolean
 ) : Parcelable

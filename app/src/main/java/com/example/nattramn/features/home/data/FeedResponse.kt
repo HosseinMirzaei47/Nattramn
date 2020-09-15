@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class FeedResponse(
     @SerializedName("articles")
-    val articles: List<Article>,
+    val articleNetworks: List<ArticleNetwork>,
     @SerializedName("articlesCount")
     val articlesCount: Int
 )

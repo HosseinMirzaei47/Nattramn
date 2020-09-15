@@ -45,8 +45,17 @@ class ForYouFragment : Fragment(), OnArticleListener {
         super.onViewCreated(view, savedInstanceState)
 
         homeViewModel.feedResult.observe(viewLifecycleOwner, Observer {
+
             if (it.status == Status.SUCCESS) {
-                println("jalil size ${it.data?.articles?.size}")
+                println("jalil size ${it.data?.size}")
+
+                it.data?.map { article ->
+                    println("-- ${article.commentViews}")
+                    article.commentViews.size.apply {
+                        println("jalil count size: $this")
+                    }
+                }?.sum()
+
             } else {
                 println("jalil error ${it.message}")
             }

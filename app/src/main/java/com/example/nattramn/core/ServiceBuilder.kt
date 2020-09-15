@@ -6,13 +6,18 @@ import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
 
 object ServiceBuilder {
 
     val responseStatus = MutableLiveData<Response>()
     private val localDataSource = LocalDataSource(MyApp.app)
+    var logging = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
 
     private val client = OkHttpClient.Builder()
         .addNetworkInterceptor(object : Interceptor {
@@ -30,6 +35,7 @@ object ServiceBuilder {
             val request = newBuilder.build()
             chain.proceed(request)
         }
+        .addNetworkInterceptor(logging)
         .addNetworkInterceptor(FlipperOkhttpInterceptor(networkFlipperPlugin))
         .build()
 
