@@ -7,6 +7,6 @@ suspend inline fun <T> safeApiCall(responseFunction: suspend () -> T): Resource<
     return try {
         Resource.success(responseFunction.invoke())
     } catch (e: HttpException) {
-        Resource.error(e.message(), null)
+        Resource.error(e.code().toString(), null)
     }
 }

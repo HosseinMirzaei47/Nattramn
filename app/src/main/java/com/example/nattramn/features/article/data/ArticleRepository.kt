@@ -2,12 +2,12 @@ package com.example.nattramn.features.article.data
 
 import android.app.Application
 import com.example.nattramn.core.LocalDataSource
-import com.example.nattramn.core.RemoteDataSource
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.CommentView
+import com.example.nattramn.features.user.data.AuthRemoteDataSource
 
 class ArticleRepository(
-    private val remoteDataSource: RemoteDataSource,
+    private val authRemoteDataSource: AuthRemoteDataSource,
     private var localDataSource: LocalDataSource
 ) {
 
@@ -20,7 +20,7 @@ class ArticleRepository(
             if (myInstance == null) {
                 synchronized(this) {
                     myInstance = ArticleRepository(
-                        RemoteDataSource(), LocalDataSource(
+                        AuthRemoteDataSource(), LocalDataSource(
                             application
                         )
                     )

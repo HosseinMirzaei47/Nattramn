@@ -4,16 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.nattramn.R
 import com.example.nattramn.core.HorizontalArticleAdapter
 import com.example.nattramn.core.Utils
 import com.example.nattramn.core.VerticalArticleAdapter
+import com.example.nattramn.core.resource.Status
 import com.example.nattramn.databinding.FragmentForYouBinding
 import com.example.nattramn.features.article.ui.OnArticleListener
 import com.example.nattramn.features.home.ui.viewmodels.HomeViewModel
@@ -30,12 +29,13 @@ class ForYouFragment : Fragment(), OnArticleListener {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_for_you, container, false
-        )
-
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        binding.lifecycleOwner = viewLifecycleOwner
+
+        binding = FragmentForYouBinding.inflate(
+            inflater, container, false
+        ).apply {
+            lifecycleOwner = viewLifecycleOwner
+        }
 
         return binding.root
 
@@ -43,6 +43,14 @@ class ForYouFragment : Fragment(), OnArticleListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        homeViewModel.feedResult.observe(viewLifecycleOwner, Observer {
+            if (it.status == Status.SUCCESS) {
+                println("jalil size ${it.data?.articles?.size}")
+            } else {
+                println("jalil error ${it.message}")
+            }
+        })
 
         setRecyclers()
     }

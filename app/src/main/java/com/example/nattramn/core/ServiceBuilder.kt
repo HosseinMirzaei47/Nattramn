@@ -25,7 +25,7 @@ object ServiceBuilder {
         .addInterceptor { chain ->
             var newBuilder = chain.request().newBuilder()
             localDataSource.getToken()?.let { token ->
-                newBuilder = newBuilder.addHeader("token", "Token $token")
+                newBuilder = newBuilder.addHeader("Authorization", "Token $token")
             }
             val request = newBuilder.build()
             chain.proceed(request)

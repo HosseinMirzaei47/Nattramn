@@ -16,10 +16,6 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
     var comments = MutableLiveData<ArrayList<CommentView>>()
     private var suggested = MutableLiveData<ArrayList<ArticleView>>()
 
-    suspend fun getArticles(forceFetch: Boolean) {
-
-    }
-
     fun setSuggestedArticles() {
         suggestedArticles.value = getArticles()
     }
