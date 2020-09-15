@@ -63,7 +63,7 @@ class RegisterFragment : Fragment() {
                 Snackbar.make(requireView(), "ثبت نام با موفقیت انجام شد", Snackbar.LENGTH_LONG)
                     .show()
                 Navigation.findNavController(requireView())
-                    .navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
+                    .navigate(RegisterFragmentDirections.actionRegisterFragmentToHomerFragment())
             } else if (it.status == Status.ERROR) {
 
             } else {

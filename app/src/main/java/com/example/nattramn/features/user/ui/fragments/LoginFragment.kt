@@ -30,6 +30,7 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        showSystemUI()
 
         loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
@@ -51,7 +52,6 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showSystemUI()
 
         onEnterClick()
 
