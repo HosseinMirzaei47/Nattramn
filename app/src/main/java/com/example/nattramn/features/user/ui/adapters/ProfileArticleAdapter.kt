@@ -8,10 +8,9 @@ import com.example.nattramn.R
 import com.example.nattramn.databinding.ProfileArticleRowBinding
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.user.ui.OnProfileArticleListener
-import java.util.*
 
 class ProfileArticleAdapter(
-    var profileArticleViews: ArrayList<ArticleView>,
+    var profileArticleViews: List<ArticleView>,
     private val onProfileArticleListener: OnProfileArticleListener
 ) :
     RecyclerView.Adapter<ProfileArticleAdapter.ViewHolder>() {

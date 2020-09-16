@@ -9,18 +9,18 @@ import com.example.nattramn.core.resource.Status
 import com.example.nattramn.features.user.data.models.AuthRequest
 import com.example.nattramn.features.user.data.models.AuthResponse
 
-class UserRepository(
+class AuthRepository(
     private val authRemoteDataSource: AuthRemoteDataSource,
     private var localDataSource: LocalDataSource
 ) {
 
     companion object {
 
-        private var myInstance: UserRepository? = null
-        fun getInstance(application: Application): UserRepository {
+        private var myInstance: AuthRepository? = null
+        fun getInstance(application: Application): AuthRepository {
             if (myInstance == null) {
                 synchronized(this) {
-                    myInstance = UserRepository(
+                    myInstance = AuthRepository(
                         AuthRemoteDataSource(),
                         LocalDataSource(application)
                     )

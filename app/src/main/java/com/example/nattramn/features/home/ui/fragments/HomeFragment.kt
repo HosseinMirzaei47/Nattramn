@@ -71,6 +71,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun showSystemUI() {
-        requireActivity().window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
+        requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
     }
 }

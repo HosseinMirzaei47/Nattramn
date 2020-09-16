@@ -114,8 +114,6 @@ class ForYouFragment : Fragment(), OnArticleListener {
         homeViewModel.singleArticleResult.observe(viewLifecycleOwner, Observer { resourceArticle ->
             if (resourceArticle.status == Status.SUCCESS) {
 
-                println("jalil vari ${resourceArticle.data}")
-
                 resourceArticle.data?.let { articleView ->
                     Navigation.findNavController(requireView())
                         .navigate(
