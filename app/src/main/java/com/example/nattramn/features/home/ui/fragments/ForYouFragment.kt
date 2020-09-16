@@ -122,6 +122,15 @@ class ForYouFragment : Fragment(), OnArticleListener {
                             )
                         )
                 }
+            } else {
+                Navigation.findNavController(requireView())
+                    .navigate(
+                        HomeFragmentDirections.actionHomeFragmentToArticleFragment(
+                            Utils(
+                                requireContext()
+                            ).initArticles()[0]
+                        )
+                    )
             }
         })
 
