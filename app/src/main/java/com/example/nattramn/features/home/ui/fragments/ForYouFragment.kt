@@ -135,12 +135,12 @@ class ForYouFragment : Fragment(), OnArticleListener {
         onArticleClick(slug)
     }
 
-    override fun onArticleSaveClick(position: Int) {
+    override fun onArticleSaveClick(slug: String) {
         Navigation.findNavController(requireView())
             .navigate(HomeFragmentDirections.actionHomeFragmentToTagFragment())
     }
 
-    override fun onAuthorNameClick(position: Int) {
+    override fun onAuthorNameClick(slug: String) {
         Navigation.findNavController(requireView())
             .navigate(
                 HomeFragmentDirections.actionHomeFragmentToProfileFragment(
@@ -151,7 +151,7 @@ class ForYouFragment : Fragment(), OnArticleListener {
             )
     }
 
-    override fun onAuthorIconClick(position: Int) {
+    override fun onAuthorIconClick(slug: String) {
         Navigation.findNavController(requireView())
             .navigate(
                 HomeFragmentDirections.actionHomeFragmentToProfileFragment(

@@ -46,7 +46,7 @@ class VerticalArticleAdapter(
             }
             binding.itemBookmark.setOnClickListener {
                 onArticleListener.onArticleSaveClick(
-                    layoutPosition
+                    articleViews[layoutPosition].slug
                 )
             }
             binding.itemArticlePreview.setOnClickListener {
@@ -56,12 +56,12 @@ class VerticalArticleAdapter(
             }
             binding.itemAuthorImage.setOnClickListener {
                 onArticleListener.onAuthorIconClick(
-                    layoutPosition
+                    articleViews[layoutPosition].slug
                 )
             }
             binding.itemAuthorName.setOnClickListener {
                 onArticleListener.onAuthorNameClick(
-                    layoutPosition
+                    articleViews[layoutPosition].slug
                 )
             }
 

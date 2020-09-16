@@ -92,11 +92,11 @@ class TagFragment : Fragment(),
             .navigate(TagFragmentDirections.actionTagFragmentToArticleFragment(Utils(requireContext()).initArticles()[0]))
     }
 
-    override fun onArticleSaveClick(position: Int) {
+    override fun onArticleSaveClick(slug: String) {
         Toast.makeText(context, "Tag page. Article clicked", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onAuthorNameClick(position: Int) {
+    override fun onAuthorNameClick(slug: String) {
         Navigation.findNavController(requireView())
             .navigate(
                 TagFragmentDirections.actionTagFragmentToProfileFragment(
@@ -107,7 +107,7 @@ class TagFragment : Fragment(),
             )
     }
 
-    override fun onAuthorIconClick(position: Int) {
+    override fun onAuthorIconClick(slug: String) {
         Navigation.findNavController(requireView())
             .navigate(
                 TagFragmentDirections.actionTagFragmentToProfileFragment(

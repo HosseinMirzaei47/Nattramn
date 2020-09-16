@@ -58,17 +58,21 @@ class RegisterFragment : Fragment() {
 
     private fun onRegisterClick() {
         registerViewModel.registerResult.observe(viewLifecycleOwner, Observer {
-            if (it.status == Status.SUCCESS) {
+            when (it.status) {
+                Status.SUCCESS -> {
 
-                Snackbar.make(requireView(), "ثبت نام با موفقیت انجام شد", Snackbar.LENGTH_LONG)
-                    .show()
-                Navigation.findNavController(requireView())
-                    .navigate(RegisterFragmentDirections.actionRegisterFragmentToHomerFragment())
-            } else if (it.status == Status.ERROR) {
+                    Snackbar.make(requireView(), "ثبت نام با موفقیت انجام شد", Snackbar.LENGTH_LONG)
+                        .show()
+                    Navigation.findNavController(requireView())
+                        .navigate(RegisterFragmentDirections.actionRegisterFragmentToHomerFragment())
+                }
+                Status.ERROR -> {
 
-            } else {
-                Snackbar.make(requireView(), "خطا در ساخت اکانت", Snackbar.LENGTH_LONG)
-                    .show()
+                }
+                else -> {
+                    Snackbar.make(requireView(), "خطا در ساخت اکانت", Snackbar.LENGTH_LONG)
+                        .show()
+                }
             }
         })
 

@@ -14,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
 import com.example.nattramn.core.Utils
+import com.example.nattramn.core.resource.Status
 import com.example.nattramn.databinding.FragmentArticleBinding
 import com.example.nattramn.features.article.ui.OnArticleListener
 import com.example.nattramn.features.article.ui.OnCommentListener
@@ -21,6 +22,7 @@ import com.example.nattramn.features.article.ui.adapters.CommentAdapter
 import com.example.nattramn.features.article.ui.adapters.SuggestedArticleAdapter
 import com.example.nattramn.features.article.ui.viewmodels.ArticleViewModel
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.dialog_comment.*
 import kotlinx.android.synthetic.main.fragment_article.*
 
@@ -61,10 +63,31 @@ class ArticleFragment : Fragment(),
 
         setBackButtonClick()
 
+        onBookmarkClick()
+
         setAddCommentAction()
 
         setRecyclers()
 
+    }
+
+    private fun onBookmarkClick() {
+        binding.articleBookmark.setOnClickListener {
+            articleViewModel.bookmarkArticle(args.ArticleView.slug)
+        }
+
+        articleViewModel.bookmarkResult.observe(viewLifecycleOwner, Observer { result ->
+
+            if (result.status == Status.SUCCESS) {
+                Snackbar.make(
+                    requireView(), "این مقاله به لیست علاقه مندی ها اضافه شد", Snackbar.LENGTH_LONG
+                ).show()
+            } else {
+                Snackbar.make(
+                    requireView(), "خطا در ارتباط با سرور", Snackbar.LENGTH_LONG
+                ).show()
+            }
+        })
     }
 
     private fun setAddCommentAction() {
@@ -158,11 +181,11 @@ class ArticleFragment : Fragment(),
             .navigate(ArticleFragmentDirections.actionArticleFragmentSelf(Utils(requireContext()).initArticles()[0]))
     }
 
-    override fun onArticleSaveClick(position: Int) {
+    override fun onArticleSaveClick(slug: String) {
         Toast.makeText(context, getString(R.string.bookmarkArticleToast), Toast.LENGTH_SHORT).show()
     }
 
-    override fun onAuthorNameClick(position: Int) {
+    override fun onAuthorNameClick(slug: String) {
         Navigation.findNavController(requireView())
             .navigate(
                 ArticleFragmentDirections.actionArticleFragmentToProfileFragment(
@@ -173,7 +196,7 @@ class ArticleFragment : Fragment(),
             )
     }
 
-    override fun onAuthorIconClick(position: Int) {
+    override fun onAuthorIconClick(slug: String) {
         Navigation.findNavController(requireView())
             .navigate(
                 ArticleFragmentDirections.actionArticleFragmentToProfileFragment(
@@ -183,5 +206,4 @@ class ArticleFragment : Fragment(),
                 )
             )
     }
-
 }

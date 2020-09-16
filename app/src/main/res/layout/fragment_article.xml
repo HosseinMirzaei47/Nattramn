@@ -8,6 +8,11 @@
         <variable
             name="articleView"
             type="com.example.nattramn.features.article.ui.ArticleView" />
+
+        <variable
+            name="viewModel"
+            type="com.example.nattramn.features.article.ui.viewmodels.ArticleViewModel" />
+
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -96,11 +101,11 @@
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/authorImageSA"
+                            imageSource="@{articleView.userView.image}"
                             android:layout_width="@dimen/global_item_image_size"
                             android:layout_height="@dimen/global_item_image_size"
                             android:layout_marginStart="@dimen/margin_ten"
                             android:layout_marginTop="@dimen/margin_ten"
-                            imageSource="@{articleView.userView.image}"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 

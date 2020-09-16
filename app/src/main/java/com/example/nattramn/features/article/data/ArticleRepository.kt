@@ -2,12 +2,15 @@ package com.example.nattramn.features.article.data
 
 import android.app.Application
 import com.example.nattramn.core.LocalDataSource
+import com.example.nattramn.core.MyApp
+import com.example.nattramn.core.NetworkHelper
+import com.example.nattramn.core.resource.Resource
+import com.example.nattramn.core.resource.Status
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.CommentView
-import com.example.nattramn.features.user.data.AuthRemoteDataSource
 
 class ArticleRepository(
-    private val authRemoteDataSource: AuthRemoteDataSource,
+    private val articleRemoteDataSource: ArticleRemoteDataSource,
     private var localDataSource: LocalDataSource
 ) {
 
@@ -20,7 +23,7 @@ class ArticleRepository(
             if (myInstance == null) {
                 synchronized(this) {
                     myInstance = ArticleRepository(
-                        AuthRemoteDataSource(), LocalDataSource(
+                        ArticleRemoteDataSource(), LocalDataSource(
                             application
                         )
                     )
@@ -28,6 +31,21 @@ class ArticleRepository(
             }
             return myInstance!!
         }
+    }
+
+    suspend fun bookmarkArticle(slug: String): Resource<ArticleView> {
+        var response = Resource<ArticleView>(Status.ERROR, null, null)
+
+        if (NetworkHelper.isOnline(MyApp.app)) {
+            val request = articleRemoteDataSource.bookmarkArticle(slug)
+            if (request.status == Status.SUCCESS) {
+                response =
+                    Resource.success(request.data?.article?.toArticleView(Resource.success(null)))
+            }
+        }
+
+        return response
+
     }
 
     suspend fun getArticles(): ArrayList<ArticleView> {

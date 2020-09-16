@@ -6,10 +6,10 @@ interface OnArticleListener {
 
     fun onArticleTitleClick(slug: String)
 
-    fun onArticleSaveClick(position: Int)
+    fun onArticleSaveClick(slug: String)
 
-    fun onAuthorNameClick(position: Int)
+    fun onAuthorNameClick(slug: String)
 
-    fun onAuthorIconClick(position: Int)
+    fun onAuthorIconClick(slug: String)
 
 }

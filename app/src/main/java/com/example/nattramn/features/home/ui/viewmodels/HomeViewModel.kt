@@ -15,10 +15,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     private val articleHomeRepository = ArticleHomeRepository.getInstance(application)
     var topArticles = MutableLiveData<ArrayList<ArticleView>>()
-
     private var _singleArticleResult = MutableLiveData<Resource<ArticleView>>()
     val singleArticleResult: LiveData<Resource<ArticleView>> get() = _singleArticleResult
-
     private var _feedResult = MutableLiveData<Resource<List<ArticleView>>>()
     val feedResult: LiveData<Resource<List<ArticleView>>> get() = _feedResult
 

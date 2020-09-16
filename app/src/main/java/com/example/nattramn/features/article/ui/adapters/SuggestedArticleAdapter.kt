@@ -46,7 +46,7 @@ class SuggestedArticleAdapter(
             }
             binding.itemBookmark.setOnClickListener {
                 onArticleListener.onArticleSaveClick(
-                    layoutPosition
+                    suggestions[layoutPosition].slug
                 )
             }
             binding.itemArticlePreview.setOnClickListener {
@@ -56,12 +56,12 @@ class SuggestedArticleAdapter(
             }
             binding.itemAuthorImage.setOnClickListener {
                 onArticleListener.onAuthorIconClick(
-                    layoutPosition
+                    suggestions[layoutPosition].slug
                 )
             }
             binding.itemAuthorName.setOnClickListener {
                 onArticleListener.onAuthorNameClick(
-                    layoutPosition
+                    suggestions[layoutPosition].slug
                 )
             }
 

@@ -11,7 +11,4 @@ interface HomeApi {
     @GET("articles/{slug}/comments")
     suspend fun getArticleComments(@Path("slug") slug: String): ArticleComments
 
-    @GET("articles/{slug}")
-    suspend fun getSingleArticle(@Path("slug") slug: String): SingleArticleResponse
-
 }
