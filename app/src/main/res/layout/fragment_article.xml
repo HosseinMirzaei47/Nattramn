@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="articleView"
+            type="com.example.nattramn.features.article.ui.ArticleView" />
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -93,7 +100,7 @@
                             android:layout_height="@dimen/global_item_image_size"
                             android:layout_marginStart="@dimen/margin_ten"
                             android:layout_marginTop="@dimen/margin_ten"
-                            android:src="@drawable/test02"
+                            imageSource="@{articleView.userView.image}"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -103,7 +110,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_micro"
-                            android:text="@string/hosseinMirzaei"
+                            android:text="@{articleView.userView.name}"
                             android:textColor="@color/black"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toTopOf="@+id/dateSA"
@@ -155,7 +162,7 @@
                             android:layout_marginEnd="@dimen/margin_ten"
                             android:letterSpacing=".02"
                             android:lineSpacingExtra="@dimen/spacing_micro"
-                            android:text="@string/news"
+                            android:text="@{articleView.title}"
                             android:textColor="@color/black"
                             android:textSize="@dimen/text_size_h3"
                             android:textStyle="bold"
@@ -172,7 +179,7 @@
                             android:layout_marginEnd="@dimen/margin_ten"
                             android:lineSpacingExtra="@dimen/spacing_normal"
                             android:padding="10dp"
-                            android:text="@string/sampleArticle"
+                            android:text="@{articleView.body}"
                             android:textColor="@color/black"
                             android:textSize="@dimen/text_size_b1"
                             app:layout_constraintEnd_toEndOf="parent"

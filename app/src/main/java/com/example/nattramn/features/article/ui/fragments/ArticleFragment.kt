@@ -6,11 +6,11 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
 import com.example.nattramn.core.Utils
@@ -32,6 +32,7 @@ class ArticleFragment : Fragment(),
     private lateinit var articleViewModel: ArticleViewModel
     private lateinit var commentAdapter: CommentAdapter
     private lateinit var suggestedArticleAdapter: SuggestedArticleAdapter
+    private val args: ArticleFragmentArgs by navArgs()
 
     private val snapHorizontal = GravitySnapHelper(Gravity.CENTER)
 
@@ -41,12 +42,15 @@ class ArticleFragment : Fragment(),
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_article, container, false
-        )
-
-        binding.lifecycleOwner = viewLifecycleOwner
         articleViewModel = ViewModelProvider(this).get(ArticleViewModel::class.java)
+        val articleViewArg = args.ArticleView
+
+        binding = FragmentArticleBinding.inflate(
+            inflater, container, false
+        ).apply {
+            lifecycleOwner = viewLifecycleOwner
+            articleView = articleViewArg
+        }
 
         return binding.root
     }

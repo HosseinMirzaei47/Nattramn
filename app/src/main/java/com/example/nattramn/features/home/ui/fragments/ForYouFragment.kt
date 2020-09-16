@@ -114,12 +114,14 @@ class ForYouFragment : Fragment(), OnArticleListener {
 
                 println("jalil vari ${resourceArticle.data}")
 
-                Navigation.findNavController(requireView())
-                    .navigate(
-                        HomeFragmentDirections.actionHomeFragmentToArticleFragment(
-                            resourceArticle.data!!
+                resourceArticle.data?.let { articleView ->
+                    Navigation.findNavController(requireView())
+                        .navigate(
+                            HomeFragmentDirections.actionHomeFragmentToArticleFragment(
+                                articleView
+                            )
                         )
-                    )
+                }
             }
         })
 
