@@ -43,7 +43,8 @@ class Utils(val context: Context) {
                     ArrayList(),
                     "2.5k",
                     50,
-                    true
+                    true,
+                    ""
                 )
             )
 

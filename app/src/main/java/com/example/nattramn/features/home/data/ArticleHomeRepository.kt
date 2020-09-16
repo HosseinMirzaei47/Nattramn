@@ -29,8 +29,7 @@ class ArticleHomeRepository(
     }
 
     suspend fun getFeedArticles(): Resource<List<ArticleView>> {
-        var responseArticles: Resource<List<ArticleView>> =
-            Resource<List<ArticleView>>(Status.ERROR, null, null)
+        var responseArticles = Resource<List<ArticleView>>(Status.ERROR, null, null)
 
         if (NetworkHelper.isOnline(MyApp.app)) {
             val feedArticles = homeRemoteDataSource.getFeedArticles()
@@ -43,6 +42,21 @@ class ArticleHomeRepository(
         }
 
         return responseArticles
+    }
+
+    suspend fun getSingleArticle(slug: String): Resource<ArticleView> {
+        var response = Resource<ArticleView>(Status.ERROR, null, null)
+
+        if (NetworkHelper.isOnline(MyApp.app)) {
+            val request = homeRemoteDataSource.getSingleArticle(slug)
+            if (request.status == Status.SUCCESS) {
+                val articleView = request.data?.article?.toArticleView(Resource.success(null))
+                response = Resource.success(articleView)
+            }
+        }
+
+        return response
+
     }
 
     suspend fun getArticles(): ArrayList<ArticleView> {

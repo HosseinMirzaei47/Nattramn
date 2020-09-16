@@ -120,6 +120,11 @@
             android:id="@+id/action_articleFragment_self"
             app:destination="@id/articleFragment" />
 
+        <argument
+            android:name="ArticleView"
+            app:argType="com.example.nattramn.features.article.ui.ArticleView"
+            app:nullable="false" />
+
     </fragment>
 
     <fragment

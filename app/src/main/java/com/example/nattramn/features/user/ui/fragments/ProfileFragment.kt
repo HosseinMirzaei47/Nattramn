@@ -128,7 +128,13 @@ class ProfileFragment : Fragment(),
 
     override fun onProfileArticleCardClick(position: Int) {
         Navigation.findNavController(requireView())
-            .navigate(ProfileFragmentDirections.actionProfileFragmentToArticleFragment())
+            .navigate(
+                ProfileFragmentDirections.actionProfileFragmentToArticleFragment(
+                    Utils(
+                        requireContext()
+                    ).initArticles()[0]
+                )
+            )
     }
 
     override fun onBookmarkClick(position: Int) {
@@ -175,14 +181,26 @@ class ProfileFragment : Fragment(),
     override fun onArticleTitleClick(position: Int) {
 
         Navigation.findNavController(requireView())
-            .navigate(ProfileFragmentDirections.actionProfileFragmentToArticleFragment())
+            .navigate(
+                ProfileFragmentDirections.actionProfileFragmentToArticleFragment(
+                    Utils(
+                        requireContext()
+                    ).initArticles()[0]
+                )
+            )
 
     }
 
     override fun onArticleDescriptionClick(position: Int) {
 
         Navigation.findNavController(requireView())
-            .navigate(ProfileFragmentDirections.actionProfileFragmentToArticleFragment())
+            .navigate(
+                ProfileFragmentDirections.actionProfileFragmentToArticleFragment(
+                    Utils(
+                        requireContext()
+                    ).initArticles()[0]
+                )
+            )
 
     }
 

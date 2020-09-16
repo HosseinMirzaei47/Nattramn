@@ -41,7 +41,7 @@ class VerticalArticleAdapter(
 
             binding.verticalArticleCard.setOnClickListener {
                 onArticleListener.onCardClick(
-                    layoutPosition
+                    articleViews[layoutPosition].slug
                 )
             }
             binding.itemBookmark.setOnClickListener {
@@ -51,7 +51,7 @@ class VerticalArticleAdapter(
             }
             binding.itemArticlePreview.setOnClickListener {
                 onArticleListener.onArticleTitleClick(
-                    layoutPosition
+                    articleViews[layoutPosition].slug
                 )
             }
             binding.itemAuthorImage.setOnClickListener {

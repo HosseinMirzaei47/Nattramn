@@ -57,7 +57,8 @@ data class ArticleNetwork(
             comments,
             favoritesCount.toString(),
             comments.size,
-            isBookmarked
+            isBookmarked,
+            slug
         )
     }
 }

@@ -9,6 +9,10 @@ class HomeRemoteDataSource {
         ServiceBuilder.buildService(HomeApi::class.java).getFeedArticles()
     }
 
+    suspend fun getSingleArticle(slug: String) = safeApiCall {
+        ServiceBuilder.buildService(HomeApi::class.java).getSingleArticle(slug)
+    }
+
     suspend fun getArticleComments(slug: String) = safeApiCall {
         ServiceBuilder.buildService(HomeApi::class.java).getArticleComments(slug)
     }

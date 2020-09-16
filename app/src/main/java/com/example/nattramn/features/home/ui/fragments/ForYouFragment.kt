@@ -105,9 +105,32 @@ class ForYouFragment : Fragment(), OnArticleListener {
         })
     }
 
-    override fun onCardClick(position: Int) {
-        Navigation.findNavController(requireView())
-            .navigate(HomeFragmentDirections.actionHomeFragmentToArticleFragment())
+    private fun onArticleClick(slug: String) {
+
+        homeViewModel.getSingleArticle(slug)
+
+        homeViewModel.singleArticleResult.observe(viewLifecycleOwner, Observer { resourceArticle ->
+            if (resourceArticle.status == Status.SUCCESS) {
+
+                println("jalil vari ${resourceArticle.data}")
+
+                Navigation.findNavController(requireView())
+                    .navigate(
+                        HomeFragmentDirections.actionHomeFragmentToArticleFragment(
+                            resourceArticle.data!!
+                        )
+                    )
+            }
+        })
+
+    }
+
+    override fun onCardClick(slug: String) {
+        onArticleClick(slug)
+    }
+
+    override fun onArticleTitleClick(slug: String) {
+        onArticleClick(slug)
     }
 
     override fun onArticleSaveClick(position: Int) {
@@ -135,11 +158,6 @@ class ForYouFragment : Fragment(), OnArticleListener {
                     ).userView
                 )
             )
-    }
-
-    override fun onArticleTitleClick(position: Int) {
-        Navigation.findNavController(requireView())
-            .navigate(HomeFragmentDirections.actionHomeFragmentToArticleFragment())
     }
 
 }

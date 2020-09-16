@@ -14,8 +14,11 @@ import kotlinx.coroutines.launch
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     private val articleHomeRepository = ArticleHomeRepository.getInstance(application)
-    var feedArticles = MutableLiveData<ArrayList<ArticleView>>()
     var topArticles = MutableLiveData<ArrayList<ArticleView>>()
+
+    private var _singleArticleResult = MutableLiveData<Resource<ArticleView>>()
+    val singleArticleResult: LiveData<Resource<ArticleView>> get() = _singleArticleResult
+
     private var _feedResult = MutableLiveData<Resource<List<ArticleView>>>()
     val feedResult: LiveData<Resource<List<ArticleView>>> get() = _feedResult
 
@@ -26,6 +29,16 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch(Dispatchers.IO) {
             _feedResult.postValue(articleHomeRepository.getFeedArticles())
         }
+    }
+
+    fun getSingleArticle(slug: String) {
+
+        _singleArticleResult.value = Resource.loading(null)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            _singleArticleResult.postValue(articleHomeRepository.getSingleArticle(slug))
+        }
+
     }
 
     fun setTopArticles() {

@@ -39,7 +39,7 @@ class HorizontalArticleAdapter(
 
             binding.horizontalArticleCard.setOnClickListener {
                 onArticleListener.onCardClick(
-                    layoutPosition
+                    articleViews[layoutPosition].slug
                 )
             }
             binding.itemBookmark.setOnClickListener {
@@ -49,7 +49,7 @@ class HorizontalArticleAdapter(
             }
             binding.itemArticlePreview.setOnClickListener {
                 onArticleListener.onArticleTitleClick(
-                    layoutPosition
+                    articleViews[layoutPosition].slug
                 )
             }
             binding.itemAuthorImage.setOnClickListener {

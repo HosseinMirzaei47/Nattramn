@@ -82,9 +82,14 @@ class TagFragment : Fragment(),
         }
     }
 
-    override fun onCardClick(position: Int) {
+    override fun onCardClick(slug: String) {
         Navigation.findNavController(requireView())
-            .navigate(TagFragmentDirections.actionTagFragmentToArticleFragment())
+            .navigate(TagFragmentDirections.actionTagFragmentToArticleFragment(Utils(requireContext()).initArticles()[0]))
+    }
+
+    override fun onArticleTitleClick(slug: String) {
+        Navigation.findNavController(requireView())
+            .navigate(TagFragmentDirections.actionTagFragmentToArticleFragment(Utils(requireContext()).initArticles()[0]))
     }
 
     override fun onArticleSaveClick(position: Int) {
@@ -111,11 +116,6 @@ class TagFragment : Fragment(),
                     ).userView
                 )
             )
-    }
-
-    override fun onArticleTitleClick(position: Int) {
-        Navigation.findNavController(requireView())
-            .navigate(TagFragmentDirections.actionTagFragmentToArticleFragment())
     }
 
 }

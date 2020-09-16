@@ -144,9 +144,14 @@ class ArticleFragment : Fragment(),
         Toast.makeText(context, getString(R.string.openProfileToast), Toast.LENGTH_SHORT).show()
     }
 
-    override fun onCardClick(position: Int) {
+    override fun onCardClick(slug: String) {
         Navigation.findNavController(requireView())
-            .navigate(ArticleFragmentDirections.actionArticleFragmentSelf())
+            .navigate(ArticleFragmentDirections.actionArticleFragmentSelf(Utils(requireContext()).initArticles()[0]))
+    }
+
+    override fun onArticleTitleClick(slug: String) {
+        Navigation.findNavController(requireView())
+            .navigate(ArticleFragmentDirections.actionArticleFragmentSelf(Utils(requireContext()).initArticles()[0]))
     }
 
     override fun onArticleSaveClick(position: Int) {
@@ -173,11 +178,6 @@ class ArticleFragment : Fragment(),
                     ).userView
                 )
             )
-    }
-
-    override fun onArticleTitleClick(position: Int) {
-        Navigation.findNavController(requireView())
-            .navigate(ArticleFragmentDirections.actionArticleFragmentSelf())
     }
 
 }
