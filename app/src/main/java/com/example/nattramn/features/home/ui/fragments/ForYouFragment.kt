@@ -107,6 +107,8 @@ class ForYouFragment : Fragment(), OnArticleListener {
 
     private fun onArticleClick(slug: String) {
 
+        println("jalil slug: $slug")
+
         homeViewModel.getSingleArticle(slug)
 
         homeViewModel.singleArticleResult.observe(viewLifecycleOwner, Observer { resourceArticle ->
@@ -122,7 +124,7 @@ class ForYouFragment : Fragment(), OnArticleListener {
                             )
                         )
                 }
-            } else {
+            } else if (resourceArticle.status == Status.ERROR) {
                 Navigation.findNavController(requireView())
                     .navigate(
                         HomeFragmentDirections.actionHomeFragmentToArticleFragment(

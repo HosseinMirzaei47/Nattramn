@@ -52,6 +52,10 @@ class ArticleHomeRepository(
             if (request.status == Status.SUCCESS) {
                 val articleView = request.data?.article?.toArticleView(Resource.success(null))
                 response = Resource.success(articleView)
+            } else if (request.status == Status.ERROR) {
+                response = Resource.error("no slug", null)
+            } else if (request.status == Status.LOADING) {
+                response = Resource.loading(null)
             }
         }
 

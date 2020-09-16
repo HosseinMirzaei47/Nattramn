@@ -44,7 +44,7 @@ class Utils(val context: Context) {
                     "2.5k",
                     50,
                     true,
-                    ""
+                    "invalid"
                 )
             )
 
