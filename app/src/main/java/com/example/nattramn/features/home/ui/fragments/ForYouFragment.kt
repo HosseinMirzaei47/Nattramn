@@ -44,23 +44,6 @@ class ForYouFragment : Fragment(), OnArticleListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        homeViewModel.feedResult.observe(viewLifecycleOwner, Observer {
-
-            if (it.status == Status.SUCCESS) {
-                println("jalil size ${it.data?.size}")
-
-                it.data?.map { article ->
-                    println("-- ${article.commentViews}")
-                    article.commentViews.size.apply {
-                        println("jalil count size: $this")
-                    }
-                }?.sum()
-
-            } else {
-                println("jalil error ${it.message}")
-            }
-        })
-
         setRecyclers()
     }
 
@@ -73,23 +56,38 @@ class ForYouFragment : Fragment(), OnArticleListener {
     private fun setContent() {
         binding.forYouProgress.visibility = View.VISIBLE
 
-        homeViewModel.feedArticles.observe(viewLifecycleOwner, Observer {
+        homeViewModel.feedResult.observe(viewLifecycleOwner, Observer {
 
-            feedArticlesAdapter =
-                VerticalArticleAdapter(
-                    it,
-                    this@ForYouFragment
-                )
+            if (it.status == Status.SUCCESS) {
+                println("jalil size ${it.data?.size}")
 
-            binding.recyclerHomeArticle.apply {
-                adapter = feedArticlesAdapter
-                layoutManager =
-                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                it.data?.let { articlesList ->
+                    feedArticlesAdapter =
+                        VerticalArticleAdapter(
+                            articlesList,
+                            this@ForYouFragment
+                        )
+                }
+
+                binding.recyclerHomeArticle.apply {
+                    adapter = feedArticlesAdapter
+                    layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                }
+
+                binding.forYouProgress.visibility = View.INVISIBLE
+                binding.textInputSearch.visibility = View.VISIBLE
+
+                /*it.data?.map { article ->
+                    println("-- ${article.commentViews}")
+                    article.commentViews.size.apply {
+                        println("jalil count size: $this")
+                    }
+                }?.sum()*/
+
+            } else {
+                println("jalil error ${it.message}")
             }
-
-            binding.forYouProgress.visibility = View.INVISIBLE
-            binding.textInputSearch.visibility = View.VISIBLE
-
         })
 
         homeViewModel.topArticles.observe(viewLifecycleOwner, Observer {
