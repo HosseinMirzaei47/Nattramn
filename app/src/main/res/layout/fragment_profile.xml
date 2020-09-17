@@ -144,7 +144,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_ten"
-                        android:text="@{viewModel.profileArticlesResult.data.size()}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_b1"
                         android:textStyle="bold"
