@@ -41,7 +41,7 @@ class HomeViewModel : ViewModel() {
         _singleArticleResult.value = Resource.loading(null)
 
         viewModelScope.launch(Dispatchers.IO) {
-            _singleArticleResult.postValue(articleHomeRepository.getSingleArticle(slug))
+            _singleArticleResult.postValue(articleRepository.getSingleArticle(slug))
         }
 
     }

@@ -46,27 +46,27 @@ class ProfileArticleAdapter(
             }
             binding.itemArticleAuthorImage.setOnClickListener {
                 onProfileArticleListener.onAuthorIconClick(
-                    layoutPosition
+                    profileArticleViews[layoutPosition].userView.name
                 )
             }
             binding.itemArticleAuthorName.setOnClickListener {
                 onProfileArticleListener.onAuthorNameClick(
-                    layoutPosition
+                    profileArticleViews[layoutPosition].userView.name
                 )
             }
             binding.itemArticleBookmark.setOnClickListener {
-                onProfileArticleListener.onArticleDescriptionClick(
-                    layoutPosition
+                onProfileArticleListener.onBookmarkClick(
+                    profileArticleViews[layoutPosition].slug
                 )
             }
             binding.itemArticleDescription.setOnClickListener {
                 onProfileArticleListener.onArticleDescriptionClick(
-                    layoutPosition
+                    profileArticleViews[layoutPosition].slug
                 )
             }
             binding.itemArticleTitle.setOnClickListener {
                 onProfileArticleListener.onArticleTitleClick(
-                    layoutPosition
+                    profileArticleViews[layoutPosition].slug
                 )
             }
             binding.itemCommentsButton.setOnClickListener {
@@ -83,5 +83,4 @@ class ProfileArticleAdapter(
         }
 
     }
-
 }

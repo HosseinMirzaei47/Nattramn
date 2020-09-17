@@ -1,20 +1,22 @@
 package com.example.nattramn.features.user.ui.viewmodels
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.resource.Resource
+import com.example.nattramn.features.article.data.ArticleRepository
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.user.data.ProfileRepository
 import com.example.nattramn.features.user.ui.UserView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ProfileViewModel(application: Application) : AndroidViewModel(application) {
+class ProfileViewModel : ViewModel() {
 
-    private val profileRepository = ProfileRepository.getInstance(application)
+    private val profileRepository = ProfileRepository.getInstance(MyApp.app)
+    private val articleRepository = ArticleRepository.getInstance(MyApp.app)
 
     private var _profileResult = MutableLiveData<Resource<UserView>>()
     val profileResult: LiveData<Resource<UserView>> get() = _profileResult
@@ -24,6 +26,31 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
 
     private var _profileBookmarkedArticlesResult = MutableLiveData<Resource<List<ArticleView>>>()
     val profileBookmarkedArticlesResult: LiveData<Resource<List<ArticleView>>> get() = _profileBookmarkedArticlesResult
+
+    private var _bookmarkResult = MutableLiveData<Resource<ArticleView>>()
+    val bookmarkResult: LiveData<Resource<ArticleView>> get() = _bookmarkResult
+
+    private var _singleArticleResult = MutableLiveData<Resource<ArticleView>>()
+    val singleArticleResult: LiveData<Resource<ArticleView>> get() = _singleArticleResult
+
+    fun bookmarkArticle(slug: String) {
+
+        _bookmarkResult.value = Resource.loading(null)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            _bookmarkResult.postValue(articleRepository.bookmarkArticle(slug))
+        }
+    }
+
+    fun getSingleArticle(slug: String) {
+
+        _singleArticleResult.value = Resource.loading(null)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            _singleArticleResult.postValue(articleRepository.getSingleArticle(slug))
+        }
+
+    }
 
     fun setProfileArticles(username: String) {
 

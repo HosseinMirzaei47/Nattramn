@@ -101,8 +101,6 @@ class ForYouFragment : Fragment(), OnArticleListener {
 
     private fun onArticleClick(slug: String) {
 
-        println("jalil slug: $slug")
-
         homeViewModel.getSingleArticle(slug)
 
         homeViewModel.singleArticleResult.observe(viewLifecycleOwner, Observer { resourceArticle ->

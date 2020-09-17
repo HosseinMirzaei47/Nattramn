@@ -44,25 +44,6 @@ class ArticleHomeRepository(
         return responseArticles
     }
 
-    suspend fun getSingleArticle(slug: String): Resource<ArticleView> {
-        var response = Resource<ArticleView>(Status.ERROR, null, null)
-
-        if (NetworkHelper.isOnline(MyApp.app)) {
-            val request = homeRemoteDataSource.getSingleArticle(slug)
-            if (request.status == Status.SUCCESS) {
-                val articleView = request.data?.article?.toArticleView(Resource.success(null))
-                response = Resource.success(articleView)
-            } else if (request.status == Status.ERROR) {
-                response = Resource.error("no slug", null)
-            } else if (request.status == Status.LOADING) {
-                response = Resource.loading(null)
-            }
-        }
-
-        return response
-
-    }
-
     suspend fun getArticles(): ArrayList<ArticleView> {
         return localDataSource.getArticles()
     }

@@ -19,6 +19,7 @@ import com.example.nattramn.databinding.FragmentProfileBinding
 import com.example.nattramn.features.user.ui.OnProfileArticleListener
 import com.example.nattramn.features.user.ui.adapters.ProfileArticleAdapter
 import com.example.nattramn.features.user.ui.viewmodels.ProfileViewModel
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_profile.*
 
@@ -166,6 +167,30 @@ class ProfileFragment : Fragment(),
         })
     }
 
+    private fun openArticle(slug: String) {
+        profileViewModel.getSingleArticle(slug)
+
+        profileViewModel.singleArticleResult.observe(
+            viewLifecycleOwner,
+            Observer { resourceArticle ->
+                if (resourceArticle.status == Status.SUCCESS) {
+
+                    resourceArticle.data?.let { articleView ->
+                        Navigation.findNavController(requireView())
+                            .navigate(
+                                ProfileFragmentDirections.actionProfileFragmentToArticleFragment(
+                                    articleView
+                                )
+                            )
+                    }
+
+                } else if (resourceArticle.status == Status.ERROR) {
+                    Snackbar.make(requireView(), "خطا در اتصال به سرور", Snackbar.LENGTH_SHORT)
+                        .show()
+                }
+            })
+    }
+
     private fun setBackButtonClick() {
         binding.profileRightArrow.setOnClickListener { view ->
             Navigation.findNavController(view).navigateUp()
@@ -183,8 +208,21 @@ class ProfileFragment : Fragment(),
             )
     }
 
-    override fun onBookmarkClick(position: Int) {
-        Toast.makeText(context, "Bookmark Clicked", Toast.LENGTH_SHORT).show()
+    override fun onBookmarkClick(slug: String) {
+        profileViewModel.bookmarkArticle(slug)
+
+        profileViewModel.bookmarkResult.observe(viewLifecycleOwner, Observer { result ->
+
+            if (result.status == Status.SUCCESS) {
+                Snackbar.make(
+                    requireView(), "این مقاله به لیست علاقه مندی ها اضافه شد", Snackbar.LENGTH_LONG
+                ).show()
+            } else if (result.status == Status.ERROR) {
+                Snackbar.make(
+                    requireView(), "خطا در ارتباط با سرور", Snackbar.LENGTH_LONG
+                ).show()
+            }
+        })
     }
 
     override fun onMoreOptionsClick(position: Int) {
@@ -198,7 +236,15 @@ class ProfileFragment : Fragment(),
         )
     }
 
-    override fun onAuthorIconClick(position: Int) {
+    override fun onArticleTitleClick(slug: String) {
+        openArticle(slug)
+    }
+
+    override fun onArticleDescriptionClick(slug: String) {
+        openArticle(slug)
+    }
+
+    override fun onAuthorNameClick(username: String) {
         Navigation.findNavController(requireView())
             .navigate(
                 ProfileFragmentDirections.actionProfileFragmentSelf(
@@ -207,7 +253,7 @@ class ProfileFragment : Fragment(),
             )
     }
 
-    override fun onAuthorNameClick(position: Int) {
+    override fun onAuthorIconClick(username: String) {
         Navigation.findNavController(requireView())
             .navigate(
                 ProfileFragmentDirections.actionProfileFragmentSelf(
@@ -218,32 +264,6 @@ class ProfileFragment : Fragment(),
 
     override fun onArticleCommentsClick(position: Int) {
         Toast.makeText(context, "Article Comments Clicked", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onArticleTitleClick(position: Int) {
-
-        Navigation.findNavController(requireView())
-            .navigate(
-                ProfileFragmentDirections.actionProfileFragmentToArticleFragment(
-                    Utils(
-                        requireContext()
-                    ).initArticles()[0]
-                )
-            )
-
-    }
-
-    override fun onArticleDescriptionClick(position: Int) {
-
-        Navigation.findNavController(requireView())
-            .navigate(
-                ProfileFragmentDirections.actionProfileFragmentToArticleFragment(
-                    Utils(
-                        requireContext()
-                    ).initArticles()[0]
-                )
-            )
-
     }
 
 }

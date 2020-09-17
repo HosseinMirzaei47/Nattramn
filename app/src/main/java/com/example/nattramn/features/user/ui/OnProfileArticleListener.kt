@@ -4,18 +4,18 @@ interface OnProfileArticleListener {
 
     fun onProfileArticleCardClick(position: Int)
 
-    fun onBookmarkClick(position: Int)
+    fun onBookmarkClick(slug: String)
 
     fun onMoreOptionsClick(position: Int)
 
-    fun onAuthorIconClick(position: Int)
+    fun onAuthorIconClick(username: String)
 
-    fun onAuthorNameClick(position: Int)
+    fun onAuthorNameClick(username: String)
 
     fun onArticleCommentsClick(position: Int)
 
-    fun onArticleTitleClick(position: Int)
+    fun onArticleTitleClick(slug: String)
 
-    fun onArticleDescriptionClick(position: Int)
+    fun onArticleDescriptionClick(slug: String)
 
 }
