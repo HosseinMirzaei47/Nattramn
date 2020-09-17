@@ -8,12 +8,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.nattramn.R
+import com.example.nattramn.core.LocalDataSource
+import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.ViewPagerAdapter
 import com.example.nattramn.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
+    private var localDataSource = LocalDataSource(MyApp.app)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,16 +58,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun setOnProfileClicked() {
-
         binding.articleProfileIcon.setOnClickListener { view ->
-            Navigation.findNavController(view)
-                .navigate(
-                    HomeFragmentDirections.actionHomeFragmentToProfileFragment(
-                        "hosseinmirzaei"
-                    )
-                )
+            localDataSource.getUsername()?.let { username ->
+                Navigation.findNavController(view)
+                    .navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment(username))
+            }
         }
-
     }
 
     private fun showSystemUI() {

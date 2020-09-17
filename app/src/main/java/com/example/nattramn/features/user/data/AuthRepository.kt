@@ -40,10 +40,16 @@ class AuthRepository(
             if (response.status == Status.SUCCESS) {
                 val token =
                     response.data?.userNetwork?.token ?: return Resource.error(
-                        "Invalid token",
+                        "Authentication failed",
+                        response.data
+                    )
+                val username =
+                    response.data?.userNetwork?.username ?: return Resource.error(
+                        "Authentication failed",
                         response.data
                     )
                 localDataSource.saveToken(token)
+                localDataSource.saveUsername(username)
             }
         }
 

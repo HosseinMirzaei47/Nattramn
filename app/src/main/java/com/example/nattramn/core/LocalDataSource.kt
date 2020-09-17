@@ -14,7 +14,13 @@ class LocalDataSource(private val application: Application) {
         settings.authToken = token
     }
 
+    fun saveUsername(username: String) {
+        settings.authUsername = username
+    }
+
     fun getToken() = settings.authToken
+
+    fun getUsername() = settings.authUsername
 
     suspend fun getArticles(): ArrayList<ArticleView> {
         return Utils(application).initArticles()
