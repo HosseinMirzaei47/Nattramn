@@ -2,7 +2,7 @@ package com.example.nattramn.features.user.ui
 
 interface OnProfileArticleListener {
 
-    fun onProfileArticleCardClick(position: Int)
+    fun onProfileArticleCardClick(slug: String)
 
     fun onBookmarkClick(slug: String)
 

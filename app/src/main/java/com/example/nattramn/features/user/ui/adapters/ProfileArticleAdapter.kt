@@ -41,7 +41,7 @@ class ProfileArticleAdapter(
 
             binding.profileArticleCard.setOnClickListener {
                 onProfileArticleListener.onProfileArticleCardClick(
-                    layoutPosition
+                    profileArticleViews[layoutPosition].slug
                 )
             }
             binding.itemArticleAuthorImage.setOnClickListener {

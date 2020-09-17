@@ -13,7 +13,6 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
-import com.example.nattramn.core.Utils
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.databinding.FragmentProfileBinding
 import com.example.nattramn.features.user.ui.OnProfileArticleListener
@@ -191,21 +190,23 @@ class ProfileFragment : Fragment(),
             })
     }
 
+    private fun openProfile(username: String) {
+        Navigation.findNavController(requireView())
+            .navigate(
+                ProfileFragmentDirections.actionProfileFragmentSelf(
+                    username
+                )
+            )
+    }
+
     private fun setBackButtonClick() {
         binding.profileRightArrow.setOnClickListener { view ->
             Navigation.findNavController(view).navigateUp()
         }
     }
 
-    override fun onProfileArticleCardClick(position: Int) {
-        Navigation.findNavController(requireView())
-            .navigate(
-                ProfileFragmentDirections.actionProfileFragmentToArticleFragment(
-                    Utils(
-                        requireContext()
-                    ).initArticles()[0]
-                )
-            )
+    override fun onProfileArticleCardClick(slug: String) {
+        openArticle(slug)
     }
 
     override fun onBookmarkClick(slug: String) {
@@ -245,21 +246,11 @@ class ProfileFragment : Fragment(),
     }
 
     override fun onAuthorNameClick(username: String) {
-        Navigation.findNavController(requireView())
-            .navigate(
-                ProfileFragmentDirections.actionProfileFragmentSelf(
-                    username
-                )
-            )
+        openProfile(username)
     }
 
     override fun onAuthorIconClick(username: String) {
-        Navigation.findNavController(requireView())
-            .navigate(
-                ProfileFragmentDirections.actionProfileFragmentSelf(
-                    username
-                )
-            )
+        openProfile(username)
     }
 
     override fun onArticleCommentsClick(position: Int) {
