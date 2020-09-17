@@ -44,6 +44,22 @@ class ArticleHomeRepository(
         return responseArticles
     }
 
+    suspend fun getAllArticles(): Resource<List<ArticleView>> {
+        var responseArticles = Resource<List<ArticleView>>(Status.ERROR, null, null)
+
+        if (NetworkHelper.isOnline(MyApp.app)) {
+            val feedArticles = homeRemoteDataSource.getAllArticles()
+            if (feedArticles.status == Status.SUCCESS) {
+                val articleViews = feedArticles.data?.articleNetworks?.map {
+                    it.toArticleView(Resource.success(null))
+                }
+                responseArticles = Resource.success(articleViews)
+            }
+        }
+
+        return responseArticles
+    }
+
     suspend fun getArticles(): ArrayList<ArticleView> {
         return localDataSource.getArticles()
     }

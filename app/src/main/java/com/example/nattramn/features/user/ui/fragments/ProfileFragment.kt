@@ -226,15 +226,16 @@ class ProfileFragment : Fragment(),
         })
     }
 
-    override fun onMoreOptionsClick(position: Int) {
-        val addPhotoBottomDialogFragment =
+    override fun onMoreOptionsClick(slug: String) {
+
+        val dialogFragment =
             ActionBottomDialogFragment.newInstance()
 
-        @Suppress("DEPRECATION")
-        addPhotoBottomDialogFragment.show(
-            requireFragmentManager(),
-            ActionBottomDialogFragment.TAG
-        )
+        val bundle = Bundle()
+        bundle.putString("slug", slug)
+        dialogFragment.arguments = bundle
+
+        dialogFragment.show(childFragmentManager, ActionBottomDialogFragment.TAG)
     }
 
     override fun onArticleTitleClick(slug: String) {

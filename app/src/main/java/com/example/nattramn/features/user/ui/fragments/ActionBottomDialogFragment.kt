@@ -4,16 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.example.nattramn.R
 import com.example.nattramn.databinding.ActionBottomSheetBinding
 import com.example.nattramn.features.user.ui.viewmodels.ActionDialogViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class ActionBottomDialogFragment : BottomSheetDialogFragment() {
 
+    private lateinit var binding: ActionBottomSheetBinding
     private lateinit var actionDialogViewModel: ActionDialogViewModel
+    private lateinit var slug: String
 
     companion object {
         const val TAG = "ActionBottomDialog"
@@ -26,14 +26,16 @@ class ActionBottomDialogFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        val binding: ActionBottomSheetBinding = DataBindingUtil.inflate(
-            inflater, R.layout.action_bottom_sheet, container, false
-        )
-
-        binding.lifecycleOwner = viewLifecycleOwner
         actionDialogViewModel = ViewModelProvider(this).get(ActionDialogViewModel::class.java)
+        slug = arguments?.getString("slug")!!
+
+        binding = ActionBottomSheetBinding.inflate(
+            inflater, container, false
+        ).apply {
+            lifecycleOwner = viewLifecycleOwner
+        }
 
         return binding.root
     }
+
 }

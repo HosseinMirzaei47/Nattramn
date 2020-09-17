@@ -7,4 +7,7 @@ interface HomeApi {
     @GET("articles/feed")
     suspend fun getFeedArticles(): ArticlesListResponse
 
+    @GET("articles")
+    suspend fun getAllArticles(): ArticlesListResponse
+
 }

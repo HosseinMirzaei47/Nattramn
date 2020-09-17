@@ -6,7 +6,7 @@ interface OnProfileArticleListener {
 
     fun onBookmarkClick(slug: String)
 
-    fun onMoreOptionsClick(position: Int)
+    fun onMoreOptionsClick(slug: String)
 
     fun onAuthorIconClick(username: String)
 

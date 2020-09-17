@@ -51,24 +51,20 @@ class ForYouFragment : Fragment(), OnArticleListener {
     private fun setRecyclers() {
         setContent()
         homeViewModel.setFeedArticles()
-        homeViewModel.setTopArticles()
+        homeViewModel.setLatestArticles()
     }
 
     private fun setContent() {
-        binding.forYouProgress.visibility = View.VISIBLE
+        homeViewModel.feedResult.observe(viewLifecycleOwner, Observer { resource ->
+            if (resource.status == Status.SUCCESS && !resource.data.isNullOrEmpty()) {
 
-        homeViewModel.feedResult.observe(viewLifecycleOwner, Observer {
+                println("jalil size all: ${resource.data.size}")
 
-            if (it.status == Status.SUCCESS) {
-                println("jalil size ${it.data?.size}")
-
-                it.data?.let { articlesList ->
-                    feedArticlesAdapter =
-                        VerticalArticleAdapter(
-                            articlesList,
-                            this@ForYouFragment
-                        )
-                }
+                feedArticlesAdapter =
+                    VerticalArticleAdapter(
+                        resource.data,
+                        this@ForYouFragment
+                    )
 
                 binding.recyclerHomeArticle.apply {
                     adapter = feedArticlesAdapter
@@ -76,25 +72,32 @@ class ForYouFragment : Fragment(), OnArticleListener {
                         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 }
 
-                binding.forYouProgress.visibility = View.GONE
+                binding.forYouFeedProgress.visibility = View.GONE
                 binding.textInputSearch.visibility = View.VISIBLE
 
             } else {
-                println("jalil error ${it.message}")
+                println("jalil error ${resource.message}")
             }
         })
 
-        homeViewModel.topArticles.observe(viewLifecycleOwner, Observer {
-            topArticlesAdapter =
-                HorizontalArticleAdapter(
-                    it,
-                    this@ForYouFragment
-                )
+        homeViewModel.latestArticlesResult.observe(viewLifecycleOwner, Observer { resource ->
+            if (resource.status == Status.SUCCESS && !resource.data.isNullOrEmpty()) {
 
-            binding.recyclerHomeTopArticles.apply {
-                adapter = topArticlesAdapter
-                layoutManager =
-                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                println("jalil size all: ${resource.data.size}")
+
+                topArticlesAdapter =
+                    HorizontalArticleAdapter(
+                        resource.data,
+                        this
+                    )
+
+                binding.recyclerHomeTopArticles.apply {
+                    adapter = topArticlesAdapter
+                    layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                }
+
+                binding.forYouLatestArticlesProgress.visibility = View.GONE
             }
         })
     }

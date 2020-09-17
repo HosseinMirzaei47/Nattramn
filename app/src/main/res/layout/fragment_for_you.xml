@@ -51,7 +51,7 @@
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_ten"
             android:layout_marginBottom="@dimen/margin_micro"
-            android:text="@string/topArticles"
+            android:text="@string/latestArticles"
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_b1"
             android:textStyle="bold"
@@ -80,14 +80,24 @@
             tools:listitem="@layout/horizontal_article_row" />
 
         <ProgressBar
-            android:id="@+id/forYouProgress"
+            android:id="@+id/forYouFeedProgress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/recyclerHomeArticle"
+            app:layout_constraintEnd_toEndOf="@+id/recyclerHomeArticle"
+            app:layout_constraintStart_toStartOf="@+id/recyclerHomeArticle"
+            app:layout_constraintTop_toTopOf="@+id/recyclerHomeArticle" />
+
+        <ProgressBar
+            android:id="@+id/forYouLatestArticlesProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/recyclerHomeTopArticles"
+            app:layout_constraintEnd_toEndOf="@+id/recyclerHomeTopArticles"
+            app:layout_constraintStart_toStartOf="@+id/recyclerHomeTopArticles"
+            app:layout_constraintTop_toTopOf="@+id/recyclerHomeTopArticles" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -16,13 +16,15 @@ class HomeViewModel : ViewModel() {
 
     private val articleHomeRepository = ArticleHomeRepository.getInstance(MyApp.app)
     private val articleRepository = ArticleRepository.getInstance(MyApp.app)
-    var topArticles = MutableLiveData<ArrayList<ArticleView>>()
 
     private var _singleArticleResult = MutableLiveData<Resource<ArticleView>>()
     val singleArticleResult: LiveData<Resource<ArticleView>> get() = _singleArticleResult
 
     private var _feedResult = MutableLiveData<Resource<List<ArticleView>>>()
     val feedResult: LiveData<Resource<List<ArticleView>>> get() = _feedResult
+
+    private var _latestArticlesResult = MutableLiveData<Resource<List<ArticleView>>>()
+    val latestArticlesResult: LiveData<Resource<List<ArticleView>>> get() = _latestArticlesResult
 
     private var _bookmarkResult = MutableLiveData<Resource<ArticleView>>()
     val bookmarkResult: LiveData<Resource<ArticleView>> get() = _bookmarkResult
@@ -33,6 +35,15 @@ class HomeViewModel : ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) {
             _feedResult.postValue(articleHomeRepository.getFeedArticles())
+        }
+    }
+
+    fun setLatestArticles() {
+
+        _latestArticlesResult.value = Resource.loading(null)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            _latestArticlesResult.postValue(articleHomeRepository.getAllArticles())
         }
     }
 
@@ -52,12 +63,6 @@ class HomeViewModel : ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) {
             _bookmarkResult.postValue(articleRepository.bookmarkArticle(slug))
-        }
-    }
-
-    fun setTopArticles() {
-        viewModelScope.launch(Dispatchers.IO) {
-            topArticles.postValue(articleHomeRepository.getArticles())
         }
     }
 
