@@ -46,6 +46,22 @@ class ProfileRepository(
         return responseArticles
     }
 
+    suspend fun getBookmarkedArticles(username: String): Resource<List<ArticleView>> {
+        var responseArticles = Resource<List<ArticleView>>(Status.ERROR, null, null)
+
+        if (NetworkHelper.isOnline(MyApp.app)) {
+            val bookmarkedArticles = profileRemoteDataSource.getBookmarkedArticles(username)
+            if (bookmarkedArticles.status == Status.SUCCESS) {
+                val articleViews = bookmarkedArticles.data?.articleNetworks?.map { articleNetwork ->
+                    articleNetwork.toArticleView(Resource.success(null))
+                }
+                responseArticles = Resource.success(articleViews)
+            }
+        }
+
+        return responseArticles
+    }
+
     suspend fun getProfile(username: String): Resource<UserView> {
 
         var responseArticles = Resource<UserView>(Status.ERROR, null, null)

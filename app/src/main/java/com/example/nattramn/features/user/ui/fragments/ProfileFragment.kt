@@ -54,15 +54,17 @@ class ProfileFragment : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        showUserArticles()
+
         setTabItemsView()
 
         setBackButtonClick()
 
-        setRecyclers()
-
     }
 
     private fun setTabItemsView() {
+        binding.profileProgressBar.visibility = View.VISIBLE
+
         binding.profileTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
             @SuppressLint("InflateParams")
@@ -74,10 +76,16 @@ class ProfileFragment : Fragment(),
                 val tabSelectedView: View? =
                     LayoutInflater.from(context).inflate(R.layout.custom_tab_selected, null)
 
-                if (tab?.position == 0 && profileTab.getTabAt(0)?.customView != tabSelectedView) {
+                if (tab?.position == 0 &&
+                    profileTab.getTabAt(0)?.customView != tabSelectedView
+                ) {
+
                     profileTab.getTabAt(0)?.customView = tabSelectedView
+                    showUserArticles()
+
                 } else {
                     profileTab.getTabAt(1)?.customView = tabSelectedView
+                    showBookmarkedArticles()
                 }
 
             }
@@ -91,9 +99,37 @@ class ProfileFragment : Fragment(),
         })
     }
 
-    private fun setRecyclers() {
+    private fun showBookmarkedArticles() {
+        profileViewModel.setBookmarkedArticles(username)
 
-        binding.profileProgressBar.visibility = View.VISIBLE
+        profileViewModel.profileBookmarkedArticlesResult.observe(viewLifecycleOwner, Observer {
+
+            if (it.status == Status.SUCCESS) {
+                println("jalil size ${it.data?.size}")
+
+                it.data?.let { articlesList ->
+                    profileArticleAdapter =
+                        ProfileArticleAdapter(
+                            articlesList,
+                            this
+                        )
+                }
+
+                binding.recyclerProfileArticles.apply {
+                    adapter = profileArticleAdapter
+                    layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                }
+
+                binding.profileProgressBar.visibility = View.GONE
+
+            } else {
+                println("jalil error ${it.message}")
+            }
+        })
+    }
+
+    private fun showUserArticles() {
         profileViewModel.setProfileArticles(username)
 
         profileViewModel.profileArticlesResult.observe(viewLifecycleOwner, Observer {
@@ -121,7 +157,6 @@ class ProfileFragment : Fragment(),
                 println("jalil error ${it.message}")
             }
         })
-
     }
 
     private fun setProfileInfo() {

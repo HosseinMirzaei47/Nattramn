@@ -11,6 +11,9 @@ interface ProfileApi {
     @GET("articles")
     suspend fun getUserArticles(@Query("author") username: String): ArticlesListResponse
 
+    @GET("articles")
+    suspend fun getBookmarkedArticles(@Query("favorited") username: String): ArticlesListResponse
+
     @GET("profiles/{username}")
     suspend fun getProfile(@Path("username") username: String): UserProfileResponse
 
