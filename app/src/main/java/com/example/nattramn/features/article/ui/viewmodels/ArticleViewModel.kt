@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.features.article.data.ArticleRepository
+import com.example.nattramn.features.article.data.models.ArticleComments
 import com.example.nattramn.features.article.data.models.Comment
 import com.example.nattramn.features.article.data.models.CommentRequest
 import com.example.nattramn.features.article.ui.ArticleView
@@ -26,6 +27,9 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
     private var _sendCommentResult = MutableLiveData<Resource<Unit>>()
     val sendCommentResult: LiveData<Resource<Unit>> get() = _sendCommentResult
 
+    private var _articleCommentsResult = MutableLiveData<Resource<ArticleComments>>()
+    val articleCommentsResult: LiveData<Resource<ArticleComments>> get() = _articleCommentsResult
+
     fun bookmarkArticle(slug: String) {
 
         _bookmarkResult.value = Resource.loading(null)
@@ -39,10 +43,6 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
         suggestedArticles.value = getArticles()
     }
 
-    fun setComments() {
-        comments.value = getComments()
-    }
-
     fun sendComment(slug: String, comment: String) {
 
         val commentRequest = CommentRequest(Comment(comment))
@@ -51,6 +51,15 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
 
         viewModelScope.launch(Dispatchers.IO) {
             _sendCommentResult.postValue(articleRepository.sendComment(slug, commentRequest))
+        }
+    }
+
+    fun getArticleComments(slug: String) {
+
+        _articleCommentsResult.value = Resource.loading(null)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            _articleCommentsResult.postValue(articleRepository.getArticleComments(slug))
         }
     }
 
@@ -63,18 +72,6 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
         }
 
         return articles
-
-    }
-
-    private fun getComments(): ArrayList<CommentView> {
-
-        var comments = ArrayList<CommentView>()
-
-        viewModelScope.launch {
-            comments = articleRepository.getComments()
-        }
-
-        return comments
 
     }
 

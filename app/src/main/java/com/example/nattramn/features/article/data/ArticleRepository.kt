@@ -6,9 +6,9 @@ import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.NetworkHelper
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
+import com.example.nattramn.features.article.data.models.ArticleComments
 import com.example.nattramn.features.article.data.models.CommentRequest
 import com.example.nattramn.features.article.ui.ArticleView
-import com.example.nattramn.features.article.ui.CommentView
 
 class ArticleRepository(
     private val articleRemoteDataSource: ArticleRemoteDataSource,
@@ -47,6 +47,21 @@ class ArticleRepository(
 
         return response
 
+    }
+
+    suspend fun getArticleComments(slug: String): Resource<ArticleComments> {
+        var response = Resource<ArticleComments>(Status.ERROR, null, null)
+
+        if (NetworkHelper.isOnline(MyApp.app)) {
+            val request = articleRemoteDataSource.getArticleComments(slug)
+            if (request.status == Status.SUCCESS) {
+                response = Resource.success(request.data)
+            } else if (request.status == Status.ERROR) {
+                response = Resource.error("Something went wrong", request.data)
+            }
+        }
+
+        return response
     }
 
     suspend fun getSingleArticle(slug: String): Resource<ArticleView> {
@@ -91,10 +106,6 @@ class ArticleRepository(
 
     suspend fun getArticles(): ArrayList<ArticleView> {
         return localDataSource.getArticles()
-    }
-
-    suspend fun getComments(): ArrayList<CommentView> {
-        return localDataSource.getComments()
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.nattramn.features.article.services
 
+import com.example.nattramn.features.article.data.models.ArticleComments
 import com.example.nattramn.features.article.data.models.CommentRequest
 import com.example.nattramn.features.home.data.SingleArticleResponse
 import retrofit2.http.Body
@@ -17,5 +18,8 @@ interface ArticleApi {
 
     @POST("articles/{slug}/comments")
     suspend fun sendComment(@Path("slug") slug: String, @Body commentRequest: CommentRequest)
+
+    @GET("articles/{slug}/comments")
+    suspend fun getArticleComments(@Path("slug") slug: String): ArticleComments
 
 }

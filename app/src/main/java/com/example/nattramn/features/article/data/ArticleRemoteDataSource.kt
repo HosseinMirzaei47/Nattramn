@@ -21,4 +21,8 @@ class ArticleRemoteDataSource {
             ServiceBuilder.buildService(ArticleApi::class.java).sendComment(slug, commentRequest)
         }
 
+    suspend fun getArticleComments(slug: String) = safeApiCall {
+        ServiceBuilder.buildService(ArticleApi::class.java).getArticleComments(slug)
+    }
+
 }

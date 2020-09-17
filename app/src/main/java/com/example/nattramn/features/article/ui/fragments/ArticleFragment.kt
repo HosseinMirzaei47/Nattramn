@@ -70,6 +70,8 @@ class ArticleFragment : Fragment(),
 
         setRecyclers()
 
+        setComments()
+
     }
 
     private fun onBookmarkClick() {
@@ -135,21 +137,39 @@ class ArticleFragment : Fragment(),
         }
     }
 
+    private fun setComments() {
+        articleViewModel.getArticleComments(args.ArticleView.slug)
+
+        articleViewModel.articleCommentsResult.observe(viewLifecycleOwner, Observer { resource ->
+            if (resource.status == Status.SUCCESS) {
+
+                resource.data?.let { articlesList ->
+                    commentAdapter =
+                        CommentAdapter(
+                            resource.data.comments,
+                            this
+                        )
+                }
+
+                binding.recyclerArticleComments.apply {
+                    adapter = commentAdapter
+                    layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                }
+
+            }
+        })
+    }
+
     private fun setRecyclers() {
 
         observeRecyclersContent()
 
         articleViewModel.setSuggestedArticles()
-        articleViewModel.setComments()
 
         suggestedArticleAdapter =
             SuggestedArticleAdapter(
                 articleViewModel.suggestedArticles.value!!,
-                this
-            )
-        commentAdapter =
-            CommentAdapter(
-                articleViewModel.comments.value!!,
                 this
             )
 
@@ -166,21 +186,14 @@ class ArticleFragment : Fragment(),
             }
 
         })
-
-        articleViewModel.comments.observe(viewLifecycleOwner, Observer {
-
-            commentAdapter.commentViews = it
-
-            binding.recyclerArticleComments.apply {
-                adapter = commentAdapter
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            }
-
-        })
     }
 
-    override fun onCommentIconClick(position: Int) {
-        Toast.makeText(context, getString(R.string.openProfileToast), Toast.LENGTH_SHORT).show()
+    override fun onCommentIconClick(username: String) {
+        openProfile(username)
+    }
+
+    override fun onCommentUsernameClick(username: String) {
+        openProfile(username)
     }
 
     override fun onCardClick(slug: String) {
