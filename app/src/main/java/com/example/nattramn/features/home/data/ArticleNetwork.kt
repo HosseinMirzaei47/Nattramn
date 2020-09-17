@@ -7,7 +7,6 @@ import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.features.article.data.models.ArticleComments
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.CommentView
-import com.example.nattramn.features.article.ui.TagView
 import com.example.nattramn.features.user.ui.UserView
 import com.google.gson.annotations.SerializedName
 
@@ -27,15 +26,13 @@ data class ArticleNetwork(
     @SerializedName("slug")
     val slug: String,
     @SerializedName("tagList")
-    val tagList: ArrayList<String>,
+    val tagList: List<String>,
     @SerializedName("title")
     val title: String,
     @SerializedName("updatedAt")
     val updatedAt: String
 ) {
     fun toArticleView(articleComments: Resource<ArticleComments>): ArticleView {
-
-        val tagView = TagView(tagList)
 
         val comments = articleComments.data?.comments?.map {
             CommentView(it.author.username, it.author.image, it.body)
@@ -54,7 +51,7 @@ data class ArticleNetwork(
             createdAt,
             title,
             body,
-            arrayListOf(tagView),
+            tagList,
             comments,
             favoritesCount.toString(),
             comments.size,

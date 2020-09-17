@@ -11,7 +11,7 @@ data class ArticleView(
     val date: String,
     val title: String,
     val body: String,
-    val tagViews: @RawValue ArrayList<TagView>,
+    val tags: @RawValue List<String>,
     val commentViews: @RawValue List<CommentView>,
     val likes: String,
     val commentsNumber: Int,

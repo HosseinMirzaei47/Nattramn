@@ -16,12 +16,14 @@ import com.example.nattramn.R
 import com.example.nattramn.core.Utils
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.databinding.FragmentArticleBinding
+import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.OnArticleListener
 import com.example.nattramn.features.article.ui.OnCommentListener
 import com.example.nattramn.features.article.ui.adapters.CommentAdapter
 import com.example.nattramn.features.article.ui.adapters.SuggestedArticleAdapter
 import com.example.nattramn.features.article.ui.viewmodels.ArticleViewModel
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
+import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.dialog_comment.*
 import kotlinx.android.synthetic.main.fragment_article.*
@@ -35,6 +37,8 @@ class ArticleFragment : Fragment(),
     private lateinit var commentAdapter: CommentAdapter
     private lateinit var suggestedArticleAdapter: SuggestedArticleAdapter
     private lateinit var dialog: Dialog
+    private lateinit var articleViewArg: ArticleView
+    private lateinit var tags: List<String>
     private val args: ArticleFragmentArgs by navArgs()
 
     private val snapHorizontal = GravitySnapHelper(Gravity.CENTER)
@@ -46,7 +50,8 @@ class ArticleFragment : Fragment(),
     ): View? {
 
         articleViewModel = ViewModelProvider(this).get(ArticleViewModel::class.java)
-        val articleViewArg = args.ArticleView
+        articleViewArg = args.ArticleView
+        tags = articleViewArg.tags
 
         binding = FragmentArticleBinding.inflate(
             inflater, container, false
@@ -68,9 +73,21 @@ class ArticleFragment : Fragment(),
 
         setAddCommentAction()
 
+        setArticleTags()
+
         setRecyclers()
 
         setComments()
+
+    }
+
+    private fun setArticleTags() {
+
+        for (tag in tags) {
+            val chip = Chip(requireContext())
+            chip.text = tag
+            binding.chipGroupSA.addView(chip)
+        }
 
     }
 

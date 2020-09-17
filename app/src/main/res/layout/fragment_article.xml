@@ -222,53 +222,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_1"
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="@color/whiteBackground"
-                            android:checkable="false"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="@string/economy"
-                            android:textColor="@color/black" />
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_2"
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="@color/whiteBackground"
-                            android:checkable="false"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="@string/stockMarket"
-                            android:textColor="@color/black" />
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_3"
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="@color/whiteBackground"
-                            android:checkable="false"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="@string/apple"
-                            android:textColor="@color/black" />
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="@color/whiteBackground"
-                            android:checkable="false"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="@string/investment"
-                            android:textColor="@color/black" />
-
                     </com.google.android.material.chip.ChipGroup>
 
                 </HorizontalScrollView>
