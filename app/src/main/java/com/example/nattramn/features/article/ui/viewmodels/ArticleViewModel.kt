@@ -7,6 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.features.article.data.ArticleRepository
+import com.example.nattramn.features.article.data.models.Comment
+import com.example.nattramn.features.article.data.models.CommentRequest
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.CommentView
 import kotlinx.coroutines.Dispatchers
@@ -17,8 +19,12 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
     private val articleRepository = ArticleRepository.getInstance(application)
     var suggestedArticles = MutableLiveData<ArrayList<ArticleView>>()
     var comments = MutableLiveData<ArrayList<CommentView>>()
+
     private var _bookmarkResult = MutableLiveData<Resource<ArticleView>>()
     val bookmarkResult: LiveData<Resource<ArticleView>> get() = _bookmarkResult
+
+    private var _sendCommentResult = MutableLiveData<Resource<Unit>>()
+    val sendCommentResult: LiveData<Resource<Unit>> get() = _sendCommentResult
 
     fun bookmarkArticle(slug: String) {
 
@@ -35,6 +41,17 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
 
     fun setComments() {
         comments.value = getComments()
+    }
+
+    fun sendComment(slug: String, comment: String) {
+
+        val commentRequest = CommentRequest(Comment(comment))
+
+        _sendCommentResult.value = Resource.loading(null)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            _sendCommentResult.postValue(articleRepository.sendComment(slug, commentRequest))
+        }
     }
 
     private fun getArticles(): ArrayList<ArticleView> {

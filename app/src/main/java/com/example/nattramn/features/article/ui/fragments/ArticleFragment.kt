@@ -34,6 +34,7 @@ class ArticleFragment : Fragment(),
     private lateinit var articleViewModel: ArticleViewModel
     private lateinit var commentAdapter: CommentAdapter
     private lateinit var suggestedArticleAdapter: SuggestedArticleAdapter
+    private lateinit var dialog: Dialog
     private val args: ArticleFragmentArgs by navArgs()
 
     private val snapHorizontal = GravitySnapHelper(Gravity.CENTER)
@@ -92,7 +93,7 @@ class ArticleFragment : Fragment(),
 
     private fun setAddCommentAction() {
         binding.articleCommentButton.setOnClickListener {
-            val dialog = Dialog(requireContext(), 0)
+            dialog = Dialog(requireContext(), 0)
             dialog.apply {
 
                 setContentView(R.layout.dialog_comment)
@@ -109,12 +110,23 @@ class ArticleFragment : Fragment(),
                     addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
                 }
                 dialogSendComment.setOnClickListener {
-                    Toast.makeText(requireContext(), dialogCommentText.text, Toast.LENGTH_SHORT)
-                        .show()
-
+                    sendComment(dialogCommentText.text.toString())
                 }
             }
         }
+    }
+
+    private fun sendComment(comment: String) {
+        articleViewModel.sendComment(args.ArticleView.slug, comment)
+
+        articleViewModel.sendCommentResult.observe(viewLifecycleOwner, Observer {
+            if (it.status == Status.SUCCESS) {
+                Snackbar.make(requireView(), "دیدگاه شما ثبت شد", Snackbar.LENGTH_SHORT).show()
+            } else if (it.status == Status.ERROR) {
+                Snackbar.make(requireView(), "خطا در ارتباط با سرور", Snackbar.LENGTH_SHORT).show()
+            }
+            dialog.dismiss()
+        })
     }
 
     private fun setBackButtonClick() {

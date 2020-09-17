@@ -2,6 +2,7 @@ package com.example.nattramn.features.article.data
 
 import com.example.nattramn.core.ServiceBuilder
 import com.example.nattramn.core.safeApiCall
+import com.example.nattramn.features.article.data.models.CommentRequest
 import com.example.nattramn.features.article.services.ArticleApi
 
 class ArticleRemoteDataSource {
@@ -13,6 +14,11 @@ class ArticleRemoteDataSource {
     suspend fun bookmarkArticle(slug: String) =
         safeApiCall {
             ServiceBuilder.buildService(ArticleApi::class.java).bookmarkArticle(slug)
+        }
+
+    suspend fun sendComment(slug: String, commentRequest: CommentRequest) =
+        safeApiCall {
+            ServiceBuilder.buildService(ArticleApi::class.java).sendComment(slug, commentRequest)
         }
 
 }

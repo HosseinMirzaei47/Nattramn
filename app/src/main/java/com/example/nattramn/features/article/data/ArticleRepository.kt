@@ -6,6 +6,7 @@ import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.NetworkHelper
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
+import com.example.nattramn.features.article.data.models.CommentRequest
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.CommentView
 
@@ -65,6 +66,27 @@ class ArticleRepository(
 
         return response
 
+    }
+
+    suspend fun sendComment(slug: String, commentRequest: CommentRequest): Resource<Unit> {
+        var response = Resource<Unit>(Status.ERROR, null, null)
+
+        if (NetworkHelper.isOnline(MyApp.app)) {
+            val request = articleRemoteDataSource.sendComment(slug, commentRequest)
+            response = when (request.status) {
+                Status.SUCCESS -> {
+                    Resource.success(request.data)
+                }
+                Status.ERROR -> {
+                    Resource.error("no slug", null)
+                }
+                Status.LOADING -> {
+                    Resource.loading(null)
+                }
+            }
+        }
+
+        return response
     }
 
     suspend fun getArticles(): ArrayList<ArticleView> {
