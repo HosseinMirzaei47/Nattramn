@@ -56,12 +56,12 @@ class SuggestedArticleAdapter(
             }
             binding.itemAuthorImage.setOnClickListener {
                 onArticleListener.onAuthorIconClick(
-                    suggestions[layoutPosition].slug
+                    suggestions[layoutPosition].userView.name
                 )
             }
             binding.itemAuthorName.setOnClickListener {
                 onArticleListener.onAuthorNameClick(
-                    suggestions[layoutPosition].slug
+                    suggestions[layoutPosition].userView.name
                 )
             }
 

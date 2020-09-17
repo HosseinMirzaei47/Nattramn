@@ -29,19 +29,19 @@ class ProfileFragment : Fragment(),
     private lateinit var profileViewModel: ProfileViewModel
     private lateinit var profileArticleAdapter: ProfileArticleAdapter
     private val args: ProfileFragmentArgs by navArgs()
+    private lateinit var username: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val userView = args.UserView
+        username = args.username
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
         binding = FragmentProfileBinding.inflate(
             inflater, container, false
         ).apply {
-            profile = userView
             lifecycleOwner = viewLifecycleOwner
         }
 
@@ -92,7 +92,8 @@ class ProfileFragment : Fragment(),
     private fun setRecyclers() {
 
         setContent()
-        profileViewModel.setProfileArticles("hosseinmirzaei")
+        binding.profileProgressBar.visibility = View.VISIBLE
+        profileViewModel.setProfileArticles(username)
 
         profileViewModel.profileArticlesResult.observe(viewLifecycleOwner, Observer {
 
@@ -113,12 +114,7 @@ class ProfileFragment : Fragment(),
                         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 }
 
-                /*it.data?.map { article ->
-                    println("-- ${article.commentViews}")
-                    article.commentViews.size.apply {
-                        println("jalil count size: $this")
-                    }
-                }?.sum()*/
+                binding.profileProgressBar.visibility = View.GONE
 
             } else {
                 println("jalil error ${it.message}")
@@ -128,7 +124,6 @@ class ProfileFragment : Fragment(),
     }
 
     private fun setContent() {
-        binding.profileProgressBar.visibility = View.VISIBLE
 
         profileViewModel.profileArticles.observe(viewLifecycleOwner, Observer {
 
@@ -188,9 +183,7 @@ class ProfileFragment : Fragment(),
         Navigation.findNavController(requireView())
             .navigate(
                 ProfileFragmentDirections.actionProfileFragmentSelf(
-                    Utils(
-                        requireContext()
-                    ).userView
+                    username
                 )
             )
     }
@@ -199,9 +192,7 @@ class ProfileFragment : Fragment(),
         Navigation.findNavController(requireView())
             .navigate(
                 ProfileFragmentDirections.actionProfileFragmentSelf(
-                    Utils(
-                        requireContext()
-                    ).userView
+                    username
                 )
             )
     }

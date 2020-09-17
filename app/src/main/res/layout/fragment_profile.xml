@@ -3,14 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="profile"
-            type="com.example.nattramn.features.user.ui.UserView" />
-
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -91,7 +83,6 @@
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profileImageInfo"
-                        imageSource="@{profile.image}"
                         android:layout_width="@dimen/global_item_image_size"
                         android:layout_height="@dimen/global_item_image_size"
                         android:layout_marginStart="@dimen/margin_ten"
@@ -105,7 +96,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_micro"
-                        android:text="@{profile.name}"
                         android:textColor="@color/black"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@+id/jobInfo"
@@ -117,7 +107,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_micro"
-                        android:text="@{profile.job}"
                         android:textColor="@color/hint"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@id/profileImageInfo"
@@ -166,7 +155,6 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/followersCount"
-                        textNumber="@{profile.followers}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/profile_followers_margin_start"

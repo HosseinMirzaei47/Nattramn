@@ -8,8 +8,8 @@ interface OnArticleListener {
 
     fun onArticleSaveClick(slug: String)
 
-    fun onAuthorNameClick(slug: String)
+    fun onAuthorNameClick(username: String)
 
-    fun onAuthorIconClick(slug: String)
+    fun onAuthorIconClick(username: String)
 
 }

@@ -54,12 +54,12 @@ class HorizontalArticleAdapter(
             }
             binding.itemAuthorImage.setOnClickListener {
                 onArticleListener.onAuthorIconClick(
-                    articleViews[layoutPosition].slug
+                    articleViews[layoutPosition].userView.name
                 )
             }
             binding.itemAuthorName.setOnClickListener {
                 onArticleListener.onAuthorNameClick(
-                    articleViews[layoutPosition].slug
+                    articleViews[layoutPosition].userView.name
                 )
             }
 

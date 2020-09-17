@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.nattramn.R
-import com.example.nattramn.core.Utils
 import com.example.nattramn.core.ViewPagerAdapter
 import com.example.nattramn.databinding.FragmentHomeBinding
 
@@ -61,9 +60,7 @@ class HomeFragment : Fragment() {
             Navigation.findNavController(view)
                 .navigate(
                     HomeFragmentDirections.actionHomeFragmentToProfileFragment(
-                        Utils(
-                            requireContext()
-                        ).userView
+                        "hosseinmirzaei"
                     )
                 )
         }

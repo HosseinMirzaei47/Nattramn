@@ -75,15 +75,8 @@ class ForYouFragment : Fragment(), OnArticleListener {
                         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 }
 
-                binding.forYouProgress.visibility = View.INVISIBLE
+                binding.forYouProgress.visibility = View.GONE
                 binding.textInputSearch.visibility = View.VISIBLE
-
-                /*it.data?.map { article ->
-                    println("-- ${article.commentViews}")
-                    article.commentViews.size.apply {
-                        println("jalil count size: $this")
-                    }
-                }?.sum()*/
 
             } else {
                 println("jalil error ${it.message}")
@@ -149,25 +142,18 @@ class ForYouFragment : Fragment(), OnArticleListener {
             .navigate(HomeFragmentDirections.actionHomeFragmentToTagFragment())
     }
 
-    override fun onAuthorNameClick(slug: String) {
-        Navigation.findNavController(requireView())
-            .navigate(
-                HomeFragmentDirections.actionHomeFragmentToProfileFragment(
-                    Utils(
-                        requireContext()
-                    ).userView
-                )
-            )
+    override fun onAuthorNameClick(username: String) {
+        openProfile(username)
     }
 
-    override fun onAuthorIconClick(slug: String) {
+    override fun onAuthorIconClick(username: String) {
+        openProfile(username)
+    }
+
+    private fun openProfile(username: String) {
         Navigation.findNavController(requireView())
             .navigate(
-                HomeFragmentDirections.actionHomeFragmentToProfileFragment(
-                    Utils(
-                        requireContext()
-                    ).userView
-                )
+                HomeFragmentDirections.actionHomeFragmentToProfileFragment(username)
             )
     }
 

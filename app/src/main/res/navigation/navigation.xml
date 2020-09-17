@@ -90,9 +90,8 @@
             app:destination="@id/profileFragment" />
 
         <argument
-            android:name="UserView"
-            app:argType="com.example.nattramn.features.user.ui.UserView"
-            app:nullable="false" />
+            android:name="username"
+            app:argType="string" />
 
     </fragment>
 
