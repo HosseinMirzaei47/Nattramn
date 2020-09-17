@@ -16,6 +16,7 @@ import com.example.nattramn.core.resource.Status
 import com.example.nattramn.databinding.FragmentForYouBinding
 import com.example.nattramn.features.article.ui.OnArticleListener
 import com.example.nattramn.features.home.ui.viewmodels.HomeViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class ForYouFragment : Fragment(), OnArticleListener {
 
@@ -138,8 +139,20 @@ class ForYouFragment : Fragment(), OnArticleListener {
     }
 
     override fun onArticleSaveClick(slug: String) {
-        Navigation.findNavController(requireView())
-            .navigate(HomeFragmentDirections.actionHomeFragmentToTagFragment())
+        homeViewModel.bookmarkArticle(slug)
+
+        homeViewModel.bookmarkResult.observe(viewLifecycleOwner, Observer { result ->
+
+            if (result.status == Status.SUCCESS) {
+                Snackbar.make(
+                    requireView(), "این مقاله به لیست علاقه مندی ها اضافه شد", Snackbar.LENGTH_LONG
+                ).show()
+            } else if (result.status == Status.ERROR) {
+                Snackbar.make(
+                    requireView(), "خطا در ارتباط با سرور", Snackbar.LENGTH_LONG
+                ).show()
+            }
+        })
     }
 
     override fun onAuthorNameClick(username: String) {

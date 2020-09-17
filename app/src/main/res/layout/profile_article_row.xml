@@ -115,6 +115,7 @@
                 android:layout_marginTop="@dimen/profile_article_row_body_margin_top"
                 android:layout_marginEnd="@dimen/profile_article_row_horizontal_margin"
                 android:lineSpacingExtra="7sp"
+                android:maxLines="3"
                 android:padding="@dimen/padding_normal"
                 android:text="@{profileData.body}"
                 android:textColor="@color/black"
