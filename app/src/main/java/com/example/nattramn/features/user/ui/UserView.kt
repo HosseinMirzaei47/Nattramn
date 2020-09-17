@@ -9,5 +9,5 @@ data class UserView(
     val job: String,
     val image: String,
     val followers: Int,
-    val isMe: Boolean
+    val isMe: Boolean? = false
 ) : Parcelable

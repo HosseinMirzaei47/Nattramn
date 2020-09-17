@@ -7,6 +7,7 @@ import com.example.nattramn.core.NetworkHelper
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.features.article.ui.ArticleView
+import com.example.nattramn.features.user.ui.UserView
 
 class ProfileRepository(
     private val profileRemoteDataSource: ProfileRemoteDataSource,
@@ -33,16 +34,32 @@ class ProfileRepository(
         var responseArticles = Resource<List<ArticleView>>(Status.ERROR, null, null)
 
         if (NetworkHelper.isOnline(MyApp.app)) {
-            val feedArticles = profileRemoteDataSource.getUserArticles(username)
-            if (feedArticles.status == Status.SUCCESS) {
-                val articleViews = feedArticles.data?.articleNetworks?.map {
-                    it.toArticleView(Resource.success(null))
+            val userArticles = profileRemoteDataSource.getUserArticles(username)
+            if (userArticles.status == Status.SUCCESS) {
+                val articleViews = userArticles.data?.articleNetworks?.map { articleNetwork ->
+                    articleNetwork.toArticleView(Resource.success(null))
                 }
                 responseArticles = Resource.success(articleViews)
             }
         }
 
         return responseArticles
+    }
+
+    suspend fun getProfile(username: String): Resource<UserView> {
+
+        var responseArticles = Resource<UserView>(Status.ERROR, null, null)
+
+        if (NetworkHelper.isOnline(MyApp.app)) {
+            val profile = profileRemoteDataSource.getProfile(username)
+            if (profile.status == Status.SUCCESS) {
+                val userView = profile.data?.userNetwork?.toUserView()
+                responseArticles = Resource.success(userView)
+            }
+        }
+
+        return responseArticles
+
     }
 
 }

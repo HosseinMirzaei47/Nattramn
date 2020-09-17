@@ -39,6 +39,8 @@ class ProfileFragment : Fragment(),
         username = args.username
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
+        setProfileInfo()
+
         binding = FragmentProfileBinding.inflate(
             inflater, container, false
         ).apply {
@@ -91,7 +93,6 @@ class ProfileFragment : Fragment(),
 
     private fun setRecyclers() {
 
-        setContent()
         binding.profileProgressBar.visibility = View.VISIBLE
         profileViewModel.setProfileArticles(username)
 
@@ -123,28 +124,11 @@ class ProfileFragment : Fragment(),
 
     }
 
-    private fun setContent() {
-
-        profileViewModel.profileArticles.observe(viewLifecycleOwner, Observer {
-
-            profileArticleAdapter =
-                ProfileArticleAdapter(
-                    it,
-                    this@ProfileFragment
-                )
-
-            binding.recyclerProfileArticles.apply {
-                adapter = profileArticleAdapter
-                layoutManager =
-                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            }
-
-            binding.profileProgressBar.visibility = View.INVISIBLE
-            binding.profileTab.visibility = View.VISIBLE
-            binding.recyclerProfileArticles.visibility = View.VISIBLE
-
+    private fun setProfileInfo() {
+        profileViewModel.setProfile(username)
+        profileViewModel.profileResult.observe(viewLifecycleOwner, Observer { user ->
+            binding.user = user.data
         })
-
     }
 
     private fun setBackButtonClick() {

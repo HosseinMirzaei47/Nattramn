@@ -11,4 +11,8 @@ class ProfileRemoteDataSource {
             ServiceBuilder.buildService(ProfileApi::class.java).getUserArticles(username)
         }
 
+    suspend fun getProfile(username: String) = safeApiCall {
+        ServiceBuilder.buildService(ProfileApi::class.java).getProfile(username)
+    }
+
 }

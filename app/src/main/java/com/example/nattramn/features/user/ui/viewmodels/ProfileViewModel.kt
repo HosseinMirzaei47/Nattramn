@@ -8,16 +8,17 @@ import androidx.lifecycle.viewModelScope
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.user.data.ProfileRepository
+import com.example.nattramn.features.user.ui.UserView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
 
 class ProfileViewModel(application: Application) : AndroidViewModel(application) {
 
     private val profileRepository = ProfileRepository.getInstance(application)
-    var profileArticles = MutableLiveData<ArrayList<ArticleView>>()
     private var _profileArticlesResult = MutableLiveData<Resource<List<ArticleView>>>()
     val profileArticlesResult: LiveData<Resource<List<ArticleView>>> get() = _profileArticlesResult
+    private var _profileResult = MutableLiveData<Resource<UserView>>()
+    val profileResult: LiveData<Resource<UserView>> get() = _profileResult
 
     fun setProfileArticles(username: String) {
 
@@ -25,6 +26,15 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
 
         viewModelScope.launch(Dispatchers.IO) {
             _profileArticlesResult.postValue(profileRepository.getUserArticles(username))
+        }
+    }
+
+    fun setProfile(username: String) {
+
+        _profileResult.value = Resource.loading(null)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            _profileResult.postValue(profileRepository.getProfile(username))
         }
     }
 
