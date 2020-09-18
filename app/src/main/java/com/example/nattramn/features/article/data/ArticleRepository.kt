@@ -16,8 +16,6 @@ class ArticleRepository(
 ) {
 
     companion object {
-
-        private const val TAG = "jalil"
         private var myInstance: ArticleRepository? = null
 
         fun getInstance(application: Application): ArticleRepository {
@@ -106,6 +104,22 @@ class ArticleRepository(
 
     suspend fun getArticles(): ArrayList<ArticleView> {
         return localDataSource.getArticles()
+    }
+
+    suspend fun getTagArticles(tag: String): Resource<List<ArticleView>> {
+        var responseArticles = Resource<List<ArticleView>>(Status.ERROR, null, null)
+
+        if (NetworkHelper.isOnline(MyApp.app)) {
+            val tagArticles = articleRemoteDataSource.getTagArticles(tag)
+            if (tagArticles.status == Status.SUCCESS) {
+                val articleViews = tagArticles.data?.articleNetworks?.map {
+                    it.toArticleView(Resource.success(null))
+                }
+                responseArticles = Resource.success(articleViews)
+            }
+        }
+
+        return responseArticles
     }
 
 }

@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.core.HorizontalArticleAdapter
-import com.example.nattramn.core.Utils
 import com.example.nattramn.core.VerticalArticleAdapter
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.databinding.FragmentForYouBinding
@@ -118,14 +117,7 @@ class ForYouFragment : Fragment(), OnArticleListener {
                         )
                 }
             } else if (resourceArticle.status == Status.ERROR) {
-                Navigation.findNavController(requireView())
-                    .navigate(
-                        HomeFragmentDirections.actionHomeFragmentToArticleFragment(
-                            Utils(
-                                requireContext()
-                            ).initArticles()[0]
-                        )
-                    )
+                Snackbar.make(requireView(), "خطا در ارتباط با سرور", Snackbar.LENGTH_SHORT)
             }
         })
 

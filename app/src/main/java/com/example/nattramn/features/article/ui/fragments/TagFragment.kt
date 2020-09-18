@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -12,11 +11,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
-import com.example.nattramn.core.Utils
 import com.example.nattramn.core.VerticalArticleAdapter
+import com.example.nattramn.core.resource.Status
 import com.example.nattramn.databinding.FragmentTagBinding
 import com.example.nattramn.features.article.ui.OnArticleListener
 import com.example.nattramn.features.article.ui.viewmodels.TagViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class TagFragment : Fragment(),
     OnArticleListener {
@@ -52,28 +52,28 @@ class TagFragment : Fragment(),
 
     private fun setRecyclers() {
 
-        tagViewModel.setTagArticles()
+        tagViewModel.getTagArticles("اقتصاد")
 
-        tagAdapter = VerticalArticleAdapter(
-            tagViewModel.tagArticles.value!!,
-            this
-        )
+        tagViewModel.tagArticlesResult.observe(viewLifecycleOwner, Observer { resource ->
+            if (resource.status == Status.SUCCESS) {
 
-        observeTagArticles()
+                resource.data?.let { articles ->
+                    tagAdapter = VerticalArticleAdapter(
+                        articles,
+                        this
+                    )
 
-    }
+                    binding.recyclerTagArticles.apply {
+                        adapter = tagAdapter
+                        layoutManager = LinearLayoutManager(context)
+                    }
+                }
 
-    private fun observeTagArticles() {
-        tagViewModel.tagArticles.observe(viewLifecycleOwner, Observer {
-
-            tagAdapter.articleViews = it
-
-            binding.recyclerTagArticles.apply {
-                adapter = tagAdapter
-                layoutManager = LinearLayoutManager(context)
+            } else if (resource.status == Status.ERROR) {
+                Snackbar.make(requireView(), "خطا در ارتباط با سرور", Snackbar.LENGTH_SHORT).show()
             }
-
         })
+
     }
 
     private fun setBackButtonClick() {
@@ -82,18 +82,57 @@ class TagFragment : Fragment(),
         }
     }
 
-    override fun onCardClick(slug: String) {
+    private fun openProfile(username: String) {
         Navigation.findNavController(requireView())
-            .navigate(TagFragmentDirections.actionTagFragmentToArticleFragment(Utils(requireContext()).initArticles()[0]))
+            .navigate(
+                TagFragmentDirections.actionTagFragmentToProfileFragment(username)
+            )
+    }
+
+    private fun openArticle(slug: String) {
+        tagViewModel.getSingleArticle(slug)
+
+        tagViewModel.singleArticleResult.observe(viewLifecycleOwner, Observer { resourceArticle ->
+            if (resourceArticle.status == Status.SUCCESS) {
+
+                resourceArticle.data?.let { articleView ->
+                    Navigation.findNavController(requireView())
+                        .navigate(
+                            TagFragmentDirections.actionTagFragmentToArticleFragment(
+                                articleView
+                            )
+                        )
+                }
+            } else if (resourceArticle.status == Status.ERROR) {
+                Snackbar.make(requireView(), "خطا در ارتباط با سرور", Snackbar.LENGTH_SHORT)
+            }
+        })
+    }
+
+    override fun onCardClick(slug: String) {
+        openArticle(slug)
     }
 
     override fun onArticleTitleClick(slug: String) {
-        Navigation.findNavController(requireView())
-            .navigate(TagFragmentDirections.actionTagFragmentToArticleFragment(Utils(requireContext()).initArticles()[0]))
+        openArticle(slug)
     }
 
     override fun onArticleSaveClick(slug: String) {
-        Toast.makeText(context, "Tag page. Article clicked", Toast.LENGTH_SHORT).show()
+
+        tagViewModel.bookmarkArticle(slug)
+
+        tagViewModel.bookmarkResult.observe(viewLifecycleOwner, Observer { result ->
+
+            if (result.status == Status.SUCCESS) {
+                Snackbar.make(
+                    requireView(), "این مقاله به لیست علاقه مندی ها اضافه شد", Snackbar.LENGTH_LONG
+                ).show()
+            } else {
+                Snackbar.make(
+                    requireView(), "خطا در ارتباط با سرور", Snackbar.LENGTH_LONG
+                ).show()
+            }
+        })
     }
 
     override fun onAuthorNameClick(username: String) {
@@ -102,13 +141,6 @@ class TagFragment : Fragment(),
 
     override fun onAuthorIconClick(username: String) {
         openProfile(username)
-    }
-
-    private fun openProfile(username: String) {
-        Navigation.findNavController(requireView())
-            .navigate(
-                ArticleFragmentDirections.actionArticleFragmentToProfileFragment(username)
-            )
     }
 
 }

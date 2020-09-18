@@ -2,11 +2,9 @@ package com.example.nattramn.features.article.services
 
 import com.example.nattramn.features.article.data.models.ArticleComments
 import com.example.nattramn.features.article.data.models.CommentRequest
+import com.example.nattramn.features.home.data.ArticlesListResponse
 import com.example.nattramn.features.home.data.SingleArticleResponse
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface ArticleApi {
 
@@ -21,5 +19,8 @@ interface ArticleApi {
 
     @GET("articles/{slug}/comments")
     suspend fun getArticleComments(@Path("slug") slug: String): ArticleComments
+
+    @GET("articles")
+    suspend fun getTagArticles(@Query("tag") tag: String): ArticlesListResponse
 
 }

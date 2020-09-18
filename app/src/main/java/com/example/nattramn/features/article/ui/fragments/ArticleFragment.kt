@@ -213,6 +213,13 @@ class ArticleFragment : Fragment(),
         })
     }
 
+    private fun openProfile(username: String) {
+        Navigation.findNavController(requireView())
+            .navigate(
+                ArticleFragmentDirections.actionArticleFragmentToProfileFragment(username)
+            )
+    }
+
     override fun onCommentIconClick(username: String) {
         openProfile(username)
     }
@@ -241,12 +248,5 @@ class ArticleFragment : Fragment(),
 
     override fun onAuthorIconClick(username: String) {
         openProfile(username)
-    }
-
-    private fun openProfile(username: String) {
-        Navigation.findNavController(requireView())
-            .navigate(
-                ArticleFragmentDirections.actionArticleFragmentToProfileFragment(username)
-            )
     }
 }

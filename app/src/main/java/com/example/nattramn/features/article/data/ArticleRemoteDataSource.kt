@@ -25,4 +25,8 @@ class ArticleRemoteDataSource {
         ServiceBuilder.buildService(ArticleApi::class.java).getArticleComments(slug)
     }
 
+    suspend fun getTagArticles(tag: String) = safeApiCall {
+        ServiceBuilder.buildService(ArticleApi::class.java).getTagArticles(tag)
+    }
+
 }
