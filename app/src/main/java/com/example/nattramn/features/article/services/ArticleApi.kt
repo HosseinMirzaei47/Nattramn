@@ -2,6 +2,7 @@ package com.example.nattramn.features.article.services
 
 import com.example.nattramn.features.article.data.models.ArticleComments
 import com.example.nattramn.features.article.data.models.CommentRequest
+import com.example.nattramn.features.article.data.models.EditArticleRequest
 import com.example.nattramn.features.home.data.models.ArticlesListResponse
 import com.example.nattramn.features.home.data.models.SingleArticleResponse
 import retrofit2.http.*
@@ -22,5 +23,8 @@ interface ArticleApi {
 
     @GET("articles")
     suspend fun getTagArticles(@Query("tag") tag: String): ArticlesListResponse
+
+    @PUT("articles/{slug}")
+    suspend fun editArticle(@Body editArticleRequest: EditArticleRequest): SingleArticleResponse
 
 }

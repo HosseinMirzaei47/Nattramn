@@ -8,6 +8,7 @@ import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.features.article.data.models.ArticleComments
 import com.example.nattramn.features.article.data.models.CommentRequest
+import com.example.nattramn.features.article.data.models.EditArticleRequest
 import com.example.nattramn.features.article.ui.ArticleView
 
 class ArticleRepository(
@@ -67,13 +68,17 @@ class ArticleRepository(
 
         if (NetworkHelper.isOnline(MyApp.app)) {
             val request = articleRemoteDataSource.getSingleArticle(slug)
-            if (request.status == Status.SUCCESS) {
-                val articleView = request.data?.article?.toArticleView(Resource.success(null))
-                response = Resource.success(articleView)
-            } else if (request.status == Status.ERROR) {
-                response = Resource.error("no slug", null)
-            } else if (request.status == Status.LOADING) {
-                response = Resource.loading(null)
+            response = when (request.status) {
+                Status.SUCCESS -> {
+                    val articleView = request.data?.article?.toArticleView(Resource.success(null))
+                    Resource.success(articleView)
+                }
+                Status.ERROR -> {
+                    Resource.error("no slug", null)
+                }
+                Status.LOADING -> {
+                    Resource.loading(null)
+                }
             }
         }
 
@@ -116,6 +121,28 @@ class ArticleRepository(
         }
 
         return responseArticles
+    }
+
+    suspend fun editArticle(editArticleRequest: EditArticleRequest): Resource<ArticleView> {
+        var response = Resource<ArticleView>(Status.ERROR, null, null)
+
+        if (NetworkHelper.isOnline(MyApp.app)) {
+            val request = articleRemoteDataSource.editArticle(editArticleRequest)
+            when (request.status) {
+                Status.SUCCESS -> {
+                    response =
+                        Resource.success(request.data?.article?.toArticleView(Resource.success(null)))
+                }
+                Status.LOADING -> {
+                    Resource.error("Loading", null)
+                }
+                Status.ERROR -> {
+                    Resource.error("An error happened", null)
+                }
+            }
+        }
+
+        return response
     }
 
 }

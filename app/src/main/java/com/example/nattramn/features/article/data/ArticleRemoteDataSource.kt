@@ -3,6 +3,7 @@ package com.example.nattramn.features.article.data
 import com.example.nattramn.core.ServiceBuilder
 import com.example.nattramn.core.safeApiCall
 import com.example.nattramn.features.article.data.models.CommentRequest
+import com.example.nattramn.features.article.data.models.EditArticleRequest
 import com.example.nattramn.features.article.services.ArticleApi
 
 class ArticleRemoteDataSource {
@@ -11,15 +12,13 @@ class ArticleRemoteDataSource {
         ServiceBuilder.buildService(ArticleApi::class.java).getSingleArticle(slug)
     }
 
-    suspend fun bookmarkArticle(slug: String) =
-        safeApiCall {
-            ServiceBuilder.buildService(ArticleApi::class.java).bookmarkArticle(slug)
-        }
+    suspend fun bookmarkArticle(slug: String) = safeApiCall {
+        ServiceBuilder.buildService(ArticleApi::class.java).bookmarkArticle(slug)
+    }
 
-    suspend fun sendComment(slug: String, commentRequest: CommentRequest) =
-        safeApiCall {
-            ServiceBuilder.buildService(ArticleApi::class.java).sendComment(slug, commentRequest)
-        }
+    suspend fun sendComment(slug: String, commentRequest: CommentRequest) = safeApiCall {
+        ServiceBuilder.buildService(ArticleApi::class.java).sendComment(slug, commentRequest)
+    }
 
     suspend fun getArticleComments(slug: String) = safeApiCall {
         ServiceBuilder.buildService(ArticleApi::class.java).getArticleComments(slug)
@@ -27,6 +26,10 @@ class ArticleRemoteDataSource {
 
     suspend fun getTagArticles(tag: String) = safeApiCall {
         ServiceBuilder.buildService(ArticleApi::class.java).getTagArticles(tag)
+    }
+
+    suspend fun editArticle(editArticleRequest: EditArticleRequest) = safeApiCall {
+        ServiceBuilder.buildService(ArticleApi::class.java).editArticle(editArticleRequest)
     }
 
 }

@@ -1,12 +1,35 @@
 package com.example.nattramn.features.article.ui.viewmodels
 
-import android.nfc.Tag
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.nattramn.core.MyApp
+import com.example.nattramn.core.resource.Resource
+import com.example.nattramn.features.article.data.ArticleRepository
+import com.example.nattramn.features.article.data.models.EditArticleRequest
+import com.example.nattramn.features.article.ui.ArticleView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class WriteViewModel : ViewModel() {
 
-    fun publishArticle(title: String, body: String, tags: ArrayList<Tag>) {
+    private val articleRepository = ArticleRepository.getInstance(MyApp.app)
 
+    private var _editArticleResult = MutableLiveData<Resource<ArticleView>>()
+    val editArticleResult: LiveData<Resource<ArticleView>> get() = _editArticleResult
+
+    fun publishArticle(slug: String) {
+
+    }
+
+    fun editArticle(editArticleRequest: EditArticleRequest) {
+
+        _editArticleResult.value = Resource.loading(null)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            _editArticleResult.postValue(articleRepository.editArticle(editArticleRequest))
+        }
     }
 
 }

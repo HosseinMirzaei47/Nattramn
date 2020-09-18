@@ -68,7 +68,6 @@
                 android:layout_height="match_parent"
                 android:layoutDirection="rtl">
 
-
                 <TextView
                     android:id="@+id/write_title"
                     android:layout_width="wrap_content"
@@ -114,7 +113,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/write_et_title" />
 
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/write_et_description"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -150,21 +148,45 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/write_et_description" />
 
+                <HorizontalScrollView
+                    android:id="@+id/chipGroupFrameSA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginEnd="@dimen/tag_horizontal_margin"
+                    android:layoutDirection="rtl"
+                    app:layout_constraintBottom_toBottomOf="@+id/write_add_word"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/write_add_word">
 
-                <com.hootsuite.nachos.NachoTextView
-                    android:id="@+id/nacho_tag"
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/writeChipGroup"
+                        style="@style/Widget.MaterialComponents.Chip.Entry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/padding_large">
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                </HorizontalScrollView>
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="24dp"
-                    android:background="@drawable/shape_register_button"
-                    android:padding="@dimen/padding_normal"
-                    app:chipBackground="@color/writeTagChipBackground"
-                    app:chipTextColor="@color/whiteBackground"
-                    app:layout_constraintBottom_toTopOf="@id/followButton"
+                    android:layout_marginStart="@dimen/tag_horizontal_margin"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:layout_marginEnd="@dimen/tag_horizontal_margin"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/write_add_word"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toBottomOf="@id/write_add_word">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tagsEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/followButton"
@@ -183,11 +205,9 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
-
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
