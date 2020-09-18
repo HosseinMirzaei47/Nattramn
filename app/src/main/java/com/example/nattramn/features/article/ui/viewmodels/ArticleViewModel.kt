@@ -20,6 +20,7 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
     private val articleRepository = ArticleRepository.getInstance(application)
     var suggestedArticles = MutableLiveData<ArrayList<ArticleView>>()
     var comments = MutableLiveData<ArrayList<CommentView>>()
+    var isBookmarked = MutableLiveData<Boolean>()
 
     private var _bookmarkResult = MutableLiveData<Resource<ArticleView>>()
     val bookmarkResult: LiveData<Resource<ArticleView>> get() = _bookmarkResult

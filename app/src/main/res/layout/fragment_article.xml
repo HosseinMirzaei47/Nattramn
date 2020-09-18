@@ -13,6 +13,10 @@
             name="viewModel"
             type="com.example.nattramn.features.article.ui.viewmodels.ArticleViewModel" />
 
+        <variable
+            name="status"
+            type="com.example.nattramn.core.resource.Status" />
+
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -48,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginEnd="@dimen/article_toolbar_buttons_margin"
-                    android:src="@drawable/ic_bookmark_article_fragment"
+                    app:isBookmarked="@{articleView.bookmarked}"
                     tools:ignore="ContentDescription" />
 
                 <ImageButton
@@ -60,7 +64,6 @@
                     android:layout_marginStart="@dimen/article_toolbar_buttons_margin"
                     android:src="@drawable/ic_arrow_right"
                     tools:ignore="ContentDescription" />
-
 
             </com.google.android.material.appbar.MaterialToolbar>
 

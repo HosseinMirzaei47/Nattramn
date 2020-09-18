@@ -83,10 +83,14 @@ class ArticleFragment : Fragment(),
 
     private fun setArticleTags() {
 
-        for (tag in tags) {
-            val chip = Chip(requireContext())
-            chip.text = tag
-            binding.chipGroupSA.addView(chip)
+        if (tags.isEmpty()) {
+            binding.keywordsTextSA.visibility = View.GONE
+        } else {
+            for (tag in tags) {
+                val chip = Chip(requireContext())
+                chip.text = tag
+                binding.chipGroupSA.addView(chip)
+            }
         }
 
     }
@@ -160,18 +164,22 @@ class ArticleFragment : Fragment(),
         articleViewModel.articleCommentsResult.observe(viewLifecycleOwner, Observer { resource ->
             if (resource.status == Status.SUCCESS) {
 
-                resource.data?.let { articlesList ->
-                    commentAdapter =
-                        CommentAdapter(
-                            resource.data.comments,
-                            this
-                        )
-                }
+                if (resource.data?.comments?.isEmpty()!!) {
+                    binding.commentsTitleSA.visibility = View.GONE
+                } else {
+                    resource.data.let { article ->
+                        commentAdapter =
+                            CommentAdapter(
+                                article.comments,
+                                this
+                            )
+                    }
 
-                binding.recyclerArticleComments.apply {
-                    adapter = commentAdapter
-                    layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                    binding.recyclerArticleComments.apply {
+                        adapter = commentAdapter
+                        layoutManager =
+                            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                    }
                 }
 
             }

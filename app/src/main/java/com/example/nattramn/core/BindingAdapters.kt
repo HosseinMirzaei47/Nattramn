@@ -26,6 +26,29 @@ fun setImageUrl(imageView: ImageView, imageSource: String?) {
     }
 }
 
+@BindingAdapter("app:isBookmarked")
+fun bookmarkSrc(view: View, isBookmarked: Boolean) {
+
+    if (view is ImageView) {
+        if (isBookmarked) {
+            load(view, R.drawable.ic_bookmark_article_fragment)
+        } else {
+            load(view, R.drawable.ic_bookmark)
+        }
+    }
+
+}
+
+private fun load(view: ImageView, image: Int) {
+    Glide.with(view.context)
+        .load(image)
+        .apply(
+            RequestOptions()
+                .placeholder(R.drawable.ic_bookmark_article_fragment)
+        )
+        .into(view)
+}
+
 @BindingAdapter("textNumber")
 fun setTextNumber(textView: TextView, number: Int) {
     textView.text = number.toString()
