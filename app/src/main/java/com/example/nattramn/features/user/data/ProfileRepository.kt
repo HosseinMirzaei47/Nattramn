@@ -78,4 +78,16 @@ class ProfileRepository(
 
     }
 
+    suspend fun deleteArticle(slug: String): Resource<Unit> {
+        var response = Resource<Unit>(Status.ERROR, null, null)
+
+        if (NetworkHelper.isOnline(MyApp.app)) {
+            val request = profileRemoteDataSource.deleteArticle(slug)
+            if (request.status == Status.SUCCESS) {
+                response = Resource.success(request.data)
+            }
+        }
+        return response
+    }
+
 }

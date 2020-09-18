@@ -29,6 +29,7 @@ class ProfileFragment : Fragment(),
     private lateinit var profileViewModel: ProfileViewModel
     private lateinit var profileArticleAdapter: ProfileArticleAdapter
     private val args: ProfileFragmentArgs by navArgs()
+
     private lateinit var username: String
 
     override fun onCreateView(
@@ -228,8 +229,7 @@ class ProfileFragment : Fragment(),
 
     override fun onMoreOptionsClick(slug: String) {
 
-        val dialogFragment =
-            ActionBottomDialogFragment.newInstance()
+        val dialogFragment = ActionBottomDialogFragment.newInstance()
 
         val bundle = Bundle()
         bundle.putString("slug", slug)

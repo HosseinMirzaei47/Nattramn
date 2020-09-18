@@ -20,4 +20,8 @@ class ProfileRemoteDataSource {
         ServiceBuilder.buildService(ProfileApi::class.java).getProfile(username)
     }
 
+    suspend fun deleteArticle(slug: String) = safeApiCall {
+        ServiceBuilder.buildService(ProfileApi::class.java).deleteArticle(slug)
+    }
+
 }

@@ -13,6 +13,7 @@ class ActionBottomDialogFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: ActionBottomSheetBinding
     private lateinit var actionDialogViewModel: ActionDialogViewModel
+
     private lateinit var slug: String
 
     companion object {
@@ -36,6 +37,32 @@ class ActionBottomDialogFragment : BottomSheetDialogFragment() {
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        /** below code contains a bug **/
+        /*binding.btnDeleteArticle.setOnClickListener {
+            actionDialogViewModel.deleteArticle(slug)
+        }
+
+        actionDialogViewModel.deleteArticleResult.observe(viewLifecycleOwner, Observer { resource ->
+            when (resource.status) {
+                Status.SUCCESS -> {
+                    Toast.makeText(requireContext(), "deleted", Toast.LENGTH_SHORT).show()
+                }
+
+                Status.LOADING -> {
+                    Toast.makeText(requireContext(), "loading", Toast.LENGTH_SHORT).show()
+                }
+
+                Status.ERROR -> {
+                    Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })*/
+
     }
 
 }
