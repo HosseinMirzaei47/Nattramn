@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -38,8 +37,9 @@ class ArticleFragment : Fragment(),
     private lateinit var suggestedArticleAdapter: SuggestedArticleAdapter
     private lateinit var dialog: Dialog
     private lateinit var articleViewArg: ArticleView
-    private lateinit var tags: List<String>
     private val args: ArticleFragmentArgs by navArgs()
+
+    private lateinit var tags: List<String>
 
     private val snapHorizontal = GravitySnapHelper(Gravity.CENTER)
 
@@ -101,7 +101,6 @@ class ArticleFragment : Fragment(),
         }
 
         articleViewModel.bookmarkResult.observe(viewLifecycleOwner, Observer { result ->
-
             if (result.status == Status.SUCCESS) {
                 Snackbar.make(
                     requireView(), "این مقاله به لیست علاقه مندی ها اضافه شد", Snackbar.LENGTH_LONG
@@ -188,29 +187,26 @@ class ArticleFragment : Fragment(),
 
     private fun setRecyclers() {
 
-        observeRecyclersContent()
+        tags.forEach { articleViewModel.getTagArticles(it) }
 
-        articleViewModel.setSuggestedArticles()
+        articleViewModel.tagArticlesResult.observe(viewLifecycleOwner, Observer { resources ->
+            if (resources.status == Status.SUCCESS) {
+                resources.data?.let {
+                    suggestedArticleAdapter =
+                        SuggestedArticleAdapter(
+                            resources.data,
+                            this
+                        )
 
-        suggestedArticleAdapter =
-            SuggestedArticleAdapter(
-                articleViewModel.suggestedArticles.value!!,
-                this
-            )
-
-    }
-
-    private fun observeRecyclersContent() {
-        articleViewModel.suggestedArticles.observe(viewLifecycleOwner, Observer {
-
-            suggestedArticleAdapter.suggestions = it
-
-            binding.recyclerArticleRelated.apply {
-                adapter = suggestedArticleAdapter
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    binding.recyclerArticleRelated.apply {
+                        adapter = suggestedArticleAdapter
+                        layoutManager =
+                            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    }
+                }
             }
-
         })
+
     }
 
     private fun openProfile(username: String) {
@@ -218,14 +214,6 @@ class ArticleFragment : Fragment(),
             .navigate(
                 ArticleFragmentDirections.actionArticleFragmentToProfileFragment(username)
             )
-    }
-
-    override fun onCommentIconClick(username: String) {
-        openProfile(username)
-    }
-
-    override fun onCommentUsernameClick(username: String) {
-        openProfile(username)
     }
 
     override fun onCardClick(slug: String) {
@@ -239,7 +227,7 @@ class ArticleFragment : Fragment(),
     }
 
     override fun onArticleSaveClick(slug: String) {
-        Toast.makeText(context, getString(R.string.bookmarkArticleToast), Toast.LENGTH_SHORT).show()
+        articleViewModel.bookmarkArticle(slug)
     }
 
     override fun onAuthorNameClick(username: String) {
@@ -247,6 +235,14 @@ class ArticleFragment : Fragment(),
     }
 
     override fun onAuthorIconClick(username: String) {
+        openProfile(username)
+    }
+
+    override fun onCommentIconClick(username: String) {
+        openProfile(username)
+    }
+
+    override fun onCommentUsernameClick(username: String) {
         openProfile(username)
     }
 }

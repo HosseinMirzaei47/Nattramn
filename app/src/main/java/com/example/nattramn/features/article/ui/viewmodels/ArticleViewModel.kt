@@ -18,9 +18,7 @@ import kotlinx.coroutines.launch
 class ArticleViewModel(application: Application) : AndroidViewModel(application) {
 
     private val articleRepository = ArticleRepository.getInstance(application)
-    var suggestedArticles = MutableLiveData<ArrayList<ArticleView>>()
     var comments = MutableLiveData<ArrayList<CommentView>>()
-    var isBookmarked = MutableLiveData<Boolean>()
 
     private var _bookmarkResult = MutableLiveData<Resource<ArticleView>>()
     val bookmarkResult: LiveData<Resource<ArticleView>> get() = _bookmarkResult
@@ -31,6 +29,9 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
     private var _articleCommentsResult = MutableLiveData<Resource<ArticleComments>>()
     val articleCommentsResult: LiveData<Resource<ArticleComments>> get() = _articleCommentsResult
 
+    private var _tagArticlesResult = MutableLiveData<Resource<List<ArticleView>>>()
+    val tagArticlesResult: LiveData<Resource<List<ArticleView>>> get() = _tagArticlesResult
+
     fun bookmarkArticle(slug: String) {
 
         _bookmarkResult.value = Resource.loading(null)
@@ -38,10 +39,6 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
         viewModelScope.launch(Dispatchers.IO) {
             _bookmarkResult.postValue(articleRepository.bookmarkArticle(slug))
         }
-    }
-
-    fun setSuggestedArticles() {
-        suggestedArticles.value = getArticles()
     }
 
     fun sendComment(slug: String, comment: String) {
@@ -64,16 +61,13 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    private fun getArticles(): ArrayList<ArticleView> {
+    fun getTagArticles(tag: String) {
 
-        var articles = ArrayList<ArticleView>()
+        _tagArticlesResult.value = Resource.loading(null)
 
-        viewModelScope.launch {
-            articles = articleRepository.getArticles()
+        viewModelScope.launch(Dispatchers.IO) {
+            _tagArticlesResult.postValue(articleRepository.getTagArticles(tag))
         }
-
-        return articles
-
     }
 
 }

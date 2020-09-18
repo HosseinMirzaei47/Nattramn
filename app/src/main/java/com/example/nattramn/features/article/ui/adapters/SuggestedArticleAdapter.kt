@@ -8,10 +8,9 @@ import com.example.nattramn.R
 import com.example.nattramn.databinding.HorizontalArticleRowBinding
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.OnArticleListener
-import java.util.*
 
 class SuggestedArticleAdapter(
-    var suggestions: ArrayList<ArticleView>,
+    var suggestions: List<ArticleView>,
     private val onArticleListener: OnArticleListener
 ) :
     RecyclerView.Adapter<SuggestedArticleAdapter.ViewHolder>() {
