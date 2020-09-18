@@ -11,11 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.nattramn.R
 import com.example.nattramn.core.resource.Status
+import com.example.nattramn.core.snackMaker
 import com.example.nattramn.databinding.FragmentRegisterBinding
 import com.example.nattramn.features.user.data.UserNetwork
 import com.example.nattramn.features.user.data.models.AuthRequest
 import com.example.nattramn.features.user.ui.viewmodels.RegisterViewModel
-import com.google.android.material.snackbar.Snackbar
 
 class RegisterFragment : Fragment() {
 
@@ -60,18 +60,15 @@ class RegisterFragment : Fragment() {
         registerViewModel.registerResult.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.SUCCESS -> {
-
-                    Snackbar.make(requireView(), "ثبت نام با موفقیت انجام شد", Snackbar.LENGTH_LONG)
-                        .show()
+                    snackMaker(requireView(), "ثبت نام با موفقیت انجام شد")
                     Navigation.findNavController(requireView())
                         .navigate(RegisterFragmentDirections.actionRegisterFragmentToHomerFragment())
                 }
-                Status.ERROR -> {
+                Status.LOADING -> {
 
                 }
                 else -> {
-                    Snackbar.make(requireView(), "خطا در ساخت اکانت", Snackbar.LENGTH_LONG)
-                        .show()
+                    snackMaker(requireView(), "خطا در ارتباط با سرور")
                 }
             }
         })

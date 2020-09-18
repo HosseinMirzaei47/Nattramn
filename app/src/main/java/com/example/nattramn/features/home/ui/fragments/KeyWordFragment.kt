@@ -10,11 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.nattramn.core.resource.Status
+import com.example.nattramn.core.snackMaker
 import com.example.nattramn.databinding.FragmentKeyWordsBinding
 import com.example.nattramn.features.home.ui.OnTagsItemListener
 import com.example.nattramn.features.home.ui.TagAdapter
 import com.example.nattramn.features.home.ui.viewmodels.KeyWordsViewModel
-import com.google.android.material.snackbar.Snackbar
 
 class KeyWordFragment : Fragment(), OnTagsItemListener {
 
@@ -62,7 +62,7 @@ class KeyWordFragment : Fragment(), OnTagsItemListener {
                 binding.progressAllTags.visibility = View.GONE
 
             } else if (resource.status == Status.ERROR) {
-                Snackbar.make(requireView(), "خطا در ارتباط با سرور", Snackbar.LENGTH_SHORT).show()
+                snackMaker(requireView(), "خطا در ارتباط با سرور")
                 binding.progressAllTags.visibility = View.GONE
             }
         })

@@ -14,11 +14,11 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
 import com.example.nattramn.core.resource.Status
+import com.example.nattramn.core.snackMaker
 import com.example.nattramn.databinding.FragmentProfileBinding
 import com.example.nattramn.features.user.ui.OnProfileArticleListener
 import com.example.nattramn.features.user.ui.adapters.ProfileArticleAdapter
 import com.example.nattramn.features.user.ui.viewmodels.ProfileViewModel
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_profile.*
 
@@ -185,8 +185,7 @@ class ProfileFragment : Fragment(),
                     }
 
                 } else if (resourceArticle.status == Status.ERROR) {
-                    Snackbar.make(requireView(), "خطا در اتصال به سرور", Snackbar.LENGTH_SHORT)
-                        .show()
+                    snackMaker(requireView(), "خطا در اتصال به سرور")
                 }
             })
     }
@@ -216,13 +215,9 @@ class ProfileFragment : Fragment(),
         profileViewModel.bookmarkResult.observe(viewLifecycleOwner, Observer { result ->
 
             if (result.status == Status.SUCCESS) {
-                Snackbar.make(
-                    requireView(), "این مقاله به لیست علاقه مندی ها اضافه شد", Snackbar.LENGTH_LONG
-                ).show()
+                snackMaker(requireView(), "این مقاله به لیست علاقه مندی ها اضافه شد")
             } else if (result.status == Status.ERROR) {
-                Snackbar.make(
-                    requireView(), "خطا در ارتباط با سرور", Snackbar.LENGTH_LONG
-                ).show()
+                snackMaker(requireView(), "خطا در ارتباط با سرور")
             }
         })
     }
