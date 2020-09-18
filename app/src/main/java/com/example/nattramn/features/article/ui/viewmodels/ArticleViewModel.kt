@@ -32,6 +32,9 @@ class ArticleViewModel : ViewModel() {
     private var _tagArticlesResult = MutableLiveData<Resource<List<ArticleView>>>()
     val tagArticlesResult: LiveData<Resource<List<ArticleView>>> get() = _tagArticlesResult
 
+    private var _singleArticleResult = MutableLiveData<Resource<ArticleView>>()
+    val singleArticleResult: LiveData<Resource<ArticleView>> get() = _singleArticleResult
+
     fun bookmarkArticle(slug: String) {
 
         _bookmarkResult.value = Resource.loading(null)
@@ -68,6 +71,16 @@ class ArticleViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             _tagArticlesResult.postValue(articleRepository.getTagArticles(tag))
         }
+    }
+
+    fun getSingleArticle(slug: String) {
+
+        _singleArticleResult.value = Resource.loading(null)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            _singleArticleResult.postValue(articleRepository.getSingleArticle(slug))
+        }
+
     }
 
 }

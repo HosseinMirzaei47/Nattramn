@@ -216,14 +216,34 @@ class ArticleFragment : Fragment(),
             )
     }
 
+    private fun openArticle(slug: String) {
+        articleViewModel.getSingleArticle(slug)
+
+        articleViewModel.singleArticleResult.observe(
+            viewLifecycleOwner,
+            Observer { resourceArticle ->
+                if (resourceArticle.status == Status.SUCCESS) {
+
+                    resourceArticle.data?.let { articleView ->
+                        Navigation.findNavController(requireView())
+                            .navigate(
+                                ArticleFragmentDirections.actionArticleFragmentSelf(
+                                    articleView
+                                )
+                            )
+                    }
+                } else if (resourceArticle.status == Status.ERROR) {
+                    snackMaker(requireView(), "خطا در ارتباط با سرور")
+                }
+            })
+    }
+
     override fun onCardClick(slug: String) {
-        /*Navigation.findNavController(requireView())
-            .navigate(ArticleFragmentDirections.actionArticleFragmentSelf(Utils(requireContext()).initArticles()[0]))*/
+        openArticle(slug)
     }
 
     override fun onArticleTitleClick(slug: String) {
-        /*Navigation.findNavController(requireView())
-            .navigate(ArticleFragmentDirections.actionArticleFragmentSelf(Utils(requireContext()).initArticles()[0]))*/
+        openArticle(slug)
     }
 
     override fun onArticleSaveClick(slug: String) {
