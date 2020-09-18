@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_normal"
                 android:lineSpacingExtra="@dimen/spacing_large"
-                android:maxLines="2"
+                android:maxLines="1"
                 android:text="@{article.title}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_b2"

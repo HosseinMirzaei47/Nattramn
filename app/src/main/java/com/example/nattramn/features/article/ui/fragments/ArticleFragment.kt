@@ -39,7 +39,7 @@ class ArticleFragment : Fragment(),
     private lateinit var articleViewArg: ArticleView
     private val args: ArticleFragmentArgs by navArgs()
 
-    private lateinit var tags: List<String>
+    private lateinit var tags: MutableList<String>
 
     private val snapHorizontal = GravitySnapHelper(Gravity.CENTER)
 
@@ -51,7 +51,7 @@ class ArticleFragment : Fragment(),
 
         articleViewModel = ViewModelProvider(this).get(ArticleViewModel::class.java)
         articleViewArg = args.ArticleView
-        tags = articleViewArg.tags
+        tags = articleViewArg.tags.toMutableList()
 
         binding = FragmentArticleBinding.inflate(
             inflater, container, false
@@ -187,7 +187,12 @@ class ArticleFragment : Fragment(),
 
     private fun setRecyclers() {
 
-        tags.forEach { articleViewModel.getTagArticles(it) }
+        tags.remove("dragons")
+        tags.remove("training")
+
+        tags.forEach {
+            articleViewModel.getTagArticles(it)
+        }
 
         articleViewModel.tagArticlesResult.observe(viewLifecycleOwner, Observer { resources ->
             if (resources.status == Status.SUCCESS) {
