@@ -13,4 +13,8 @@ class HomeRemoteDataSource {
         ServiceBuilder.buildService(HomeApi::class.java).getAllArticles()
     }
 
+    suspend fun getAllTags() = safeApiCall {
+        ServiceBuilder.buildService(HomeApi::class.java).getAllTags()
+    }
+
 }

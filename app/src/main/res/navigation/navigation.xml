@@ -148,6 +148,11 @@
             android:id="@+id/action_tagFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
 
+        <argument
+            android:name="tag"
+            app:argType="string"
+            app:nullable="false" />
+
     </fragment>
 
     <fragment

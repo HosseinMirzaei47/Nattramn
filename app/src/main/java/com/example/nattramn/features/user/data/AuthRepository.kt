@@ -1,8 +1,8 @@
 package com.example.nattramn.features.user.data
 
 import android.app.Application
-import android.content.Context
 import com.example.nattramn.core.LocalDataSource
+import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.NetworkHelper
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
@@ -30,11 +30,11 @@ class AuthRepository(
         }
     }
 
-    suspend fun loginUser(context: Context, user: AuthRequest): Resource<AuthResponse> {
+    suspend fun loginUser(user: AuthRequest): Resource<AuthResponse> {
 
         var response: Resource<AuthResponse> = Resource<AuthResponse>(Status.ERROR, null, null)
 
-        if (NetworkHelper.isOnline(context)) {
+        if (NetworkHelper.isOnline(MyApp.app)) {
             response = authRemoteDataSource.login(user)
 
             if (response.status == Status.SUCCESS) {
@@ -56,10 +56,10 @@ class AuthRepository(
         return response
     }
 
-    suspend fun registerUser(context: Context, user: AuthRequest): Resource<AuthResponse> {
+    suspend fun registerUser(user: AuthRequest): Resource<AuthResponse> {
         var response: Resource<AuthResponse> = Resource<AuthResponse>(Status.ERROR, null, null)
 
-        if (NetworkHelper.isOnline(context)) {
+        if (NetworkHelper.isOnline(MyApp.app)) {
             response = authRemoteDataSource.register(user)
         }
 

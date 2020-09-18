@@ -1,10 +1,10 @@
 package com.example.nattramn.features.user.ui.viewmodels
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.features.user.data.AuthRepository
 import com.example.nattramn.features.user.data.UserNetwork
@@ -13,9 +13,9 @@ import com.example.nattramn.features.user.data.models.AuthResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class RegisterViewModel(application: Application) : AndroidViewModel(application) {
+class RegisterViewModel : ViewModel() {
 
-    private val userRepository = AuthRepository.getInstance(application)
+    private val userRepository = AuthRepository.getInstance(MyApp.app)
     val username = MutableLiveData<String>()
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
@@ -35,7 +35,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
         _registerResult.value = Resource.loading(null)
 
         viewModelScope.launch(Dispatchers.IO) {
-            _registerResult.postValue(userRepository.registerUser(getApplication(), authRequest))
+            _registerResult.postValue(userRepository.registerUser(authRequest))
         }
     }
 

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
 import com.example.nattramn.core.VerticalArticleAdapter
@@ -24,12 +25,16 @@ class TagFragment : Fragment(),
     private lateinit var binding: FragmentTagBinding
     private lateinit var tagViewModel: TagViewModel
     private lateinit var tagAdapter: VerticalArticleAdapter
+    private val args: TagFragmentArgs by navArgs()
+    private lateinit var tagArg: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        tagArg = args.tag
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_tag, container, false
@@ -52,7 +57,7 @@ class TagFragment : Fragment(),
 
     private fun setRecyclers() {
 
-        tagViewModel.getTagArticles("اقتصاد")
+        tagViewModel.getTagArticles(tagArg)
 
         tagViewModel.tagArticlesResult.observe(viewLifecycleOwner, Observer { resource ->
             if (resource.status == Status.SUCCESS) {

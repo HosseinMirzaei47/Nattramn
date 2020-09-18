@@ -37,6 +37,7 @@
     <!-- Radius -->
     <dimen name="radius_large">15dp</dimen>
     <dimen name="radius_normal">10dp</dimen>
+    <dimen name="radius_small">3dp</dimen>
 
     <!-- Toolbars -->
     <dimen name="toolbar_inset_start">0dp</dimen>

@@ -7,6 +7,7 @@ import com.example.nattramn.core.NetworkHelper
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.features.article.ui.ArticleView
+import com.example.nattramn.features.home.data.models.AllTagsResponse
 
 class ArticleHomeRepository(
     private val homeRemoteDataSource: HomeRemoteDataSource,
@@ -57,6 +58,20 @@ class ArticleHomeRepository(
         }
 
         return responseArticles
+    }
+
+    suspend fun getAllTags(): Resource<AllTagsResponse> {
+        var response = Resource<AllTagsResponse>(Status.ERROR, null, null)
+
+        if (NetworkHelper.isOnline(MyApp.app)) {
+            val allTags = homeRemoteDataSource.getAllTags()
+
+            if (allTags.status == Status.SUCCESS) {
+                response = Resource.success(allTags.data)
+            }
+        }
+
+        return response
     }
 
 }

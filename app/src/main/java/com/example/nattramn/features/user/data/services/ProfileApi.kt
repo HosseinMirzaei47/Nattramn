@@ -1,6 +1,6 @@
 package com.example.nattramn.features.user.data.services
 
-import com.example.nattramn.features.home.data.ArticlesListResponse
+import com.example.nattramn.features.home.data.models.ArticlesListResponse
 import com.example.nattramn.features.user.data.models.UserProfileResponse
 import retrofit2.http.DELETE
 import retrofit2.http.GET

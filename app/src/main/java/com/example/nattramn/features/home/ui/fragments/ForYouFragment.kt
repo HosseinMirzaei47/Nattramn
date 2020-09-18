@@ -28,7 +28,6 @@ class ForYouFragment : Fragment(), OnArticleListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         binding = FragmentForYouBinding.inflate(

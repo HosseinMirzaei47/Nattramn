@@ -1,10 +1,10 @@
 package com.example.nattramn.features.article.ui.viewmodels
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.features.article.data.ArticleRepository
 import com.example.nattramn.features.article.data.models.ArticleComments
@@ -15,9 +15,9 @@ import com.example.nattramn.features.article.ui.CommentView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ArticleViewModel(application: Application) : AndroidViewModel(application) {
+class ArticleViewModel : ViewModel() {
 
-    private val articleRepository = ArticleRepository.getInstance(application)
+    private val articleRepository = ArticleRepository.getInstance(MyApp.app)
     var comments = MutableLiveData<ArrayList<CommentView>>()
 
     private var _bookmarkResult = MutableLiveData<Resource<ArticleView>>()

@@ -2,8 +2,8 @@ package com.example.nattramn.features.article.services
 
 import com.example.nattramn.features.article.data.models.ArticleComments
 import com.example.nattramn.features.article.data.models.CommentRequest
-import com.example.nattramn.features.home.data.ArticlesListResponse
-import com.example.nattramn.features.home.data.SingleArticleResponse
+import com.example.nattramn.features.home.data.models.ArticlesListResponse
+import com.example.nattramn.features.home.data.models.SingleArticleResponse
 import retrofit2.http.*
 
 interface ArticleApi {

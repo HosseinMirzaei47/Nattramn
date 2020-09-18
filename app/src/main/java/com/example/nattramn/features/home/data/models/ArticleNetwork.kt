@@ -1,4 +1,4 @@
-package com.example.nattramn.features.home.data
+package com.example.nattramn.features.home.data.models
 
 
 import com.example.nattramn.R
