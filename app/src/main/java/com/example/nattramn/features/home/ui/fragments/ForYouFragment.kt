@@ -123,6 +123,13 @@ class ForYouFragment : Fragment(), OnArticleListener {
 
     }
 
+    private fun openProfile(username: String) {
+        Navigation.findNavController(requireView())
+            .navigate(
+                HomeFragmentDirections.actionHomeFragmentToProfileFragment(username)
+            )
+    }
+
     override fun onCardClick(slug: String) {
         onArticleClick(slug)
     }
@@ -154,13 +161,6 @@ class ForYouFragment : Fragment(), OnArticleListener {
 
     override fun onAuthorIconClick(username: String) {
         openProfile(username)
-    }
-
-    private fun openProfile(username: String) {
-        Navigation.findNavController(requireView())
-            .navigate(
-                HomeFragmentDirections.actionHomeFragmentToProfileFragment(username)
-            )
     }
 
 }

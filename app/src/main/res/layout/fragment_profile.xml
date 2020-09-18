@@ -9,6 +9,10 @@
             name="user"
             type="com.example.nattramn.features.user.ui.UserView" />
 
+        <variable
+            name="articleCount"
+            type="Integer" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -135,6 +139,7 @@
                         android:backgroundTint="@color/blueFollow"
                         android:text="@string/follow"
                         android:textStyle="bold"
+                        app:checkState="@{user.following}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/profileImageInfo" />
@@ -169,6 +174,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/profile_followers_margin_start"
+                        android:text="@{user.followers}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_b1"
                         android:textStyle="bold"

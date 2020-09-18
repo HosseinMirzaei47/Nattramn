@@ -16,8 +16,8 @@ class Utils(val context: Context) {
         "حسین میرزایی",
         "مدرس زبان انگلیسی",
         "https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg",
-        145,
-        true
+        "145",
+        false
     )
 
     val MIGRATION_1_2 = object : Migration(2, 3) {

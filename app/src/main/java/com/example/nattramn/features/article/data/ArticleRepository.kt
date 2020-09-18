@@ -102,10 +102,6 @@ class ArticleRepository(
         return response
     }
 
-    suspend fun getArticles(): ArrayList<ArticleView> {
-        return localDataSource.getArticles()
-    }
-
     suspend fun getTagArticles(tag: String): Resource<List<ArticleView>> {
         var responseArticles = Resource<List<ArticleView>>(Status.ERROR, null, null)
 

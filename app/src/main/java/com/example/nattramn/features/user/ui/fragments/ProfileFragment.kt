@@ -132,12 +132,12 @@ class ProfileFragment : Fragment(),
     private fun showUserArticles() {
         profileViewModel.setProfileArticles(username)
 
-        profileViewModel.profileArticlesResult.observe(viewLifecycleOwner, Observer {
+        profileViewModel.profileArticlesResult.observe(viewLifecycleOwner, Observer { resource ->
+            if (resource.status == Status.SUCCESS) {
 
-            if (it.status == Status.SUCCESS) {
-                println("jalil size ${it.data?.size}")
+                binding.profileArticleCount.text = resource?.data?.size.toString()
 
-                it.data?.let { articlesList ->
+                resource.data?.let { articlesList ->
                     profileArticleAdapter =
                         ProfileArticleAdapter(
                             articlesList,
@@ -154,7 +154,7 @@ class ProfileFragment : Fragment(),
                 binding.profileProgressBar.visibility = View.GONE
 
             } else {
-                println("jalil error ${it.message}")
+                println("jalil error ${resource.message}")
             }
         })
     }

@@ -7,7 +7,6 @@ import com.example.nattramn.core.NetworkHelper
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.features.article.ui.ArticleView
-import java.util.*
 
 class ArticleHomeRepository(
     private val homeRemoteDataSource: HomeRemoteDataSource,
@@ -58,10 +57,6 @@ class ArticleHomeRepository(
         }
 
         return responseArticles
-    }
-
-    suspend fun getArticles(): ArrayList<ArticleView> {
-        return localDataSource.getArticles()
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.nattramn.core
 
+import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -10,6 +11,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.nattramn.R
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
+import com.google.android.material.button.MaterialButton
 
 @BindingAdapter("imageSource")
 fun setImageUrl(imageView: ImageView, imageSource: String?) {
@@ -57,4 +59,13 @@ fun setTextNumber(textView: TextView, number: Int) {
 @BindingAdapter("app:visibleOnResult")
 fun visibleOnResult(view: View, resource: Resource<*>?) {
     view.isVisible = resource?.status == Status.LOADING
+}
+
+@BindingAdapter("app:checkState")
+fun checkState(view: View, following: Boolean) {
+    if (view is MaterialButton && following) {
+        view.text = "در حال دنبال کردن"
+        view.setTextColor(Color.parseColor("#ffffff"))
+        view.setBackgroundColor(Color.parseColor("#63b47c"))
+    }
 }

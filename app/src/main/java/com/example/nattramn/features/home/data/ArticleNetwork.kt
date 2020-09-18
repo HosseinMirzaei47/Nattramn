@@ -39,11 +39,11 @@ data class ArticleNetwork(
         } ?: listOf()
 
         val user = UserView(
-            author.username,
-            MyApp.app.resources.getString(R.string.job),
-            author.image,
-            85,
-            !author.following
+            name = author.username,
+            job = MyApp.app.resources.getString(R.string.job),
+            image = author.image,
+            followers = "85",
+            following = !author.following
         )
 
         return ArticleView(

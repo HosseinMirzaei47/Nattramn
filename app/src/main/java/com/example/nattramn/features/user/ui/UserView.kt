@@ -8,6 +8,6 @@ data class UserView(
     val name: String,
     val job: String,
     val image: String,
-    val followers: Int,
-    val isMe: Boolean? = false
+    val followers: String,
+    val following: Boolean? = false
 ) : Parcelable

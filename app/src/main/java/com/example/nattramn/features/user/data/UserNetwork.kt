@@ -19,10 +19,11 @@ data class UserNetwork(
 ) {
     fun toUserView(): UserView {
         return UserView(
-            username!!,
-            "مدرس زبان انگلیسی",
-            image!!,
-            85
+            name = username!!,
+            job = "مدرس زبان انگلیسی",
+            image = image!!,
+            followers = "85",
+            following = following
         )
     }
 }
