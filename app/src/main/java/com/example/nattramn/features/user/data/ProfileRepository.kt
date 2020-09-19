@@ -8,6 +8,7 @@ import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.user.ui.UserView
+import retrofit2.Response
 
 class ProfileRepository(
     private val profileRemoteDataSource: ProfileRemoteDataSource,
@@ -78,13 +79,13 @@ class ProfileRepository(
 
     }
 
-    suspend fun deleteArticle(slug: String): Resource<Unit> {
-        var response = Resource<Unit>(Status.ERROR, null, null)
+    suspend fun deleteArticle(slug: String): Resource<Response<Unit>?> {
+        var response = Resource<Response<Unit>?>(Status.ERROR, null, null)
 
         if (NetworkHelper.isOnline(MyApp.app)) {
             val request = profileRemoteDataSource.deleteArticle(slug)
             if (request.status == Status.SUCCESS) {
-                response = Resource.success(request.data)
+                response = Resource.success(request.data as Response<Unit>)
             }
         }
         return response

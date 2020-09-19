@@ -9,5 +9,5 @@ data class CommentEntity(
     val userId: Int,
     val image: Int,
     val body: String,
-    val commentOwnerArticleId: Long
+    val articleSlug: String
 )

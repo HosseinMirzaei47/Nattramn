@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.nattramn.core.resource.Status
+import com.example.nattramn.core.snackMaker
 import com.example.nattramn.databinding.ActionBottomSheetBinding
 import com.example.nattramn.features.user.ui.viewmodels.ActionDialogViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -43,36 +46,52 @@ class ActionBottomDialogFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        shareArticle()
+        onShareArticleClick()
 
-        /** below code contains a bug **/
-        /*binding.btnDeleteArticle.setOnClickListener {
+        onDeleteArticleClick()
+
+    }
+
+    private fun onDeleteArticleClick() {
+        binding.btnDeleteArticle.setOnClickListener {
             actionDialogViewModel.deleteArticle(slug)
         }
 
         actionDialogViewModel.deleteArticleResult.observe(viewLifecycleOwner, Observer { resource ->
             when (resource.status) {
                 Status.SUCCESS -> {
-                    Toast.makeText(requireContext(), "deleted", Toast.LENGTH_SHORT).show()
+                    snackMaker(requireView(), "حذف مقاله با موفقیت انجام شد")
                 }
 
                 Status.LOADING -> {
-                    Toast.makeText(requireContext(), "loading", Toast.LENGTH_SHORT).show()
+                    snackMaker(requireView(), "لطفا صبر کنید")
                 }
 
                 Status.ERROR -> {
-                    Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
+                    snackMaker(requireView(), "خطا در ارتباط با سرور")
                 }
             }
-        })*/
-
+        })
     }
 
-    private fun shareArticle() {
+    private fun onShareArticleClick() {
+        actionDialogViewModel.getSingleArticle(slug)
+
+        actionDialogViewModel.singleArticleResult.observe(viewLifecycleOwner, Observer {
+            if (it.status == Status.SUCCESS) {
+                val textToShare = "${it.data?.title} \n\n${it.data?.body}"
+                shareArticle(textToShare)
+            } else if (it.status == Status.ERROR) {
+                snackMaker(requireView(), "خطا در ارتباط با سرور")
+            }
+        })
+    }
+
+    private fun shareArticle(body: String?) {
         binding.btnShareArticle.setOnClickListener {
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
+                putExtra(Intent.EXTRA_TEXT, body)
                 type = "text/plain"
             }
             val shareIntent = Intent.createChooser(sendIntent, null)

@@ -6,50 +6,45 @@ import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
 import androidx.room.Relation
 import com.example.nattramn.features.user.data.UserEntity
-import java.util.*
 
 @Entity(
     tableName = "articles",
-    primaryKeys = ["articleId"],
+    primaryKeys = ["slug"],
     foreignKeys = [
         ForeignKey(
             onDelete = CASCADE,
             onUpdate = CASCADE,
             entity = UserEntity::class,
-            parentColumns = ["userId"],
-            childColumns = ["ownerId"]
+            parentColumns = ["username"],
+            childColumns = ["ownerUsername"]
         )
     ]
 )
 data class ArticleEntity(
-    val articleId: Int,
-    val date: Date,
+    val slug: String,
+    val date: String,
     val title: String,
     val body: String,
     val likes: String,
     val commentsNumber: Int,
+    val favoriteCount: Int,
     val bookmarked: Boolean,
-    /*@ForeignKey(
-        onDelete = CASCADE,
-        parentColumns = ["userId"],
-        childColumns = ["userOwnerId"],
-        entity = UserEntity::class
-    )*/
-    val ownerId: Long
+    val ownerId: Long,
+    val ownerUsername: String
 )
 
 data class ArticleWithCommentsAndTags(
 
     @Embedded val articleEntity: ArticleEntity,
     @Relation(
-        parentColumn = "articleId",
-        entityColumn = "commentOwnerArticleId"
+        parentColumn = "slug",
+        entityColumn = "articleSlug"
     )
     val commentEntity: List<CommentEntity>,
 
     @Relation(
-        parentColumn = "articleId",
-        entityColumn = "tagOwnerArticleId"
+        parentColumn = "slug",
+        entityColumn = "articleSlug"
     )
     val tagEntity: List<TagEntity>
 

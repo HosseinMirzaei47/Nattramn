@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 data class TagEntity(
     @PrimaryKey val tagId: Int,
     val tag: String,
-    val tagOwnerArticleId: Long
+    val articleSlug: String
 )

@@ -35,7 +35,6 @@ fun setImageUrl(imageView: ImageView, imageSource: String?) {
 
 @BindingAdapter("app:isBookmarked")
 fun bookmarkSrc(view: View, isBookmarked: Boolean) {
-
     if (view is ImageView) {
         if (isBookmarked) {
             load(view, R.drawable.ic_bookmark_article_fragment)
@@ -43,7 +42,6 @@ fun bookmarkSrc(view: View, isBookmarked: Boolean) {
             load(view, R.drawable.ic_bookmark)
         }
     }
-
 }
 
 private fun load(view: ImageView, image: Int) {

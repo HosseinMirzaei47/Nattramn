@@ -10,23 +10,23 @@ import kotlinx.android.parcel.Parcelize
 
 @Entity(
     tableName = "users",
-    primaryKeys = ["userId"]
+    primaryKeys = ["username"]
 )
 @Parcelize
 data class UserEntity(
-    val userId: Int = 1,
-    val name: String,
-    val job: String,
-    val image: String,
-    val followers: Int,
-    val userOwnerId: Long
+    val username: String,
+    val password: String? = null,
+    val email: String? = null,
+    val token: String? = null,
+    val following: Boolean? = false,
+    val image: String? = null
 ) : Parcelable
 
 data class UserAndArticle(
     @Embedded val userEntity: UserEntity,
     @Relation(
-        parentColumn = "userId",
-        entityColumn = "ownerId"
+        parentColumn = "username",
+        entityColumn = "ownerUsername"
     )
     val articleEntity: List<ArticleEntity>
 )
@@ -40,8 +40,8 @@ data class UserWithArticleAndCommentsAndTags(
 
     @Embedded val userEntity: UserEntity,
     @Relation(
-        parentColumn = "userId",
-        entityColumn = "ownerId",
+        parentColumn = "username",
+        entityColumn = "ownerUsername",
         entity = ArticleEntity::class
     )
     val articleWithCommentsAndTags: List<ArticleWithCommentsAndTags>

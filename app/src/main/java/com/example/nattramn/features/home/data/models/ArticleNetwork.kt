@@ -1,6 +1,5 @@
 package com.example.nattramn.features.home.data.models
 
-
 import com.example.nattramn.R
 import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.resource.Resource
