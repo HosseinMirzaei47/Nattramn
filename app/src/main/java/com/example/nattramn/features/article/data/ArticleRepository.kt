@@ -39,13 +39,11 @@ class ArticleRepository(
         if (NetworkHelper.isOnline(MyApp.app)) {
             val request = articleRemoteDataSource.bookmarkArticle(slug)
             if (request.status == Status.SUCCESS) {
-                response =
-                    Resource.success(request.data?.article?.toArticleView(Resource.success(null)))
+                response = Resource.success(request.data?.article?.toArticleEntity())
             }
         }
 
         return response
-
     }
 
     suspend fun getArticleComments(slug: String): Resource<ArticleComments> {
@@ -65,19 +63,27 @@ class ArticleRepository(
 
     suspend fun getSingleArticle(slug: String): Resource<ArticleView> {
         var response = Resource<ArticleView>(Status.ERROR, null, null)
+        var tagsEntity: List<TagEntity>?
+        var commentsEntity: List<CommentEntity>?
 
         if (NetworkHelper.isOnline(MyApp.app)) {
-            val request = articleRemoteDataSource.getSingleArticle(slug)
-            response = when (request.status) {
-                Status.SUCCESS -> {
-                    val articleView = request.data?.article?.toArticleView(Resource.success(null))
-                    Resource.success(articleView)
+            val articlesRequest = articleRemoteDataSource.getSingleArticle(slug)
+            val commentsRequest = articleRemoteDataSource.getArticleComments(slug)
+
+            if (articlesRequest.status == Status.SUCCESS) {
+                tagsEntity = articlesRequest.data?.article?.tagList?.map { tag ->
+                    TagEntity.convertTag(slug, tag)
                 }
-                Status.ERROR -> {
-                    Resource.error("no slug", null)
-                }
-                Status.LOADING -> {
-                    Resource.loading(null)
+            }
+
+            if (commentsRequest.status == Status.SUCCESS) {
+                val commentsEntity = commentsRequest.data?.comments?.map { comment ->
+                    CommentEntity.convertComment(
+                        username = comment.author.username,
+                        commentBody = comment.body,
+                        image = comment.author.image,
+                        ownerSlug = slug
+                    )
                 }
             }
         }
@@ -114,7 +120,7 @@ class ArticleRepository(
             val tagArticles = articleRemoteDataSource.getTagArticles(tag)
             if (tagArticles.status == Status.SUCCESS) {
                 val articleViews = tagArticles.data?.articleNetworks?.map {
-                    it.toArticleView(Resource.success(null))
+                    it.toArticleEntity()
                 }
                 responseArticles = Resource.success(articleViews)
             }
@@ -131,7 +137,7 @@ class ArticleRepository(
             when (request.status) {
                 Status.SUCCESS -> {
                     response =
-                        Resource.success(request.data?.article?.toArticleView(Resource.success(null)))
+                        Resource.success(request.data?.article?.toArticleEntity())
                 }
                 Status.LOADING -> {
                     Resource.error("Loading", null)

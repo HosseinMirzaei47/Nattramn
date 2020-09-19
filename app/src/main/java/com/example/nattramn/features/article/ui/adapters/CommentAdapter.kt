@@ -6,11 +6,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nattramn.R
 import com.example.nattramn.databinding.CommentRowBinding
-import com.example.nattramn.features.article.data.models.CommentList
+import com.example.nattramn.features.article.data.models.Comment
 import com.example.nattramn.features.article.ui.OnCommentListener
 
 class CommentAdapter(
-    var commentViews: List<CommentList>,
+    var commentViews: List<Comment>,
     private val commentListener: OnCommentListener
 ) :
     RecyclerView.Adapter<CommentAdapter.ViewHolder>() {

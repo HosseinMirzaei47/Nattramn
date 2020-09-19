@@ -26,10 +26,8 @@ data class ArticleEntity(
     val title: String,
     val body: String,
     val likes: String,
-    val commentsNumber: Int,
     val favoriteCount: Int,
     val bookmarked: Boolean,
-    val ownerId: Long,
     val ownerUsername: String
 )
 

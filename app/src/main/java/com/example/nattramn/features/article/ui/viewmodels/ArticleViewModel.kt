@@ -8,8 +8,8 @@ import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.features.article.data.ArticleRepository
 import com.example.nattramn.features.article.data.models.ArticleComments
-import com.example.nattramn.features.article.data.models.Comment
 import com.example.nattramn.features.article.data.models.CommentRequest
+import com.example.nattramn.features.article.data.models.SingleCommentRequest
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.CommentView
 import kotlinx.coroutines.Dispatchers
@@ -46,7 +46,7 @@ class ArticleViewModel : ViewModel() {
 
     fun sendComment(slug: String, comment: String) {
 
-        val commentRequest = CommentRequest(Comment(comment))
+        val commentRequest = CommentRequest(SingleCommentRequest(comment))
 
         _sendCommentResult.value = Resource.loading(null)
 
