@@ -47,16 +47,16 @@ data class ArticleNetwork(
         )
 
         return ArticleView(
-            user,
-            createdAt,
-            title,
-            body,
-            tagList,
-            comments,
-            favoritesCount.toString(),
-            comments.size,
-            isBookmarked,
-            slug
+            userView = user,
+            date = createdAt,
+            title = title,
+            body = body,
+            tags = tagList,
+            commentViews = comments,
+            likes = favoritesCount.toString(),
+            commentsNumber = comments.size,
+            bookmarked = isBookmarked,
+            slug = slug
         )
     }
 }

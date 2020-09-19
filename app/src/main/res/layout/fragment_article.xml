@@ -130,7 +130,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_micro"
-                            android:text="@string/sampleDate"
+                            app:convertDate="@{articleView.date}"
                             android:textColor="@color/hint"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="@id/authorImageSA"

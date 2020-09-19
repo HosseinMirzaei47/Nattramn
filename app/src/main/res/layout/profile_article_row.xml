@@ -53,9 +53,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_micro"
-                android:text="@{profileData.date}"
                 android:textColor="@color/hint"
                 android:textStyle="bold"
+                app:convertDate="@{profileData.date}"
                 app:layout_constraintBottom_toBottomOf="@id/itemArticleAuthorImage"
                 app:layout_constraintStart_toEndOf="@+id/itemArticleAuthorImage"
                 app:layout_constraintTop_toBottomOf="@+id/itemArticleAuthorName" />
