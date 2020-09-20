@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.features.article.data.ArticleRepository
 import com.example.nattramn.features.article.data.models.EditArticleRequest
@@ -14,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class WriteViewModel : ViewModel() {
 
-    private val articleRepository = ArticleRepository.getInstance(MyApp.app)
+    private val articleRepository = ArticleRepository.getInstance()
 
     private var _editArticleResult = MutableLiveData<Resource<ArticleView>>()
     val editArticleResult: LiveData<Resource<ArticleView>> get() = _editArticleResult

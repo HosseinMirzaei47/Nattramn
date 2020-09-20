@@ -1,6 +1,5 @@
 package com.example.nattramn.features.home.data
 
-import android.app.Application
 import com.example.nattramn.core.LocalDataSource
 import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.NetworkHelper
@@ -17,11 +16,11 @@ class ArticleHomeRepository(
     companion object {
         private var myInstance: ArticleHomeRepository? = null
 
-        fun getInstance(application: Application): ArticleHomeRepository {
+        fun getInstance(): ArticleHomeRepository {
             if (myInstance == null) {
                 synchronized(this) {
                     myInstance =
-                        ArticleHomeRepository(HomeRemoteDataSource(), LocalDataSource(application))
+                        ArticleHomeRepository(HomeRemoteDataSource(), LocalDataSource())
                 }
             }
             return myInstance!!

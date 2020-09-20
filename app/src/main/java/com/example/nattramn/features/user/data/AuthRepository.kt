@@ -1,6 +1,5 @@
 package com.example.nattramn.features.user.data
 
-import android.app.Application
 import com.example.nattramn.core.LocalDataSource
 import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.NetworkHelper
@@ -17,12 +16,12 @@ class AuthRepository(
     companion object {
 
         private var myInstance: AuthRepository? = null
-        fun getInstance(application: Application): AuthRepository {
+        fun getInstance(): AuthRepository {
             if (myInstance == null) {
                 synchronized(this) {
                     myInstance = AuthRepository(
                         AuthRemoteDataSource(),
-                        LocalDataSource(application)
+                        LocalDataSource()
                     )
                 }
             }

@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.features.article.data.ArticleRepository
 import com.example.nattramn.features.article.ui.ArticleView
@@ -15,8 +14,8 @@ import retrofit2.Response
 
 class ActionDialogViewModel : ViewModel() {
 
-    private val profileRepository = ProfileRepository.getInstance(MyApp.app)
-    private val articleRepository = ArticleRepository.getInstance(MyApp.app)
+    private val profileRepository = ProfileRepository.getInstance()
+    private val articleRepository = ArticleRepository.getInstance()
 
     private var _deleteArticleResult = MutableLiveData<Resource<Response<Unit>??>>()
     val deleteArticleResult: LiveData<Resource<Response<Unit>?>> get() = _deleteArticleResult

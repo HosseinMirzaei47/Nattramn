@@ -2,6 +2,7 @@ package com.example.nattramn.features.article.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.nattramn.features.article.ui.CommentView
 
 @Entity(tableName = "comments")
 data class CommentEntity(
@@ -11,6 +12,15 @@ data class CommentEntity(
     val body: String,
     val articleSlug: String
 ) {
+
+    fun toCommentView(): CommentView {
+        return CommentView(
+            username = username,
+            image = image,
+            body = body
+        )
+    }
+
     companion object {
         fun convertComment(
             username: String,

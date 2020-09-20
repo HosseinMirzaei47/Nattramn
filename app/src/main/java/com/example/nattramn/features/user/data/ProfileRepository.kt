@@ -1,6 +1,5 @@
 package com.example.nattramn.features.user.data
 
-import android.app.Application
 import com.example.nattramn.core.LocalDataSource
 import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.NetworkHelper
@@ -18,12 +17,12 @@ class ProfileRepository(
     companion object {
 
         private var myInstance: ProfileRepository? = null
-        fun getInstance(application: Application): ProfileRepository {
+        fun getInstance(): ProfileRepository {
             if (myInstance == null) {
                 synchronized(this) {
                     myInstance = ProfileRepository(
                         ProfileRemoteDataSource(),
-                        LocalDataSource(application)
+                        LocalDataSource()
                     )
                 }
             }

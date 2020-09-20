@@ -9,6 +9,11 @@ data class TagEntity(
     val tag: String,
     val articleSlug: String
 ) {
+
+    fun toTagString(): String {
+        return tag
+    }
+
     companion object {
         fun convertTag(slug: String, tag: String): TagEntity {
             return TagEntity(

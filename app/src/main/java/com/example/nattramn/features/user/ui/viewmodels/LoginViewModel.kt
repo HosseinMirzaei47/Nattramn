@@ -3,7 +3,6 @@ package com.example.nattramn.features.user.ui.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.features.user.data.AuthRepository
 import com.example.nattramn.features.user.data.models.AuthRequest
@@ -13,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
 
-    private val userRepository = AuthRepository.getInstance(MyApp.app)
+    private val userRepository = AuthRepository.getInstance()
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
     val loginResult = MutableLiveData<Resource<AuthResponse>>()

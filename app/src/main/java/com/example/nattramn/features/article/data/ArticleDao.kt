@@ -10,7 +10,7 @@ interface ArticleDao {
     fun clearArticleTable()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addArticle(articleEntity: ArticleEntity)
+    fun insertArticle(articleEntity: ArticleEntity)
 
     @Delete
     fun deleteArticle(articleEntity: ArticleEntity)

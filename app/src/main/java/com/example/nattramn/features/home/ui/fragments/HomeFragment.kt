@@ -9,14 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.nattramn.R
 import com.example.nattramn.core.LocalDataSource
-import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.ViewPagerAdapter
 import com.example.nattramn.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private var localDataSource = LocalDataSource(MyApp.app)
+    private var localDataSource = LocalDataSource()
 
     override fun onCreateView(
         inflater: LayoutInflater,
