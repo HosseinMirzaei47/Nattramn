@@ -4,12 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.features.article.data.ArticleRepository
 import com.example.nattramn.features.article.data.models.ArticleComments
-import com.example.nattramn.features.article.data.models.Comment
 import com.example.nattramn.features.article.data.models.CommentRequest
+import com.example.nattramn.features.article.data.models.SingleCommentRequest
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.CommentView
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +16,7 @@ import kotlinx.coroutines.launch
 
 class ArticleViewModel : ViewModel() {
 
-    private val articleRepository = ArticleRepository.getInstance(MyApp.app)
+    private val articleRepository = ArticleRepository.getInstance()
     var comments = MutableLiveData<ArrayList<CommentView>>()
 
     private var _bookmarkResult = MutableLiveData<Resource<ArticleView>>()
@@ -46,7 +45,7 @@ class ArticleViewModel : ViewModel() {
 
     fun sendComment(slug: String, comment: String) {
 
-        val commentRequest = CommentRequest(Comment(comment))
+        val commentRequest = CommentRequest(SingleCommentRequest(comment))
 
         _sendCommentResult.value = Resource.loading(null)
 

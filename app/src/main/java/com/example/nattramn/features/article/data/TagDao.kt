@@ -6,7 +6,7 @@ import androidx.room.*
 interface TagDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addTag(tagEntity: TagEntity)
+    fun insertTag(tagEntity: TagEntity)
 
     @Delete
     fun deleteTag(tagEntity: TagEntity)

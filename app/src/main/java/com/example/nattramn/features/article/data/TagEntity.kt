@@ -5,7 +5,22 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "tags")
 data class TagEntity(
-    @PrimaryKey val tagId: Int,
+    @PrimaryKey(autoGenerate = true) val tagId: Int,
     val tag: String,
     val articleSlug: String
-)
+) {
+
+    fun toTagString(): String {
+        return tag
+    }
+
+    companion object {
+        fun convertTag(slug: String, tag: String): TagEntity {
+            return TagEntity(
+                tagId = 0,
+                tag = tag,
+                articleSlug = slug
+            )
+        }
+    }
+}

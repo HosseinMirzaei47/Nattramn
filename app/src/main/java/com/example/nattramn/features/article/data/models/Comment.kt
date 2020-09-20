@@ -1,8 +1,15 @@
 package com.example.nattramn.features.article.data.models
 
+
 import com.google.gson.annotations.SerializedName
 
 data class Comment(
+    @SerializedName("author")
+    val author: Author,
     @SerializedName("body")
-    val body: String
+    val body: String,
+    @SerializedName("createdAt")
+    val createdAt: String,
+    @SerializedName("id")
+    val id: String
 )

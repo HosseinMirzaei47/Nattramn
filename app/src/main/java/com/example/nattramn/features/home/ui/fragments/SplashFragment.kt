@@ -10,14 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.nattramn.R
 import com.example.nattramn.core.LocalDataSource
-import com.example.nattramn.core.MyApp
 import com.example.nattramn.databinding.FragmentSplashBinding
 
 class SplashFragment : Fragment() {
 
     private lateinit var binding: FragmentSplashBinding
     private val splashTimeOut = 1000.toLong()
-    private var localDataSource = LocalDataSource(MyApp.app)
+    private var localDataSource = LocalDataSource()
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -1,15 +1,16 @@
 package com.example.nattramn.features.article.data
 
-import android.app.Application
 import com.example.nattramn.core.LocalDataSource
 import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.NetworkHelper
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
+import com.example.nattramn.core.toArticleView
 import com.example.nattramn.features.article.data.models.ArticleComments
 import com.example.nattramn.features.article.data.models.CommentRequest
 import com.example.nattramn.features.article.data.models.EditArticleRequest
 import com.example.nattramn.features.article.ui.ArticleView
+import com.example.nattramn.features.user.data.UserEntity
 
 class ArticleRepository(
     private val articleRemoteDataSource: ArticleRemoteDataSource,
@@ -19,13 +20,11 @@ class ArticleRepository(
     companion object {
         private var myInstance: ArticleRepository? = null
 
-        fun getInstance(application: Application): ArticleRepository {
+        fun getInstance(): ArticleRepository {
             if (myInstance == null) {
                 synchronized(this) {
                     myInstance = ArticleRepository(
-                        ArticleRemoteDataSource(), LocalDataSource(
-                            application
-                        )
+                        ArticleRemoteDataSource(), LocalDataSource()
                     )
                 }
             }
@@ -65,13 +64,41 @@ class ArticleRepository(
 
     suspend fun getSingleArticle(slug: String): Resource<ArticleView> {
         var response = Resource<ArticleView>(Status.ERROR, null, null)
+        val articleEntity: ArticleEntity?
+        val userEntity: UserEntity?
+        val tagsEntity: List<TagEntity>?
+        var commentsEntity: List<CommentEntity>? = listOf()
 
         if (NetworkHelper.isOnline(MyApp.app)) {
-            val request = articleRemoteDataSource.getSingleArticle(slug)
-            response = when (request.status) {
+            val articleRequest = articleRemoteDataSource.getSingleArticle(slug)
+            when (articleRequest.status) {
                 Status.SUCCESS -> {
-                    val articleView = request.data?.article?.toArticleView(Resource.success(null))
-                    Resource.success(articleView)
+                    articleEntity = articleRequest.data?.article?.toArticleEntity()
+                    userEntity = articleRequest.data?.article?.author?.convertUser()
+                    tagsEntity = articleRequest.data?.article?.tagList?.map { tag ->
+                        TagEntity.convertTag(slug, tag)
+                    }
+                    val commentsRequest = articleRemoteDataSource.getArticleComments(slug)
+                    if (commentsRequest.status == Status.SUCCESS) {
+                        commentsEntity = commentsRequest.data?.comments?.map { comment ->
+                            CommentEntity.convertComment(
+                                comment.author.username,
+                                comment.body,
+                                comment.author.image,
+                                slug
+                            )
+                        }
+                    }
+
+                    localDataSource.insertUser(userEntity!!)
+                    localDataSource.insertArticle(articleEntity!!)
+                    localDataSource.insertAllComments(commentsEntity!!)
+                    localDataSource.insertAllTags(tagsEntity!!)
+
+                    val articleView =
+                        toArticleView(userEntity, articleEntity, tagsEntity, commentsEntity)
+
+                    response = Resource.success(articleView)
                 }
                 Status.ERROR -> {
                     Resource.error("no slug", null)

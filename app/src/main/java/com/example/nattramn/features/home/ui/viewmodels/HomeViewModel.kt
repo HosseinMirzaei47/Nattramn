@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.features.article.data.ArticleRepository
 import com.example.nattramn.features.article.ui.ArticleView
@@ -14,8 +13,8 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
 
-    private val articleHomeRepository = ArticleHomeRepository.getInstance(MyApp.app)
-    private val articleRepository = ArticleRepository.getInstance(MyApp.app)
+    private val articleHomeRepository = ArticleHomeRepository.getInstance()
+    private val articleRepository = ArticleRepository.getInstance()
 
     private var _singleArticleResult = MutableLiveData<Resource<ArticleView>>()
     val singleArticleResult: LiveData<Resource<ArticleView>> get() = _singleArticleResult

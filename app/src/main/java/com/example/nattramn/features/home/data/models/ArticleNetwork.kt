@@ -3,6 +3,7 @@ package com.example.nattramn.features.home.data.models
 import com.example.nattramn.R
 import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.resource.Resource
+import com.example.nattramn.features.article.data.ArticleEntity
 import com.example.nattramn.features.article.data.models.ArticleComments
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.CommentView
@@ -31,6 +32,19 @@ data class ArticleNetwork(
     @SerializedName("updatedAt")
     val updatedAt: String
 ) {
+    fun toArticleEntity(): ArticleEntity {
+        return ArticleEntity(
+            slug = slug,
+            date = createdAt,
+            title = title,
+            body = body,
+            likes = favoritesCount.toString(),
+            favoriteCount = favoritesCount,
+            bookmarked = isBookmarked,
+            ownerUsername = author.username
+        )
+    }
+
     fun toArticleView(articleComments: Resource<ArticleComments>): ArticleView {
 
         val comments = articleComments.data?.comments?.map {
