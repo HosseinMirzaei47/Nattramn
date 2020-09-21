@@ -9,6 +9,9 @@ interface UserDao {
     @Query("delete from users")
     fun clearUserTable()
 
+    @Query("select * from users where username like :username")
+    fun getUser(username: String): LiveData<UserEntity>
+
     @Query("select * from users")
     fun getAllUsers(): LiveData<List<UserEntity>>
 
@@ -28,8 +31,8 @@ interface UserDao {
     @Query("select * from users")
     fun getUsersAndArticles(): LiveData<List<UserAndArticle>>
 
-    @Transaction
+    /*@Transaction
     @Query("select * from users")
-    fun getUserWithArticlesAndCommentsAndTags(): LiveData<List<UserWithArticleAndCommentsAndTags>>
+    fun getUserWithArticlesAndCommentsAndTags(): LiveData<List<UserWithArticleAndCommentsAndTags>>*/
 
 }

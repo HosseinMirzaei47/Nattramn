@@ -14,4 +14,7 @@ interface TagDao {
     @Update
     fun editTag(tagEntity: TagEntity)
 
+    @Query("select * from tags where tag in (select tag from tagsArticles where slug like :slug)")
+    fun getArticleTags(slug: String): List<TagEntity>
+
 }

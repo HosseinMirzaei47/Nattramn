@@ -48,8 +48,9 @@ class ForYouFragment : Fragment(), OnArticleListener {
 
     private fun setRecyclers() {
         setContent()
-        homeViewModel.setFeedArticles()
+        /*homeViewModel.setLatestArticlesDb()*/
         homeViewModel.setLatestArticles()
+        homeViewModel.setFeedArticles()
     }
 
     private fun setContent() {

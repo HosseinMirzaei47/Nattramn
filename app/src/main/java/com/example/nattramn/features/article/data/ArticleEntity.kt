@@ -1,10 +1,9 @@
 package com.example.nattramn.features.article.data
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
-import androidx.room.Relation
+import androidx.room.Ignore
 import com.example.nattramn.features.user.data.UserEntity
 
 @Entity(
@@ -26,12 +25,20 @@ data class ArticleEntity(
     var title: String,
     var body: String,
     var likes: String,
-    /*@Ignore val tagList: List<String>,*/
     var favoriteCount: Int,
     var bookmarked: Boolean,
     var ownerUsername: String
-)
+) {
 
+    @Ignore
+    lateinit var comments: List<CommentEntity>
+
+    @Ignore
+    lateinit var tags: List<TagEntity>
+
+}
+
+/*
 data class ArticleWithCommentsAndTags(
 
     @Embedded val articleEntity: ArticleEntity,
@@ -47,4 +54,4 @@ data class ArticleWithCommentsAndTags(
     )
     val tagEntity: List<TagEntity>
 
-)
+)*/

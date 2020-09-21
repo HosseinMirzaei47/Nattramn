@@ -45,6 +45,35 @@ class ArticleHomeRepository(
         return responseArticles
     }
 
+    fun getAllArticlesDb(): Resource<List<ArticleView>> {
+
+        val articlesView = mutableListOf<ArticleView>()
+        val articlesEntity = localDataSource.getAllArticles()
+        articlesEntity?.forEach {
+            it.comments = localDataSource.getArticleComments(it.slug)
+            it.tags = localDataSource.getArticleTags(it.slug)
+            val user = localDataSource.getUser(it.ownerUsername).value?.toUserView()
+
+            articlesView.add(
+                ArticleView(
+                    userView = user!!,
+                    date = it.date,
+                    title = it.title,
+                    body = it.body,
+                    tags = it.tags.map { it.tag },
+                    commentViews = it.comments.map { it.toCommentView() },
+                    likes = it.favoriteCount.toString(),
+                    commentsNumber = it.comments.size,
+                    bookmarked = it.bookmarked,
+                    slug = it.slug
+
+                )
+            )
+        }
+
+        return Resource.success(articlesView)
+    }
+
     suspend fun getAllArticles(): Resource<List<ArticleView>> {
         var responseArticles = Resource<List<ArticleView>>(Status.ERROR, null, null)
 
@@ -89,8 +118,7 @@ class ArticleHomeRepository(
     }
 
     suspend fun editArticle(
-        editArticleRequest: EditArticleRequest,
-        slug: String
+        editArticleRequest: EditArticleRequest, slug: String
     ): Resource<ArticleView> {
         var response = Resource<ArticleView>(Status.ERROR, null, null)
 

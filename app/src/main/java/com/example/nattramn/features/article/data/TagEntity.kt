@@ -5,9 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "tags")
 data class TagEntity(
-    @PrimaryKey(autoGenerate = true) val tagId: Int,
-    val tag: String,
-    val articleSlug: String
+    @PrimaryKey val tag: String
 ) {
 
     fun toTagString(): String {
@@ -15,11 +13,9 @@ data class TagEntity(
     }
 
     companion object {
-        fun convertTag(slug: String, tag: String): TagEntity {
+        fun convertTag(tag: String): TagEntity {
             return TagEntity(
-                tagId = 0,
-                tag = tag,
-                articleSlug = slug
+                tag = tag
             )
         }
     }

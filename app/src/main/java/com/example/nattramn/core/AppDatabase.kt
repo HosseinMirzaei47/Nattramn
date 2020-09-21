@@ -6,11 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.nattramn.features.article.data.*
+import com.example.nattramn.features.article.data.models.TagAndArticleEntity
 import com.example.nattramn.features.user.data.UserDao
 import com.example.nattramn.features.user.data.UserEntity
 
 @Database(
-    entities = [ArticleEntity::class, UserEntity::class, TagEntity::class, CommentEntity::class],
+    entities = [ArticleEntity::class, UserEntity::class, TagEntity::class, CommentEntity::class, TagAndArticleEntity::class],
     version = 1,
     exportSchema = false
 )
@@ -20,6 +21,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun articleDao(): ArticleDao
     abstract fun userDao(): UserDao
     abstract fun commentDao(): CommentDao
+    abstract fun tagArticleDao(): TagAndArticleDao
     abstract fun tagDao(): TagDao
 
     companion object {

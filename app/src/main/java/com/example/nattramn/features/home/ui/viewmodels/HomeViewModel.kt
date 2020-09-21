@@ -13,6 +13,12 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
 
+    init {
+        /*setLatestArticlesDb()
+        setLatestArticles()
+        setFeedArticles()*/
+    }
+
     private val articleHomeRepository = ArticleHomeRepository.getInstance()
     private val articleRepository = ArticleRepository.getInstance()
 
@@ -44,6 +50,13 @@ class HomeViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             _latestArticlesResult.postValue(articleHomeRepository.getAllArticles())
         }
+    }
+
+    fun setLatestArticlesDb() {
+
+        _latestArticlesResult.value = Resource.loading(null)
+
+        _latestArticlesResult.postValue(articleHomeRepository.getAllArticlesDb())
     }
 
     fun getSingleArticle(slug: String) {

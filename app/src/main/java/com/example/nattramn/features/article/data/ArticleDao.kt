@@ -21,7 +21,7 @@ interface ArticleDao {
     @Query("select * from articles")
     fun getAllArticles(): LiveData<List<ArticleEntity>>
 
-    @Query("select * from articles where title like :title")
-    fun getArticle(title: String): LiveData<List<ArticleEntity>>
+    @Query("select * from articles where slug like :slug")
+    fun getArticle(slug: String): LiveData<List<ArticleEntity>>
 
 }

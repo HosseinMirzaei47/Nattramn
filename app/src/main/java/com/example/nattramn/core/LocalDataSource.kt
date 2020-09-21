@@ -28,9 +28,11 @@ class LocalDataSource() {
         db.tagDao().insertTag(tagEntity)
     }
 
-    fun insertAllArticles(articles: List<ArticleEntity>) {
-        for (article in articles) {
-            insertArticle(article)
+    fun insertAllArticles(articles: List<ArticleEntity>?) {
+        if (articles != null) {
+            for (article in articles) {
+                insertArticle(article)
+            }
         }
     }
 
@@ -57,5 +59,17 @@ class LocalDataSource() {
     fun getToken() = settings.authToken
 
     fun getUsername() = settings.authUsername
+
+    fun getAllArticles(): List<ArticleEntity>? = db.articleDao().getAllArticles().value
+
+    fun getArticleComments(slug: String) = db.commentDao().getArticleComments(slug)
+
+    fun getArticleTags(slug: String) = db.tagDao().getArticleTags(slug)
+
+    fun getUser(username: String) = db.userDao().getUser(username)
+
+    fun getArticle(slug: String) {
+        db.articleDao().getArticle(slug)
+    }
 
 }

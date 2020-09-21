@@ -80,7 +80,7 @@ class ArticleRepository(
                     articleEntity = articleRequest.data?.article?.toArticleEntity()
                     userEntity = articleRequest.data?.article?.user?.convertUser()
                     tagsEntity = articleRequest.data?.article?.tagList?.map { tag ->
-                        TagEntity.convertTag(slug, tag)
+                        TagEntity.convertTag(tag)
                     }
                     val commentsRequest = articleRemoteDataSource.getArticleComments(slug)
                     if (commentsRequest.status == Status.SUCCESS) {

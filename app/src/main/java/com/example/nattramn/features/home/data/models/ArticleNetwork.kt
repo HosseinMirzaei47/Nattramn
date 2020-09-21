@@ -38,7 +38,6 @@ data class ArticleNetwork(
             date = createdAt,
             title = title,
             body = body,
-            /*tagList = tagList,*/
             likes = favoritesCount.toString(),
             favoriteCount = favoritesCount,
             bookmarked = isBookmarked,
