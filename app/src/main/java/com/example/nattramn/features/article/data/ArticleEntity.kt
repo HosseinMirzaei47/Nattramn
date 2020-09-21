@@ -26,7 +26,7 @@ data class ArticleEntity(
     var title: String,
     var body: String,
     var likes: String,
-    /*@Ignore var tagList: List<String>,*/
+    /*@Ignore val tagList: List<String>,*/
     var favoriteCount: Int,
     var bookmarked: Boolean,
     var ownerUsername: String

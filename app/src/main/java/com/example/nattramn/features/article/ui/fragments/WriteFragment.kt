@@ -13,6 +13,7 @@ import com.example.nattramn.databinding.FragmentWriteBinding
 import com.example.nattramn.features.article.ui.viewmodels.WriteViewModel
 import com.google.android.material.chip.Chip
 
+@Suppress("DEPRECATION")
 class WriteFragment : Fragment() {
 
     private lateinit var binding: FragmentWriteBinding
@@ -38,9 +39,34 @@ class WriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setBackButtonClick()
 
+        onTagCreate()
+
+    }
+
+    private fun onTagCreate() {
         binding.tagsEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
+                var tag = p0.toString()
 
+                if (tag.length > 1 && tag[tag.lastIndex - 1] == ' ') {
+                    tag = ""
+                }
+
+                if (tag.isNotEmpty() && tag.last() != ' ') {
+                    tag = tag.substringAfterLast(' ', tag)
+                }
+
+                if (tag.isNotEmpty() && tag.last() == ' ' && tag != " " && tag != "\n") {
+                    val chip = Chip(requireContext())
+                    chip.text = tag.trim()
+                    chip.isCloseIconEnabled = true
+                    chip.layoutDirection = View.LAYOUT_DIRECTION_LTR
+                    chip.setOnCloseIconClickListener {
+                        binding.writeChipGroup.removeView(chip)
+                    }
+                    binding.writeChipGroup.addView(chip)
+                    binding.tagsEditText.setText("")
+                }
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -48,15 +74,9 @@ class WriteFragment : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s?.last() == ' ') {
-                    val chip = Chip(requireContext())
-                    chip.text = s.subSequence(0, s.lastIndex - 1)
-                    binding.writeChipGroup.addView(chip, 0)
-                }
             }
 
         })
-
     }
 
     private fun setBackButtonClick() {

@@ -18,7 +18,10 @@ class WriteViewModel : ViewModel() {
     private var _editArticleResult = MutableLiveData<Resource<ArticleView>>()
     val editArticleResult: LiveData<Resource<ArticleView>> get() = _editArticleResult
 
-    fun publishArticle(slug: String) {
+    private var _createArticleResult = MutableLiveData<Resource<ArticleView>>()
+    val createArticleResult: LiveData<Resource<ArticleView>> get() = _createArticleResult
+
+    fun createArticle(slug: String) {
 
     }
 
