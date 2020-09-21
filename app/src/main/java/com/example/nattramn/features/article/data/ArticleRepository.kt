@@ -6,10 +6,10 @@ import com.example.nattramn.core.NetworkHelper
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.core.toArticleView
-import com.example.nattramn.features.article.data.models.ArticleComments
 import com.example.nattramn.features.article.data.models.CommentRequest
 import com.example.nattramn.features.article.data.models.EditArticleRequest
 import com.example.nattramn.features.article.ui.ArticleView
+import com.example.nattramn.features.article.ui.CommentView
 import com.example.nattramn.features.user.data.UserEntity
 
 class ArticleRepository(
@@ -47,15 +47,20 @@ class ArticleRepository(
 
     }
 
-    suspend fun getArticleComments(slug: String): Resource<ArticleComments> {
-        var response = Resource<ArticleComments>(Status.ERROR, null, null)
+    suspend fun getArticleComments(slug: String): Resource<List<CommentView>> {
+        var response = Resource<List<CommentView>>(Status.ERROR, null, null)
 
         if (NetworkHelper.isOnline(MyApp.app)) {
             val request = articleRemoteDataSource.getArticleComments(slug)
             if (request.status == Status.SUCCESS) {
-                response = Resource.success(request.data)
+
+                val comments = request.data?.comments?.map {
+                    it.toCommentView()
+                }
+
+                response = Resource.success(comments)
             } else if (request.status == Status.ERROR) {
-                response = Resource.error("Something went wrong", request.data)
+                response = Resource.error("Something went wrong", null)
             }
         }
 
@@ -74,7 +79,7 @@ class ArticleRepository(
             when (articleRequest.status) {
                 Status.SUCCESS -> {
                     articleEntity = articleRequest.data?.article?.toArticleEntity()
-                    userEntity = articleRequest.data?.article?.author?.convertUser()
+                    userEntity = articleRequest.data?.article?.user?.convertUser()
                     tagsEntity = articleRequest.data?.article?.tagList?.map { tag ->
                         TagEntity.convertTag(slug, tag)
                     }
@@ -82,9 +87,11 @@ class ArticleRepository(
                     if (commentsRequest.status == Status.SUCCESS) {
                         commentsEntity = commentsRequest.data?.comments?.map { comment ->
                             CommentEntity.convertComment(
-                                comment.author.username,
+                                comment.id,
+                                comment.user.username,
                                 comment.body,
-                                comment.author.image,
+                                comment.user.image,
+                                comment.createdAt,
                                 slug
                             )
                         }

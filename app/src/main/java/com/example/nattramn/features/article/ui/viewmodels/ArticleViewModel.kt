@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.features.article.data.ArticleRepository
-import com.example.nattramn.features.article.data.models.ArticleComments
 import com.example.nattramn.features.article.data.models.CommentRequest
 import com.example.nattramn.features.article.data.models.SingleCommentRequest
 import com.example.nattramn.features.article.ui.ArticleView
@@ -25,8 +24,8 @@ class ArticleViewModel : ViewModel() {
     private var _sendCommentResult = MutableLiveData<Resource<Unit>>()
     val sendCommentResult: LiveData<Resource<Unit>> get() = _sendCommentResult
 
-    private var _articleCommentsResult = MutableLiveData<Resource<ArticleComments>>()
-    val articleCommentsResult: LiveData<Resource<ArticleComments>> get() = _articleCommentsResult
+    private var _articleCommentsResult = MutableLiveData<Resource<List<CommentView>>>()
+    val articleCommentsResult: LiveData<Resource<List<CommentView>>> get() = _articleCommentsResult
 
     private var _tagArticlesResult = MutableLiveData<Resource<List<ArticleView>>>()
     val tagArticlesResult: LiveData<Resource<List<ArticleView>>> get() = _tagArticlesResult

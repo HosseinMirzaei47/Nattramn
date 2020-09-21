@@ -158,13 +158,13 @@ class ArticleFragment : Fragment(),
         articleViewModel.articleCommentsResult.observe(viewLifecycleOwner, Observer { resource ->
             if (resource.status == Status.SUCCESS) {
 
-                if (resource.data?.comments?.isEmpty()!!) {
+                if (resource.data?.isEmpty()!!) {
                     binding.commentsTitleSA.visibility = View.GONE
                 } else {
-                    resource.data.let { article ->
+                    resource.data.let { comments ->
                         commentAdapter =
                             CommentAdapter(
-                                article.comments,
+                                comments,
                                 this
                             )
                     }

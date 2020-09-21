@@ -21,14 +21,15 @@ import com.example.nattramn.features.user.data.UserEntity
     ]
 )
 data class ArticleEntity(
-    val slug: String,
-    val date: String,
-    val title: String,
-    val body: String,
-    val likes: String,
-    val favoriteCount: Int,
-    val bookmarked: Boolean,
-    val ownerUsername: String
+    var slug: String,
+    var date: String,
+    var title: String,
+    var body: String,
+    var likes: String,
+    /*@Ignore var tagList: List<String>,*/
+    var favoriteCount: Int,
+    var bookmarked: Boolean,
+    var ownerUsername: String
 )
 
 data class ArticleWithCommentsAndTags(

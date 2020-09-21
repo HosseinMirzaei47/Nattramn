@@ -12,7 +12,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ArticleNetwork(
     @SerializedName("author")
-    val author: Author,
+    val user: UserNetwork,
     @SerializedName("body")
     val body: String,
     @SerializedName("createdAt")
@@ -38,25 +38,26 @@ data class ArticleNetwork(
             date = createdAt,
             title = title,
             body = body,
+            /*tagList = tagList,*/
             likes = favoritesCount.toString(),
             favoriteCount = favoritesCount,
             bookmarked = isBookmarked,
-            ownerUsername = author.username
+            ownerUsername = user.username
         )
     }
 
     fun toArticleView(articleComments: Resource<ArticleComments>): ArticleView {
 
         val comments = articleComments.data?.comments?.map {
-            CommentView(it.author.username, it.author.image, it.body)
+            CommentView(it.user.username, it.user.image, it.body)
         } ?: listOf()
 
         val user = UserView(
-            name = author.username,
+            name = user.username,
             job = MyApp.app.resources.getString(R.string.job),
-            image = author.image,
+            image = user.image,
             followers = "85",
-            following = !author.following
+            following = !user.following
         )
 
         return ArticleView(

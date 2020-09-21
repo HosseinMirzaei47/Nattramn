@@ -1,10 +1,9 @@
 package com.example.nattramn.features.home.data.models
 
-
 import com.example.nattramn.features.user.data.UserEntity
 import com.google.gson.annotations.SerializedName
 
-data class Author(
+data class UserNetwork(
     @SerializedName("following")
     val following: Boolean,
     @SerializedName("image")

@@ -6,11 +6,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nattramn.R
 import com.example.nattramn.databinding.CommentRowBinding
-import com.example.nattramn.features.article.data.models.Comment
+import com.example.nattramn.features.article.ui.CommentView
 import com.example.nattramn.features.article.ui.OnCommentListener
 
 class CommentAdapter(
-    var commentViews: List<Comment>,
+    var comments: List<CommentView>,
     private val commentListener: OnCommentListener
 ) :
     RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
@@ -26,11 +26,11 @@ class CommentAdapter(
 
     }
 
-    override fun getItemCount() = commentViews.size
+    override fun getItemCount() = comments.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.binding.comment = commentViews[position]
+        holder.binding.comment = comments[position]
 
     }
 
@@ -41,12 +41,12 @@ class CommentAdapter(
 
             binding.itemCommentName.setOnClickListener {
                 commentListener.onCommentIconClick(
-                    commentViews[layoutPosition].author.username
+                    comments[layoutPosition].username
                 )
             }
             binding.itemCommentImage.setOnClickListener {
                 commentListener.onCommentUsernameClick(
-                    commentViews[layoutPosition].author.username
+                    comments[layoutPosition].username
                 )
             }
 

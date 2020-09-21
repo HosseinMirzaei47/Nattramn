@@ -6,10 +6,11 @@ import com.example.nattramn.features.article.ui.CommentView
 
 @Entity(tableName = "comments")
 data class CommentEntity(
-    @PrimaryKey(autoGenerate = true) val commentId: Int,
+    @PrimaryKey val commentId: String,
     val username: String,
     val image: String,
     val body: String,
+    val createdAt: String,
     val articleSlug: String
 ) {
 
@@ -23,16 +24,19 @@ data class CommentEntity(
 
     companion object {
         fun convertComment(
+            id: String,
             username: String,
             commentBody: String,
             image: String,
+            createdAt: String,
             ownerSlug: String
         ): CommentEntity {
             return CommentEntity(
-                commentId = 0,
+                commentId = id,
                 username = username,
                 image = image,
                 body = commentBody,
+                createdAt = createdAt,
                 articleSlug = ownerSlug
             )
         }
