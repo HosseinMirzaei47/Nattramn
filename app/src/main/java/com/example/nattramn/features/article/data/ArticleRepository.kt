@@ -7,7 +7,6 @@ import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.core.toArticleView
 import com.example.nattramn.features.article.data.models.CommentRequest
-import com.example.nattramn.features.article.data.models.EditArticleRequest
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.CommentView
 import com.example.nattramn.features.user.data.UserEntity
@@ -155,28 +154,6 @@ class ArticleRepository(
         }
 
         return responseArticles
-    }
-
-    suspend fun editArticle(editArticleRequest: EditArticleRequest): Resource<ArticleView> {
-        var response = Resource<ArticleView>(Status.ERROR, null, null)
-
-        if (NetworkHelper.isOnline(MyApp.app)) {
-            val request = articleRemoteDataSource.editArticle(editArticleRequest)
-            when (request.status) {
-                Status.SUCCESS -> {
-                    response =
-                        Resource.success(request.data?.article?.toArticleView(Resource.success(null)))
-                }
-                Status.LOADING -> {
-                    Resource.error("Loading", null)
-                }
-                Status.ERROR -> {
-                    Resource.error("An error happened", null)
-                }
-            }
-        }
-
-        return response
     }
 
 }

@@ -51,7 +51,7 @@ class HomeFragment : Fragment() {
 
         binding.homeWriteButton.setOnClickListener { view ->
             Navigation.findNavController(view)
-                .navigate(HomeFragmentDirections.actionHomeFragmentToWriteFragment())
+                .navigate(HomeFragmentDirections.actionHomeFragmentToWriteFragment(null))
         }
 
     }

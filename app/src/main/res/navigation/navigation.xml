@@ -188,6 +188,11 @@
             android:id="@+id/action_writeFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
 
+        <argument
+            android:name="slug"
+            app:argType="string"
+            app:nullable="true" />
+
     </fragment>
 
 </navigation>

@@ -2,6 +2,8 @@ package com.example.nattramn.features.home.data
 
 import com.example.nattramn.core.ServiceBuilder
 import com.example.nattramn.core.safeApiCall
+import com.example.nattramn.features.article.data.models.EditArticleRequest
+import com.example.nattramn.features.home.data.models.CreateArticleRequest
 
 class HomeRemoteDataSource {
 
@@ -15,6 +17,14 @@ class HomeRemoteDataSource {
 
     suspend fun getAllTags() = safeApiCall {
         ServiceBuilder.buildService(HomeApi::class.java).getAllTags()
+    }
+
+    suspend fun editArticle(editArticleRequest: EditArticleRequest, slug: String) = safeApiCall {
+        ServiceBuilder.buildService(HomeApi::class.java).editArticle(editArticleRequest, slug)
+    }
+
+    suspend fun createArticle(request: CreateArticleRequest) = safeApiCall {
+        ServiceBuilder.buildService(HomeApi::class.java).createArticle(request)
     }
 
 }
