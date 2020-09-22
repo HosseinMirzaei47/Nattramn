@@ -7,13 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.nattramn.core.Constants
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.core.snackMaker
 import com.example.nattramn.databinding.ActionBottomSheetBinding
+import com.example.nattramn.features.user.ui.OnBottomSheetItemsClick
 import com.example.nattramn.features.user.ui.viewmodels.ActionDialogViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class ActionBottomDialogFragment : BottomSheetDialogFragment() {
+class ActionBottomDialogFragment(val listener: OnBottomSheetItemsClick) :
+    BottomSheetDialogFragment() {
 
     private lateinit var binding: ActionBottomSheetBinding
     private lateinit var actionDialogViewModel: ActionDialogViewModel
@@ -22,8 +25,8 @@ class ActionBottomDialogFragment : BottomSheetDialogFragment() {
 
     companion object {
         const val TAG = "ActionBottomDialog"
-        fun newInstance(): ActionBottomDialogFragment {
-            return ActionBottomDialogFragment()
+        fun newInstance(listener: OnBottomSheetItemsClick): ActionBottomDialogFragment {
+            return ActionBottomDialogFragment(listener)
         }
     }
 
@@ -46,6 +49,10 @@ class ActionBottomDialogFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.btnEditArticle.setOnClickListener {
+            listener.onEditArticle(Constants.ACTION_EDIT, slug)
+        }
+
         onShareArticleClick()
 
         onDeleteArticleClick()
@@ -61,6 +68,7 @@ class ActionBottomDialogFragment : BottomSheetDialogFragment() {
             when (resource.status) {
                 Status.SUCCESS -> {
                     snackMaker(requireView(), "حذف مقاله با موفقیت انجام شد")
+                    this.dismiss()
                 }
 
                 Status.LOADING -> {
@@ -95,6 +103,7 @@ class ActionBottomDialogFragment : BottomSheetDialogFragment() {
                 type = "text/plain"
             }
             val shareIntent = Intent.createChooser(sendIntent, null)
+            this.dismiss()
             startActivity(shareIntent)
         }
     }

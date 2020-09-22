@@ -17,6 +17,7 @@ import com.example.nattramn.core.LocalDataSource
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.core.snackMaker
 import com.example.nattramn.databinding.FragmentProfileBinding
+import com.example.nattramn.features.user.ui.OnBottomSheetItemsClick
 import com.example.nattramn.features.user.ui.OnProfileArticleListener
 import com.example.nattramn.features.user.ui.adapters.ProfileArticleAdapter
 import com.example.nattramn.features.user.ui.viewmodels.ProfileViewModel
@@ -24,7 +25,7 @@ import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment(),
-    OnProfileArticleListener {
+    OnProfileArticleListener, OnBottomSheetItemsClick {
 
     private lateinit var binding: FragmentProfileBinding
     private lateinit var profileViewModel: ProfileViewModel
@@ -228,7 +229,7 @@ class ProfileFragment : Fragment(),
 
     override fun onMoreOptionsClick(slug: String) {
 
-        val dialogFragment = ActionBottomDialogFragment.newInstance()
+        val dialogFragment = ActionBottomDialogFragment.newInstance(this)
 
         val bundle = Bundle()
         bundle.putString("slug", slug)
@@ -255,6 +256,19 @@ class ProfileFragment : Fragment(),
 
     override fun onArticleCommentsClick(position: Int) {
         Toast.makeText(context, "Article Comments Clicked", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onShareArticle(action: String) {
+
+    }
+
+    override fun onDeleteArticle(action: String) {
+
+    }
+
+    override fun onEditArticle(action: String, slug: String) {
+        Navigation.findNavController(requireView())
+            .navigate(ProfileFragmentDirections.actionProfileFragmentToWriteFragment(slug))
     }
 
 }

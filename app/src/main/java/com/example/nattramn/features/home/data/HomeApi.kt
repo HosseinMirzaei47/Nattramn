@@ -5,10 +5,7 @@ import com.example.nattramn.features.home.data.models.AllTagsResponse
 import com.example.nattramn.features.home.data.models.ArticlesListResponse
 import com.example.nattramn.features.home.data.models.CreateArticleRequest
 import com.example.nattramn.features.home.data.models.SingleArticleResponse
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.PUT
+import retrofit2.http.*
 
 interface HomeApi {
 
@@ -27,7 +24,7 @@ interface HomeApi {
     @PUT("articles/{slug}")
     suspend fun editArticle(
         @Body editArticleRequest: EditArticleRequest,
-        slug: String
+        @Path("slug") slug: String
     ): SingleArticleResponse
 
 }

@@ -62,7 +62,7 @@ class WriteFragment : Fragment() {
             binding.writeProgress.visibility = View.VISIBLE
 
             if (slug != null) {
-                writeViewModel.editArticle(binding.articleBody.toString(), slug!!)
+                writeViewModel.editArticle(binding.articleBody.text.toString(), slug!!)
             }
 
             if (slug == null) {
