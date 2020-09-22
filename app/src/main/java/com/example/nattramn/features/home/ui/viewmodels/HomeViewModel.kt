@@ -52,12 +52,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun setLatestArticlesDb() {
-
-        _latestArticlesResult.value = Resource.loading(null)
-
-        _latestArticlesResult.postValue(articleHomeRepository.getAllArticlesDb())
-    }
+    fun setLatestArticlesDb() = articleHomeRepository.getAllArticlesDb()
 
     fun getSingleArticle(slug: String) {
 

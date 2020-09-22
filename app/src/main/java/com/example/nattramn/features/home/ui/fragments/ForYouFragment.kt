@@ -48,7 +48,21 @@ class ForYouFragment : Fragment(), OnArticleListener {
 
     private fun setRecyclers() {
         setContent()
-        /*homeViewModel.setLatestArticlesDb()*/
+        homeViewModel.setLatestArticlesDb().observe(viewLifecycleOwner, Observer {
+            topArticlesAdapter =
+                HorizontalArticleAdapter(
+                    it,
+                    this
+                )
+
+            binding.recyclerHomeTopArticles.apply {
+                adapter = topArticlesAdapter
+                layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            }
+
+            binding.forYouLatestArticlesProgress.visibility = View.GONE
+        })
         homeViewModel.setLatestArticles()
         homeViewModel.setFeedArticles()
     }
@@ -79,7 +93,7 @@ class ForYouFragment : Fragment(), OnArticleListener {
             }
         })
 
-        homeViewModel.latestArticlesResult.observe(viewLifecycleOwner, Observer { resource ->
+        /*homeViewModel.latestArticlesResult.observe(viewLifecycleOwner, Observer { resource ->
             if (resource.status == Status.SUCCESS && !resource.data.isNullOrEmpty()) {
 
                 println("jalil size all: ${resource.data.size}")
@@ -98,7 +112,7 @@ class ForYouFragment : Fragment(), OnArticleListener {
 
                 binding.forYouLatestArticlesProgress.visibility = View.GONE
             }
-        })
+        })*/
     }
 
     private fun onArticleClick(slug: String) {

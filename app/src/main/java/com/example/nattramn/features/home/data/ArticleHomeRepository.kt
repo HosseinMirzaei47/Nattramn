@@ -1,5 +1,7 @@
 package com.example.nattramn.features.home.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.example.nattramn.core.LocalDataSource
 import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.NetworkHelper
@@ -45,33 +47,35 @@ class ArticleHomeRepository(
         return responseArticles
     }
 
-    fun getAllArticlesDb(): Resource<List<ArticleView>> {
+    fun getAllArticlesDb(): LiveData<MutableList<ArticleView>> {
 
         val articlesView = mutableListOf<ArticleView>()
         val articlesEntity = localDataSource.getAllArticles()
-        articlesEntity?.forEach {
-            it.comments = localDataSource.getArticleComments(it.slug)
-            it.tags = localDataSource.getArticleTags(it.slug)
-            val user = localDataSource.getUser(it.ownerUsername).value?.toUserView()
+        return articlesEntity.map { list ->
+            list.forEach {
+                it.comments = localDataSource.getArticleComments(it.slug)
+                it.tags = localDataSource.getArticleTags(it.slug)
+                val user = localDataSource.getUser(it.ownerUsername).value?.toUserView()
 
-            articlesView.add(
-                ArticleView(
-                    userView = user!!,
-                    date = it.date,
-                    title = it.title,
-                    body = it.body,
-                    tags = it.tags.map { it.tag },
-                    commentViews = it.comments.map { it.toCommentView() },
-                    likes = it.favoriteCount.toString(),
-                    commentsNumber = it.comments.size,
-                    bookmarked = it.bookmarked,
-                    slug = it.slug
+                articlesView.add(
+                    ArticleView(
+                        userView = user!!,
+                        date = it.date,
+                        title = it.title,
+                        body = it.body,
+                        tags = it.tags.map { it.tag },
+                        commentViews = it.comments.map { comment -> comment.toCommentView() },
+                        likes = it.favoriteCount.toString(),
+                        commentsNumber = it.comments.size,
+                        bookmarked = it.bookmarked,
+                        slug = it.slug
 
+                    )
                 )
-            )
+            }
+            articlesView
         }
 
-        return Resource.success(articlesView)
     }
 
     suspend fun getAllArticles(): Resource<List<ArticleView>> {

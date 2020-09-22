@@ -60,7 +60,7 @@ class LocalDataSource() {
 
     fun getUsername() = settings.authUsername
 
-    fun getAllArticles(): List<ArticleEntity>? = db.articleDao().getAllArticles().value
+    fun getAllArticles() = db.articleDao().getAllArticles()
 
     fun getArticleComments(slug: String) = db.commentDao().getArticleComments(slug)
 
