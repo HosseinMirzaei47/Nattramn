@@ -27,14 +27,23 @@ data class ArticleEntity(
     var likes: String,
     var favoriteCount: Int,
     var bookmarked: Boolean,
-    var ownerUsername: String
+    var ownerUsername: String,
+    @Ignore var tags: List<TagEntity>?,
+    @Ignore var comments: List<CommentEntity>?
 ) {
 
-    @Ignore
-    lateinit var comments: List<CommentEntity>
-
-    @Ignore
-    lateinit var tags: List<TagEntity>
+    constructor() : this(
+        slug = "",
+        date = "",
+        title = "",
+        body = "",
+        likes = "",
+        favoriteCount = 0,
+        bookmarked = false,
+        ownerUsername = "",
+        tags = null,
+        comments = null
+    )
 
 }
 

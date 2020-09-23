@@ -9,8 +9,13 @@ interface ArticleDao {
     @Query("delete from articles")
     fun clearArticleTable()
 
+    @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertArticle(articleEntity: ArticleEntity)
+    suspend fun insertArticle(articleEntity: List<ArticleEntity>)
+
+    @Transaction
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertArticle(articleEntity: ArticleEntity)
 
     @Delete
     fun deleteArticle(articleEntity: ArticleEntity)
@@ -19,7 +24,7 @@ interface ArticleDao {
     fun editArticle(articleEntity: ArticleEntity)
 
     @Query("select * from articles")
-    fun getAllArticles(): LiveData<List<ArticleEntity>>
+    fun getAllArticles(): List<ArticleEntity>
 
     @Query("select * from articles where slug like :slug")
     fun getArticle(slug: String): LiveData<List<ArticleEntity>>

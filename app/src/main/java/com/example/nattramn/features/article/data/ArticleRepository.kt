@@ -99,7 +99,7 @@ class ArticleRepository(
                     localDataSource.insertUser(userEntity!!)
                     localDataSource.insertArticle(articleEntity!!)
                     localDataSource.insertAllComments(commentsEntity!!)
-                    localDataSource.insertAllTags(tagsEntity!!)
+                    localDataSource.insertAllTag(tagsEntity)
 
                     val articleView =
                         toArticleView(userEntity, articleEntity, tagsEntity, commentsEntity)

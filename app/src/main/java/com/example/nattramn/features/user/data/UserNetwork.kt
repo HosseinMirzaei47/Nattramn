@@ -8,6 +8,8 @@ data class UserNetwork(
     val username: String? = null,
     @SerializedName("password")
     val password: String? = null,
+    @SerializedName("bio")
+    val bio: String? = null,
     @SerializedName("email")
     val email: String? = null,
     @SerializedName("token")

@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.nattramn.core.AppDatabase
 import com.example.nattramn.core.HorizontalArticleAdapter
 import com.example.nattramn.core.VerticalArticleAdapter
 import com.example.nattramn.core.resource.Status
@@ -48,21 +49,42 @@ class ForYouFragment : Fragment(), OnArticleListener {
 
     private fun setRecyclers() {
         setContent()
-        homeViewModel.setLatestArticlesDb().observe(viewLifecycleOwner, Observer {
-            topArticlesAdapter =
-                HorizontalArticleAdapter(
-                    it,
-                    this
-                )
+        /*homeViewModel.setLatestArticlesDb().observe(viewLifecycleOwner, Observer {
+            it?.let {
+                topArticlesAdapter =
+                    HorizontalArticleAdapter(
+                        it,
+                        this
+                    )
 
-            binding.recyclerHomeTopArticles.apply {
-                adapter = topArticlesAdapter
-                layoutManager =
-                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                binding.recyclerHomeTopArticles.apply {
+                    adapter = topArticlesAdapter
+                    layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                }
+
+                binding.forYouLatestArticlesProgress.visibility = View.GONE
             }
+        })*/
 
-            binding.forYouLatestArticlesProgress.visibility = View.GONE
-        })
+        val user = AppDatabase.buildDatabase(requireContext()).userDao().getUser("hosseinmirzaei")
+        println("jalil vari $user")
+
+        val articles = homeViewModel.setLatestArticlesDb()
+        topArticlesAdapter =
+            HorizontalArticleAdapter(
+                articles,
+                this
+            )
+
+        binding.recyclerHomeTopArticles.apply {
+            adapter = topArticlesAdapter
+            layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        }
+
+        binding.forYouLatestArticlesProgress.visibility = View.GONE
+
         homeViewModel.setLatestArticles()
         homeViewModel.setFeedArticles()
     }
@@ -93,26 +115,29 @@ class ForYouFragment : Fragment(), OnArticleListener {
             }
         })
 
-        /*homeViewModel.latestArticlesResult.observe(viewLifecycleOwner, Observer { resource ->
-            if (resource.status == Status.SUCCESS && !resource.data.isNullOrEmpty()) {
+        homeViewModel.latestArticlesResult.observe(viewLifecycleOwner, Observer { resource ->
+            if (resource.status == Status.SUCCESS) {
+                snackMaker(requireView(), "successful")
+                resource.data?.let {
+                    topArticlesAdapter =
+                        HorizontalArticleAdapter(
+                            resource.data,
+                            this
+                        )
 
-                println("jalil size all: ${resource.data.size}")
+                    topArticlesAdapter.notifyDataSetChanged()
 
-                topArticlesAdapter =
-                    HorizontalArticleAdapter(
-                        resource.data,
-                        this
-                    )
-
-                binding.recyclerHomeTopArticles.apply {
-                    adapter = topArticlesAdapter
-                    layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    binding.recyclerHomeTopArticles.apply {
+                        adapter = topArticlesAdapter
+                        layoutManager =
+                            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    }
+                    binding.forYouLatestArticlesProgress.visibility = View.GONE
                 }
-
-                binding.forYouLatestArticlesProgress.visibility = View.GONE
+            } else {
+                snackMaker(requireView(), "successful")
             }
-        })*/
+        })
     }
 
     private fun onArticleClick(slug: String) {

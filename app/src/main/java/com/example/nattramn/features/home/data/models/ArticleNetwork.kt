@@ -4,6 +4,7 @@ import com.example.nattramn.R
 import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.features.article.data.ArticleEntity
+import com.example.nattramn.features.article.data.TagEntity
 import com.example.nattramn.features.article.data.models.ArticleComments
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.CommentView
@@ -41,7 +42,9 @@ data class ArticleNetwork(
             likes = favoritesCount.toString(),
             favoriteCount = favoritesCount,
             bookmarked = isBookmarked,
-            ownerUsername = user.username
+            ownerUsername = user.username,
+            tags = tagList.map { TagEntity(it) },
+            comments = null
         )
     }
 

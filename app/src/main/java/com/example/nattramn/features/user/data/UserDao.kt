@@ -10,13 +10,18 @@ interface UserDao {
     fun clearUserTable()
 
     @Query("select * from users where username like :username")
-    fun getUser(username: String): LiveData<UserEntity>
+    fun getUser(username: String): UserEntity
 
     @Query("select * from users")
     fun getAllUsers(): LiveData<List<UserEntity>>
 
+    @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertUser(userEntity: UserEntity)
+    suspend fun insertUser(userEntity: UserEntity)
+
+    @Transaction
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertUser(userEntity: List<UserEntity>)
 
     @Delete
     fun deleteUser(userEntity: UserEntity)
