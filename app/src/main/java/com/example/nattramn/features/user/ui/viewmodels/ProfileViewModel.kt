@@ -11,6 +11,7 @@ import com.example.nattramn.features.user.data.ProfileRepository
 import com.example.nattramn.features.user.ui.UserView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 class ProfileViewModel : ViewModel() {
 
@@ -32,14 +33,8 @@ class ProfileViewModel : ViewModel() {
     private var _singleArticleResult = MutableLiveData<Resource<ArticleView>>()
     val singleArticleResult: LiveData<Resource<ArticleView>> get() = _singleArticleResult
 
-    fun bookmarkArticle(slug: String) {
-
-        _bookmarkResult.value = Resource.loading(null)
-
-        viewModelScope.launch(Dispatchers.IO) {
-            _bookmarkResult.postValue(articleRepository.bookmarkArticle(slug))
-        }
-    }
+    private var _deleteArticleResult = MutableLiveData<Resource<Response<Unit>??>>()
+    val deleteArticleResult: LiveData<Resource<Response<Unit>?>> get() = _deleteArticleResult
 
     fun getSingleArticle(slug: String) {
 
@@ -48,7 +43,24 @@ class ProfileViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             _singleArticleResult.postValue(articleRepository.getSingleArticle(slug))
         }
+    }
 
+    fun deleteArticle(slug: String) {
+
+        _deleteArticleResult.value = Resource.loading(null)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            _deleteArticleResult.postValue(profileRepository.deleteArticle(slug))
+        }
+    }
+
+    fun bookmarkArticle(slug: String) {
+
+        _bookmarkResult.value = Resource.loading(null)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            _bookmarkResult.postValue(articleRepository.bookmarkArticle(slug))
+        }
     }
 
     fun setProfileArticles(username: String) {

@@ -76,7 +76,8 @@ class ProfileArticleAdapter(
             }
             binding.itemArticleOptions.setOnClickListener {
                 onProfileArticleListener.onMoreOptionsClick(
-                    profileArticleViews[layoutPosition].slug
+                    profileArticleViews[layoutPosition].slug,
+                    layoutPosition
                 )
             }
 

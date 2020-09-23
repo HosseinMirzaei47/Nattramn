@@ -1,20 +1,10 @@
 package com.example.nattramn.features.user.ui.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.nattramn.core.resource.Resource
-import com.example.nattramn.features.article.data.ArticleRepository
-import com.example.nattramn.features.article.ui.ArticleView
-import com.example.nattramn.features.user.data.ProfileRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import retrofit2.Response
 
 class ActionDialogViewModel : ViewModel() {
 
-    private val profileRepository = ProfileRepository.getInstance()
+    /*private val profileRepository = ProfileRepository.getInstance()
     private val articleRepository = ArticleRepository.getInstance()
 
     private var _deleteArticleResult = MutableLiveData<Resource<Response<Unit>??>>()
@@ -47,6 +37,6 @@ class ActionDialogViewModel : ViewModel() {
 
     fun editArticle(articleView: ArticleView) {
 
-    }
+    }*/
 
 }

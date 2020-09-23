@@ -10,7 +10,7 @@
         android:paddingBottom="20dp">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_share_article"
+            android:id="@+id/shareArticleButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/action_twenty"
@@ -21,7 +21,7 @@
             app:cornerRadius="@dimen/radius_normal" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_edit_article"
+            android:id="@+id/editArticleButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/action_twenty"
@@ -32,7 +32,7 @@
             app:cornerRadius="@dimen/radius_normal" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_delete_article"
+            android:id="@+id/deleteArticleButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/action_twenty"

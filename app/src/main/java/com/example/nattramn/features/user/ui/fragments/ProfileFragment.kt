@@ -1,6 +1,7 @@
 package com.example.nattramn.features.user.ui.fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +31,7 @@ class ProfileFragment : Fragment(),
     private lateinit var binding: FragmentProfileBinding
     private lateinit var profileViewModel: ProfileViewModel
     private lateinit var profileArticleAdapter: ProfileArticleAdapter
+    private val dialogFragment = ActionBottomDialogFragment.newInstance(this)
     private val args: ProfileFragmentArgs by navArgs()
 
     private lateinit var username: String
@@ -141,6 +143,7 @@ class ProfileFragment : Fragment(),
                 binding.profileArticleCount.text = resource?.data?.size.toString()
 
                 resource.data?.let { articlesList ->
+
                     profileArticleAdapter =
                         ProfileArticleAdapter(
                             articlesList,
@@ -210,6 +213,17 @@ class ProfileFragment : Fragment(),
         }
     }
 
+    private fun shareArticle(body: String?) {
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, body)
+            type = "text/plain"
+        }
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        dialogFragment.dismiss()
+        startActivity(shareIntent)
+    }
+
     override fun onProfileArticleCardClick(slug: String) {
         openArticle(slug)
     }
@@ -227,12 +241,10 @@ class ProfileFragment : Fragment(),
         })
     }
 
-    override fun onMoreOptionsClick(slug: String) {
-
-        val dialogFragment = ActionBottomDialogFragment.newInstance(this)
-
+    override fun onMoreOptionsClick(slug: String, position: Int) {
         val bundle = Bundle()
         bundle.putString("slug", slug)
+        bundle.putInt("position", position)
         dialogFragment.arguments = bundle
 
         dialogFragment.show(childFragmentManager, ActionBottomDialogFragment.TAG)
@@ -258,15 +270,48 @@ class ProfileFragment : Fragment(),
         Toast.makeText(context, "Article Comments Clicked", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onShareArticle(action: String) {
+    override fun onShareArticle(slug: String) {
+        profileViewModel.getSingleArticle(slug)
 
+        profileViewModel.singleArticleResult.observe(viewLifecycleOwner, Observer {
+            if (it.status == Status.SUCCESS) {
+
+                val textToShare = "" +
+                        "${it.data?.title} \n\n" +
+                        "${it.data?.body} \n\n" +
+                        "${it.data?.userView?.name}"
+
+                shareArticle(textToShare)
+            } else if (it.status == Status.ERROR) {
+                snackMaker(requireView(), "خطا در ارتباط با سرور")
+            }
+        })
     }
 
-    override fun onDeleteArticle(action: String) {
+    override fun onDeleteArticle(slug: String, position: Int) {
+        profileViewModel.deleteArticle(slug)
 
+        profileViewModel.deleteArticleResult.observe(viewLifecycleOwner, Observer { resource ->
+            when (resource.status) {
+                Status.SUCCESS -> {
+                    snackMaker(requireView(), "حذف مقاله با موفقیت انجام شد")
+                    profileArticleAdapter.notifyItemRemoved(position)
+                    dialogFragment.dismiss()
+                }
+
+                Status.LOADING -> {
+                    snackMaker(requireView(), "لطفا صبر کنید")
+                }
+
+                Status.ERROR -> {
+                    snackMaker(requireView(), "خطا در ارتباط با سرور")
+                }
+            }
+        })
     }
 
-    override fun onEditArticle(action: String, slug: String) {
+    override fun onEditArticle(slug: String) {
+        dialogFragment.dismiss()
         Navigation.findNavController(requireView())
             .navigate(ProfileFragmentDirections.actionProfileFragmentToWriteFragment(slug))
     }

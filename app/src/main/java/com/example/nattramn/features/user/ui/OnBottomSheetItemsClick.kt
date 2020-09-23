@@ -2,10 +2,10 @@ package com.example.nattramn.features.user.ui
 
 interface OnBottomSheetItemsClick {
 
-    fun onShareArticle(action: String)
+    fun onShareArticle(slug: String)
 
-    fun onDeleteArticle(action: String)
+    fun onDeleteArticle(slug: String, position: Int)
 
-    fun onEditArticle(action: String, slug: String)
+    fun onEditArticle(slug: String)
 
 }
