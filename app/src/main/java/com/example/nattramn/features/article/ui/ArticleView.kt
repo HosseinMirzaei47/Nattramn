@@ -11,10 +11,10 @@ data class ArticleView(
     val date: String,
     val title: String,
     val body: String,
-    val tags: @RawValue List<String>,
-    val commentViews: @RawValue List<CommentView>,
+    val tags: @RawValue List<String>?,
+    val commentViews: @RawValue List<CommentView>?,
     val likes: String,
-    val commentsNumber: Int,
+    val commentsNumber: Int?,
     val bookmarked: Boolean,
     val slug: String
 ) : Parcelable

@@ -60,10 +60,10 @@ class ArticleHomeRepository(
                     date = articleEntity.date,
                     title = articleEntity.title,
                     body = articleEntity.body,
-                    tags = articleEntity.tags!!.map { tag -> tag.tag },
-                    commentViews = articleEntity.comments!!.map { comment -> comment.toCommentView() },
+                    tags = articleEntity.tags?.map { tag -> tag.tag },
+                    commentViews = articleEntity.comments?.map { comment -> comment.toCommentView() },
                     likes = articleEntity.favoriteCount.toString(),
-                    commentsNumber = articleEntity.comments!!.size,
+                    commentsNumber = articleEntity.comments?.size,
                     bookmarked = articleEntity.bookmarked,
                     slug = articleEntity.slug
 
