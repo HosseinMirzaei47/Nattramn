@@ -66,6 +66,8 @@ class HomeViewModel : ViewModel() {
 
     }
 
+    fun getSingleArticleDb(slug: String) = articleRepository.getSingleArticleDb(slug)
+
     fun bookmarkArticle(slug: String) {
 
         _bookmarkResult.value = Resource.loading(null)

@@ -12,10 +12,12 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
+import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.core.snackMaker
 import com.example.nattramn.databinding.FragmentArticleBinding
 import com.example.nattramn.features.article.ui.ArticleView
+import com.example.nattramn.features.article.ui.CommentView
 import com.example.nattramn.features.article.ui.OnArticleListener
 import com.example.nattramn.features.article.ui.OnCommentListener
 import com.example.nattramn.features.article.ui.adapters.CommentAdapter
@@ -37,10 +39,11 @@ class ArticleFragment : Fragment(),
     private lateinit var dialog: Dialog
     private lateinit var articleViewArg: ArticleView
     private val args: ArticleFragmentArgs by navArgs()
+    private val snapHorizontal = GravitySnapHelper(Gravity.CENTER)
 
     private var tags: MutableList<String>? = mutableListOf()
-
-    private val snapHorizontal = GravitySnapHelper(Gravity.CENTER)
+    private var comments: List<CommentView>? = mutableListOf()
+    private lateinit var articleSlug: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,8 +52,10 @@ class ArticleFragment : Fragment(),
     ): View? {
 
         articleViewModel = ViewModelProvider(this).get(ArticleViewModel::class.java)
-        articleViewArg = args.ArticleView
+        articleViewArg = args.articleView
+        articleSlug = articleViewArg.slug
         tags = articleViewArg.tags?.toMutableList()
+        comments = articleViewArg.commentViews
 
         binding = FragmentArticleBinding.inflate(
             inflater, container, false
@@ -65,22 +70,24 @@ class ArticleFragment : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         snapHorizontal.attachToRecyclerView(recyclerArticleRelated)
-
+        bookmarkArticle()
+        setAddCommentAction()
         setBackButtonClick()
 
-        onBookmarkClick()
+        articleViewArg.commentViews?.let { showCommentsRecycler(it) }
 
-        setAddCommentAction()
+        showTagsInChipGroup()
 
-        setArticleTags()
+        searchTagsAndShowSuggestionsRecycler()
 
-        setRecyclers()
+        sendCommentsRequest()
 
-        setComments()
+        updateCurrentOrOpenSuggestion(articleSlug)
 
     }
 
-    private fun setArticleTags() {
+    private fun showTagsInChipGroup() {
+        binding.chipGroupSA.removeAllViews()
 
         tags?.let {
             if (it.isEmpty()) {
@@ -93,21 +100,90 @@ class ArticleFragment : Fragment(),
                 }
             }
         }
+    }
+
+    private fun updateCurrentOrOpenSuggestion(slug: String) {
+        articleViewModel.getSingleArticle(slug)
+
+        articleViewModel.singleArticleResult.observe(viewLifecycleOwner, Observer { resource ->
+            if (resource.status == Status.SUCCESS) {
+                resource.data?.let { articleView ->
+
+                    if (articleView.slug != articleSlug) {
+                        Navigation.findNavController(requireView()).navigate(
+                            ArticleFragmentDirections.actionArticleFragmentSelf(articleView)
+                        )
+                    } else {
+                        applyArticleUpdatedData(resource, articleView)
+                    }
+
+                }
+            } else if (resource.status == Status.ERROR) {
+                snackMaker(requireView(), "خطا در چک کردن آخرین تغییرات")
+            }
+        })
+    }
+
+    private fun searchTagsAndShowSuggestionsRecycler() {
+
+        tags?.remove("dragons")
+        tags?.remove("training")
+
+        tags?.forEach { tag -> articleViewModel.getTagArticles(tag) }
+
+        articleViewModel.tagArticlesResult.observe(viewLifecycleOwner, Observer { resources ->
+            if (resources.status == Status.SUCCESS) {
+                resources.data?.let { articles ->
+                    suggestedArticleAdapter =
+                        SuggestedArticleAdapter(
+                            articles,
+                            this
+                        )
+
+                    binding.recyclerArticleRelated.apply {
+                        adapter = suggestedArticleAdapter
+                        layoutManager =
+                            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    }
+                }
+                binding.progressSuggestions.visibility = View.GONE
+            }
+        })
 
     }
 
-    private fun onBookmarkClick() {
-        binding.articleBookmark.setOnClickListener {
-            articleViewModel.bookmarkArticle(args.ArticleView.slug)
+    private fun showCommentsRecycler(comments: List<CommentView>) {
+        commentAdapter =
+            CommentAdapter(
+                comments,
+                this
+            )
+
+        binding.recyclerArticleComments.apply {
+            adapter = commentAdapter
+            layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
 
-        articleViewModel.bookmarkResult.observe(viewLifecycleOwner, Observer { result ->
-            if (result.status == Status.SUCCESS) {
-                snackMaker(requireView(), "این مقاله به لیست علاقه مندی ها اضافه شد")
-            } else {
-                snackMaker(requireView(), "خطا در ارتباط با سرور")
-            }
-        })
+        binding.progressComments.visibility = View.GONE
+        binding.commentsTitleSA.visibility = View.GONE
+    }
+
+    private fun openProfile(username: String) {
+        Navigation.findNavController(requireView())
+            .navigate(
+                ArticleFragmentDirections.actionArticleFragmentToProfileFragment(username)
+            )
+    }
+
+    private fun applyArticleUpdatedData(
+        resourceArticle: Resource<ArticleView>, articleView: ArticleView
+    ) {
+        binding.articleView = resourceArticle.data
+        articleView.commentViews?.let { showCommentsRecycler(it) }
+        tags = articleView.tags?.toMutableList()
+        showTagsInChipGroup()
+        searchTagsAndShowSuggestionsRecycler()
     }
 
     private fun setAddCommentAction() {
@@ -135,8 +211,22 @@ class ArticleFragment : Fragment(),
         }
     }
 
+    private fun bookmarkArticle() {
+        binding.articleBookmark.setOnClickListener {
+            articleViewModel.bookmarkArticle(articleSlug)
+        }
+
+        articleViewModel.bookmarkResult.observe(viewLifecycleOwner, Observer { result ->
+            if (result.status == Status.SUCCESS) {
+                snackMaker(requireView(), "این مقاله به لیست علاقه مندی ها اضافه شد")
+            } else {
+                snackMaker(requireView(), "خطا در ارتباط با سرور")
+            }
+        })
+    }
+
     private fun sendComment(comment: String) {
-        articleViewModel.sendComment(args.ArticleView.slug, comment)
+        articleViewModel.sendComment(articleSlug, comment)
 
         articleViewModel.sendCommentResult.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS) {
@@ -148,104 +238,29 @@ class ArticleFragment : Fragment(),
         })
     }
 
+    private fun sendCommentsRequest() {
+        articleViewModel.getArticleComments(articleSlug)
+
+        articleViewModel.articleCommentsResult.observe(viewLifecycleOwner, Observer { resource ->
+            if (resource.status == Status.SUCCESS && !resource.data.isNullOrEmpty()) {
+                showCommentsRecycler(resource.data)
+            }
+        })
+    }
+
     private fun setBackButtonClick() {
         binding.articleRightArrow.setOnClickListener { view ->
             Navigation.findNavController(view).navigateUp()
         }
     }
 
-    private fun setComments() {
-        articleViewModel.getArticleComments(args.ArticleView.slug)
-
-        articleViewModel.articleCommentsResult.observe(viewLifecycleOwner, Observer { resource ->
-            if (resource.status == Status.SUCCESS) {
-
-                if (resource.data?.isEmpty()!!) {
-                    binding.commentsTitleSA.visibility = View.GONE
-                } else {
-                    resource.data.let { comments ->
-                        commentAdapter =
-                            CommentAdapter(
-                                comments,
-                                this
-                            )
-                    }
-
-                    binding.recyclerArticleComments.apply {
-                        adapter = commentAdapter
-                        layoutManager =
-                            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                    }
-                }
-
-            }
-        })
-    }
-
-    private fun setRecyclers() {
-
-        tags?.remove("dragons")
-        tags?.remove("training")
-
-        tags?.forEach {
-            articleViewModel.getTagArticles(it)
-        }
-
-        articleViewModel.tagArticlesResult.observe(viewLifecycleOwner, Observer { resources ->
-            if (resources.status == Status.SUCCESS) {
-                resources.data?.let {
-                    suggestedArticleAdapter =
-                        SuggestedArticleAdapter(
-                            resources.data,
-                            this
-                        )
-
-                    binding.recyclerArticleRelated.apply {
-                        adapter = suggestedArticleAdapter
-                        layoutManager =
-                            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                    }
-                }
-            }
-        })
-
-    }
-
-    private fun openProfile(username: String) {
-        Navigation.findNavController(requireView())
-            .navigate(
-                ArticleFragmentDirections.actionArticleFragmentToProfileFragment(username)
-            )
-    }
-
-    private fun openArticle(slug: String) {
-        articleViewModel.getSingleArticle(slug)
-
-        articleViewModel.singleArticleResult.observe(
-            viewLifecycleOwner,
-            Observer { resourceArticle ->
-                if (resourceArticle.status == Status.SUCCESS) {
-
-                    resourceArticle.data?.let { articleView ->
-                        Navigation.findNavController(requireView())
-                            .navigate(
-                                ArticleFragmentDirections.actionArticleFragmentSelf(
-                                    articleView
-                                )
-                            )
-                    }
-                } else if (resourceArticle.status == Status.ERROR) {
-                    snackMaker(requireView(), "خطا در ارتباط با سرور")
-                }
-            })
-    }
-
+    /*      INTERFACES IMPLEMENTATION      */
     override fun onCardClick(slug: String) {
-        openArticle(slug)
+        updateCurrentOrOpenSuggestion(slug)
     }
 
     override fun onArticleTitleClick(slug: String) {
-        openArticle(slug)
+        updateCurrentOrOpenSuggestion(slug)
     }
 
     override fun onArticleSaveClick(slug: String) {

@@ -1,6 +1,5 @@
 package com.example.nattramn.features.article.data
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -21,7 +20,7 @@ interface ArticleDao {
     fun deleteArticle(articleEntity: ArticleEntity)
 
     @Query("select * from articles where slug like :slug")
-    fun getArticle(slug: String): LiveData<List<ArticleEntity>>
+    fun getArticle(slug: String): ArticleEntity
 
     @Update
     fun editArticle(articleEntity: ArticleEntity)

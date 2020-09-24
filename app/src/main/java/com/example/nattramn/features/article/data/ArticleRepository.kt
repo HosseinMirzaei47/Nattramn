@@ -65,6 +65,8 @@ class ArticleRepository(
         return response
     }
 
+    fun getSingleArticleDb(slug: String) = articleEntityToView(localDataSource.getArticle(slug))
+
     suspend fun getSingleArticle(slug: String): Resource<ArticleView> {
         var response = Resource<ArticleView>(Status.ERROR, null, null)
         val articleEntity: ArticleEntity?
@@ -156,4 +158,23 @@ class ArticleRepository(
         return responseArticles
     }
 
+    /*          TYPE CONVERTERS          */
+    private fun articleEntityToView(articleEntity: ArticleEntity): ArticleView {
+        articleEntity.comments = localDataSource.getArticleComments(articleEntity.slug)
+        articleEntity.tags = localDataSource.getArticleTags(articleEntity.slug)
+        val user = localDataSource.getUser(articleEntity.ownerUsername).toUserView()
+        return ArticleView(
+            userView = user,
+            date = articleEntity.date,
+            title = articleEntity.title,
+            body = articleEntity.body,
+            tags = articleEntity.tags?.map { tag -> tag.tag },
+            commentViews = articleEntity.comments?.map { comment -> comment.toCommentView() },
+            likes = articleEntity.favoriteCount.toString(),
+            commentsNumber = articleEntity.comments?.size,
+            bookmarked = articleEntity.bookmarked,
+            slug = articleEntity.slug
+
+        )
+    }
 }

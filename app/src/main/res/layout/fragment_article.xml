@@ -130,9 +130,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_micro"
-                            app:convertDate="@{articleView.date}"
                             android:textColor="@color/hint"
                             android:textStyle="bold"
+                            app:convertDate="@{articleView.date}"
                             app:layout_constraintBottom_toBottomOf="@id/authorImageSA"
                             app:layout_constraintStart_toEndOf="@+id/authorImageSA"
                             app:layout_constraintTop_toBottomOf="@+id/authorNameSA" />
@@ -303,6 +303,23 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/commentsTitleSA"
                     tools:listitem="@layout/comment_row" />
+
+                <ProgressBar
+                    android:id="@+id/progressSuggestions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@id/recyclerArticleRelated"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/recyclerArticleRelated" />
+
+                <ProgressBar
+                    android:id="@+id/progressComments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/recyclerArticleComments" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

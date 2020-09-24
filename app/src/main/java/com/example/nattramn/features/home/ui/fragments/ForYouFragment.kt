@@ -127,26 +127,13 @@ class ForYouFragment : Fragment(), OnArticleListener {
         binding.textInputSearch.visibility = View.VISIBLE
     }
 
-    private fun onArticleClick(slug: String) {
-
-        homeViewModel.getSingleArticle(slug)
-
-        homeViewModel.singleArticleResult.observe(viewLifecycleOwner, Observer { resourceArticle ->
-            if (resourceArticle.status == Status.SUCCESS) {
-
-                resourceArticle.data?.let { articleView ->
-                    Navigation.findNavController(requireView())
-                        .navigate(
-                            HomeFragmentDirections.actionHomeFragmentToArticleFragment(
-                                articleView
-                            )
-                        )
-                }
-            } else if (resourceArticle.status == Status.ERROR) {
-                snackMaker(requireView(), "خطا در ارتباط با سرور")
-            }
-        })
-
+    private fun openArticle(slug: String) {
+        Navigation.findNavController(requireView())
+            .navigate(
+                HomeFragmentDirections.actionHomeFragmentToArticleFragment(
+                    homeViewModel.getSingleArticleDb(slug)
+                )
+            )
     }
 
     private fun openProfile(username: String) {
@@ -157,11 +144,11 @@ class ForYouFragment : Fragment(), OnArticleListener {
     }
 
     override fun onCardClick(slug: String) {
-        onArticleClick(slug)
+        openArticle(slug)
     }
 
     override fun onArticleTitleClick(slug: String) {
-        onArticleClick(slug)
+        openArticle(slug)
     }
 
     override fun onArticleSaveClick(slug: String) {
