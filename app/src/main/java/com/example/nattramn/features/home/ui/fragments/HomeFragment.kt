@@ -8,14 +8,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.nattramn.R
-import com.example.nattramn.core.LocalDataSource
-import com.example.nattramn.core.ViewPagerAdapter
+import com.example.nattramn.core.AuthLocalDataSource
 import com.example.nattramn.databinding.FragmentHomeBinding
+import com.example.nattramn.features.home.ui.ViewPagerAdapter
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private var localDataSource = LocalDataSource()
+    private var localDataSource = AuthLocalDataSource()
 
     override fun onCreateView(
         inflater: LayoutInflater,

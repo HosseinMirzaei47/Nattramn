@@ -1,7 +1,10 @@
-package com.example.nattramn.features.user.data
+package com.example.nattramn.features.user.services
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.nattramn.features.user.data.UserAndArticle
+import com.example.nattramn.features.user.data.UserAndArticleCount
+import com.example.nattramn.features.user.data.UserEntity
 
 @Dao
 interface UserDao {

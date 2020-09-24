@@ -1,6 +1,5 @@
 package com.example.nattramn.features.home.data
 
-import com.example.nattramn.core.LocalDataSource
 import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.NetworkHelper
 import com.example.nattramn.core.resource.Resource
@@ -12,7 +11,7 @@ import com.example.nattramn.features.home.data.models.CreateArticleRequest
 
 class ArticleHomeRepository(
     private val homeRemoteDataSource: HomeRemoteDataSource,
-    private var localDataSource: LocalDataSource
+    private var localDataSource: ArticleHomeLocalDataSource
 ) {
 
     companion object {
@@ -22,7 +21,7 @@ class ArticleHomeRepository(
             if (myInstance == null) {
                 synchronized(this) {
                     myInstance =
-                        ArticleHomeRepository(HomeRemoteDataSource(), LocalDataSource())
+                        ArticleHomeRepository(HomeRemoteDataSource(), ArticleHomeLocalDataSource())
                 }
             }
             return myInstance!!
@@ -144,3 +143,33 @@ class ArticleHomeRepository(
     }
 
 }
+
+/*
+private fun getAllTagsOperation() = performGetOperation(
+    databaseQuery = { localDataSource.getAllTags() },
+    networkCall = { homeRemoteDataSource.getAllTags() },
+    saveCallResult = {
+        localDataSource.insertAllTags(it.tags.map { tag -> TagEntity(tag) })
+    }
+)
+
+fun getAllTagViews(): LiveData<Resource<List<TagView>>> {
+    val result = getAllTagsOperation()
+    val tagViews: MutableList<String> = mutableListOf()
+    val listToReturn: List<TagView>
+
+    result.value?.data?.map {
+        tagViews.add(
+            it.tag
+        )
+    }
+    listToReturn = tagViews.map { TagView(it) }
+    return result.map {
+        Resource(
+            Status.SUCCESS,
+            listToReturn,
+            null
+        )
+    }
+
+}*/

@@ -1,4 +1,4 @@
-package com.example.nattramn.core
+package com.example.nattramn.core.commonAdapters
 
 import android.annotation.SuppressLint
 import android.graphics.Color

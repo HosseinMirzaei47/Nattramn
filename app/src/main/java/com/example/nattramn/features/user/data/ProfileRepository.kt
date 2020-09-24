@@ -1,6 +1,5 @@
 package com.example.nattramn.features.user.data
 
-import com.example.nattramn.core.LocalDataSource
 import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.NetworkHelper
 import com.example.nattramn.core.resource.Resource
@@ -11,7 +10,7 @@ import retrofit2.Response
 
 class ProfileRepository(
     private val profileRemoteDataSource: ProfileRemoteDataSource,
-    private var localDataSource: LocalDataSource
+    private var localDataSource: ProfileLocalDataSource
 ) {
 
     companion object {
@@ -22,7 +21,7 @@ class ProfileRepository(
                 synchronized(this) {
                     myInstance = ProfileRepository(
                         ProfileRemoteDataSource(),
-                        LocalDataSource()
+                        ProfileLocalDataSource()
                     )
                 }
             }

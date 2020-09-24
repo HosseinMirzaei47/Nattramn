@@ -1,6 +1,6 @@
 package com.example.nattramn.features.user.data
 
-import com.example.nattramn.core.LocalDataSource
+import com.example.nattramn.core.AuthLocalDataSource
 import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.NetworkHelper
 import com.example.nattramn.core.resource.Resource
@@ -10,7 +10,7 @@ import com.example.nattramn.features.user.data.models.AuthResponse
 
 class AuthRepository(
     private val authRemoteDataSource: AuthRemoteDataSource,
-    private var localDataSource: LocalDataSource
+    private var authLocalDataSource: AuthLocalDataSource
 ) {
 
     companion object {
@@ -21,7 +21,7 @@ class AuthRepository(
                 synchronized(this) {
                     myInstance = AuthRepository(
                         AuthRemoteDataSource(),
-                        LocalDataSource()
+                        AuthLocalDataSource()
                     )
                 }
             }
@@ -47,8 +47,8 @@ class AuthRepository(
                         "Authentication failed",
                         response.data
                     )
-                localDataSource.saveToken(token)
-                localDataSource.saveUsername(username)
+                authLocalDataSource.saveToken(token)
+                authLocalDataSource.saveUsername(username)
             }
         }
 

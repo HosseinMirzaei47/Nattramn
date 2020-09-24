@@ -4,18 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
 import com.example.nattramn.features.article.data.*
 import com.example.nattramn.features.article.data.models.TagAndArticleEntity
-import com.example.nattramn.features.user.data.UserDao
 import com.example.nattramn.features.user.data.UserEntity
+import com.example.nattramn.features.user.services.UserDao
 
 @Database(
     entities = [ArticleEntity::class, UserEntity::class, TagEntity::class, CommentEntity::class, TagAndArticleEntity::class],
     version = 1,
     exportSchema = false
 )
-@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun articleDao(): ArticleDao

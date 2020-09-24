@@ -1,4 +1,4 @@
-package com.example.nattramn.core
+package com.example.nattramn.features.home.ui
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

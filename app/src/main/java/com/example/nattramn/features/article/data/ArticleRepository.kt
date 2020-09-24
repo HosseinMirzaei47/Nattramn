@@ -1,6 +1,5 @@
 package com.example.nattramn.features.article.data
 
-import com.example.nattramn.core.LocalDataSource
 import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.NetworkHelper
 import com.example.nattramn.core.resource.Resource
@@ -13,7 +12,7 @@ import com.example.nattramn.features.user.data.UserEntity
 
 class ArticleRepository(
     private val articleRemoteDataSource: ArticleRemoteDataSource,
-    private var localDataSource: LocalDataSource
+    private var localDataSource: ArticleLocalDataSource
 ) {
 
     companion object {
@@ -23,7 +22,7 @@ class ArticleRepository(
             if (myInstance == null) {
                 synchronized(this) {
                     myInstance = ArticleRepository(
-                        ArticleRemoteDataSource(), LocalDataSource()
+                        ArticleRemoteDataSource(), ArticleLocalDataSource()
                     )
                 }
             }
@@ -99,7 +98,7 @@ class ArticleRepository(
                     localDataSource.insertUser(userEntity!!)
                     localDataSource.insertArticle(articleEntity!!)
                     localDataSource.insertAllComments(commentsEntity!!)
-                    localDataSource.insertAllTag(tagsEntity)
+                    localDataSource.insertAllTags(tagsEntity)
 
                     val articleView =
                         toArticleView(userEntity, articleEntity, tagsEntity, commentsEntity)

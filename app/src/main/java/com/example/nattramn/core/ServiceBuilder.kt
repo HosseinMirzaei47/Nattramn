@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ServiceBuilder {
 
     val responseStatus = MutableLiveData<Response>()
-    private val localDataSource = LocalDataSource()
+    private val localDataSource = AuthLocalDataSource()
     var logging = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }

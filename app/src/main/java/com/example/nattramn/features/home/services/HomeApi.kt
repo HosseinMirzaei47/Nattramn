@@ -1,4 +1,4 @@
-package com.example.nattramn.features.home.data
+package com.example.nattramn.features.home.services
 
 import com.example.nattramn.features.article.data.models.EditArticleRequest
 import com.example.nattramn.features.home.data.models.AllTagsResponse

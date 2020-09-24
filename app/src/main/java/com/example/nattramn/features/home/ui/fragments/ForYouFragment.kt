@@ -9,9 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.nattramn.core.AppDatabase
-import com.example.nattramn.core.HorizontalArticleAdapter
-import com.example.nattramn.core.VerticalArticleAdapter
+import com.example.nattramn.core.commonAdapters.HorizontalArticleAdapter
+import com.example.nattramn.core.commonAdapters.VerticalArticleAdapter
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.core.snackMaker
 import com.example.nattramn.databinding.FragmentForYouBinding
@@ -66,9 +65,6 @@ class ForYouFragment : Fragment(), OnArticleListener {
                 binding.forYouLatestArticlesProgress.visibility = View.GONE
             }
         })*/
-
-        val user = AppDatabase.buildDatabase(requireContext()).userDao().getUser("hosseinmirzaei")
-        println("jalil vari $user")
 
         val articles = homeViewModel.setLatestArticlesDb()
         topArticlesAdapter =
