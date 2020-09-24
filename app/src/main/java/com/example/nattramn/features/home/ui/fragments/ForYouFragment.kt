@@ -14,6 +14,7 @@ import com.example.nattramn.core.commonAdapters.VerticalArticleAdapter
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.core.snackMaker
 import com.example.nattramn.databinding.FragmentForYouBinding
+import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.OnArticleListener
 import com.example.nattramn.features.home.ui.viewmodels.HomeViewModel
 
@@ -37,77 +38,35 @@ class ForYouFragment : Fragment(), OnArticleListener {
         }
 
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setRecyclers()
     }
 
     private fun setRecyclers() {
-        setContent()
-        /*homeViewModel.setLatestArticlesDb().observe(viewLifecycleOwner, Observer {
-            it?.let {
-                topArticlesAdapter =
-                    HorizontalArticleAdapter(
-                        it,
-                        this
-                    )
+        initRecyclersWithDatabase()
+        sendNetworkRequests()
+        observeNetResponses()
+    }
 
-                binding.recyclerHomeTopArticles.apply {
-                    adapter = topArticlesAdapter
-                    layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                }
+    private fun initRecyclersWithDatabase() {
+        showLatestRecycler(homeViewModel.setLatestArticlesDb())
+        showFeedRecycler(homeViewModel.setFeedArticlesDb())
+    }
 
-                binding.forYouLatestArticlesProgress.visibility = View.GONE
-            }
-        })*/
-
-        val articles = homeViewModel.setLatestArticlesDb()
-        topArticlesAdapter =
-            HorizontalArticleAdapter(
-                articles,
-                this
-            )
-
-        binding.recyclerHomeTopArticles.apply {
-            adapter = topArticlesAdapter
-            layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        }
-
-        binding.forYouLatestArticlesProgress.visibility = View.GONE
-
+    private fun sendNetworkRequests() {
         homeViewModel.setLatestArticles()
         homeViewModel.setFeedArticles()
     }
 
-    private fun setContent() {
+    private fun observeNetResponses() {
         homeViewModel.feedResult.observe(viewLifecycleOwner, Observer { resource ->
             if (resource.status == Status.SUCCESS && !resource.data.isNullOrEmpty()) {
-
-                println("jalil size all: ${resource.data.size}")
-
-                feedArticlesAdapter =
-                    VerticalArticleAdapter(
-                        resource.data,
-                        this@ForYouFragment
-                    )
-
-                binding.recyclerHomeArticle.apply {
-                    adapter = feedArticlesAdapter
-                    layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                }
-
-                binding.forYouFeedProgress.visibility = View.GONE
-                binding.textInputSearch.visibility = View.VISIBLE
-
+                showFeedRecycler(resource.data)
             } else {
-                println("jalil error ${resource.message}")
+                snackMaker(requireView(), "خطا در دریافت مقالات برای شما")
             }
         })
 
@@ -134,6 +93,38 @@ class ForYouFragment : Fragment(), OnArticleListener {
                 snackMaker(requireView(), "successful")
             }
         })
+    }
+
+    private fun showLatestRecycler(articles: List<ArticleView>) {
+        topArticlesAdapter =
+            HorizontalArticleAdapter(
+                articles,
+                this
+            )
+
+        binding.recyclerHomeTopArticles.apply {
+            adapter = topArticlesAdapter
+            layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        }
+        binding.forYouLatestArticlesProgress.visibility = View.GONE
+    }
+
+    private fun showFeedRecycler(articles: List<ArticleView>) {
+        feedArticlesAdapter =
+            VerticalArticleAdapter(
+                articles,
+                this@ForYouFragment
+            )
+
+        binding.recyclerHomeArticle.apply {
+            adapter = feedArticlesAdapter
+            layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        }
+
+        binding.forYouFeedProgress.visibility = View.GONE
+        binding.textInputSearch.visibility = View.VISIBLE
     }
 
     private fun onArticleClick(slug: String) {

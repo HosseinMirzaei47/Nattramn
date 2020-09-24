@@ -4,6 +4,7 @@ import com.example.nattramn.core.MyApp
 import com.example.nattramn.core.NetworkHelper
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
+import com.example.nattramn.features.article.data.ArticleEntity
 import com.example.nattramn.features.article.data.models.EditArticleRequest
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.home.data.models.AllTagsResponse
@@ -28,12 +29,16 @@ class ArticleHomeRepository(
         }
     }
 
+    fun getFeedArticlesDb(): MutableList<ArticleView> =
+        articleEntityListToView(localDataSource.getFeedArticles())
+
     suspend fun getFeedArticles(): Resource<List<ArticleView>> {
         var responseArticles = Resource<List<ArticleView>>(Status.ERROR, null, null)
 
         if (NetworkHelper.isOnline(MyApp.app)) {
             val feedArticles = homeRemoteDataSource.getFeedArticles()
             if (feedArticles.status == Status.SUCCESS) {
+                localDataSource.updateFeedArticles(feedArticles.data?.articleNetworks)
                 val articleViews = feedArticles.data?.articleNetworks?.map {
                     it.toArticleView(Resource.success(null))
                 }
@@ -44,34 +49,8 @@ class ArticleHomeRepository(
         return responseArticles
     }
 
-    fun getAllArticlesDb(): MutableList<ArticleView> {
-
-        val articlesView = mutableListOf<ArticleView>()
-        val articlesEntity = localDataSource.getAllArticles()
-
-        articlesEntity.forEach { articleEntity ->
-            articleEntity.comments = localDataSource.getArticleComments(articleEntity.slug)
-            articleEntity.tags = localDataSource.getArticleTags(articleEntity.slug)
-            val user = localDataSource.getUser(articleEntity.ownerUsername).toUserView()
-            articlesView.add(
-                ArticleView(
-                    userView = user,
-                    date = articleEntity.date,
-                    title = articleEntity.title,
-                    body = articleEntity.body,
-                    tags = articleEntity.tags?.map { tag -> tag.tag },
-                    commentViews = articleEntity.comments?.map { comment -> comment.toCommentView() },
-                    likes = articleEntity.favoriteCount.toString(),
-                    commentsNumber = articleEntity.comments?.size,
-                    bookmarked = articleEntity.bookmarked,
-                    slug = articleEntity.slug
-
-                )
-            )
-        }
-
-        return articlesView
-    }
+    fun getAllArticlesDb(): MutableList<ArticleView> =
+        articleEntityListToView(localDataSource.getAllArticles())
 
     suspend fun getAllArticles(): Resource<List<ArticleView>> {
         var responseArticles = Resource<List<ArticleView>>(Status.ERROR, null, null)
@@ -142,6 +121,33 @@ class ArticleHomeRepository(
         return response
     }
 
+
+    /*          TYPE CONVERTERS          */
+    private fun articleEntityListToView(articlesEntity: List<ArticleEntity>): MutableList<ArticleView> {
+        val articlesView = mutableListOf<ArticleView>()
+
+        articlesEntity.forEach { articleEntity ->
+            articleEntity.comments = localDataSource.getArticleComments(articleEntity.slug)
+            articleEntity.tags = localDataSource.getArticleTags(articleEntity.slug)
+            val user = localDataSource.getUser(articleEntity.ownerUsername).toUserView()
+            articlesView.add(
+                ArticleView(
+                    userView = user,
+                    date = articleEntity.date,
+                    title = articleEntity.title,
+                    body = articleEntity.body,
+                    tags = articleEntity.tags?.map { tag -> tag.tag },
+                    commentViews = articleEntity.comments?.map { comment -> comment.toCommentView() },
+                    likes = articleEntity.favoriteCount.toString(),
+                    commentsNumber = articleEntity.comments?.size,
+                    bookmarked = articleEntity.bookmarked,
+                    slug = articleEntity.slug
+
+                )
+            )
+        }
+        return articlesView
+    }
 }
 
 /*

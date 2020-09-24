@@ -76,7 +76,8 @@ class ArticleRepository(
             val articleRequest = articleRemoteDataSource.getSingleArticle(slug)
             when (articleRequest.status) {
                 Status.SUCCESS -> {
-                    articleEntity = articleRequest.data?.article?.toArticleEntity()
+                    articleEntity =
+                        articleRequest.data?.article?.toArticleEntity(articleRequest.data.article.user.following)
                     userEntity = articleRequest.data?.article?.user?.convertUser()
                     tagsEntity = articleRequest.data?.article?.tagList?.map { tag ->
                         TagEntity.convertTag(tag)

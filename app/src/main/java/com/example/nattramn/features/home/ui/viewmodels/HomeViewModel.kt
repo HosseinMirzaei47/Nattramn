@@ -54,6 +54,8 @@ class HomeViewModel : ViewModel() {
 
     fun setLatestArticlesDb() = articleHomeRepository.getAllArticlesDb()
 
+    fun setFeedArticlesDb() = articleHomeRepository.getFeedArticlesDb()
+
     fun getSingleArticle(slug: String) {
 
         _singleArticleResult.value = Resource.loading(null)

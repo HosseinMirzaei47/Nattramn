@@ -31,9 +31,10 @@ data class ArticleNetwork(
     @SerializedName("title")
     val title: String,
     @SerializedName("updatedAt")
-    val updatedAt: String
+    val updatedAt: String,
+    val isFeed: Boolean? = false
 ) {
-    fun toArticleEntity(): ArticleEntity {
+    fun toArticleEntity(flag: Boolean?): ArticleEntity {
         return ArticleEntity(
             slug = slug,
             date = createdAt,
@@ -43,6 +44,7 @@ data class ArticleNetwork(
             favoriteCount = favoritesCount,
             bookmarked = isBookmarked,
             ownerUsername = user.username,
+            isFeed = flag,
             tags = tagList.map { TagEntity(it) },
             comments = null
         )

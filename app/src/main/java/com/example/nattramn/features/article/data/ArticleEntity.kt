@@ -28,6 +28,7 @@ data class ArticleEntity(
     var favoriteCount: Int,
     var bookmarked: Boolean,
     var ownerUsername: String,
+    var isFeed: Boolean?,
     @Ignore var tags: List<TagEntity>?,
     @Ignore var comments: List<CommentEntity>?
 ) {
@@ -41,6 +42,7 @@ data class ArticleEntity(
         favoriteCount = 0,
         bookmarked = false,
         ownerUsername = "",
+        isFeed = false,
         tags = null,
         comments = null
     )
