@@ -21,8 +21,8 @@ class ProfileViewModel : ViewModel() {
     private var _profileResult = MutableLiveData<Resource<UserView>>()
     val profileResult: LiveData<Resource<UserView>> get() = _profileResult
 
-    private var _profileArticlesResult = MutableLiveData<Resource<List<ArticleView>>>()
-    val profileArticlesResult: LiveData<Resource<List<ArticleView>>> get() = _profileArticlesResult
+    private var _userArticlesResult = MutableLiveData<Resource<List<ArticleView>>>()
+    val userArticlesResult: LiveData<Resource<List<ArticleView>>> get() = _userArticlesResult
 
     private var _profileBookmarkedArticlesResult = MutableLiveData<Resource<List<ArticleView>>>()
     val profileBookmarkedArticlesResult: LiveData<Resource<List<ArticleView>>> get() = _profileBookmarkedArticlesResult
@@ -33,8 +33,12 @@ class ProfileViewModel : ViewModel() {
     private var _singleArticleResult = MutableLiveData<Resource<ArticleView>>()
     val singleArticleResult: LiveData<Resource<ArticleView>> get() = _singleArticleResult
 
-    private var _deleteArticleResult = MutableLiveData<Resource<Response<Unit>??>>()
+    private var _deleteArticleResult = MutableLiveData<Resource<Response<Unit>?>>()
     val deleteArticleResult: LiveData<Resource<Response<Unit>?>> get() = _deleteArticleResult
+
+    fun getUserDb(username: String) = profileRepository.getUserDb(username)
+
+    fun getUserArticlesDb(username: String) = profileRepository.getUserArticlesDb(username)
 
     fun getSingleArticle(slug: String) {
 
@@ -63,12 +67,12 @@ class ProfileViewModel : ViewModel() {
         }
     }
 
-    fun setProfileArticles(username: String) {
+    fun getUserArticles(username: String) {
 
-        _profileArticlesResult.value = Resource.loading(null)
+        _userArticlesResult.value = Resource.loading(null)
 
         viewModelScope.launch(Dispatchers.IO) {
-            _profileArticlesResult.postValue(profileRepository.getUserArticles(username))
+            _userArticlesResult.postValue(profileRepository.getUserArticles(username))
         }
     }
 

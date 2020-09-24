@@ -18,6 +18,7 @@ import com.example.nattramn.core.AuthLocalDataSource
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.core.snackMaker
 import com.example.nattramn.databinding.FragmentProfileBinding
+import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.user.ui.OnBottomSheetItemsClick
 import com.example.nattramn.features.user.ui.OnProfileArticleListener
 import com.example.nattramn.features.user.ui.adapters.ProfileArticleAdapter
@@ -44,12 +45,11 @@ class ProfileFragment : Fragment(),
         username = args.username
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
-        setProfileInfo()
-
         binding = FragmentProfileBinding.inflate(
             inflater, container, false
         ).apply {
             lifecycleOwner = viewLifecycleOwner
+            user = profileViewModel.getUserDb(username)
         }
 
         return binding.root
@@ -58,13 +58,12 @@ class ProfileFragment : Fragment(),
     @SuppressLint("InflateParams")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        showUserArticles()
-
+        setBackButtonClick()
         setTabItemsView()
 
-        setBackButtonClick()
+        sendProfileInfoRequest()
 
+        showUserArticles()
     }
 
     private fun setTabItemsView() {
@@ -135,43 +134,45 @@ class ProfileFragment : Fragment(),
     }
 
     private fun showUserArticles() {
-        profileViewModel.setProfileArticles(username)
-
-        profileViewModel.profileArticlesResult.observe(viewLifecycleOwner, Observer { resource ->
+        showUserArticlesRecycler(profileViewModel.getUserArticlesDb(username))
+        profileViewModel.getUserArticles(username)
+        profileViewModel.userArticlesResult.observe(viewLifecycleOwner, Observer { resource ->
             if (resource.status == Status.SUCCESS) {
-
                 binding.profileArticleCount.text = resource?.data?.size.toString()
-
-                resource.data?.let { articlesList ->
-
-                    profileArticleAdapter =
-                        ProfileArticleAdapter(
-                            articlesList,
-                            this
-                        )
-                }
-
-                binding.recyclerProfileArticles.apply {
-                    adapter = profileArticleAdapter
-                    layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                }
-
-                binding.profileProgressBar.visibility = View.GONE
-
+                showUserArticlesRecycler(resource.data)
             } else {
                 println("jalil error ${resource.message}")
             }
         })
     }
 
-    private fun setProfileInfo() {
+    private fun showUserArticlesRecycler(articles: List<ArticleView>?) {
+        articles?.let { articlesList ->
+
+            profileArticleAdapter =
+                ProfileArticleAdapter(
+                    articlesList,
+                    this
+                )
+        }
+
+        binding.recyclerProfileArticles.apply {
+            adapter = profileArticleAdapter
+            layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        }
+        binding.profileProgressBar.visibility = View.GONE
+    }
+
+    private fun sendProfileInfoRequest() {
         profileViewModel.setProfile(username)
         profileViewModel.profileResult.observe(viewLifecycleOwner, Observer { user ->
-            if (username == AuthLocalDataSource().getUsername()) {
-                user.data?.following = false
+            if (user.status == Status.SUCCESS) {
+                if (username == AuthLocalDataSource().getUsername()) {
+                    user.data?.following = false
+                }
+                binding.user = user.data
             }
-            binding.user = user.data
         })
     }
 

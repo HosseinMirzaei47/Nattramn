@@ -14,9 +14,9 @@ import kotlinx.android.parcel.Parcelize
 )
 @Parcelize
 data class UserEntity(
-    val username: String,
-    val following: Boolean? = false,
-    val image: String
+    var username: String,
+    var following: Boolean? = false,
+    var image: String
 ) : Parcelable {
     fun toUserView(): UserView {
         return UserView(

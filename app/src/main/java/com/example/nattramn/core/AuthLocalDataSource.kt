@@ -3,9 +3,10 @@ package com.example.nattramn.core
 import com.example.nattramn.core.storage.data.PreferenceProperty.Companion.getPreferences
 import com.example.nattramn.core.storage.data.Settings
 
-class AuthLocalDataSource() {
+class AuthLocalDataSource {
 
     private val settings = Settings(MyApp.app.getPreferences())
+    private val db = AppDatabase.buildDatabase(MyApp.app)
 
     fun saveToken(token: String) {
         settings.authToken = token

@@ -13,12 +13,6 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
 
-    init {
-        /*setLatestArticlesDb()
-        setLatestArticles()
-        setFeedArticles()*/
-    }
-
     private val articleHomeRepository = ArticleHomeRepository.getInstance()
     private val articleRepository = ArticleRepository.getInstance()
 
