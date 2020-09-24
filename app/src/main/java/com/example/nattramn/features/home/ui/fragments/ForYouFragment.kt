@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.nattramn.core.AuthLocalDataSource
 import com.example.nattramn.core.commonAdapters.HorizontalArticleAdapter
 import com.example.nattramn.core.commonAdapters.VerticalArticleAdapter
 import com.example.nattramn.core.resource.Status
@@ -30,6 +31,10 @@ class ForYouFragment : Fragment(), OnArticleListener {
         savedInstanceState: Bundle?
     ): View? {
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+
+        AuthLocalDataSource().getUsername()?.let { username ->
+            homeViewModel.saveUserInfo(username)
+        }
 
         binding = FragmentForYouBinding.inflate(
             inflater, container, false

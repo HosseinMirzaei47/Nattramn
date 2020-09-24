@@ -8,6 +8,8 @@ import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.features.article.data.ArticleRepository
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.home.data.ArticleHomeRepository
+import com.example.nattramn.features.user.data.ProfileRepository
+import com.example.nattramn.features.user.ui.UserView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -15,6 +17,7 @@ class HomeViewModel : ViewModel() {
 
     private val articleHomeRepository = ArticleHomeRepository.getInstance()
     private val articleRepository = ArticleRepository.getInstance()
+    private val profileRepository = ProfileRepository.getInstance()
 
     private var _singleArticleResult = MutableLiveData<Resource<ArticleView>>()
     val singleArticleResult: LiveData<Resource<ArticleView>> get() = _singleArticleResult
@@ -27,6 +30,9 @@ class HomeViewModel : ViewModel() {
 
     private var _bookmarkResult = MutableLiveData<Resource<ArticleView>>()
     val bookmarkResult: LiveData<Resource<ArticleView>> get() = _bookmarkResult
+
+    private var _profileResult = MutableLiveData<Resource<UserView>>()
+    val profileResult: LiveData<Resource<UserView>> get() = _profileResult
 
     fun setFeedArticles() {
 
@@ -68,6 +74,15 @@ class HomeViewModel : ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) {
             _bookmarkResult.postValue(articleRepository.bookmarkArticle(slug))
+        }
+    }
+
+    fun saveUserInfo(username: String) {
+
+        _profileResult.value = Resource.loading(null)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            _profileResult.postValue(profileRepository.getProfile(username))
         }
     }
 
