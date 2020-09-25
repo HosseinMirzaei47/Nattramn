@@ -1,6 +1,7 @@
 package com.example.nattramn.features.article.ui.fragments
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -71,8 +72,9 @@ class ArticleFragment : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         snapHorizontal.attachToRecyclerView(recyclerArticleRelated)
-        bookmarkArticle()
         /*setOnLikeArticleClick()*/
+        bookmarkArticle()
+        setOnShareArticleClick()
         setAddCommentAction()
         setOnProfileClick()
         setBackButtonClick()
@@ -258,6 +260,26 @@ class ArticleFragment : Fragment(),
         }
     }
 
+    private fun setOnShareArticleClick() {
+        binding.shareArticleSA.setOnClickListener {
+            articleViewModel.getSingleArticle(articleSlug)
+
+            articleViewModel.singleArticleResult.observe(viewLifecycleOwner, Observer {
+                if (it.status == Status.SUCCESS) {
+
+                    val textToShare = "" +
+                            "${it.data?.title} \n\n" +
+                            "${it.data?.body} \n\n" +
+                            "${it.data?.userView?.name}"
+
+                    shareArticle(textToShare)
+                } else if (it.status == Status.ERROR) {
+                    snackMaker(requireView(), "خطا در ارتباط با سرور")
+                }
+            })
+        }
+    }
+
     private fun sendCommentsRequest() {
         articleViewModel.getArticleComments(articleSlug)
 
@@ -272,6 +294,16 @@ class ArticleFragment : Fragment(),
         binding.articleRightArrow.setOnClickListener { view ->
             Navigation.findNavController(view).navigateUp()
         }
+    }
+
+    private fun shareArticle(body: String?) {
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, body)
+            type = "text/plain"
+        }
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
     }
 
     /*      INTERFACES IMPLEMENTATION      */

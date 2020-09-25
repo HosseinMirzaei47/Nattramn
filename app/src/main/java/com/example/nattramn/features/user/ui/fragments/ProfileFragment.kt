@@ -234,6 +234,7 @@ class ProfileFragment : Fragment(),
         startActivity(shareIntent)
     }
 
+    /*      INTERFACES IMPLEMENTATION       */
     override fun onProfileArticleCardClick(slug: String) {
         openArticle(slug)
     }
