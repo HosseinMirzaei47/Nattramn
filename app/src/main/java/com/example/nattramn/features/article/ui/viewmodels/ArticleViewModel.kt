@@ -10,12 +10,14 @@ import com.example.nattramn.features.article.data.models.CommentRequest
 import com.example.nattramn.features.article.data.models.SingleCommentRequest
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.CommentView
+import com.example.nattramn.features.user.data.ProfileRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ArticleViewModel : ViewModel() {
 
     private val articleRepository = ArticleRepository.getInstance()
+    private val profileRepository = ProfileRepository.getInstance()
     var comments = MutableLiveData<ArrayList<CommentView>>()
 
     private var _bookmarkResult = MutableLiveData<Resource<ArticleView>>()
@@ -32,6 +34,9 @@ class ArticleViewModel : ViewModel() {
 
     private var _singleArticleResult = MutableLiveData<Resource<ArticleView>>()
     val singleArticleResult: LiveData<Resource<ArticleView>> get() = _singleArticleResult
+
+    private var _userArticlesResult = MutableLiveData<Resource<List<ArticleView>>>()
+    val userArticlesResult: LiveData<Resource<List<ArticleView>>> get() = _userArticlesResult
 
     fun bookmarkArticle(slug: String) {
 
@@ -79,6 +84,15 @@ class ArticleViewModel : ViewModel() {
             _singleArticleResult.postValue(articleRepository.getSingleArticle(slug))
         }
 
+    }
+
+    fun getUserArticles(username: String) {
+
+        _userArticlesResult.value = Resource.loading(null)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            _userArticlesResult.postValue(profileRepository.getUserArticles(username))
+        }
     }
 
 }

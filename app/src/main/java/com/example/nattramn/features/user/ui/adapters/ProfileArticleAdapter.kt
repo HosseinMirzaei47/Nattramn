@@ -29,9 +29,7 @@ class ProfileArticleAdapter(
     override fun getItemCount() = profileArticleViews.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         holder.binding.profileData = profileArticleViews[position]
-
     }
 
     inner class ViewHolder(val binding: ProfileArticleRowBinding) :

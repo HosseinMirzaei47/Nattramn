@@ -143,6 +143,11 @@ class ProfileFragment : Fragment(),
         profileViewModel.userArticlesResult.observe(viewLifecycleOwner, Observer { resource ->
             if (resource.status == Status.SUCCESS) {
                 binding.profileArticleCount.text = resource?.data?.size.toString()
+                println("jalil comments ${resource.data?.get(0)?.commentsNumber}")
+                (resource.data?.indices)?.forEach {
+                    resource.data[it].commentsNumber =
+                        profileViewModel.getUserArticlesDb(username)[it].commentsNumber
+                }
                 showUserArticlesRecycler(resource.data)
             } else {
                 println("jalil error ${resource.message}")
@@ -226,10 +231,6 @@ class ProfileFragment : Fragment(),
             }
         }
 
-        observeFollowUnFollowResponses()
-    }
-
-    private fun observeFollowUnFollowResponses() {
         profileViewModel.followUserResult.observe(viewLifecycleOwner, Observer { resource ->
             binding.followButton.isClickable = true
             if (resource.status == Status.SUCCESS) {

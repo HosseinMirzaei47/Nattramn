@@ -136,7 +136,7 @@ class ArticleFragment : Fragment(),
                 resources.data?.let { articles ->
                     suggestedArticleAdapter =
                         SuggestedArticleAdapter(
-                            articles,
+                            articles.distinct(),
                             this
                         )
 
@@ -153,6 +153,11 @@ class ArticleFragment : Fragment(),
     }
 
     private fun showCommentsRecycler(comments: List<CommentView>) {
+        var userNames = mutableListOf<String>()
+        comments.forEach { userNames.add(it.username) }
+        userNames = userNames.distinct().toMutableList()
+        userNames.forEach { username -> articleViewModel.getUserArticles(username) }
+
         commentAdapter =
             CommentAdapter(
                 comments,

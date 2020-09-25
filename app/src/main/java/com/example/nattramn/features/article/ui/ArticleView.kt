@@ -14,7 +14,7 @@ data class ArticleView(
     val tags: @RawValue List<String>?,
     val commentViews: @RawValue List<CommentView>?,
     val likes: String,
-    val commentsNumber: Int?,
+    var commentsNumber: Int?,
     val bookmarked: Boolean,
     val slug: String
 ) : Parcelable
