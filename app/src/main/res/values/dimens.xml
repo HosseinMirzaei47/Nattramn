@@ -7,6 +7,7 @@
     <dimen name="margin_ten">10dp</dimen>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_micro">5dp</dimen>
+    <dimen name="margin_two">5dp</dimen>
 
     <dimen name="padding_very_large">100dp</dimen>
     <dimen name="padding_large">16dp</dimen>
@@ -36,6 +37,7 @@
     <!-- Radius -->
     <dimen name="radius_large">15dp</dimen>
     <dimen name="radius_normal">10dp</dimen>
+    <dimen name="radius_small">3dp</dimen>
 
     <!-- Toolbars -->
     <dimen name="toolbar_inset_start">0dp</dimen>

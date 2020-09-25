@@ -6,7 +6,7 @@
 
         <variable
             name="profileData"
-            type="com.example.nattramn.models.Article" />
+            type="com.example.nattramn.features.article.ui.ArticleView" />
 
     </data>
 
@@ -27,7 +27,7 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/itemArticleAuthorImage"
-                imageSource="@{profileData.user.image}"
+                imageSource="@{profileData.userView.image}"
                 android:layout_width="@dimen/global_item_image_size"
                 android:layout_height="@dimen/global_item_image_size"
                 android:layout_marginStart="@dimen/profile_article_row_horizontal_margin"
@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_micro"
-                android:text="@{profileData.user.name}"
+                android:text="@{profileData.userView.name}"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/itemArticleDate"
@@ -50,12 +50,12 @@
 
             <TextView
                 android:id="@+id/itemArticleDate"
-                persianText="@{profileData.date}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_micro"
                 android:textColor="@color/hint"
                 android:textStyle="bold"
+                app:convertDate="@{profileData.date}"
                 app:layout_constraintBottom_toBottomOf="@id/itemArticleAuthorImage"
                 app:layout_constraintStart_toEndOf="@+id/itemArticleAuthorImage"
                 app:layout_constraintTop_toBottomOf="@+id/itemArticleAuthorName" />
@@ -116,6 +116,7 @@
                 android:layout_marginTop="@dimen/profile_article_row_body_margin_top"
                 android:layout_marginEnd="@dimen/profile_article_row_horizontal_margin"
                 android:lineSpacingExtra="7sp"
+                android:maxLines="3"
                 android:padding="@dimen/padding_normal"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_b1"

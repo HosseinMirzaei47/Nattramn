@@ -3,12 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.nattramn.features.user.ui.viewmodels.LoginViewModel" />
+
+        <variable
+            name="loginRequest"
+            type="com.example.nattramn.features.user.data.models.AuthRequest" />
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/whiteBackground"
         android:layoutDirection="rtl"
-        tools:context=".fragments.LoginFragment">
+        tools:context=".features.user.ui.fragments.LoginFragment">
 
         <ImageView
             android:id="@+id/partLogo"
@@ -99,7 +111,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:text="@={viewModel.email}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,7 +143,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:text="@={viewModel.password}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -139,6 +153,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
+            android:onClick="@{()->viewModel.loginUser(loginRequest)}"
             android:padding="@dimen/login_enter_button_padding"
             android:text="@string/enter"
             android:textColor="@color/whiteBackground"
@@ -176,6 +191,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.57" />
+
+        <ProgressBar
+            android:id="@+id/loginProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/loginTextFieldUsername"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:visibleOnResult="@{viewModel.loginResult}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -9,7 +9,7 @@
     <string name="icon">icon</string>
     <string name="homeSearchHint">جست وجوی مقاله</string>
     <string name="homePage">صفحه اول</string>
-    <string name="topArticles">برترین مقالات</string>
+    <string name="latestArticles">جدید ترین مقالات</string>
     <string name="writeArticleIcon">نوشتن مقاله</string>
     <string name="news">اپل خبر تجزیه سهام خود را اعلام کرد-این برای سرمایه گذاران چه معنایی خواهد داشت؟</string>
 
@@ -69,5 +69,6 @@
     <string name="HomeTabTitleKeywords">کلید واژه ها</string>
     <string name="HomeForYou">برای شما</string>
     <string name="shareArticle">اشتراک گذاری مقاله</string>
+    <string name="job">مدرس زبان انگلیسی</string>
 
 </resources>

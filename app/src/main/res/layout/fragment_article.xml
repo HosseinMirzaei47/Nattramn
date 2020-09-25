@@ -3,6 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="articleView"
+            type="com.example.nattramn.features.article.ui.ArticleView" />
+
+        <variable
+            name="viewModel"
+            type="com.example.nattramn.features.article.ui.viewmodels.ArticleViewModel" />
+
+        <variable
+            name="status"
+            type="com.example.nattramn.core.resource.Status" />
+
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -36,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginEnd="@dimen/article_toolbar_buttons_margin"
-                    android:src="@drawable/ic_bookmark_article_fragment"
+                    app:isBookmarked="@{articleView.bookmarked}"
                     tools:ignore="ContentDescription" />
 
                 <ImageButton
@@ -48,7 +64,6 @@
                     android:layout_marginStart="@dimen/article_toolbar_buttons_margin"
                     android:src="@drawable/ic_arrow_right"
                     tools:ignore="ContentDescription" />
-
 
             </com.google.android.material.appbar.MaterialToolbar>
 
@@ -89,11 +104,11 @@
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/authorImageSA"
+                            imageSource="@{articleView.userView.image}"
                             android:layout_width="@dimen/global_item_image_size"
                             android:layout_height="@dimen/global_item_image_size"
                             android:layout_marginStart="@dimen/margin_ten"
                             android:layout_marginTop="@dimen/margin_ten"
-                            android:src="@drawable/test02"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -103,7 +118,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_micro"
-                            android:text="@string/hosseinMirzaei"
+                            android:text="@{articleView.userView.name}"
                             android:textColor="@color/black"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toTopOf="@+id/dateSA"
@@ -115,9 +130,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_micro"
-                            android:text="@string/sampleDate"
                             android:textColor="@color/hint"
                             android:textStyle="bold"
+                            app:convertDate="@{articleView.date}"
                             app:layout_constraintBottom_toBottomOf="@id/authorImageSA"
                             app:layout_constraintStart_toEndOf="@+id/authorImageSA"
                             app:layout_constraintTop_toBottomOf="@+id/authorNameSA" />
@@ -155,7 +170,7 @@
                             android:layout_marginEnd="@dimen/margin_ten"
                             android:letterSpacing=".02"
                             android:lineSpacingExtra="@dimen/spacing_micro"
-                            android:text="@string/news"
+                            android:text="@{articleView.title}"
                             android:textColor="@color/black"
                             android:textSize="@dimen/text_size_h3"
                             android:textStyle="bold"
@@ -172,7 +187,7 @@
                             android:layout_marginEnd="@dimen/margin_ten"
                             android:lineSpacingExtra="@dimen/spacing_normal"
                             android:padding="10dp"
-                            android:text="@string/sampleArticle"
+                            android:text="@{articleView.body}"
                             android:textColor="@color/black"
                             android:textSize="@dimen/text_size_b1"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -209,53 +224,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_1"
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="@color/whiteBackground"
-                            android:checkable="false"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="@string/economy"
-                            android:textColor="@color/black" />
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_2"
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="@color/whiteBackground"
-                            android:checkable="false"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="@string/stockMarket"
-                            android:textColor="@color/black" />
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_3"
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="@color/whiteBackground"
-                            android:checkable="false"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="@string/apple"
-                            android:textColor="@color/black" />
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="@color/whiteBackground"
-                            android:checkable="false"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="@string/investment"
-                            android:textColor="@color/black" />
 
                     </com.google.android.material.chip.ChipGroup>
 
@@ -335,6 +303,23 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/commentsTitleSA"
                     tools:listitem="@layout/comment_row" />
+
+                <ProgressBar
+                    android:id="@+id/progressSuggestions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@id/recyclerArticleRelated"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/recyclerArticleRelated" />
+
+                <ProgressBar
+                    android:id="@+id/progressComments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/recyclerArticleComments" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
