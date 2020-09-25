@@ -38,6 +38,7 @@ class ProfileFragment : Fragment(),
 
     private lateinit var username: String
     private lateinit var userViewDb: UserView
+    private lateinit var recyclerArticlesList: MutableList<ArticleView>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -141,6 +142,8 @@ class ProfileFragment : Fragment(),
     }
 
     private fun showRecycler(articles: List<ArticleView>?) {
+        articles?.let { recyclerArticlesList = it.toMutableList() }
+
         binding.profileArticleCount.text = articles?.size.toString()
         articles?.let { articlesList ->
 
@@ -243,13 +246,28 @@ class ProfileFragment : Fragment(),
         openArticle(slug)
     }
 
-    override fun onBookmarkClick(slug: String) {
-        profileViewModel.bookmarkArticle(slug)
+    override fun onBookmarkClick(slug: String, isBookmarked: Boolean, position: Int, item: String) {
+        if (isBookmarked) {
+            profileViewModel.removeFromBookmarks(slug)
+        } else {
+            profileViewModel.bookmarkArticle(slug)
+        }
 
         profileViewModel.bookmarkResult.observe(viewLifecycleOwner, Observer { result ->
-
             if (result.status == Status.SUCCESS) {
+                recyclerArticlesList[position].bookmarked = true
+                profileArticleAdapter.notifyItemChanged(position)
                 snackMaker(requireView(), "این مقاله به لیست علاقه مندی ها اضافه شد")
+            } else if (result.status == Status.ERROR) {
+                snackMaker(requireView(), "خطا در ارتباط با سرور")
+            }
+        })
+
+        profileViewModel.removeBookmark.observe(viewLifecycleOwner, Observer { result ->
+            if (result.status == Status.SUCCESS) {
+                recyclerArticlesList[position].bookmarked = false
+                profileArticleAdapter.notifyItemChanged(position)
+                snackMaker(requireView(), "این مقاله از لیست علاقه مندی ها حذف شد")
             } else if (result.status == Status.ERROR) {
                 snackMaker(requireView(), "خطا در ارتباط با سرور")
             }

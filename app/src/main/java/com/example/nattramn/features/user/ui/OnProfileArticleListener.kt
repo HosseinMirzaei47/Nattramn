@@ -4,7 +4,7 @@ interface OnProfileArticleListener {
 
     fun onProfileArticleCardClick(slug: String)
 
-    fun onBookmarkClick(slug: String)
+    fun onBookmarkClick(slug: String, isBookmarked: Boolean, position: Int, item: String)
 
     fun onMoreOptionsClick(slug: String, position: Int)
 

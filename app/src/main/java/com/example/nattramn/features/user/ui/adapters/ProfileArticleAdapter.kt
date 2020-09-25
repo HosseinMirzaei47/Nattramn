@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nattramn.R
+import com.example.nattramn.core.utils.Constants
 import com.example.nattramn.databinding.ProfileArticleRowBinding
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.user.ui.OnProfileArticleListener
@@ -54,7 +55,10 @@ class ProfileArticleAdapter(
             }
             binding.itemArticleBookmark.setOnClickListener {
                 onProfileArticleListener.onBookmarkClick(
-                    profileArticleViews[layoutPosition].slug
+                    profileArticleViews[layoutPosition].slug,
+                    profileArticleViews[layoutPosition].bookmarked,
+                    layoutPosition,
+                    Constants.PROFILE
                 )
             }
             binding.itemArticleDescription.setOnClickListener {
