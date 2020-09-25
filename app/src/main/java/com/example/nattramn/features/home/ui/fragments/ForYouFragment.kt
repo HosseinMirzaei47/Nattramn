@@ -148,6 +148,7 @@ class ForYouFragment : Fragment(), OnArticleListener {
             )
     }
 
+    /*      INTERFACES IMPLEMENTATION      */
     override fun onCardClick(slug: String) {
         openArticle(slug)
     }

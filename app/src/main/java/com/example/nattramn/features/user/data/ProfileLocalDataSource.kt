@@ -15,6 +15,8 @@ class ProfileLocalDataSource {
 
     fun getUserArticles(username: String) = db.articleDao().getUserArticles(username)
 
+    fun getBookmarkedArticles() = db.articleDao().getBookmarkedArticles()
+
     fun getArticleTags(slug: String) = db.tagDao().getArticleTags(slug)
 
     fun getArticleComments(slug: String) = db.commentDao().getArticleComments(slug)
@@ -44,7 +46,7 @@ class ProfileLocalDataSource {
         }
     }
 
-    suspend fun updateUserArticles(articleNetworkList: List<ArticleNetwork>?) {
+    suspend fun updateUserArticlesOrBookmarkedArticles(articleNetworkList: List<ArticleNetwork>?) {
         articleNetworkList?.let { networkList ->
             db.withTransaction {
                 db.userDao().insertUser(networkList.map {

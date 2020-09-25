@@ -46,6 +46,10 @@ class ProfileViewModel : ViewModel() {
 
     fun getUserArticlesDb(username: String) = profileRepository.getUserArticlesDb(username)
 
+    fun getBookmarkedArticlesDb() = profileRepository.getBookmarkedArticlesDb()
+
+    fun getSingleArticleDb(slug: String) = articleRepository.getSingleArticleDb(slug)
+
     fun getSingleArticle(slug: String) {
 
         _singleArticleResult.value = Resource.loading(null)
@@ -88,9 +92,7 @@ class ProfileViewModel : ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) {
             _profileBookmarkedArticlesResult.postValue(
-                profileRepository.getBookmarkedArticles(
-                    username
-                )
+                profileRepository.getBookmarkedArticles(username)
             )
         }
     }

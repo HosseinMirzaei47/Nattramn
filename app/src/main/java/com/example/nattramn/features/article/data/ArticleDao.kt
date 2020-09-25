@@ -34,5 +34,8 @@ interface ArticleDao {
     @Query("select * from articles where ownerUsername like :username")
     fun getUserArticles(username: String): List<ArticleEntity>
 
+    @Query("select * from articles where bookmarked = 1")
+    fun getBookmarkedArticles(): List<ArticleEntity>
+
 
 }

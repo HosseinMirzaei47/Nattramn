@@ -45,6 +45,8 @@ class ProfileRepository(
     fun getUserArticlesDb(username: String) =
         articleEntityListToView(localDataSource.getUserArticles(username))
 
+    fun getBookmarkedArticlesDb() = articleEntityListToView(localDataSource.getBookmarkedArticles())
+
     suspend fun getUserArticles(username: String): Resource<List<ArticleView>> {
         var responseArticles = Resource<List<ArticleView>>(Status.ERROR, null, null)
 
@@ -54,7 +56,7 @@ class ProfileRepository(
                 val articleViews = userArticles.data?.articleNetworks?.map { articleNetwork ->
                     articleNetwork.toArticleView(Resource.success(null))
                 }
-                localDataSource.updateUserArticles(userArticles.data?.articleNetworks)
+                localDataSource.updateUserArticlesOrBookmarkedArticles(userArticles.data?.articleNetworks)
                 responseArticles = Resource.success(articleViews)
             }
         }
@@ -71,6 +73,7 @@ class ProfileRepository(
                 val articleViews = bookmarkedArticles.data?.articleNetworks?.map { articleNetwork ->
                     articleNetwork.toArticleView(Resource.success(null))
                 }
+                localDataSource.updateUserArticlesOrBookmarkedArticles(bookmarkedArticles.data?.articleNetworks)
                 responseArticles = Resource.success(articleViews)
             }
         }

@@ -108,54 +108,36 @@ class ProfileFragment : Fragment(),
     }
 
     private fun showBookmarkedArticles() {
+        showRecycler(profileViewModel.getBookmarkedArticlesDb())
         profileViewModel.setBookmarkedArticles(username)
-
         profileViewModel.profileBookmarkedArticlesResult.observe(viewLifecycleOwner, Observer {
-
             if (it.status == Status.SUCCESS) {
-                println("jalil size ${it.data?.size}")
-
-                it.data?.let { articlesList ->
-                    profileArticleAdapter =
-                        ProfileArticleAdapter(
-                            articlesList,
-                            this
-                        )
-                }
-
-                binding.recyclerProfileArticles.apply {
-                    adapter = profileArticleAdapter
-                    layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                }
-
-                binding.profileProgressBar.visibility = View.GONE
-
+                showRecycler(it.data)
             } else {
-                println("jalil error ${it.message}")
+                snackMaker(requireView(), "خطا در جست و جوی مقالات")
             }
         })
     }
 
     private fun showUserArticles() {
-        showUserArticlesRecycler(profileViewModel.getUserArticlesDb(username))
+        showRecycler(profileViewModel.getUserArticlesDb(username))
         profileViewModel.getUserArticles(username)
         profileViewModel.userArticlesResult.observe(viewLifecycleOwner, Observer { resource ->
             if (resource.status == Status.SUCCESS) {
                 binding.profileArticleCount.text = resource?.data?.size.toString()
                 println("jalil comments ${resource.data?.get(0)?.commentsNumber}")
-                (resource.data?.indices)?.forEach {
+                /*(resource.data?.indices)?.forEach {
                     resource.data[it].commentsNumber =
                         profileViewModel.getUserArticlesDb(username)[it].commentsNumber
-                }
-                showUserArticlesRecycler(resource.data)
+                }*/
+                showRecycler(resource.data)
             } else {
                 println("jalil error ${resource.message}")
             }
         })
     }
 
-    private fun showUserArticlesRecycler(articles: List<ArticleView>?) {
+    private fun showRecycler(articles: List<ArticleView>?) {
         articles?.let { articlesList ->
 
             profileArticleAdapter =
@@ -186,26 +168,12 @@ class ProfileFragment : Fragment(),
     }
 
     private fun openArticle(slug: String) {
-        profileViewModel.getSingleArticle(slug)
-
-        profileViewModel.singleArticleResult.observe(
-            viewLifecycleOwner,
-            Observer { resourceArticle ->
-                if (resourceArticle.status == Status.SUCCESS) {
-
-                    resourceArticle.data?.let { articleView ->
-                        Navigation.findNavController(requireView())
-                            .navigate(
-                                ProfileFragmentDirections.actionProfileFragmentToArticleFragment(
-                                    articleView
-                                )
-                            )
-                    }
-
-                } else if (resourceArticle.status == Status.ERROR) {
-                    snackMaker(requireView(), "خطا در اتصال به سرور")
-                }
-            })
+        Navigation.findNavController(requireView())
+            .navigate(
+                ProfileFragmentDirections.actionProfileFragmentToArticleFragment(
+                    profileViewModel.getSingleArticleDb(slug)
+                )
+            )
     }
 
     private fun openProfile(username: String) {
