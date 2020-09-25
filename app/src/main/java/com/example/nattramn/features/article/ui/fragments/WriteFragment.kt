@@ -58,25 +58,27 @@ class WriteFragment : Fragment() {
 
     private fun onPublishClick() {
         binding.publishButton.setOnClickListener {
-
             binding.writeProgress.visibility = View.VISIBLE
+            if (textsAreLongEnough()) {
+                if (slug != null) {
+                    writeViewModel.editArticle(binding.articleBody.text.toString(), slug!!)
+                } else {
+                    val tags = getAllChipsFromChipGroup()
 
-            if (slug != null) {
-                writeViewModel.editArticle(binding.articleBody.text.toString(), slug!!)
+                    writeViewModel.createArticle(
+                        body = binding.articleBody.text.toString(),
+                        title = binding.articleTitle.text.toString(),
+                        tags = tags
+                    )
+                }
             }
-
-            if (slug == null) {
-                val tags = getAllChipsFromChipGroup()
-
-                writeViewModel.createArticle(
-                    body = binding.articleBody.text.toString(),
-                    title = binding.articleTitle.text.toString(),
-                    tags = tags
-                )
-            }
-
         }
 
+        observeNetResponses()
+
+    }
+
+    private fun observeNetResponses() {
         writeViewModel.editArticleResult.observe(viewLifecycleOwner, Observer { resource ->
             binding.writeProgress.visibility = View.GONE
 
@@ -96,7 +98,6 @@ class WriteFragment : Fragment() {
                 snackMaker(requireView(), "خطا در ارتباط با سرور")
             }
         })
-
     }
 
     private fun getAllChipsFromChipGroup(): MutableList<String> {
@@ -137,6 +138,14 @@ class WriteFragment : Fragment() {
                 }
 
                 binding.publishButton.text = "اعمال ویرایش"
+                binding.articleTitle.isEnabled = false
+                binding.chipGroupScroll.isEnabled = false
+                binding.writeChipGroup.visibility = View.GONE
+                binding.tagsEditText.visibility = View.GONE
+                binding.keyWordsLayout.visibility = View.GONE
+                binding.keyWordsTitle.visibility = View.GONE
+            } else if (it.status == Status.ERROR) {
+                snackMaker(requireView(), "خطا در دریافت مقاله. لطفا دوباره امتحان کنید")
             }
         })
     }
@@ -168,6 +177,32 @@ class WriteFragment : Fragment() {
             }
 
         })
+    }
+
+    private fun textsAreLongEnough(): Boolean {
+        val titleLength = binding.articleTitle.text?.length
+        val bodyLength = binding.articleBody.text?.length
+
+        titleLength?.let { titleLen ->
+            bodyLength?.let { bodyLen ->
+                if (titleLen > 14 && bodyLen > 29) {
+                    return true
+                }
+                if (titleLen < 15) {
+                    binding.articleTitle.requestFocus()
+                    binding.articleTitle.error = "حداقل ۱۵ کاراکتر"
+                    binding.writeProgress.visibility = View.GONE
+                    return false
+                }
+                if (bodyLen < 30) {
+                    binding.articleBody.requestFocus()
+                    binding.articleBody.error = "حداقل ۳۰ کاراکتر"
+                    binding.writeProgress.visibility = View.GONE
+                    return false
+                }
+            }
+        }
+        return false
     }
 
     private fun setBackButtonClick() {

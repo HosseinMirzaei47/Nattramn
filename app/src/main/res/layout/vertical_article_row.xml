@@ -76,6 +76,7 @@
 
             <TextView
                 android:id="@+id/itemArticlePreview"
+                persianText="@{article.title}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_normal"
