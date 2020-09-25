@@ -45,6 +45,7 @@ class ArticleFragment : Fragment(),
     private var tags: MutableList<String>? = mutableListOf()
     private var comments: List<CommentView>? = mutableListOf()
     private lateinit var articleSlug: String
+    private lateinit var suggestionArticles: MutableList<ArticleView>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -140,6 +141,7 @@ class ArticleFragment : Fragment(),
         articleViewModel.tagArticlesResult.observe(viewLifecycleOwner, Observer { resources ->
             if (resources.status == Status.SUCCESS) {
                 resources.data?.let { articles ->
+                    suggestionArticles = articles.distinct().toMutableList()
                     suggestedArticleAdapter =
                         SuggestedArticleAdapter(
                             articles.distinct(),
@@ -336,7 +338,31 @@ class ArticleFragment : Fragment(),
         slug: String, isBookmarked: Boolean, position: Int,
         item: String
     ) {
-        articleViewModel.bookmarkArticle(slug)
+        if (isBookmarked) {
+            articleViewModel.removeFromBookmarks(slug)
+        } else {
+            articleViewModel.bookmarkArticle(slug)
+        }
+
+        articleViewModel.bookmarkResult.observe(viewLifecycleOwner, Observer { result ->
+            if (result.status == Status.SUCCESS) {
+                suggestionArticles[position].bookmarked = true
+                suggestedArticleAdapter.notifyItemChanged(position)
+                snackMaker(requireView(), "این مقاله به لیست علاقه مندی ها اضافه شد")
+            } else if (result.status == Status.ERROR) {
+                snackMaker(requireView(), "خطا در ارتباط با سرور")
+            }
+        })
+
+        articleViewModel.removeBookmark.observe(viewLifecycleOwner, Observer { result ->
+            if (result.status == Status.SUCCESS) {
+                suggestionArticles[position].bookmarked = false
+                suggestedArticleAdapter.notifyItemChanged(position)
+                snackMaker(requireView(), "این مقاله از لیست علاقه مندی ها حذف شد")
+            } else if (result.status == Status.ERROR) {
+                snackMaker(requireView(), "خطا در ارتباط با سرور")
+            }
+        })
     }
 
     override fun onAuthorNameClick(username: String) {
