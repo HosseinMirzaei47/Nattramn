@@ -162,6 +162,9 @@ class ArticleFragment : Fragment(),
         comments.forEach { userNames.add(it.username) }
         userNames = userNames.distinct().toMutableList()
         userNames.forEach { username -> articleViewModel.getUserArticles(username) }
+        if (comments.isEmpty()) {
+            binding.commentsTitleSA.visibility = View.GONE
+        }
 
         commentAdapter =
             CommentAdapter(
@@ -176,7 +179,6 @@ class ArticleFragment : Fragment(),
         }
 
         binding.progressComments.visibility = View.GONE
-        binding.commentsTitleSA.visibility = View.GONE
     }
 
     private fun openProfile(username: String) {

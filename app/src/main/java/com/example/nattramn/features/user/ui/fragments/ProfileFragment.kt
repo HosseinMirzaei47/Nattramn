@@ -108,7 +108,11 @@ class ProfileFragment : Fragment(),
     }
 
     private fun showBookmarkedArticles() {
-        showRecycler(profileViewModel.getBookmarkedArticlesDb())
+        if (username == AuthLocalDataSource().getUsername()) {
+            showRecycler(profileViewModel.getBookmarkedArticlesDb())
+        } else {
+            showRecycler(listOf())
+        }
         profileViewModel.setBookmarkedArticles(username)
         profileViewModel.profileBookmarkedArticlesResult.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS) {
@@ -125,7 +129,6 @@ class ProfileFragment : Fragment(),
         profileViewModel.userArticlesResult.observe(viewLifecycleOwner, Observer { resource ->
             if (resource.status == Status.SUCCESS) {
                 binding.profileArticleCount.text = resource?.data?.size.toString()
-                println("jalil comments ${resource.data?.get(0)?.commentsNumber}")
                 /*(resource.data?.indices)?.forEach {
                     resource.data[it].commentsNumber =
                         profileViewModel.getUserArticlesDb(username)[it].commentsNumber
@@ -138,6 +141,7 @@ class ProfileFragment : Fragment(),
     }
 
     private fun showRecycler(articles: List<ArticleView>?) {
+        binding.profileArticleCount.text = articles?.size.toString()
         articles?.let { articlesList ->
 
             profileArticleAdapter =
