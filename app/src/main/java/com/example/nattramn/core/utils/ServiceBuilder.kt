@@ -1,7 +1,8 @@
-package com.example.nattramn.core
+package com.example.nattramn.core.utils
 
 import androidx.lifecycle.MutableLiveData
-import com.example.nattramn.core.MyApp.Companion.networkFlipperPlugin
+import com.example.nattramn.core.config.MyApp.Companion.networkFlipperPlugin
+import com.example.nattramn.features.user.data.AuthLocalDataSource
 import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

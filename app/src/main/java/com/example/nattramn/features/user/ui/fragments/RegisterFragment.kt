@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.nattramn.R
 import com.example.nattramn.core.resource.Status
-import com.example.nattramn.core.snackMaker
+import com.example.nattramn.core.utils.snackMaker
 import com.example.nattramn.databinding.FragmentRegisterBinding
 import com.example.nattramn.features.user.data.UserNetwork
 import com.example.nattramn.features.user.data.models.AuthRequest

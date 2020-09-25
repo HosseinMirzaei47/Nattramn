@@ -1,8 +1,8 @@
 package com.example.nattramn.features.home.data
 
 import androidx.room.withTransaction
-import com.example.nattramn.core.AppDatabase
-import com.example.nattramn.core.MyApp
+import com.example.nattramn.core.config.MyApp
+import com.example.nattramn.core.database.AppDatabase
 import com.example.nattramn.features.article.data.TagEntity
 import com.example.nattramn.features.article.data.models.TagAndArticleEntity
 import com.example.nattramn.features.home.data.models.ArticleNetwork

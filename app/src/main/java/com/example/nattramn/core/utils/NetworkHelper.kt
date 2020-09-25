@@ -1,4 +1,4 @@
-package com.example.nattramn.core
+package com.example.nattramn.core.utils
 
 import android.content.Context
 import android.net.ConnectivityManager

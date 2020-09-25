@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.nattramn.core.resource.Status
-import com.example.nattramn.core.snackMaker
+import com.example.nattramn.core.utils.snackMaker
 import com.example.nattramn.databinding.FragmentKeyWordsBinding
 import com.example.nattramn.features.home.ui.OnTagsItemListener
 import com.example.nattramn.features.home.ui.TagAdapter

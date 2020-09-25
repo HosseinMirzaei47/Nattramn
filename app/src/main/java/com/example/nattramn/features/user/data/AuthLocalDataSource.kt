@@ -1,5 +1,7 @@
-package com.example.nattramn.core
+package com.example.nattramn.features.user.data
 
+import com.example.nattramn.core.config.MyApp
+import com.example.nattramn.core.database.AppDatabase
 import com.example.nattramn.core.storage.data.PreferenceProperty.Companion.getPreferences
 import com.example.nattramn.core.storage.data.Settings
 

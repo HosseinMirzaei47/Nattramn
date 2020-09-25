@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.example.nattramn.core.resource.Status
-import com.example.nattramn.core.snackMaker
+import com.example.nattramn.core.utils.snackMaker
 import com.example.nattramn.databinding.FragmentWriteBinding
 import com.example.nattramn.features.article.ui.viewmodels.WriteViewModel
 import com.google.android.material.chip.Chip

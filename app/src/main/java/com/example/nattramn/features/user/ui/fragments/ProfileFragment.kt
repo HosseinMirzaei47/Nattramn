@@ -14,11 +14,11 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
-import com.example.nattramn.core.AuthLocalDataSource
 import com.example.nattramn.core.resource.Status
-import com.example.nattramn.core.snackMaker
+import com.example.nattramn.core.utils.snackMaker
 import com.example.nattramn.databinding.FragmentProfileBinding
 import com.example.nattramn.features.article.ui.ArticleView
+import com.example.nattramn.features.user.data.AuthLocalDataSource
 import com.example.nattramn.features.user.ui.OnBottomSheetItemsClick
 import com.example.nattramn.features.user.ui.OnProfileArticleListener
 import com.example.nattramn.features.user.ui.adapters.ProfileArticleAdapter

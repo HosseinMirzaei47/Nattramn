@@ -1,10 +1,10 @@
 package com.example.nattramn.features.article.data
 
-import com.example.nattramn.core.MyApp
-import com.example.nattramn.core.NetworkHelper
+import com.example.nattramn.core.config.MyApp
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
-import com.example.nattramn.core.toArticleView
+import com.example.nattramn.core.utils.NetworkHelper
+import com.example.nattramn.core.utils.toArticleView
 import com.example.nattramn.features.article.data.models.CommentRequest
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.CommentView

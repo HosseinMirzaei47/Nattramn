@@ -1,4 +1,4 @@
-package com.example.nattramn.core
+package com.example.nattramn.core.config
 
 import android.app.Application
 import com.example.nattramn.core.storage.data.PreferenceProperty.Companion.APP_PREF_NAME

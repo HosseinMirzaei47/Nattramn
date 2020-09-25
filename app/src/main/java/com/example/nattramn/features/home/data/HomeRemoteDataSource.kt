@@ -1,7 +1,7 @@
 package com.example.nattramn.features.home.data
 
-import com.example.nattramn.core.ServiceBuilder
-import com.example.nattramn.core.safeApiCall
+import com.example.nattramn.core.utils.ServiceBuilder
+import com.example.nattramn.core.utils.safeApiCall
 import com.example.nattramn.features.article.data.models.EditArticleRequest
 import com.example.nattramn.features.home.data.models.CreateArticleRequest
 import com.example.nattramn.features.home.services.HomeApi

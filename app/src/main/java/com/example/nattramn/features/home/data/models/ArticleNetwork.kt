@@ -1,7 +1,7 @@
 package com.example.nattramn.features.home.data.models
 
 import com.example.nattramn.R
-import com.example.nattramn.core.MyApp
+import com.example.nattramn.core.config.MyApp
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.features.article.data.ArticleEntity
 import com.example.nattramn.features.article.data.TagEntity

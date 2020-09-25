@@ -1,7 +1,7 @@
 package com.example.nattramn.features.home.data
 
-import com.example.nattramn.core.AppDatabase
-import com.example.nattramn.core.MyApp
+import com.example.nattramn.core.config.MyApp
+import com.example.nattramn.core.database.AppDatabase
 
 class HomeLocalDataSource {
 

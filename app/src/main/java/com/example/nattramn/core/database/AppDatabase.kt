@@ -1,4 +1,4 @@
-package com.example.nattramn.core
+package com.example.nattramn.core.database
 
 import android.content.Context
 import androidx.room.Database

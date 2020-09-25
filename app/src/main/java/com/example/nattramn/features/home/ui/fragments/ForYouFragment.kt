@@ -9,15 +9,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.nattramn.core.AuthLocalDataSource
 import com.example.nattramn.core.commonAdapters.HorizontalArticleAdapter
 import com.example.nattramn.core.commonAdapters.VerticalArticleAdapter
 import com.example.nattramn.core.resource.Status
-import com.example.nattramn.core.snackMaker
+import com.example.nattramn.core.utils.snackMaker
 import com.example.nattramn.databinding.FragmentForYouBinding
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.OnArticleListener
 import com.example.nattramn.features.home.ui.viewmodels.HomeViewModel
+import com.example.nattramn.features.user.data.AuthLocalDataSource
 
 class ForYouFragment : Fragment(), OnArticleListener {
 

@@ -9,8 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.nattramn.R
-import com.example.nattramn.core.AuthLocalDataSource
 import com.example.nattramn.databinding.FragmentSplashBinding
+import com.example.nattramn.features.user.data.AuthLocalDataSource
 
 class SplashFragment : Fragment() {
 

@@ -1,4 +1,4 @@
-package com.example.nattramn.core
+package com.example.nattramn.core.utils
 
 import android.view.View
 import androidx.lifecycle.LiveData

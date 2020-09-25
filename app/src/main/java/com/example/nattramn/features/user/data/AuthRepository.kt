@@ -1,10 +1,9 @@
 package com.example.nattramn.features.user.data
 
-import com.example.nattramn.core.AuthLocalDataSource
-import com.example.nattramn.core.MyApp
-import com.example.nattramn.core.NetworkHelper
+import com.example.nattramn.core.config.MyApp
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
+import com.example.nattramn.core.utils.NetworkHelper
 import com.example.nattramn.features.user.data.models.AuthRequest
 import com.example.nattramn.features.user.data.models.AuthResponse
 

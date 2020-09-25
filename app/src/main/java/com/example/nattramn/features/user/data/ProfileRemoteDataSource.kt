@@ -1,7 +1,7 @@
 package com.example.nattramn.features.user.data
 
-import com.example.nattramn.core.ServiceBuilder
-import com.example.nattramn.core.safeApiCall
+import com.example.nattramn.core.utils.ServiceBuilder
+import com.example.nattramn.core.utils.safeApiCall
 import com.example.nattramn.features.user.data.services.ProfileApi
 
 class ProfileRemoteDataSource {

@@ -1,9 +1,9 @@
 package com.example.nattramn.features.home.data
 
-import com.example.nattramn.core.MyApp
-import com.example.nattramn.core.NetworkHelper
+import com.example.nattramn.core.config.MyApp
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
+import com.example.nattramn.core.utils.NetworkHelper
 import com.example.nattramn.features.article.data.ArticleEntity
 import com.example.nattramn.features.article.data.TagEntity
 import com.example.nattramn.features.article.data.models.EditArticleRequest
