@@ -105,24 +105,12 @@ class TagFragment : Fragment(),
     }
 
     private fun openArticle(slug: String) {
-        tagViewModel.getSingleArticle(slug)
-
-        tagViewModel.singleArticleResult.observe(viewLifecycleOwner, Observer { resourceArticle ->
-            if (resourceArticle.status == Status.SUCCESS) {
-
-                resourceArticle.data?.let { articleView ->
-                    Navigation.findNavController(requireView())
-                        .navigate(
-                            TagFragmentDirections.actionTagFragmentToArticleFragment(
-                                articleView
-                            )
-                        )
-                }
-            } else if (resourceArticle.status == Status.ERROR) {
-                snackMaker(requireView(), "خطا در ارتباط با سرور")
-
-            }
-        })
+        Navigation.findNavController(requireView())
+            .navigate(
+                TagFragmentDirections.actionTagFragmentToArticleFragment(
+                    tagViewModel.getSingleArticleDb(slug)
+                )
+            )
     }
 
     override fun onCardClick(slug: String) {
@@ -134,14 +122,13 @@ class TagFragment : Fragment(),
     }
 
     override fun onArticleSaveClick(slug: String) {
-
         tagViewModel.bookmarkArticle(slug)
 
         tagViewModel.bookmarkResult.observe(viewLifecycleOwner, Observer { result ->
 
             if (result.status == Status.SUCCESS) {
                 snackMaker(requireView(), "این مقاله به لیست علاقه مندی ها اضافه شد")
-            } else {
+            } else if (result.status == Status.ERROR) {
                 snackMaker(requireView(), "خطا در ارتباط با سرور")
             }
         })
@@ -154,5 +141,4 @@ class TagFragment : Fragment(),
     override fun onAuthorIconClick(username: String) {
         openProfile(username)
     }
-
 }

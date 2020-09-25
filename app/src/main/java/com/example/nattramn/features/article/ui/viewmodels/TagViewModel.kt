@@ -23,6 +23,8 @@ class TagViewModel : ViewModel() {
     private var _bookmarkResult = MutableLiveData<Resource<ArticleView>>()
     val bookmarkResult: LiveData<Resource<ArticleView>> get() = _bookmarkResult
 
+    fun getSingleArticleDb(tag: String) = articleRepository.getSingleArticleDb(tag)
+
     fun getTagArticlesDb(tag: String) = articleRepository.getTagArticlesDb(tag)
 
     fun getTagArticles(tag: String) {
