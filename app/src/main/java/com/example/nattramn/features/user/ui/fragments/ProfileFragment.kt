@@ -117,7 +117,7 @@ class ProfileFragment : Fragment(),
         profileViewModel.profileBookmarkedArticlesResult.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS) {
                 showRecycler(it.data)
-            } else {
+            } else if (it.status == Status.ERROR) {
                 snackMaker(requireView(), "خطا در جست و جوی مقالات")
             }
         })

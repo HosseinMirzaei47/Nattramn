@@ -121,7 +121,10 @@ class TagFragment : Fragment(),
         openArticle(slug)
     }
 
-    override fun onArticleSaveClick(slug: String) {
+    override fun onArticleSaveClick(
+        slug: String, isBookmarked: Boolean, position: Int,
+        item: String
+    ) {
         tagViewModel.bookmarkArticle(slug)
 
         tagViewModel.bookmarkResult.observe(viewLifecycleOwner, Observer { result ->

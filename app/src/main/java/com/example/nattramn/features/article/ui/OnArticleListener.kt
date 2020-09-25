@@ -6,7 +6,7 @@ interface OnArticleListener {
 
     fun onArticleTitleClick(slug: String)
 
-    fun onArticleSaveClick(slug: String)
+    fun onArticleSaveClick(slug: String, isBookmarked: Boolean, position: Int, item: String)
 
     fun onAuthorNameClick(username: String)
 

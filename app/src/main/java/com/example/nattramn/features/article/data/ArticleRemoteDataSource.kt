@@ -15,6 +15,10 @@ class ArticleRemoteDataSource {
         ServiceBuilder.buildService(ArticleApi::class.java).bookmarkArticle(slug)
     }
 
+    suspend fun removeFromBookmarks(slug: String) = safeApiCall {
+        ServiceBuilder.buildService(ArticleApi::class.java).removeFromBookmarks(slug)
+    }
+
     suspend fun sendComment(slug: String, commentRequest: CommentRequest) = safeApiCall {
         ServiceBuilder.buildService(ArticleApi::class.java).sendComment(slug, commentRequest)
     }

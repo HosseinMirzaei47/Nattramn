@@ -53,6 +53,20 @@ class ArticleRepository(
 
     }
 
+    suspend fun removeFromBookmarks(slug: String): Resource<Unit> {
+        var response = Resource<Unit>(Status.ERROR, null, null)
+
+        if (NetworkHelper.isOnline(MyApp.app)) {
+            val request = articleRemoteDataSource.removeFromBookmarks(slug)
+            if (request.status == Status.SUCCESS) {
+                response = Resource.success(null)
+            }
+        }
+
+        return response
+
+    }
+
     suspend fun getArticleComments(slug: String): Resource<List<CommentView>> {
         var response = Resource<List<CommentView>>(Status.ERROR, null, null)
 

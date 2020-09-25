@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.core.commonAdapters.HorizontalArticleAdapter
 import com.example.nattramn.core.commonAdapters.VerticalArticleAdapter
 import com.example.nattramn.core.resource.Status
+import com.example.nattramn.core.utils.Constants
 import com.example.nattramn.core.utils.snackMaker
 import com.example.nattramn.databinding.FragmentForYouBinding
 import com.example.nattramn.features.article.ui.ArticleView
@@ -26,11 +27,16 @@ class ForYouFragment : Fragment(), OnArticleListener {
     private lateinit var feedArticlesAdapter: VerticalArticleAdapter
     private lateinit var topArticlesAdapter: HorizontalArticleAdapter
 
+    private lateinit var feedArticles: MutableList<ArticleView>
+    private lateinit var latestArticles: MutableList<ArticleView>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        feedArticles = homeViewModel.setFeedArticlesDb()
+        latestArticles = homeViewModel.setLatestArticlesDb()
 
         AuthLocalDataSource().getUsername()?.let { username ->
             homeViewModel.saveUserInfo(username)
@@ -57,8 +63,8 @@ class ForYouFragment : Fragment(), OnArticleListener {
     }
 
     private fun initRecyclersWithDatabase() {
-        showLatestRecycler(homeViewModel.setLatestArticlesDb())
         showFeedRecycler(homeViewModel.setFeedArticlesDb())
+        showLatestRecycler(homeViewModel.setLatestArticlesDb())
     }
 
     private fun sendNetworkRequests() {
@@ -70,15 +76,16 @@ class ForYouFragment : Fragment(), OnArticleListener {
         homeViewModel.feedResult.observe(viewLifecycleOwner, Observer { resource ->
             if (resource.status == Status.SUCCESS && !resource.data.isNullOrEmpty()) {
                 showFeedRecycler(resource.data)
-            } else {
+                feedArticles = resource.data.toMutableList()
+            } else if (resource.status == Status.ERROR) {
                 snackMaker(requireView(), "خطا در دریافت مقالات برای شما")
             }
         })
 
         homeViewModel.latestArticlesResult.observe(viewLifecycleOwner, Observer { resource ->
             if (resource.status == Status.SUCCESS) {
-                snackMaker(requireView(), "successful")
                 resource.data?.let {
+                    latestArticles = it.toMutableList()
                     topArticlesAdapter =
                         HorizontalArticleAdapter(
                             resource.data,
@@ -94,8 +101,8 @@ class ForYouFragment : Fragment(), OnArticleListener {
                     }
                     binding.forYouLatestArticlesProgress.visibility = View.GONE
                 }
-            } else {
-                snackMaker(requireView(), "successful")
+            } else if (resource.status == Status.ERROR) {
+                snackMaker(requireView(), "خطا در ارتباط با سرور")
             }
         })
     }
@@ -157,13 +164,41 @@ class ForYouFragment : Fragment(), OnArticleListener {
         openArticle(slug)
     }
 
-    override fun onArticleSaveClick(slug: String) {
-        homeViewModel.bookmarkArticle(slug)
+    override fun onArticleSaveClick(
+        slug: String, isBookmarked: Boolean, position: Int,
+        item: String
+    ) {
+        if (isBookmarked) {
+            homeViewModel.removeFromBookmarks(slug)
+        } else {
+            homeViewModel.bookmarkArticle(slug)
+        }
 
         homeViewModel.bookmarkResult.observe(viewLifecycleOwner, Observer { result ->
-
             if (result.status == Status.SUCCESS) {
+                if (item == Constants.FEED_OR_TAG) {
+                    feedArticles[position].bookmarked = true
+                    feedArticlesAdapter.notifyItemChanged(position)
+                } else if (item == Constants.LATEST) {
+                    latestArticles[position].bookmarked = true
+                    topArticlesAdapter.notifyItemChanged(position)
+                }
                 snackMaker(requireView(), "این مقاله به لیست علاقه مندی ها اضافه شد")
+            } else if (result.status == Status.ERROR) {
+                snackMaker(requireView(), "خطا در ارتباط با سرور")
+            }
+        })
+
+        homeViewModel.removeBookmark.observe(viewLifecycleOwner, Observer { result ->
+            if (result.status == Status.SUCCESS) {
+                if (item == Constants.FEED_OR_TAG) {
+                    feedArticles[position].bookmarked = false
+                    feedArticlesAdapter.notifyItemChanged(position)
+                } else if (item == Constants.LATEST) {
+                    latestArticles[position].bookmarked = false
+                    topArticlesAdapter.notifyItemChanged(position)
+                }
+                snackMaker(requireView(), "این مقاله از لیست علاقه مندی ها حذف شد")
             } else if (result.status == Status.ERROR) {
                 snackMaker(requireView(), "خطا در ارتباط با سرور")
             }

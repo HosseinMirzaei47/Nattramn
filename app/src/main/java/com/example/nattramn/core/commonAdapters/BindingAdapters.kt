@@ -45,6 +45,17 @@ fun bookmarkSrc(view: View, isBookmarked: Boolean) {
     }
 }
 
+@BindingAdapter("app:bookmarkSrcRecyclerItem")
+fun bookmarkSrcRecyclerItem(view: View, isBookmarked: Boolean) {
+    if (view is ImageView) {
+        if (isBookmarked) {
+            load(view, R.drawable.ic_bookmark_checked)
+        } else {
+            load(view, R.drawable.ic_bookmark)
+        }
+    }
+}
+
 @BindingAdapter("app:setLikeIcon")
 fun setLikeIcon(view: View, liked: Boolean) {
     if (view is ImageView) {

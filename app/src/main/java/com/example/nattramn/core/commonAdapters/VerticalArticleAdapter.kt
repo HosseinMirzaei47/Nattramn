@@ -2,9 +2,8 @@ package com.example.nattramn.core.commonAdapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.nattramn.R
+import com.example.nattramn.core.utils.Constants
 import com.example.nattramn.databinding.VerticalArticleRowBinding
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.OnArticleListener
@@ -17,9 +16,8 @@ class VerticalArticleAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        val binding: VerticalArticleRowBinding = DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context),
-            R.layout.vertical_article_row, parent, false
+        val binding = VerticalArticleRowBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
         )
 
         return ViewHolder(binding)
@@ -46,7 +44,10 @@ class VerticalArticleAdapter(
             }
             binding.itemBookmark.setOnClickListener {
                 onArticleListener.onArticleSaveClick(
-                    articleViews[layoutPosition].slug
+                    articleViews[layoutPosition].slug,
+                    articleViews[layoutPosition].bookmarked,
+                    layoutPosition,
+                    Constants.FEED_OR_TAG
                 )
             }
             binding.itemArticlePreview.setOnClickListener {

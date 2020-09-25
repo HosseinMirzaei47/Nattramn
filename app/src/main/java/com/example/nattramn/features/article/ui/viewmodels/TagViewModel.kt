@@ -23,6 +23,9 @@ class TagViewModel : ViewModel() {
     private var _bookmarkResult = MutableLiveData<Resource<ArticleView>>()
     val bookmarkResult: LiveData<Resource<ArticleView>> get() = _bookmarkResult
 
+    private var _removeBookmark = MutableLiveData<Resource<Unit>>()
+    val removeBookmark: LiveData<Resource<Unit>> get() = _removeBookmark
+
     fun getSingleArticleDb(tag: String) = articleRepository.getSingleArticleDb(tag)
 
     fun getTagArticlesDb(tag: String) = articleRepository.getTagArticlesDb(tag)
@@ -54,4 +57,12 @@ class TagViewModel : ViewModel() {
         }
     }
 
+    fun removeFromBookmarks(slug: String) {
+
+        _removeBookmark.value = Resource.loading(null)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            _removeBookmark.postValue(articleRepository.removeFromBookmarks(slug))
+        }
+    }
 }

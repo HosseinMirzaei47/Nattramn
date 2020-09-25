@@ -21,6 +21,10 @@
             name="liked"
             type="Boolean" />
 
+        <variable
+            name="isBookmarked"
+            type="Boolean" />
+
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -56,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginEnd="@dimen/article_toolbar_buttons_margin"
-                    app:isBookmarked="@{articleView.bookmarked}"
+                    app:isBookmarked="@{isBookmarked}"
                     tools:ignore="ContentDescription" />
 
                 <ImageButton

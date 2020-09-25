@@ -72,7 +72,7 @@
                 android:layout_margin="@dimen/margin_normal"
                 android:background="@android:color/transparent"
                 android:contentDescription="@null"
-                android:src='@{article.bookmarked ? @drawable/ic_bookmark_checked : @drawable/ic_bookmark}'
+                app:bookmarkSrcRecyclerItem="@{article.bookmarked}"
                 app:layout_constraintBottom_toBottomOf="@id/itemAuthorImage"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/itemAuthorImage" />

@@ -30,6 +30,9 @@ class ProfileViewModel : ViewModel() {
     private var _bookmarkResult = MutableLiveData<Resource<ArticleView>>()
     val bookmarkResult: LiveData<Resource<ArticleView>> get() = _bookmarkResult
 
+    private var _removeBookmark = MutableLiveData<Resource<Unit>>()
+    val removeBookmark: LiveData<Resource<Unit>> get() = _removeBookmark
+
     private var _singleArticleResult = MutableLiveData<Resource<ArticleView>>()
     val singleArticleResult: LiveData<Resource<ArticleView>> get() = _singleArticleResult
 
@@ -74,6 +77,15 @@ class ProfileViewModel : ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) {
             _bookmarkResult.postValue(articleRepository.bookmarkArticle(slug))
+        }
+    }
+
+    fun removeFromBookmarks(slug: String) {
+
+        _removeBookmark.value = Resource.loading(null)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            _removeBookmark.postValue(articleRepository.removeFromBookmarks(slug))
         }
     }
 

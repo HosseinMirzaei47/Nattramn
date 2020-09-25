@@ -63,6 +63,7 @@ class ArticleFragment : Fragment(),
         ).apply {
             lifecycleOwner = viewLifecycleOwner
             articleView = articleViewArg
+            isBookmarked = articleViewArg.bookmarked
             /*liked = articleViewModel.getLikedFlag(articleSlug)*/
         }
 
@@ -73,7 +74,7 @@ class ArticleFragment : Fragment(),
         super.onViewCreated(view, savedInstanceState)
         snapHorizontal.attachToRecyclerView(recyclerArticleRelated)
         /*setOnLikeArticleClick()*/
-        bookmarkArticle()
+        onBookmarkButtonClick()
         setOnShareArticleClick()
         setAddCommentAction()
         setOnProfileClick()
@@ -223,15 +224,29 @@ class ArticleFragment : Fragment(),
         }
     }
 
-    private fun bookmarkArticle() {
+    private fun onBookmarkButtonClick() {
         binding.articleBookmark.setOnClickListener {
-            articleViewModel.bookmarkArticle(articleSlug)
+            if (binding.isBookmarked!!) {
+                articleViewModel.removeFromBookmarks(articleSlug)
+            } else {
+                articleViewModel.bookmarkArticle(articleSlug)
+            }
         }
 
         articleViewModel.bookmarkResult.observe(viewLifecycleOwner, Observer { result ->
             if (result.status == Status.SUCCESS) {
+                binding.isBookmarked = true
                 snackMaker(requireView(), "این مقاله به لیست علاقه مندی ها اضافه شد")
-            } else {
+            } else if (result.status == Status.ERROR) {
+                snackMaker(requireView(), "خطا در ارتباط با سرور")
+            }
+        })
+
+        articleViewModel.removeBookmark.observe(viewLifecycleOwner, Observer { result ->
+            if (result.status == Status.SUCCESS) {
+                binding.isBookmarked = false
+                snackMaker(requireView(), "این مقاله از لیست علاقه مندی ها حذف شد")
+            } else if (result.status == Status.ERROR) {
                 snackMaker(requireView(), "خطا در ارتباط با سرور")
             }
         })
@@ -317,7 +332,10 @@ class ArticleFragment : Fragment(),
         updateCurrentOrOpenSuggestion(slug)
     }
 
-    override fun onArticleSaveClick(slug: String) {
+    override fun onArticleSaveClick(
+        slug: String, isBookmarked: Boolean, position: Int,
+        item: String
+    ) {
         articleViewModel.bookmarkArticle(slug)
     }
 

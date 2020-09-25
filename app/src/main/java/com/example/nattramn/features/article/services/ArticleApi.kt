@@ -15,6 +15,9 @@ interface ArticleApi {
     @POST("articles/{slug}/favorite")
     suspend fun bookmarkArticle(@Path("slug") slug: String): SingleArticleResponse
 
+    @DELETE("articles/{slug}/favorite")
+    suspend fun removeFromBookmarks(@Path("slug") slug: String): SingleArticleResponse
+
     @POST("articles/{slug}/comments")
     suspend fun sendComment(@Path("slug") slug: String, @Body commentRequest: CommentRequest)
 
