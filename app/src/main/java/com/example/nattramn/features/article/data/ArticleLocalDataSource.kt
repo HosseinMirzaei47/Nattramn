@@ -8,8 +8,6 @@ class ArticleLocalDataSource {
 
     private val db = AppDatabase.buildDatabase(MyApp.app)
 
-    fun getUser(username: String) = db.userDao().getUser(username)
-
     suspend fun insertArticle(articleEntity: ArticleEntity) {
         db.articleDao().insertArticle(articleEntity)
     }
@@ -41,10 +39,14 @@ class ArticleLocalDataSource {
         db.commentDao().insertComment(commentEntity)
     }
 
+    fun getUser(username: String) = db.userDao().getUser(username)
+
     fun getArticle(slug: String) = db.articleDao().getArticle(slug)
 
     fun getArticleTags(slug: String) = db.tagDao().getArticleTags(slug)
 
     fun getArticleComments(slug: String) = db.commentDao().getArticleComments(slug)
+
+    fun getTagArticles(tag: String) = db.tagArticleDao().getTagArticles(tag)
 
 }

@@ -30,6 +30,10 @@ class ArticleRepository(
         }
     }
 
+    fun getTagArticlesDb(tag: String) = articleEntityListToView(localDataSource.getTagArticles(tag))
+
+    fun getSingleArticleDb(slug: String) = articleEntityToView(localDataSource.getArticle(slug))
+
     suspend fun bookmarkArticle(slug: String): Resource<ArticleView> {
         var response = Resource<ArticleView>(Status.ERROR, null, null)
 
@@ -64,8 +68,6 @@ class ArticleRepository(
 
         return response
     }
-
-    fun getSingleArticleDb(slug: String) = articleEntityToView(localDataSource.getArticle(slug))
 
     suspend fun getSingleArticle(slug: String): Resource<ArticleView> {
         var response = Resource<ArticleView>(Status.ERROR, null, null)
@@ -159,6 +161,32 @@ class ArticleRepository(
     }
 
     /*          TYPE CONVERTERS          */
+    private fun articleEntityListToView(articlesEntity: List<ArticleEntity>): MutableList<ArticleView> {
+        val articlesView = mutableListOf<ArticleView>()
+
+        articlesEntity.forEach { articleEntity ->
+            articleEntity.comments = localDataSource.getArticleComments(articleEntity.slug)
+            articleEntity.tags = localDataSource.getArticleTags(articleEntity.slug)
+            val user = localDataSource.getUser(articleEntity.ownerUsername).toUserView()
+            articlesView.add(
+                ArticleView(
+                    userView = user,
+                    date = articleEntity.date,
+                    title = articleEntity.title,
+                    body = articleEntity.body,
+                    tags = articleEntity.tags?.map { tag -> tag.tag },
+                    commentViews = articleEntity.comments?.map { comment -> comment.toCommentView() },
+                    likes = articleEntity.favoriteCount.toString(),
+                    commentsNumber = articleEntity.comments?.size,
+                    bookmarked = articleEntity.bookmarked,
+                    slug = articleEntity.slug
+
+                )
+            )
+        }
+        return articlesView
+    }
+
     private fun articleEntityToView(articleEntity: ArticleEntity): ArticleView {
         articleEntity.comments = localDataSource.getArticleComments(articleEntity.slug)
         articleEntity.tags = localDataSource.getArticleTags(articleEntity.slug)

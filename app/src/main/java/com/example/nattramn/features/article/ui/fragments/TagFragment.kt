@@ -4,18 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.nattramn.R
 import com.example.nattramn.core.commonAdapters.VerticalArticleAdapter
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.core.snackMaker
 import com.example.nattramn.databinding.FragmentTagBinding
+import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.OnArticleListener
 import com.example.nattramn.features.article.ui.viewmodels.TagViewModel
 
@@ -33,12 +32,13 @@ class TagFragment : Fragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         tagArg = args.tag
 
-        binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_tag, container, false
-        )
+        binding = FragmentTagBinding.inflate(
+            inflater, container, false
+        ).apply {
+            tagToolbarTitle.text = tagArg
+        }
 
         binding.lifecycleOwner = viewLifecycleOwner
         tagViewModel = ViewModelProvider(this).get(TagViewModel::class.java)
@@ -48,37 +48,47 @@ class TagFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setBackButtonClick()
 
         setRecyclers()
-
     }
 
     private fun setRecyclers() {
+        initRecyclerWithDatabase()
+        sendTagArticlesRequest()
+        observeNetResponse()
+    }
 
+    private fun initRecyclerWithDatabase() {
+        showArticlesRecycler(tagViewModel.getTagArticlesDb(tagArg))
+    }
+
+    private fun sendTagArticlesRequest() {
         tagViewModel.getTagArticles(tagArg)
+    }
 
+    private fun observeNetResponse() {
         tagViewModel.tagArticlesResult.observe(viewLifecycleOwner, Observer { resource ->
             if (resource.status == Status.SUCCESS) {
-
                 resource.data?.let { articles ->
-                    tagAdapter = VerticalArticleAdapter(
-                        articles,
-                        this
-                    )
-
-                    binding.recyclerTagArticles.apply {
-                        adapter = tagAdapter
-                        layoutManager = LinearLayoutManager(context)
-                    }
+                    showArticlesRecycler(articles)
                 }
-
             } else if (resource.status == Status.ERROR) {
                 snackMaker(requireView(), "خطا در ارتباط با سرور")
             }
         })
+    }
 
+    private fun showArticlesRecycler(articles: List<ArticleView>) {
+        tagAdapter = VerticalArticleAdapter(
+            articles,
+            this
+        )
+
+        binding.recyclerTagArticles.apply {
+            adapter = tagAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
     }
 
     private fun setBackButtonClick() {
