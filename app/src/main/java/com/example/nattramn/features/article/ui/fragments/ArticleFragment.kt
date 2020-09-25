@@ -72,6 +72,7 @@ class ArticleFragment : Fragment(),
         snapHorizontal.attachToRecyclerView(recyclerArticleRelated)
         bookmarkArticle()
         setAddCommentAction()
+        setOnProfileClick()
         setBackButtonClick()
 
         articleViewArg.commentViews?.let { showCommentsRecycler(it) }
@@ -241,6 +242,11 @@ class ArticleFragment : Fragment(),
             }
             dialog.dismiss()
         })
+    }
+
+    private fun setOnProfileClick() {
+        binding.authorImageSA.setOnClickListener { openProfile(articleViewArg.userView.name) }
+        binding.authorNameSA.setOnClickListener { openProfile(articleViewArg.userView.name) }
     }
 
     private fun sendCommentsRequest() {
