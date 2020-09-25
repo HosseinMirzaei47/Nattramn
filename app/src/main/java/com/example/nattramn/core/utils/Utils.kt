@@ -1,9 +1,13 @@
 package com.example.nattramn.core.utils
 
 import android.view.View
+import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.example.nattramn.R
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.features.article.data.ArticleEntity
@@ -66,6 +70,16 @@ fun toArticleView(
         bookmarked = articleEntity.bookmarked,
         slug = articleEntity.slug
     )
+}
+
+fun load(view: ImageView, image: Int) {
+    Glide.with(view.context)
+        .load(image)
+        .apply(
+            RequestOptions()
+                .placeholder(R.drawable.ic_bookmark_article_fragment)
+        )
+        .into(view)
 }
 
 val faNumbers =

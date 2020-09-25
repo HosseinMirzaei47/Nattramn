@@ -62,6 +62,7 @@ class ArticleFragment : Fragment(),
         ).apply {
             lifecycleOwner = viewLifecycleOwner
             articleView = articleViewArg
+            /*liked = articleViewModel.getLikedFlag(articleSlug)*/
         }
 
         return binding.root
@@ -71,6 +72,7 @@ class ArticleFragment : Fragment(),
         super.onViewCreated(view, savedInstanceState)
         snapHorizontal.attachToRecyclerView(recyclerArticleRelated)
         bookmarkArticle()
+        /*setOnLikeArticleClick()*/
         setAddCommentAction()
         setOnProfileClick()
         setBackButtonClick()
@@ -247,6 +249,13 @@ class ArticleFragment : Fragment(),
     private fun setOnProfileClick() {
         binding.authorImageSA.setOnClickListener { openProfile(articleViewArg.userView.name) }
         binding.authorNameSA.setOnClickListener { openProfile(articleViewArg.userView.name) }
+    }
+
+    private fun setOnLikeArticleClick() {
+        binding.likeArticleButton.setOnClickListener {
+            articleViewModel.likeArticleClicked(articleSlug)
+            binding.liked = articleViewModel.getLikedFlag(articleSlug)
+        }
     }
 
     private fun sendCommentsRequest() {

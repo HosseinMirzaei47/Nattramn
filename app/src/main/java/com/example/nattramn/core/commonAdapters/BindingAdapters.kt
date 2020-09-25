@@ -13,6 +13,7 @@ import com.example.nattramn.R
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.core.utils.faNumbers
+import com.example.nattramn.core.utils.load
 import com.google.android.material.button.MaterialButton
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -44,14 +45,15 @@ fun bookmarkSrc(view: View, isBookmarked: Boolean) {
     }
 }
 
-private fun load(view: ImageView, image: Int) {
-    Glide.with(view.context)
-        .load(image)
-        .apply(
-            RequestOptions()
-                .placeholder(R.drawable.ic_bookmark_article_fragment)
-        )
-        .into(view)
+@BindingAdapter("app:setLikeIcon")
+fun setLikeIcon(view: View, liked: Boolean) {
+    if (view is ImageView) {
+        if (liked) {
+            load(view, R.drawable.ic_thumb_up_red)
+        } else {
+            load(view, R.drawable.ic_thumb_up_grey)
+        }
+    }
 }
 
 @BindingAdapter("textNumber")

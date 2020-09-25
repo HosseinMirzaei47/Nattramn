@@ -6,7 +6,7 @@ import androidx.room.*
 interface CommentDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertComment(commentEntity: CommentEntity)
+    suspend fun insertComment(commentEntity: CommentEntity)
 
     @Delete
     fun deleteComment(commentEntity: CommentEntity)

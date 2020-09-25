@@ -34,6 +34,23 @@ data class ArticleNetwork(
     val updatedAt: String,
     val isFeed: Boolean? = false
 ) {
+    fun toArticleEntity(isFeed: Boolean?, liked: Boolean): ArticleEntity {
+        return ArticleEntity(
+            slug = slug,
+            date = createdAt,
+            title = title,
+            body = body,
+            likes = favoritesCount.toString(),
+            favoriteCount = favoritesCount,
+            bookmarked = isBookmarked,
+            ownerUsername = user.username,
+            isFeed = isFeed,
+            liked = liked,
+            tags = tagList.map { TagEntity(it) },
+            comments = null
+        )
+    }
+
     fun toArticleEntity(isFeed: Boolean?): ArticleEntity {
         return ArticleEntity(
             slug = slug,

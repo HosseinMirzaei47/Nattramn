@@ -157,7 +157,7 @@
                 android:clickable="false"
                 android:gravity="center"
                 android:textColor="@color/hint"
-                app:icon="@drawable/ic_favorite"
+                app:icon="@drawable/ic_like"
                 app:iconGravity="textStart"
                 app:iconPadding="@dimen/profile_article_row_icon_padding"
                 app:iconTint="@color/hint"

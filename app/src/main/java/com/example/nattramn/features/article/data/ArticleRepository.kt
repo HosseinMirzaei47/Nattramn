@@ -34,6 +34,10 @@ class ArticleRepository(
 
     fun getSingleArticleDb(slug: String) = articleEntityToView(localDataSource.getArticle(slug))
 
+    fun getLikeFlag(slug: String) = localDataSource.getArticle(slug).liked
+
+    fun likeArticleClicked(slug: String) = localDataSource.updateArticle(slug)
+
     suspend fun bookmarkArticle(slug: String): Resource<ArticleView> {
         var response = Resource<ArticleView>(Status.ERROR, null, null)
 

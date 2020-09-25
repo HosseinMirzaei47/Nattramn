@@ -17,6 +17,10 @@
             name="status"
             type="com.example.nattramn.core.resource.Status" />
 
+        <variable
+            name="liked"
+            type="Boolean" />
+
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -150,13 +154,13 @@
                             app:layout_constraintTop_toTopOf="@id/authorImageSA" />
 
                         <ImageButton
-                            android:id="@+id/addFavoriteSA"
+                            android:id="@+id/likeArticleButton"
                             style="@style/Widget.AppCompat.ActionButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/margin_ten"
                             android:contentDescription="@null"
-                            android:src="@drawable/ic_favorite"
+                            app:setLikeIcon="@{liked}"
                             app:layout_constraintBottom_toBottomOf="@id/authorImageSA"
                             app:layout_constraintEnd_toStartOf="@+id/shareArticleSA"
                             app:layout_constraintTop_toTopOf="@id/authorImageSA" />

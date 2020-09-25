@@ -29,13 +29,13 @@ class ArticleLocalDataSource {
         db.tagDao().insertTag(tagEntityList)
     }
 
-    fun insertAllComments(comments: List<CommentEntity>) {
+    suspend fun insertAllComments(comments: List<CommentEntity>) {
         for (comment in comments) {
             insertComment(comment)
         }
     }
 
-    private fun insertComment(commentEntity: CommentEntity) {
+    private suspend fun insertComment(commentEntity: CommentEntity) {
         db.commentDao().insertComment(commentEntity)
     }
 
@@ -48,5 +48,13 @@ class ArticleLocalDataSource {
     fun getArticleComments(slug: String) = db.commentDao().getArticleComments(slug)
 
     fun getTagArticles(tag: String) = db.tagArticleDao().getTagArticles(tag)
+
+    fun updateArticle(slug: String) {
+        val article = getArticle(slug)
+        article.liked?.let { flag ->
+            article.liked = !flag
+        }
+        db.articleDao().updateArticle(article)
+    }
 
 }
