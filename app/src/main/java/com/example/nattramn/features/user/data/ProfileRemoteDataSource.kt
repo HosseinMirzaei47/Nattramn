@@ -22,4 +22,12 @@ class ProfileRemoteDataSource {
         ServiceBuilder.buildService(ProfileApi::class.java).deleteArticle(slug)
     }
 
+    suspend fun followUser(username: String) = safeApiCall {
+        ServiceBuilder.buildService(ProfileApi::class.java).followUser(username)
+    }
+
+    suspend fun unFollowUser(username: String) = safeApiCall {
+        ServiceBuilder.buildService(ProfileApi::class.java).unFollowUser(username)
+    }
+
 }

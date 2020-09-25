@@ -36,6 +36,12 @@ class ProfileViewModel : ViewModel() {
     private var _deleteArticleResult = MutableLiveData<Resource<Response<Unit>?>>()
     val deleteArticleResult: LiveData<Resource<Response<Unit>?>> get() = _deleteArticleResult
 
+    private var _followUserResult = MutableLiveData<Resource<UserView>>()
+    val followUserResult: LiveData<Resource<UserView>> get() = _followUserResult
+
+    private var _unFollowUserResult = MutableLiveData<Resource<UserView>>()
+    val unFollowUserResult: LiveData<Resource<UserView>> get() = _unFollowUserResult
+
     fun getUserDb(username: String) = profileRepository.getUserDb(username)
 
     fun getUserArticlesDb(username: String) = profileRepository.getUserArticlesDb(username)
@@ -95,6 +101,24 @@ class ProfileViewModel : ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) {
             _profileResult.postValue(profileRepository.getProfile(username))
+        }
+    }
+
+    fun followUser(username: String) {
+
+        _followUserResult.value = Resource.loading(null)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            _followUserResult.postValue(profileRepository.followUser(username))
+        }
+    }
+
+    fun unFollowUser(username: String) {
+
+        _unFollowUserResult.value = Resource.loading(null)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            _unFollowUserResult.postValue(profileRepository.unFollowUser(username))
         }
     }
 

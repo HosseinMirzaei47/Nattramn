@@ -30,7 +30,7 @@ interface UserDao {
     fun deleteUser(userEntity: UserEntity)
 
     @Update
-    fun editUser(userEntity: UserEntity)
+    fun updateUser(userEntity: UserEntity)
 
     @Query("select *, count(article.title) as count from users user join articles article on user.username = article.ownerUsername group by user.username")
     fun getUsersWithArticleCount(): LiveData<List<UserAndArticleCount>>

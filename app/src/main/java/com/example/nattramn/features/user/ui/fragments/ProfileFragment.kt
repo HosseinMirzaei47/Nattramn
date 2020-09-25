@@ -21,6 +21,7 @@ import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.user.data.AuthLocalDataSource
 import com.example.nattramn.features.user.ui.OnBottomSheetItemsClick
 import com.example.nattramn.features.user.ui.OnProfileArticleListener
+import com.example.nattramn.features.user.ui.UserView
 import com.example.nattramn.features.user.ui.adapters.ProfileArticleAdapter
 import com.example.nattramn.features.user.ui.viewmodels.ProfileViewModel
 import com.google.android.material.tabs.TabLayout
@@ -36,6 +37,7 @@ class ProfileFragment : Fragment(),
     private val args: ProfileFragmentArgs by navArgs()
 
     private lateinit var username: String
+    private lateinit var userViewDb: UserView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,12 +46,13 @@ class ProfileFragment : Fragment(),
     ): View? {
         username = args.username
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        userViewDb = profileViewModel.getUserDb(username)
 
         binding = FragmentProfileBinding.inflate(
             inflater, container, false
         ).apply {
             lifecycleOwner = viewLifecycleOwner
-            user = profileViewModel.getUserDb(username)
+            user = userViewDb
         }
 
         return binding.root
@@ -59,6 +62,7 @@ class ProfileFragment : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setBackButtonClick()
+        setOnFollowButtonAction()
         setTabItemsView()
 
         sendProfileInfoRequest()
@@ -206,6 +210,42 @@ class ProfileFragment : Fragment(),
                     username
                 )
             )
+    }
+
+    private fun setOnFollowButtonAction() {
+        if (username == AuthLocalDataSource().getUsername()) {
+            binding.followButton.visibility = View.GONE
+        }
+
+        binding.followButton.setOnClickListener {
+            binding.followButton.isClickable = false
+            if (binding.followButton.text == "در حال دنبال کردن") {
+                profileViewModel.unFollowUser(username)
+            } else {
+                profileViewModel.followUser(username)
+            }
+        }
+
+        observeFollowUnFollowResponses()
+    }
+
+    private fun observeFollowUnFollowResponses() {
+        profileViewModel.followUserResult.observe(viewLifecycleOwner, Observer { resource ->
+            binding.followButton.isClickable = true
+            if (resource.status == Status.SUCCESS) {
+                binding.user = resource.data
+            } else if (resource.status == Status.ERROR) {
+                snackMaker(requireView(), "دنبال کردن ناموفق، دوباره امتحان کنید")
+            }
+        })
+
+        profileViewModel.unFollowUserResult.observe(viewLifecycleOwner, Observer { resource ->
+            binding.followButton.isClickable = true
+            if (resource.status == Status.SUCCESS) {
+                binding.user = resource.data
+            }
+            snackMaker(requireView(), "درخواست ناموفق، دوباره امتحان کنید")
+        })
     }
 
     private fun setBackButtonClick() {

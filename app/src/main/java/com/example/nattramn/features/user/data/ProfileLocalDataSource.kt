@@ -32,6 +32,18 @@ class ProfileLocalDataSource {
 
     }
 
+    suspend fun updateUser(userNetwork: UserNetwork?) {
+        db.withTransaction {
+            db.userDao().updateUser(
+                UserEntity(
+                    userNetwork?.username!!,
+                    userNetwork.following,
+                    userNetwork.image!!
+                )
+            )
+        }
+    }
+
     suspend fun updateUserArticles(articleNetworkList: List<ArticleNetwork>?) {
         articleNetworkList?.let { networkList ->
             db.withTransaction {

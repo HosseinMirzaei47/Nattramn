@@ -66,10 +66,16 @@ fun visibleOnResult(view: View, resource: Resource<*>?) {
 
 @BindingAdapter("app:checkState")
 fun checkState(view: View, following: Boolean) {
-    if (view is MaterialButton && following) {
-        view.text = "در حال دنبال کردن"
-        view.setTextColor(Color.parseColor("#ffffff"))
-        view.setBackgroundColor(Color.parseColor("#63b47c"))
+    if (view is MaterialButton) {
+        if (following) {
+            view.text = "در حال دنبال کردن"
+            view.setTextColor(Color.parseColor("#ffffff"))
+            view.setBackgroundColor(Color.parseColor("#63b47c"))
+        } else {
+            view.text = "دنبال کردن"
+            view.setTextColor(Color.parseColor("#ffffff"))
+            view.setBackgroundColor(Color.parseColor("#286de6"))
+        }
     }
 }
 

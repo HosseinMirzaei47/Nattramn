@@ -3,10 +3,7 @@ package com.example.nattramn.features.user.data.services
 import com.example.nattramn.features.home.data.models.ArticlesListResponse
 import com.example.nattramn.features.user.data.models.UserProfileResponse
 import retrofit2.Response
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 
 interface ProfileApi {
@@ -22,5 +19,11 @@ interface ProfileApi {
 
     @DELETE("articles/{slug}")
     suspend fun deleteArticle(@Path("slug") slug: String): Response<Unit>?
+
+    @POST("profiles/{username}/follow")
+    suspend fun followUser(@Path("username") username: String): UserProfileResponse
+
+    @DELETE("profiles/{username}/follow")
+    suspend fun unFollowUser(@Path("username") username: String): UserProfileResponse
 
 }

@@ -107,6 +107,38 @@ class ProfileRepository(
         return response
     }
 
+    suspend fun followUser(username: String): Resource<UserView> {
+        var resource = Resource<UserView>(Status.ERROR, null, null)
+
+        if (NetworkHelper.isOnline(MyApp.app)) {
+            val request = profileRemoteDataSource.followUser(username)
+            if (request.status == Status.SUCCESS) {
+                localDataSource.updateUser(request.data?.userNetwork)
+                resource = Resource.success(request.data?.userNetwork?.toUserView())
+            } else if (request.status == Status.ERROR) {
+                resource = Resource.error("request failed", null)
+            }
+        }
+
+        return resource
+    }
+
+    suspend fun unFollowUser(username: String): Resource<UserView> {
+        var resource = Resource<UserView>(Status.ERROR, null, null)
+
+        if (NetworkHelper.isOnline(MyApp.app)) {
+            val request = profileRemoteDataSource.unFollowUser(username)
+            if (request.status == Status.SUCCESS) {
+                localDataSource.updateUser(request.data?.userNetwork)
+                resource = Resource.success(request.data?.userNetwork?.toUserView())
+            } else if (request.status == Status.ERROR) {
+                resource = Resource.error("request failed", null)
+            }
+        }
+
+        return resource
+    }
+
     /*          TYPE CONVERTERS          */
     private fun articleEntityListToView(articlesEntity: List<ArticleEntity>): MutableList<ArticleView> {
         val articlesView = mutableListOf<ArticleView>()
