@@ -87,4 +87,14 @@ class ArticleHomeLocalDataSource {
         }
     }
 
+    suspend fun updateAllTags(tagList: List<String>?) {
+        tagList?.let { list ->
+            db.withTransaction {
+                db.tagDao().insertTag(list.map { tag ->
+                    TagEntity(tag)
+                })
+            }
+        }
+    }
+
 }

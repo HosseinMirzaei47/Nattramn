@@ -1,6 +1,5 @@
 package com.example.nattramn.features.article.data
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -9,6 +8,10 @@ interface TagDao {
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTag(tagEntity: List<TagEntity>?)
+
+    @Transaction
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertTag(tagEntity: TagEntity?)
 
     @Delete
     fun deleteTag(tagEntity: TagEntity)
@@ -20,6 +23,6 @@ interface TagDao {
     fun getArticleTags(slug: String): List<TagEntity>
 
     @Query("select * from tags")
-    fun getAllTags(): LiveData<List<TagEntity>>
+    fun getAllTags(): List<TagEntity>
 
 }

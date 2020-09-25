@@ -5,6 +5,7 @@ import com.example.nattramn.core.NetworkHelper
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.features.article.data.ArticleEntity
+import com.example.nattramn.features.article.data.TagEntity
 import com.example.nattramn.features.article.data.models.EditArticleRequest
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.home.data.models.AllTagsResponse
@@ -32,6 +33,11 @@ class ArticleHomeRepository(
     fun getFeedArticlesDb(): MutableList<ArticleView> =
         articleEntityListToView(localDataSource.getFeedArticles())
 
+    fun getAllArticlesDb(): MutableList<ArticleView> =
+        articleEntityListToView(localDataSource.getAllArticles())
+
+    fun getAllTagsDb() = tagEntityListToString(localDataSource.getAllTags())
+
     suspend fun getFeedArticles(): Resource<List<ArticleView>> {
         var responseArticles = Resource<List<ArticleView>>(Status.ERROR, null, null)
 
@@ -48,9 +54,6 @@ class ArticleHomeRepository(
 
         return responseArticles
     }
-
-    fun getAllArticlesDb(): MutableList<ArticleView> =
-        articleEntityListToView(localDataSource.getAllArticles())
 
     suspend fun getAllArticles(): Resource<List<ArticleView>> {
         var responseArticles = Resource<List<ArticleView>>(Status.ERROR, null, null)
@@ -75,8 +78,8 @@ class ArticleHomeRepository(
 
         if (NetworkHelper.isOnline(MyApp.app)) {
             val allTags = homeRemoteDataSource.getAllTags()
-
             if (allTags.status == Status.SUCCESS) {
+                localDataSource.updateAllTags(allTags.data?.tags)
                 response = Resource.success(allTags.data)
             }
         }
@@ -147,6 +150,14 @@ class ArticleHomeRepository(
             )
         }
         return articlesView
+    }
+
+    private fun tagEntityListToString(tagEntityList: List<TagEntity>): MutableList<String> {
+        val tagStrings = mutableListOf<String>()
+        tagEntityList.forEach {
+            tagStrings.add(it.tag)
+        }
+        return tagStrings
     }
 }
 

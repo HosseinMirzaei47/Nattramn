@@ -16,6 +16,8 @@ class KeyWordsViewModel : ViewModel() {
     private var _allTagsResult = MutableLiveData<Resource<AllTagsResponse>>()
     val allTagsResult: MutableLiveData<Resource<AllTagsResponse>> get() = _allTagsResult
 
+    fun getAllTagsDb() = homeRepository.getAllTagsDb()
+
     fun getAllTags() {
 
         _allTagsResult.value = Resource.loading(null)

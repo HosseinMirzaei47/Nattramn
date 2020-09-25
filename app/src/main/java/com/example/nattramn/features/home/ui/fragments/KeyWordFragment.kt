@@ -40,33 +40,39 @@ class KeyWordFragment : Fragment(), OnTagsItemListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        keyWordsViewModel.getAllTags()
+        showAllTagsRecycler(keyWordsViewModel.getAllTagsDb())
+        sendAllTagsRequest()
+        observeAllTagsResponse()
 
+    }
+
+    private fun observeAllTagsResponse() {
         keyWordsViewModel.allTagsResult.observe(viewLifecycleOwner, Observer { resource ->
             if (resource.status == Status.SUCCESS) {
-
                 resource.data?.tags?.let { tags ->
-
-                    tagAdapter = TagAdapter(
-                        tags,
-                        this
-                    )
-
-                    binding.recyclerAllTags.apply {
-                        adapter = tagAdapter
-                        layoutManager = GridLayoutManager(requireContext(), 3)
-                    }
-
+                    showAllTagsRecycler(tags)
                 }
-
-                binding.progressAllTags.visibility = View.GONE
-
             } else if (resource.status == Status.ERROR) {
                 snackMaker(requireView(), "خطا در ارتباط با سرور")
                 binding.progressAllTags.visibility = View.GONE
             }
         })
+    }
 
+    private fun sendAllTagsRequest() {
+        keyWordsViewModel.getAllTags()
+    }
+
+    private fun showAllTagsRecycler(tags: List<String>) {
+        tagAdapter = TagAdapter(
+            tags,
+            this
+        )
+        binding.recyclerAllTags.apply {
+            adapter = tagAdapter
+            layoutManager = GridLayoutManager(requireContext(), 3)
+        }
+        binding.progressAllTags.visibility = View.GONE
     }
 
     override fun onTagClick(tag: String) {
