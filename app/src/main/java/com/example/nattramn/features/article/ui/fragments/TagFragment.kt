@@ -27,6 +27,8 @@ class TagFragment : Fragment(),
     private val args: TagFragmentArgs by navArgs()
     private lateinit var tagArg: String
 
+    private lateinit var tagArticles: MutableList<ArticleView>
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -61,6 +63,7 @@ class TagFragment : Fragment(),
 
     private fun initRecyclerWithDatabase() {
         showArticlesRecycler(tagViewModel.getTagArticlesDb(tagArg))
+        tagArticles = tagViewModel.getTagArticlesDb(tagArg)
     }
 
     private fun sendTagArticlesRequest() {
@@ -71,6 +74,7 @@ class TagFragment : Fragment(),
         tagViewModel.tagArticlesResult.observe(viewLifecycleOwner, Observer { resource ->
             if (resource.status == Status.SUCCESS) {
                 resource.data?.let { articles ->
+                    tagArticles = articles.toMutableList()
                     showArticlesRecycler(articles)
                 }
             } else if (resource.status == Status.ERROR) {
@@ -125,12 +129,28 @@ class TagFragment : Fragment(),
         slug: String, isBookmarked: Boolean, position: Int,
         item: String
     ) {
-        tagViewModel.bookmarkArticle(slug)
+
+        if (isBookmarked) {
+            tagViewModel.removeFromBookmarks(slug)
+        } else {
+            tagViewModel.bookmarkArticle(slug)
+        }
 
         tagViewModel.bookmarkResult.observe(viewLifecycleOwner, Observer { result ->
-
             if (result.status == Status.SUCCESS) {
+                tagArticles[position].bookmarked = true
+                tagAdapter.notifyItemChanged(position)
                 snackMaker(requireView(), "این مقاله به لیست علاقه مندی ها اضافه شد")
+            } else if (result.status == Status.ERROR) {
+                snackMaker(requireView(), "خطا در ارتباط با سرور")
+            }
+        })
+
+        tagViewModel.removeBookmark.observe(viewLifecycleOwner, Observer { result ->
+            if (result.status == Status.SUCCESS) {
+                tagArticles[position].bookmarked = false
+                tagAdapter.notifyItemChanged(position)
+                snackMaker(requireView(), "این مقاله از لیست علاقه مندی ها حذف شد")
             } else if (result.status == Status.ERROR) {
                 snackMaker(requireView(), "خطا در ارتباط با سرور")
             }
