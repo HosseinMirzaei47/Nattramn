@@ -130,6 +130,7 @@ class ProfileRepository(
             val request = profileRemoteDataSource.unFollowUser(username)
             if (request.status == Status.SUCCESS) {
                 localDataSource.updateUser(request.data?.userNetwork)
+                localDataSource.removeUserArticlesFromFeed(request.data?.userNetwork)
                 resource = Resource.success(request.data?.userNetwork?.toUserView())
             } else if (request.status == Status.ERROR) {
                 resource = Resource.error("request failed", null)

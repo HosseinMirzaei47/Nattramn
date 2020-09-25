@@ -20,7 +20,7 @@ interface ArticleDao {
     fun deleteArticle(articleEntity: ArticleEntity)
 
     @Update
-    fun editArticle(articleEntity: ArticleEntity)
+    fun updateArticle(articleEntity: ArticleEntity)
 
     @Query("select * from articles")
     fun getAllArticles(): List<ArticleEntity>

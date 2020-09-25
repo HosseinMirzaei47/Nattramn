@@ -76,4 +76,15 @@ class ProfileLocalDataSource {
         }
     }
 
+    suspend fun removeUserArticlesFromFeed(userNetwork: UserNetwork?) {
+        db.withTransaction {
+            val userArticles = userNetwork?.username?.let { db.articleDao().getUserArticles(it) }
+            userArticles?.map {
+                it.isFeed = userNetwork.following
+                db.articleDao().updateArticle(it)
+            }
+        }
+
+    }
+
 }

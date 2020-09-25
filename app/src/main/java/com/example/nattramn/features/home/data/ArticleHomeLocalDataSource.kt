@@ -66,7 +66,7 @@ class ArticleHomeLocalDataSource {
                     )
                 })
                 db.articleDao().insertArticle(networkList.map {
-                    it.toArticleEntity(it.user.following)
+                    it.toArticleEntity(isFeed = it.user.following)
                 })
                 networkList.forEach {
                     db.tagDao().insertTag(it.tagList.map { tag ->
