@@ -23,6 +23,18 @@ fun snackMaker(view: View, text: String) {
     Snackbar.make(view, text, Snackbar.LENGTH_SHORT).show()
 }
 
+suspend inline fun <T> safeApiCall(responseFunction: suspend () -> T): Resource<T> {
+    return try {
+        Resource.success(responseFunction.invoke())
+    } catch (e: Exception) {
+        Resource.error("vpn disconnected", null)
+    } catch (e: HttpException) {
+        println(e.toString())
+        /*Resource.error(e.code().toString(), null)*/
+        Resource.error("", null)
+    }
+}
+
 fun <T, A> performGetOperation(
     databaseQuery: () -> LiveData<T>,
     networkCall: suspend () -> Resource<A>,
@@ -43,14 +55,6 @@ fun <T, A> performGetOperation(
             emitSource(source)
         }
     }
-
-suspend inline fun <T> safeApiCall(responseFunction: suspend () -> T): Resource<T> {
-    return try {
-        Resource.success(responseFunction.invoke())
-    } catch (e: HttpException) {
-        Resource.error(e.code().toString(), null)
-    }
-}
 
 fun toArticleView(
     userEntity: UserEntity?,
