@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.nattramn.R
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.core.utils.Constants
@@ -30,7 +31,7 @@ import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment(),
-    OnProfileArticleListener, OnBottomSheetItemsClick {
+    OnProfileArticleListener, OnBottomSheetItemsClick, SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var binding: FragmentProfileBinding
     private lateinit var profileViewModel: ProfileViewModel
@@ -38,10 +39,11 @@ class ProfileFragment : Fragment(),
     private val dialogFragment = ActionBottomDialogFragment.newInstance(this)
     private val args: ProfileFragmentArgs by navArgs()
 
-    private var currentTab = Constants.TAB_USER_ARTICLES
-    private lateinit var username: String
     private lateinit var userViewDb: UserView
     private lateinit var recyclerArticlesList: MutableList<ArticleView>
+
+    private var currentTab = Constants.TAB_USER_ARTICLES
+    private lateinit var username: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,6 +67,7 @@ class ProfileFragment : Fragment(),
     @SuppressLint("InflateParams")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.swipeLayout.setOnRefreshListener(this)
         setBackButtonClick()
         setOnFollowButtonAction()
         setTabItemsView()
@@ -121,6 +124,7 @@ class ProfileFragment : Fragment(),
         }
         profileViewModel.setBookmarkedArticles(username)
         profileViewModel.profileBookmarkedArticlesResult.observe(viewLifecycleOwner, Observer {
+            binding.swipeLayout.isRefreshing = false
             if (it.status == Status.SUCCESS) {
                 showRecycler(it.data)
             } else if (it.status == Status.ERROR) {
@@ -133,6 +137,7 @@ class ProfileFragment : Fragment(),
         showRecycler(profileViewModel.getUserArticlesDb(username))
         profileViewModel.getUserArticles(username)
         profileViewModel.userArticlesResult.observe(viewLifecycleOwner, Observer { resource ->
+            binding.swipeLayout.isRefreshing = false
             if (resource.status == Status.SUCCESS) {
                 binding.profileArticleCount.text = resource?.data?.size.toString()
                 /*(resource.data?.indices)?.forEach {
@@ -140,8 +145,8 @@ class ProfileFragment : Fragment(),
                         profileViewModel.getUserArticlesDb(username)[it].commentsNumber
                 }*/
                 showRecycler(resource.data)
-            } else {
-                println("jalil error ${resource.message}")
+            } else if (resource.status == Status.ERROR) {
+                snackMaker(requireView(), "خطا در ارتباط با سرور")
             }
         })
     }
@@ -367,6 +372,15 @@ class ProfileFragment : Fragment(),
         dialogFragment.dismiss()
         Navigation.findNavController(requireView())
             .navigate(ProfileFragmentDirections.actionProfileFragmentToWriteFragment(slug))
+    }
+
+    override fun onRefresh() {
+        if (currentTab == Constants.TAB_USER_ARTICLES) {
+            profileViewModel.getUserArticles(username)
+        } else if (currentTab == Constants.TAB_USER_FAVORITE_ARTICLES) {
+            profileViewModel.setBookmarkedArticles(username)
+        }
+
     }
 
 }

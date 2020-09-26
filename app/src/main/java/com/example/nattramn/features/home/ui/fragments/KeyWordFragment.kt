@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.core.utils.snackMaker
 import com.example.nattramn.databinding.FragmentKeyWordsBinding
@@ -16,7 +17,7 @@ import com.example.nattramn.features.home.ui.OnTagsItemListener
 import com.example.nattramn.features.home.ui.TagAdapter
 import com.example.nattramn.features.home.ui.viewmodels.KeyWordsViewModel
 
-class KeyWordFragment : Fragment(), OnTagsItemListener {
+class KeyWordFragment : Fragment(), OnTagsItemListener, SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var binding: FragmentKeyWordsBinding
     private lateinit var keyWordsViewModel: KeyWordsViewModel
@@ -39,6 +40,7 @@ class KeyWordFragment : Fragment(), OnTagsItemListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.swipeLayout.setOnRefreshListener(this)
 
         showAllTagsRecycler(keyWordsViewModel.getAllTagsDb())
         sendAllTagsRequest()
@@ -48,6 +50,7 @@ class KeyWordFragment : Fragment(), OnTagsItemListener {
 
     private fun observeAllTagsResponse() {
         keyWordsViewModel.allTagsResult.observe(viewLifecycleOwner, Observer { resource ->
+            binding.swipeLayout.isRefreshing = false
             if (resource.status == Status.SUCCESS) {
                 resource.data?.tags?.let { tags ->
                     showAllTagsRecycler(tags)
@@ -78,6 +81,10 @@ class KeyWordFragment : Fragment(), OnTagsItemListener {
     override fun onTagClick(tag: String) {
         Navigation.findNavController(requireView())
             .navigate(HomeFragmentDirections.actionHomeFragmentToTagFragment(tag))
+    }
+
+    override fun onRefresh() {
+        sendAllTagsRequest()
     }
 
 }

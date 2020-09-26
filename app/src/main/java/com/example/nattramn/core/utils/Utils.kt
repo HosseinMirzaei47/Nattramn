@@ -26,12 +26,10 @@ fun snackMaker(view: View, text: String) {
 suspend inline fun <T> safeApiCall(responseFunction: suspend () -> T): Resource<T> {
     return try {
         Resource.success(responseFunction.invoke())
+    } catch (e: HttpException) {
+        Resource.error(e.code().toString(), null)
     } catch (e: Exception) {
         Resource.error("vpn disconnected", null)
-    } catch (e: HttpException) {
-        println(e.toString())
-        /*Resource.error(e.code().toString(), null)*/
-        Resource.error("", null)
     }
 }
 

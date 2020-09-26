@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.nattramn.core.commonAdapters.VerticalArticleAdapter
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.core.utils.snackMaker
@@ -18,8 +19,7 @@ import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.OnArticleListener
 import com.example.nattramn.features.article.ui.viewmodels.TagViewModel
 
-class TagFragment : Fragment(),
-    OnArticleListener {
+class TagFragment : Fragment(), OnArticleListener, SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var binding: FragmentTagBinding
     private lateinit var tagViewModel: TagViewModel
@@ -50,6 +50,7 @@ class TagFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.swipeLayout.setOnRefreshListener(this)
         setBackButtonClick()
 
         setRecyclers()
@@ -72,6 +73,7 @@ class TagFragment : Fragment(),
 
     private fun observeNetResponse() {
         tagViewModel.tagArticlesResult.observe(viewLifecycleOwner, Observer { resource ->
+            binding.swipeLayout.isRefreshing = false
             if (resource.status == Status.SUCCESS) {
                 resource.data?.let { articles ->
                     tagArticles = articles.toMutableList()
@@ -163,5 +165,9 @@ class TagFragment : Fragment(),
 
     override fun onAuthorIconClick(username: String) {
         openProfile(username)
+    }
+
+    override fun onRefresh() {
+        sendTagArticlesRequest()
     }
 }

@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.nattramn.R
 import com.example.nattramn.core.resource.Status
+import com.example.nattramn.core.utils.snackMaker
 import com.example.nattramn.databinding.FragmentLoginBinding
 import com.example.nattramn.features.user.data.UserNetwork
 import com.example.nattramn.features.user.data.models.AuthRequest
@@ -62,10 +63,19 @@ class LoginFragment : Fragment() {
     private fun onEnterClick() {
 
         loginViewModel.loginResult.observe(viewLifecycleOwner, Observer {
-            if (it.status == Status.SUCCESS) {
-                Navigation.findNavController(requireView())
-                    .navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+            when (it.status) {
+                Status.SUCCESS -> {
+                    Navigation.findNavController(requireView())
+                        .navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+                }
+                Status.LOADING -> {
+                    snackMaker(requireView(), "لطفا صبر کنید.")
+                }
+                Status.ERROR -> {
+                    snackMaker(requireView(), "خطا در ارتباط با سرور!")
+                }
             }
+
         })
 
         loginViewModel.email.observe(

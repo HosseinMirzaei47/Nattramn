@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.nattramn.core.commonAdapters.HorizontalArticleAdapter
 import com.example.nattramn.core.commonAdapters.VerticalArticleAdapter
 import com.example.nattramn.core.resource.Status
@@ -20,7 +22,7 @@ import com.example.nattramn.features.article.ui.OnArticleListener
 import com.example.nattramn.features.home.ui.viewmodels.HomeViewModel
 import com.example.nattramn.features.user.data.AuthLocalDataSource
 
-class ForYouFragment : Fragment(), OnArticleListener {
+class ForYouFragment : Fragment(), OnArticleListener, SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var binding: FragmentForYouBinding
     private lateinit var homeViewModel: HomeViewModel
@@ -53,6 +55,7 @@ class ForYouFragment : Fragment(), OnArticleListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.swipeLayout.setOnRefreshListener(this)
         setRecyclers()
     }
 
@@ -211,6 +214,12 @@ class ForYouFragment : Fragment(), OnArticleListener {
 
     override fun onAuthorIconClick(username: String) {
         openProfile(username)
+    }
+
+    override fun onRefresh() {
+        Toast.makeText(requireContext(), "refresh", Toast.LENGTH_SHORT).show()
+        sendNetworkRequests()
+        binding.swipeLayout.isRefreshing = false
     }
 
 }

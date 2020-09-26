@@ -93,6 +93,14 @@ class WriteFragment : Fragment() {
             binding.writeProgress.visibility = View.GONE
 
             if (resource.status == Status.SUCCESS) {
+                /*AuthLocalDataSource().getUsername()?.let { username ->
+                    Navigation.findNavController(requireView())
+                        .navigate(
+                            WriteFragmentDirections.actionWriteFragmentToProfileFragment(
+                                username
+                            )
+                        )
+                }*/
                 snackMaker(requireView(), "مقاله با موفقیت ثبت گردید")
             } else if (resource.status == Status.ERROR) {
                 snackMaker(requireView(), "خطا در ارتباط با سرور")
