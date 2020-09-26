@@ -24,6 +24,7 @@ import com.example.nattramn.features.user.ui.OnProfileArticleListener
 import com.example.nattramn.features.user.ui.UserView
 import com.example.nattramn.features.user.ui.adapters.ProfileArticleAdapter
 import com.example.nattramn.features.user.ui.viewmodels.ProfileViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_profile.*
 
@@ -316,31 +317,47 @@ class ProfileFragment : Fragment(),
 
                 shareArticle(textToShare)
             } else if (it.status == Status.ERROR) {
+                dialogFragment.dismiss()
                 snackMaker(requireView(), "خطا در ارتباط با سرور")
             }
         })
     }
 
     override fun onDeleteArticle(slug: String, position: Int) {
-        profileViewModel.deleteArticle(slug)
 
-        profileViewModel.deleteArticleResult.observe(viewLifecycleOwner, Observer { resource ->
-            when (resource.status) {
-                Status.SUCCESS -> {
-                    snackMaker(requireView(), "حذف مقاله با موفقیت انجام شد")
-                    profileArticleAdapter.notifyItemRemoved(position)
-                    dialogFragment.dismiss()
-                }
-
-                Status.LOADING -> {
-                    snackMaker(requireView(), "لطفا صبر کنید")
-                }
-
-                Status.ERROR -> {
-                    snackMaker(requireView(), "خطا در ارتباط با سرور")
-                }
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("حذف مقاله")
+            .setMessage("آیا از حذف کردن مقاله مطمئن هستید؟")
+            .setNegativeButton("خیر") { _, _ ->
             }
-        })
+            .setPositiveButton("بله") { _, _ ->
+                profileViewModel.deleteArticle(slug)
+            }
+            .show()
+
+        profileViewModel.deleteArticleResult.observe(
+            viewLifecycleOwner,
+            Observer { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        snackMaker(requireView(), "حذف مقاله با موفقیت انجام شد")
+                        profileArticleAdapter.notifyItemRemoved(position)
+                        dialogFragment.dismiss()
+                    }
+
+                    Status.LOADING -> {
+                        Toast.makeText(
+                            requireContext(), "لطفا صبر کنید", Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    Status.ERROR -> {
+                        Toast.makeText(
+                            requireContext(), "خطا در ارتباط با سرور", Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            })
     }
 
     override fun onEditArticle(slug: String) {
