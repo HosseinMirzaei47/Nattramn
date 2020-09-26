@@ -15,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
 import com.example.nattramn.core.resource.Status
+import com.example.nattramn.core.utils.Constants
 import com.example.nattramn.core.utils.snackMaker
 import com.example.nattramn.databinding.FragmentProfileBinding
 import com.example.nattramn.features.article.ui.ArticleView
@@ -37,6 +38,7 @@ class ProfileFragment : Fragment(),
     private val dialogFragment = ActionBottomDialogFragment.newInstance(this)
     private val args: ProfileFragmentArgs by navArgs()
 
+    private var currentTab = Constants.TAB_USER_ARTICLES
     private lateinit var username: String
     private lateinit var userViewDb: UserView
     private lateinit var recyclerArticlesList: MutableList<ArticleView>
@@ -90,10 +92,12 @@ class ProfileFragment : Fragment(),
                     profileTab.getTabAt(0)?.customView != tabSelectedView
                 ) {
 
+                    currentTab = Constants.TAB_USER_ARTICLES
                     profileTab.getTabAt(0)?.customView = tabSelectedView
                     showUserArticles()
 
                 } else {
+                    currentTab = Constants.TAB_USER_FAVORITE_ARTICLES
                     profileTab.getTabAt(1)?.customView = tabSelectedView
                     showBookmarkedArticles()
                 }
@@ -279,6 +283,7 @@ class ProfileFragment : Fragment(),
         val bundle = Bundle()
         bundle.putString("slug", slug)
         bundle.putInt("position", position)
+        bundle.putString("currentTab", currentTab)
         dialogFragment.arguments = bundle
 
         dialogFragment.show(childFragmentManager, ActionBottomDialogFragment.TAG)
@@ -300,9 +305,7 @@ class ProfileFragment : Fragment(),
         openProfile(username)
     }
 
-    override fun onArticleCommentsClick(position: Int) {
-        Toast.makeText(context, "Article Comments Clicked", Toast.LENGTH_SHORT).show()
-    }
+    override fun onArticleCommentsClick(position: Int) {}
 
     override fun onShareArticle(slug: String) {
         profileViewModel.getSingleArticle(slug)

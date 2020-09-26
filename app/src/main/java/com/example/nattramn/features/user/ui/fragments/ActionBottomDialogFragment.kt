@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.nattramn.core.utils.Constants
 import com.example.nattramn.databinding.ActionBottomSheetBinding
 import com.example.nattramn.features.user.ui.OnBottomSheetItemsClick
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -14,6 +15,7 @@ class ActionBottomDialogFragment(val listener: OnBottomSheetItemsClick) :
     private lateinit var binding: ActionBottomSheetBinding
 
     private lateinit var slug: String
+    private lateinit var currentTab: String
     private var position = 0
 
     companion object {
@@ -29,11 +31,17 @@ class ActionBottomDialogFragment(val listener: OnBottomSheetItemsClick) :
     ): View? {
         slug = arguments?.getString("slug")!!
         position = arguments?.getInt("position")!!
+        currentTab = arguments?.getString("currentTab")!!
 
         binding = ActionBottomSheetBinding.inflate(
             inflater, container, false
         ).apply {
             lifecycleOwner = viewLifecycleOwner
+        }
+
+        if (currentTab == Constants.TAB_USER_FAVORITE_ARTICLES) {
+            binding.deleteArticleButton.visibility = View.GONE
+            binding.editArticleButton.visibility = View.GONE
         }
 
         return binding.root
