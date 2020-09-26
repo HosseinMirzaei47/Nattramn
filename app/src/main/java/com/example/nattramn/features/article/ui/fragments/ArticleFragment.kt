@@ -29,9 +29,7 @@ import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.dialog_comment.*
 import kotlinx.android.synthetic.main.fragment_article.*
 
-class ArticleFragment : Fragment(),
-    OnCommentListener,
-    OnArticleListener {
+class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
 
     private lateinit var binding: FragmentArticleBinding
     private lateinit var articleViewModel: ArticleViewModel
@@ -103,6 +101,11 @@ class ArticleFragment : Fragment(),
                 for (tag in it) {
                     val chip = Chip(requireContext())
                     chip.text = tag
+                    chip.setOnClickListener {
+                        Navigation.findNavController(requireView()).navigate(
+                            ArticleFragmentDirections.actionArticleFragmentToTagFragment(tag)
+                        )
+                    }
                     binding.chipGroupSA.addView(chip)
                 }
             }
