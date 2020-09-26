@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.nattramn.R
+import com.example.nattramn.core.utils.setOnSingleClickListener
 import com.example.nattramn.databinding.FragmentHomeBinding
 import com.example.nattramn.features.home.ui.ViewPagerAdapter
 import com.example.nattramn.features.user.data.AuthLocalDataSource
@@ -49,7 +50,7 @@ class HomeFragment : Fragment() {
 
     private fun setOnWriteClicked() {
 
-        binding.homeWriteButton.setOnClickListener { view ->
+        binding.homeWriteButton.setOnSingleClickListener { view ->
             Navigation.findNavController(view)
                 .navigate(HomeFragmentDirections.actionHomeFragmentToWriteFragment(null))
         }
@@ -57,7 +58,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setOnProfileClicked() {
-        binding.articleProfileIcon.setOnClickListener { view ->
+        binding.articleProfileIcon.setOnSingleClickListener { view ->
             localDataSource.getUsername()?.let { username ->
                 Navigation.findNavController(view)
                     .navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment(username))

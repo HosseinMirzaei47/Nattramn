@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.nattramn.core.utils.Constants
+import com.example.nattramn.core.utils.setOnSingleClickListener
 import com.example.nattramn.databinding.ActionBottomSheetBinding
 import com.example.nattramn.features.user.ui.OnBottomSheetItemsClick
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -52,26 +53,26 @@ class ActionBottomDialogFragment(val listener: OnBottomSheetItemsClick) :
 
         onEditArticleClick()
 
-        onDeleteArticleCllck()
+        onDeleteArticleClick()
 
         onShareArticleClick()
 
     }
 
     private fun onShareArticleClick() {
-        binding.shareArticleButton.setOnClickListener {
+        binding.shareArticleButton.setOnSingleClickListener {
             listener.onShareArticle(slug)
         }
     }
 
-    private fun onDeleteArticleCllck() {
-        binding.deleteArticleButton.setOnClickListener {
+    private fun onDeleteArticleClick() {
+        binding.deleteArticleButton.setOnSingleClickListener {
             listener.onDeleteArticle(slug, position)
         }
     }
 
     private fun onEditArticleClick() {
-        binding.editArticleButton.setOnClickListener {
+        binding.editArticleButton.setOnSingleClickListener {
             listener.onEditArticle(slug)
         }
     }

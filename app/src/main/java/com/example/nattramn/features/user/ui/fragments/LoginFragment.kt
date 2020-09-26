@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.nattramn.R
 import com.example.nattramn.core.resource.Status
+import com.example.nattramn.core.utils.setOnSingleClickListener
 import com.example.nattramn.core.utils.snackMaker
 import com.example.nattramn.databinding.FragmentLoginBinding
 import com.example.nattramn.features.user.data.UserNetwork
@@ -103,7 +104,7 @@ class LoginFragment : Fragment() {
 
     private fun onRegisterClick() {
 
-        binding.loginRegisterButton.setOnClickListener { view ->
+        binding.loginRegisterButton.setOnSingleClickListener { view ->
             Navigation.findNavController(view)
                 .navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
         }

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.nattramn.core.commonAdapters.VerticalArticleAdapter
 import com.example.nattramn.core.resource.Status
+import com.example.nattramn.core.utils.setOnSingleClickListener
 import com.example.nattramn.core.utils.snackMaker
 import com.example.nattramn.databinding.FragmentTagBinding
 import com.example.nattramn.features.article.ui.ArticleView
@@ -98,7 +99,7 @@ class TagFragment : Fragment(), OnArticleListener, SwipeRefreshLayout.OnRefreshL
     }
 
     private fun setBackButtonClick() {
-        binding.tagRightArrow.setOnClickListener { view ->
+        binding.tagRightArrow.setOnSingleClickListener { view ->
             Navigation.findNavController(view).navigateUp()
         }
     }

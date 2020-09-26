@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nattramn.R
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
+import com.example.nattramn.core.utils.setOnSingleClickListener
 import com.example.nattramn.core.utils.snackMaker
 import com.example.nattramn.databinding.FragmentArticleBinding
 import com.example.nattramn.features.article.ui.ArticleView
@@ -101,7 +102,7 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
                 for (tag in it) {
                     val chip = Chip(requireContext())
                     chip.text = tag
-                    chip.setOnClickListener {
+                    chip.setOnSingleClickListener {
                         Navigation.findNavController(requireView()).navigate(
                             ArticleFragmentDirections.actionArticleFragmentToTagFragment(tag)
                         )
@@ -157,8 +158,8 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     }
                 }
-                binding.progressSuggestions.visibility = View.GONE
             }
+            binding.progressSuggestions.visibility = View.GONE
         })
 
     }
@@ -205,7 +206,7 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
     }
 
     private fun setAddCommentAction() {
-        binding.articleCommentButton.setOnClickListener {
+        binding.articleCommentButton.setOnSingleClickListener {
             dialog = Dialog(requireContext(), 0)
             dialog.apply {
 
@@ -222,7 +223,7 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
                     setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                     addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
                 }
-                dialogSendComment.setOnClickListener {
+                dialogSendComment.setOnSingleClickListener {
                     sendComment(dialogCommentText.text.toString())
                 }
             }
@@ -230,7 +231,7 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
     }
 
     private fun onBookmarkButtonClick() {
-        binding.articleBookmark.setOnClickListener {
+        binding.articleBookmark.setOnSingleClickListener {
             if (binding.isBookmarked!!) {
                 articleViewModel.removeFromBookmarks(articleSlug)
             } else {
@@ -271,19 +272,19 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
     }
 
     private fun setOnProfileClick() {
-        binding.authorImageSA.setOnClickListener { openProfile(articleViewArg.userView.name) }
-        binding.authorNameSA.setOnClickListener { openProfile(articleViewArg.userView.name) }
+        binding.authorImageSA.setOnSingleClickListener { openProfile(articleViewArg.userView.name) }
+        binding.authorNameSA.setOnSingleClickListener { openProfile(articleViewArg.userView.name) }
     }
 
     private fun setOnLikeArticleClick() {
-        binding.likeArticleButton.setOnClickListener {
+        binding.likeArticleButton.setOnSingleClickListener {
             articleViewModel.likeArticleClicked(articleSlug)
             binding.liked = articleViewModel.getLikedFlag(articleSlug)
         }
     }
 
     private fun setOnShareArticleClick() {
-        binding.shareArticleSA.setOnClickListener {
+        binding.shareArticleSA.setOnSingleClickListener {
             articleViewModel.getSingleArticle(articleSlug)
 
             articleViewModel.singleArticleResult.observe(viewLifecycleOwner, Observer {
@@ -313,7 +314,7 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
     }
 
     private fun setBackButtonClick() {
-        binding.articleRightArrow.setOnClickListener { view ->
+        binding.articleRightArrow.setOnSingleClickListener { view ->
             Navigation.findNavController(view).navigateUp()
         }
     }

@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.example.nattramn.core.resource.Status
+import com.example.nattramn.core.utils.setOnSingleClickListener
 import com.example.nattramn.core.utils.snackMaker
 import com.example.nattramn.databinding.FragmentWriteBinding
 import com.example.nattramn.features.article.ui.viewmodels.WriteViewModel
@@ -57,7 +58,7 @@ class WriteFragment : Fragment() {
     }
 
     private fun onPublishClick() {
-        binding.publishButton.setOnClickListener {
+        binding.publishButton.setOnSingleClickListener {
             binding.writeProgress.visibility = View.VISIBLE
             if (textsAreLongEnough()) {
                 if (slug != null) {
@@ -214,7 +215,7 @@ class WriteFragment : Fragment() {
     }
 
     private fun setBackButtonClick() {
-        binding.writeRightArrow.setOnClickListener { view ->
+        binding.writeRightArrow.setOnSingleClickListener { view ->
             Navigation.findNavController(view).navigateUp()
         }
     }

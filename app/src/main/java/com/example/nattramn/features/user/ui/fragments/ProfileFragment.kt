@@ -17,6 +17,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.nattramn.R
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.core.utils.Constants
+import com.example.nattramn.core.utils.setOnSingleClickListener
 import com.example.nattramn.core.utils.snackMaker
 import com.example.nattramn.databinding.FragmentProfileBinding
 import com.example.nattramn.features.article.ui.ArticleView
@@ -207,7 +208,7 @@ class ProfileFragment : Fragment(),
             binding.followButton.visibility = View.GONE
         }
 
-        binding.followButton.setOnClickListener {
+        binding.followButton.setOnSingleClickListener {
             binding.followButton.isClickable = false
             if (binding.followButton.text == "در حال دنبال کردن") {
                 profileViewModel.unFollowUser(username)
@@ -235,7 +236,7 @@ class ProfileFragment : Fragment(),
     }
 
     private fun setBackButtonClick() {
-        binding.profileRightArrow.setOnClickListener { view ->
+        binding.profileRightArrow.setOnSingleClickListener { view ->
             Navigation.findNavController(view).navigateUp()
         }
     }
