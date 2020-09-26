@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nattramn.R
+import com.example.nattramn.core.utils.setOnSingleClickListener
 import com.example.nattramn.databinding.TagRowBinding
 
 class TagAdapter(
@@ -31,7 +32,7 @@ class TagAdapter(
     inner class ViewHolder(val binding: TagRowBinding) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.commentCardView.setOnClickListener {
+            binding.commentCardView.setOnSingleClickListener {
                 onTagsItemListener.onTagClick(tags[layoutPosition])
             }
         }

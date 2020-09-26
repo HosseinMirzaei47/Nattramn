@@ -50,21 +50,3 @@ data class ArticleEntity(
     )
 
 }
-
-/*
-data class ArticleWithCommentsAndTags(
-
-    @Embedded val articleEntity: ArticleEntity,
-    @Relation(
-        parentColumn = "slug",
-        entityColumn = "articleSlug"
-    )
-    val commentEntity: List<CommentEntity>,
-
-    @Relation(
-        parentColumn = "slug",
-        entityColumn = "articleSlug"
-    )
-    val tagEntity: List<TagEntity>
-
-)*/

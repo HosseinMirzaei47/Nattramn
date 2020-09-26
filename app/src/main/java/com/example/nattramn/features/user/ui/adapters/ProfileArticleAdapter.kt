@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nattramn.R
 import com.example.nattramn.core.utils.Constants
+import com.example.nattramn.core.utils.setOnSingleClickListener
 import com.example.nattramn.databinding.ProfileArticleRowBinding
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.user.ui.OnProfileArticleListener
@@ -38,22 +39,22 @@ class ProfileArticleAdapter(
 
         init {
 
-            binding.profileArticleCard.setOnClickListener {
+            binding.profileArticleCard.setOnSingleClickListener {
                 onProfileArticleListener.onProfileArticleCardClick(
                     profileArticleViews[layoutPosition].slug
                 )
             }
-            binding.itemArticleAuthorImage.setOnClickListener {
+            binding.itemArticleAuthorImage.setOnSingleClickListener {
                 onProfileArticleListener.onAuthorIconClick(
                     profileArticleViews[layoutPosition].userView.name
                 )
             }
-            binding.itemArticleAuthorName.setOnClickListener {
+            binding.itemArticleAuthorName.setOnSingleClickListener {
                 onProfileArticleListener.onAuthorNameClick(
                     profileArticleViews[layoutPosition].userView.name
                 )
             }
-            binding.itemArticleBookmark.setOnClickListener {
+            binding.itemArticleBookmark.setOnSingleClickListener {
                 onProfileArticleListener.onBookmarkClick(
                     profileArticleViews[layoutPosition].slug,
                     profileArticleViews[layoutPosition].bookmarked,
@@ -61,22 +62,22 @@ class ProfileArticleAdapter(
                     Constants.PROFILE
                 )
             }
-            binding.itemArticleDescription.setOnClickListener {
+            binding.itemArticleDescription.setOnSingleClickListener {
                 onProfileArticleListener.onArticleDescriptionClick(
                     profileArticleViews[layoutPosition].slug
                 )
             }
-            binding.itemArticleTitle.setOnClickListener {
+            binding.itemArticleTitle.setOnSingleClickListener {
                 onProfileArticleListener.onArticleTitleClick(
                     profileArticleViews[layoutPosition].slug
                 )
             }
-            binding.itemCommentsButton.setOnClickListener {
+            binding.itemCommentsButton.setOnSingleClickListener {
                 onProfileArticleListener.onArticleCommentsClick(
                     layoutPosition
                 )
             }
-            binding.itemArticleOptions.setOnClickListener {
+            binding.itemArticleOptions.setOnSingleClickListener {
                 onProfileArticleListener.onMoreOptionsClick(
                     profileArticleViews[layoutPosition].slug,
                     layoutPosition

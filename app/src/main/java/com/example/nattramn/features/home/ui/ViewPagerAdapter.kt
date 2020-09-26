@@ -4,9 +4,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 
+@Suppress("DEPRECATION")
 class ViewPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
-    val fragmentList: MutableList<Fragment> = ArrayList<Fragment>()
-    val fragmentTitleList: MutableList<String> = ArrayList<String>()
+    private val fragmentList: MutableList<Fragment> = ArrayList()
+    private val fragmentTitleList: MutableList<String> = ArrayList()
 
     override fun getItem(position: Int): Fragment {
         return fragmentList.get(position)

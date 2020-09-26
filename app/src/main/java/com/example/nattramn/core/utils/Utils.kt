@@ -82,5 +82,13 @@ fun load(view: ImageView, image: Int) {
         .into(view)
 }
 
+fun View.setOnSingleClickListener(l: View.OnClickListener) {
+    setOnClickListener(OnSingleClickListener(l))
+}
+
+fun View.setOnSingleClickListener(l: (View) -> Unit) {
+    setOnClickListener(OnSingleClickListener(l))
+}
+
 val faNumbers =
     arrayOf("۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹")

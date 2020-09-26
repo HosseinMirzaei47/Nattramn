@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nattramn.R
+import com.example.nattramn.core.utils.setOnSingleClickListener
 import com.example.nattramn.databinding.CommentRowBinding
 import com.example.nattramn.features.article.ui.CommentView
 import com.example.nattramn.features.article.ui.OnCommentListener
@@ -39,12 +40,12 @@ class CommentAdapter(
 
         init {
 
-            binding.itemCommentName.setOnClickListener {
+            binding.itemCommentName.setOnSingleClickListener {
                 commentListener.onCommentIconClick(
                     comments[layoutPosition].username
                 )
             }
-            binding.itemCommentImage.setOnClickListener {
+            binding.itemCommentImage.setOnSingleClickListener {
                 commentListener.onCommentUsernameClick(
                     comments[layoutPosition].username
                 )

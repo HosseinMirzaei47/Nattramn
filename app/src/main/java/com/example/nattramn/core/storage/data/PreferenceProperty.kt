@@ -28,5 +28,4 @@ class PreferenceProperty<T>(
             .setter(key, value)
             .apply()
 
-
 }

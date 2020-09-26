@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nattramn.core.utils.Constants
+import com.example.nattramn.core.utils.setOnSingleClickListener
 import com.example.nattramn.databinding.HorizontalArticleRowBinding
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.OnArticleListener
@@ -35,12 +36,12 @@ class HorizontalArticleAdapter(
 
         init {
 
-            binding.horizontalArticleCard.setOnClickListener {
+            binding.horizontalArticleCard.setOnSingleClickListener {
                 onArticleListener.onCardClick(
                     articleViews[layoutPosition].slug
                 )
             }
-            binding.itemBookmark.setOnClickListener {
+            binding.itemBookmark.setOnSingleClickListener {
                 onArticleListener.onArticleSaveClick(
                     articleViews[layoutPosition].slug,
                     articleViews[layoutPosition].bookmarked,
@@ -48,17 +49,17 @@ class HorizontalArticleAdapter(
                     Constants.LATEST
                 )
             }
-            binding.itemArticlePreview.setOnClickListener {
+            binding.itemArticlePreview.setOnSingleClickListener {
                 onArticleListener.onArticleTitleClick(
                     articleViews[layoutPosition].slug
                 )
             }
-            binding.itemAuthorImage.setOnClickListener {
+            binding.itemAuthorImage.setOnSingleClickListener {
                 onArticleListener.onAuthorIconClick(
                     articleViews[layoutPosition].userView.name
                 )
             }
-            binding.itemAuthorName.setOnClickListener {
+            binding.itemAuthorName.setOnSingleClickListener {
                 onArticleListener.onAuthorNameClick(
                     articleViews[layoutPosition].userView.name
                 )
