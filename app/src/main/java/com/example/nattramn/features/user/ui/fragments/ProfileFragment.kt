@@ -401,7 +401,6 @@ class ProfileFragment : Fragment(),
         } else if (currentTab == Constants.TAB_USER_FAVORITE_ARTICLES) {
             profileViewModel.setBookmarkedArticles(username)
         }
-
     }
 
 }

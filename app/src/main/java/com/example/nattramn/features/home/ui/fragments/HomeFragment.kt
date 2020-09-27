@@ -49,12 +49,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun setOnWriteClicked() {
-
         binding.homeWriteButton.setOnSingleClickListener { view ->
             Navigation.findNavController(view)
                 .navigate(HomeFragmentDirections.actionHomeFragmentToWriteFragment(null))
         }
-
     }
 
     private fun setOnProfileClicked() {
@@ -67,6 +65,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun showSystemUI() {
-        requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        requireActivity().window.decorView.systemUiVisibility = 0
     }
 }

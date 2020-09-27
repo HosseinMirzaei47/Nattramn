@@ -25,7 +25,7 @@ interface ArticleDao {
     @Query("select * from articles")
     fun getAllArticles(): List<ArticleEntity>
 
-    @Query("select * from articles where isFeed = 1")
+    @Query("select * from articles where isFeed = 1 order by date")
     fun getFeedArticles(): List<ArticleEntity>
 
     @Query("select * from articles where slug =:slug")

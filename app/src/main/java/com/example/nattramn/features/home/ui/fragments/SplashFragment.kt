@@ -10,13 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.nattramn.R
 import com.example.nattramn.databinding.FragmentSplashBinding
-import com.example.nattramn.features.user.data.AuthLocalDataSource
 
 class SplashFragment : Fragment() {
 
     private lateinit var binding: FragmentSplashBinding
     private val splashTimeOut = 1000.toLong()
-    private var localDataSource = AuthLocalDataSource()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,9 +50,18 @@ class SplashFragment : Fragment() {
 
         /*requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN*/
 
-        requireActivity().window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        @Suppress("DEPRECATION")
+        activity?.window?.decorView?.systemUiVisibility =
+            (View.SYSTEM_UI_FLAG_IMMERSIVE or
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                    View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                    View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+                    View.SYSTEM_UI_FLAG_FULLSCREEN)
+
+        /*requireActivity().window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_FULLSCREEN)
+                or View.SYSTEM_UI_FLAG_FULLSCREEN)*/
     }
 
 }
