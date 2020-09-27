@@ -17,7 +17,7 @@ interface CommentDao {
     @Update
     fun editComment(commentEntity: CommentEntity)
 
-    @Query("select * from comments where articleSlug like :slug")
+    @Query("select * from comments where articleSlug =:slug")
     fun getArticleComments(slug: String): List<CommentEntity>
 
 }

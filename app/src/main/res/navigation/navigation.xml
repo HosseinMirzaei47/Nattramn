@@ -191,7 +191,8 @@
 
         <action
             android:id="@+id/action_writeFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment" />
 
         <action
             android:id="@+id/action_writeFragment_to_profileFragment"

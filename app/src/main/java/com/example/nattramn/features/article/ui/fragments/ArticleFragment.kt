@@ -279,7 +279,8 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
     private fun setOnLikeArticleClick() {
         binding.likeArticleButton.setOnSingleClickListener {
             articleViewModel.likeArticleClicked(articleSlug)
-            binding.liked = articleViewModel.getLikedFlag(articleSlug)
+            println("jalil ${articleViewModel.getLikedArticlesSlugs()}")
+            /*binding.liked =*/
         }
     }
 

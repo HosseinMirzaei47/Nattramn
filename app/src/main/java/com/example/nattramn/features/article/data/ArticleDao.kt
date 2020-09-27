@@ -31,7 +31,7 @@ interface ArticleDao {
     @Query("select * from articles where slug =:slug")
     fun getArticle(slug: String): ArticleEntity
 
-    @Query("select * from articles where ownerUsername like :username")
+    @Query("select * from articles where ownerUsername =:username")
     fun getUserArticles(username: String): List<ArticleEntity>
 
     @Query("select * from articles where bookmarked = 1")

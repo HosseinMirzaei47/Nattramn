@@ -46,6 +46,7 @@ class WriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setOnDraftClick()
         setBackButtonClick()
 
         onPublishClick()
@@ -53,7 +54,6 @@ class WriteFragment : Fragment() {
         loadArticleToEdit()
 
         onCreateTag()
-
 
     }
 
@@ -135,6 +135,14 @@ class WriteFragment : Fragment() {
             writeViewModel.getSingleArticle(it)
         }
 
+        val titleDraft = writeViewModel.getTitleDraft()
+        val bodyDraft = writeViewModel.getBodyDraft()
+
+        if (!titleDraft.isNullOrEmpty() && !bodyDraft.isNullOrEmpty()) {
+            binding.articleTitle.setText(titleDraft)
+            binding.articleBody.setText(bodyDraft)
+        }
+
         writeViewModel.singleArticleResult.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS) {
                 binding.articleTitle.setText(it.data?.title)
@@ -212,6 +220,22 @@ class WriteFragment : Fragment() {
             }
         }
         return false
+    }
+
+    private fun setOnDraftClick() {
+        binding.writeDraftToolbar.setOnSingleClickListener {
+            val body = binding.articleBody.text.toString()
+            val title = binding.articleTitle.text.toString()
+            if (body.length > 29 && title.length > 14) {
+                writeViewModel.saveDraft(title, body)
+                snackMaker(requireView(), "مقاله در لیست پیش نویس ها ثبت شد")
+                Navigation.findNavController(requireView()).navigate(
+                    WriteFragmentDirections.actionWriteFragmentToHomeFragment()
+                )
+            } else {
+                snackMaker(requireView(), "خطا در ذخیره کردن مقاله. لطفا دوباره تلاش کنید.")
+            }
+        }
     }
 
     private fun setBackButtonClick() {

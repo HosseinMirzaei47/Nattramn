@@ -12,7 +12,7 @@ interface UserDao {
     @Query("delete from users")
     fun clearUserTable()
 
-    @Query("select * from users where username like :username")
+    @Query("select * from users where username =:username")
     fun getUser(username: String): UserEntity
 
     @Query("select * from users")

@@ -37,13 +37,15 @@ class SplashFragment : Fragment() {
     }
 
     private fun checkTokenAndNavigate() {
-        if (localDataSource.getToken().isNullOrEmpty()) {
+        Navigation.findNavController(requireView())
+            .navigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment())
+        /*if (localDataSource.getToken().isNullOrEmpty()) {
             Navigation.findNavController(requireView())
                 .navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment())
         } else {
             Navigation.findNavController(requireView())
                 .navigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment())
-        }
+        }*/
     }
 
     private fun hideSystemUI() {

@@ -41,9 +41,15 @@ class ArticleViewModel : ViewModel() {
     private var _userArticlesResult = MutableLiveData<Resource<List<ArticleView>>>()
     val userArticlesResult: LiveData<Resource<List<ArticleView>>> get() = _userArticlesResult
 
-    fun getLikedFlag(slug: String) = articleRepository.getLikeFlag(slug)
+    fun getLikedArticlesSlugs() = articleRepository.getLikedArticlesSlugs()
 
-    fun likeArticleClicked(slug: String) = articleRepository.likeArticleClicked(slug)
+    fun likeArticleClicked(slug: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            articleRepository.likeArticleClicked(slug)
+        }
+    }
+
+    fun unlikeArticle(slug: String) = articleRepository.unlikeArticle(slug)
 
     fun bookmarkArticle(slug: String) {
 

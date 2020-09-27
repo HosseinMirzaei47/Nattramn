@@ -77,4 +77,10 @@ class WriteViewModel : ViewModel() {
         }
     }
 
+    fun saveDraft(title: String, body: String) = articleRepository.saveDraft(title, body)
+
+    fun getTitleDraft() = articleRepository.getTitleDraft()
+
+    fun getBodyDraft() = articleRepository.getBodyDraft()
+
 }

@@ -36,9 +36,17 @@ class ArticleRepository(
 
     fun getSingleArticleDb(slug: String) = articleEntityToView(localDataSource.getArticle(slug))
 
-    fun getLikeFlag(slug: String) = localDataSource.getArticle(slug).liked
+    fun saveDraft(title: String, body: String) = localDataSource.saveDraft(title, body)
 
-    fun likeArticleClicked(slug: String) = localDataSource.updateArticle(slug)
+    fun getTitleDraft() = localDataSource.getTitleDraft()
+
+    fun getBodyDraft() = localDataSource.getBodyDraft()
+
+    suspend fun likeArticleClicked(slug: String) = localDataSource.likeArticle(slug)
+
+    fun getLikedArticlesSlugs() = localDataSource.getLikedArticlesSlugs()
+
+    fun unlikeArticle(slug: String) = localDataSource.unlikeArticle(slug)
 
     suspend fun bookmarkArticle(slug: String): Resource<ArticleView> {
         var response = Resource<ArticleView>(Status.ERROR, null, null)
@@ -173,6 +181,7 @@ class ArticleRepository(
                 val articleViews = tagArticles.data?.articleNetworks?.map {
                     it.toArticleView(Resource.success(null))
                 }
+                localDataSource.insertTagArticles(tag, tagArticles.data?.articleNetworks)
                 responseArticles = Resource.success(articleViews)
             }
         }

@@ -2,10 +2,14 @@ package com.example.nattramn.features.article.data
 
 import com.example.nattramn.core.config.MyApp
 import com.example.nattramn.core.database.AppDatabase
+import com.example.nattramn.core.storage.data.PreferenceProperty.Companion.getPreferences
+import com.example.nattramn.core.storage.data.Settings
+import com.example.nattramn.features.home.data.models.ArticleNetwork
 import com.example.nattramn.features.user.data.UserEntity
 
 class ArticleLocalDataSource {
 
+    private val settings = Settings(MyApp.app.getPreferences())
     private val db = AppDatabase.buildDatabase(MyApp.app)
 
     fun logout() {
@@ -15,6 +19,10 @@ class ArticleLocalDataSource {
         db.commentDao().clearCommentsTable()
         db.tagArticleDao().clearTagArticlesTable()
     }
+
+    suspend fun likeArticle(slug: String) = db.likesDao().insertLikedArticle(LikesEntity(slug))
+
+    fun unlikeArticle(slug: String) = db.likesDao().unlikeArticle(LikesEntity(slug))
 
     suspend fun insertArticle(articleEntity: ArticleEntity) {
         db.articleDao().insertArticle(articleEntity)
@@ -43,9 +51,23 @@ class ArticleLocalDataSource {
         }
     }
 
+    suspend fun insertTagArticles(tag: String, articleNetworks: List<ArticleNetwork>?) {
+        /*articleNetworks?.let {
+            it.forEach { article ->
+                val isFeed = db.articleDao().getArticle(article.slug).isFeed
+                db.articleDao().insertArticle(article.toArticleEntity(isFeed))
+                db.tagArticleDao().insertTagAndArticle(
+                    TagAndArticleEntity(tag, article.slug)
+                )
+            }
+        }*/
+    }
+
     private suspend fun insertComment(commentEntity: CommentEntity) {
         db.commentDao().insertComment(commentEntity)
     }
+
+    fun getLikedArticlesSlugs() = db.likesDao().getLikedArticlesSlugs()
 
     fun getUser(username: String) = db.userDao().getUser(username)
 
@@ -64,5 +86,15 @@ class ArticleLocalDataSource {
         }
         db.articleDao().updateArticle(article)
     }
+
+    /*      ARTICLE DRAFT      */
+    fun saveDraft(title: String, body: String) {
+        settings.titleDraft = title
+        settings.bodyDraft = body
+    }
+
+    fun getTitleDraft() = settings.titleDraft
+
+    fun getBodyDraft() = settings.bodyDraft
 
 }

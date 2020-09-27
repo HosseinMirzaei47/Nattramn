@@ -15,8 +15,20 @@ class Settings(sharedPreferences: SharedPreferences) {
         AUTH_USERNAME
     )
 
+    var titleDraft: String? by StringPreference(
+        sharedPreferences,
+        TITLE_DRAFT
+    )
+
+    var bodyDraft: String? by StringPreference(
+        sharedPreferences,
+        BODY_DRAFT
+    )
+
     companion object Key {
         const val AUTH_TOKEN = "AUTH_TOKEN"
         const val AUTH_USERNAME = "AUTH_USERNAME"
+        const val TITLE_DRAFT = "TITLE_DRAFT"
+        const val BODY_DRAFT = "BODY_DRAFT"
     }
 }

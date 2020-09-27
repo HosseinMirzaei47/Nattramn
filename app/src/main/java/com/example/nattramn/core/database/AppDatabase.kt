@@ -10,7 +10,7 @@ import com.example.nattramn.features.user.data.UserEntity
 import com.example.nattramn.features.user.services.UserDao
 
 @Database(
-    entities = [ArticleEntity::class, UserEntity::class, TagEntity::class, CommentEntity::class, TagAndArticleEntity::class],
+    entities = [ArticleEntity::class, UserEntity::class, TagEntity::class, CommentEntity::class, TagAndArticleEntity::class, LikesEntity::class],
     version = 1,
     exportSchema = false
 )
@@ -21,6 +21,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun commentDao(): CommentDao
     abstract fun tagArticleDao(): TagAndArticleDao
     abstract fun tagDao(): TagDao
+    abstract fun likesDao(): LikesDao
 
     companion object {
 

@@ -1,12 +1,24 @@
 package com.example.nattramn.features.article.data
 
 import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.ForeignKey
 import com.example.nattramn.features.article.ui.CommentView
 
-@Entity(tableName = "comments")
+@Entity(
+    tableName = "comments",
+    primaryKeys = ["commentId"],
+    foreignKeys = [
+        ForeignKey(
+            onDelete = ForeignKey.CASCADE,
+            onUpdate = ForeignKey.CASCADE,
+            entity = ArticleEntity::class,
+            parentColumns = ["slug"],
+            childColumns = ["articleSlug"]
+        )
+    ]
+)
 data class CommentEntity(
-    @PrimaryKey val commentId: String,
+    val commentId: String,
     val username: String,
     val image: String,
     val body: String,
