@@ -243,14 +243,26 @@ class ProfileFragment : Fragment(),
 
     private fun setOnLogoutClick() {
         binding.logoutButton.setOnSingleClickListener {
-            binding.swipeLayout.isRefreshing = true
-            profileViewModel.logout()
-            AuthLocalDataSource().saveToken("")
-            AuthLocalDataSource().saveUsername("")
-            binding.swipeLayout.isRefreshing = false
-            Navigation.findNavController(requireView())
-                .navigate(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("خروج از حساب کاربری")
+                .setMessage("اطلاعات ورود شما از دست خواهند رفت!")
+                .setNegativeButton("خیر") { _, _ ->
+                }
+                .setPositiveButton("بله") { _, _ ->
+                    logoutUser()
+                }
+                .show()
         }
+    }
+
+    private fun logoutUser() {
+        binding.swipeLayout.isRefreshing = true
+        profileViewModel.logout()
+        AuthLocalDataSource().saveToken("")
+        AuthLocalDataSource().saveUsername("")
+        binding.swipeLayout.isRefreshing = false
+        Navigation.findNavController(requireView())
+            .navigate(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
     }
 
     private fun shareArticle(body: String?) {

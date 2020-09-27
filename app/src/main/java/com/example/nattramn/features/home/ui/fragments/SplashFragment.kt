@@ -10,11 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.nattramn.R
 import com.example.nattramn.databinding.FragmentSplashBinding
+import com.example.nattramn.features.user.data.AuthLocalDataSource
 
 class SplashFragment : Fragment() {
 
     private lateinit var binding: FragmentSplashBinding
     private val splashTimeOut = 1000.toLong()
+    private val localDataSource = AuthLocalDataSource()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,15 +37,13 @@ class SplashFragment : Fragment() {
     }
 
     private fun checkTokenAndNavigate() {
-        Navigation.findNavController(requireView())
-            .navigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment())
-        /*if (localDataSource.getToken().isNullOrEmpty()) {
+        if (localDataSource.getToken().isNullOrEmpty()) {
             Navigation.findNavController(requireView())
                 .navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment())
         } else {
             Navigation.findNavController(requireView())
                 .navigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment())
-        }*/
+        }
     }
 
     private fun hideSystemUI() {
