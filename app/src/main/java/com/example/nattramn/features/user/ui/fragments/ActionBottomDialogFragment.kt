@@ -30,9 +30,9 @@ class ActionBottomDialogFragment(val listener: OnBottomSheetItemsClick) :
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        slug = arguments?.getString("slug")!!
-        position = arguments?.getInt("position")!!
-        currentTab = arguments?.getString("currentTab")!!
+        slug = arguments?.getString(Constants.ARG_SLUG)!!
+        position = arguments?.getInt(Constants.ARG_POSITION)!!
+        currentTab = arguments?.getString(Constants.ARG_CURRENT_TAB)!!
 
         binding = ActionBottomSheetBinding.inflate(
             inflater, container, false

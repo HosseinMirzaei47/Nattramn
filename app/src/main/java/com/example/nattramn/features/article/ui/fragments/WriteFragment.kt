@@ -154,17 +154,21 @@ class WriteFragment : Fragment() {
                     }
                 }
 
-                binding.publishButton.text = "اعمال ویرایش"
-                binding.articleTitle.isEnabled = false
-                binding.chipGroupScroll.isEnabled = false
-                binding.writeChipGroup.visibility = View.GONE
-                binding.tagsEditText.visibility = View.GONE
-                binding.keyWordsLayout.visibility = View.GONE
-                binding.keyWordsTitle.visibility = View.GONE
+                changeViewsWhenEditing()
             } else if (it.status == Status.ERROR) {
                 snackMaker(requireView(), "خطا در دریافت مقاله. لطفا دوباره امتحان کنید")
             }
         })
+    }
+
+    private fun changeViewsWhenEditing() {
+        binding.publishButton.text = "اعمال ویرایش"
+        binding.articleTitle.isEnabled = false
+        binding.chipGroupScroll.isEnabled = false
+        binding.writeChipGroup.visibility = View.GONE
+        binding.tagsEditText.visibility = View.GONE
+        binding.keyWordsLayout.visibility = View.GONE
+        binding.keyWordsTitle.visibility = View.GONE
     }
 
     private fun onCreateTag() {

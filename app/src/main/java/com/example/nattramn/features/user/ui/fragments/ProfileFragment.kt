@@ -319,9 +319,9 @@ class ProfileFragment : Fragment(),
 
     override fun onMoreOptionsClick(slug: String, position: Int) {
         val bundle = Bundle()
-        bundle.putString("slug", slug)
-        bundle.putInt("position", position)
-        bundle.putString("currentTab", currentTab)
+        bundle.putString(Constants.ARG_SLUG, slug)
+        bundle.putInt(Constants.ARG_POSITION, position)
+        bundle.putString(Constants.ARG_CURRENT_TAB, currentTab)
         dialogFragment.arguments = bundle
 
         dialogFragment.show(childFragmentManager, ActionBottomDialogFragment.TAG)

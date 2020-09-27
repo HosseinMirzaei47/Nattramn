@@ -103,12 +103,10 @@ class LoginFragment : Fragment() {
     }
 
     private fun onRegisterClick() {
-
         binding.loginRegisterButton.setOnSingleClickListener { view ->
             Navigation.findNavController(view)
                 .navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
         }
-
     }
 
     private fun CharSequence?.isValidUsername(): Boolean {
@@ -145,8 +143,8 @@ class LoginFragment : Fragment() {
         return true
     }
 
+    @Suppress("DEPRECATION")
     private fun showSystemUI() {
-        @Suppress("DEPRECATION")
         requireActivity().window.decorView.systemUiVisibility = 0
     }
 
