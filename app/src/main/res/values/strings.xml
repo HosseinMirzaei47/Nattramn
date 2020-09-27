@@ -70,5 +70,6 @@
     <string name="HomeForYou">برای شما</string>
     <string name="shareArticle">اشتراک گذاری مقاله</string>
     <string name="job">مدرس زبان انگلیسی</string>
+    <string name="logout">خروج</string>
 
 </resources>

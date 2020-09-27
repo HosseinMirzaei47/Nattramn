@@ -5,6 +5,9 @@ import androidx.room.*
 @Dao
 interface TagDao {
 
+    @Query("delete from tags")
+    fun clearTagsTable()
+
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTag(tagEntity: List<TagEntity>?)

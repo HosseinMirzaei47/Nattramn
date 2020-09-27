@@ -9,6 +9,9 @@ import com.example.nattramn.features.article.data.models.TagAndArticleEntity
 @Dao
 interface TagAndArticleDao {
 
+    @Query("delete from tagsArticles")
+    fun clearTagArticlesTable()
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTagAndArticle(tagAndArticleEntity: TagAndArticleEntity)
 

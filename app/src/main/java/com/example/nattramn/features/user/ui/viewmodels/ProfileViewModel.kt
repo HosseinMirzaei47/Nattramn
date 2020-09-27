@@ -45,6 +45,8 @@ class ProfileViewModel : ViewModel() {
     private var _unFollowUserResult = MutableLiveData<Resource<UserView>>()
     val unFollowUserResult: LiveData<Resource<UserView>> get() = _unFollowUserResult
 
+    fun logout() = articleRepository.logout()
+
     fun getUserDb(username: String) = profileRepository.getUserDb(username)
 
     fun getUserArticlesDb(username: String) = profileRepository.getUserArticlesDb(username)

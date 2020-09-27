@@ -68,10 +68,9 @@ class ProfileFragment : Fragment(),
     @SuppressLint("InflateParams")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.swipeLayout.setOnRefreshListener(this)
-        setBackButtonClick()
-        setOnFollowButtonAction()
-        setTabItemsView()
+        binding.profileArticleCount.text =
+            profileViewModel.getUserArticlesDb(username).size.toString()
+        onClickListeners()
 
         sendProfileInfoRequest()
 
@@ -155,7 +154,6 @@ class ProfileFragment : Fragment(),
     private fun showRecycler(articles: List<ArticleView>?) {
         articles?.let { recyclerArticlesList = it.toMutableList() }
 
-        binding.profileArticleCount.text = articles?.size.toString()
         articles?.let { articlesList ->
 
             profileArticleAdapter =
@@ -205,6 +203,8 @@ class ProfileFragment : Fragment(),
 
     private fun setOnFollowButtonAction() {
         if (username == AuthLocalDataSource().getUsername()) {
+            binding.logoutButton.visibility = View.VISIBLE
+            binding.logoutTextView.visibility = View.VISIBLE
             binding.followButton.visibility = View.GONE
         }
 
@@ -241,6 +241,18 @@ class ProfileFragment : Fragment(),
         }
     }
 
+    private fun setOnLogoutClick() {
+        binding.logoutButton.setOnSingleClickListener {
+            binding.swipeLayout.isRefreshing = true
+            profileViewModel.logout()
+            AuthLocalDataSource().saveToken("")
+            AuthLocalDataSource().saveUsername("")
+            binding.swipeLayout.isRefreshing = false
+            Navigation.findNavController(requireView())
+                .navigate(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
+        }
+    }
+
     private fun shareArticle(body: String?) {
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
@@ -250,6 +262,14 @@ class ProfileFragment : Fragment(),
         val shareIntent = Intent.createChooser(sendIntent, null)
         dialogFragment.dismiss()
         startActivity(shareIntent)
+    }
+
+    private fun onClickListeners() {
+        binding.swipeLayout.setOnRefreshListener(this)
+        setOnLogoutClick()
+        setBackButtonClick()
+        setOnFollowButtonAction()
+        setTabItemsView()
     }
 
     /*      INTERFACES IMPLEMENTATION       */

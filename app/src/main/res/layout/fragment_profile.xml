@@ -68,7 +68,8 @@
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/coordinator">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -98,6 +99,32 @@
                         android:layout_height="match_parent"
                         android:padding="@dimen/padding_small">
 
+                        <ImageButton
+                            android:id="@+id/logoutButton"
+                            style="@style/Widget.AppCompat.ActionButton"
+                            android:layout_width="@dimen/global_item_image_size"
+                            android:layout_height="@dimen/global_item_image_size"
+                            android:layout_marginEnd="@dimen/margin_normal"
+                            android:rotation="180"
+                            android:src="@drawable/ic_logout"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/logoutTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/logout"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_size_micro"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="@id/logoutButton"
+                            app:layout_constraintStart_toStartOf="@id/logoutButton"
+                            app:layout_constraintTop_toBottomOf="@id/logoutButton" />
+
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/profileImageInfo"
                             imageSource="@{user.image}"
@@ -113,7 +140,7 @@
                             style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_micro"
+                            android:layout_marginStart="@dimen/margin_ten"
                             android:text="@{user.name}"
                             android:textColor="@color/black"
                             android:textStyle="bold"
@@ -125,7 +152,7 @@
                             android:id="@+id/jobInfo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_micro"
+                            android:layout_marginStart="@dimen/margin_ten"
                             android:text="@{user.job}"
                             android:textColor="@color/hint"
                             android:textStyle="bold"
@@ -138,7 +165,7 @@
                             style="@style/Widget.MaterialComponents.Button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_normal"
+                            android:layout_marginTop="@dimen/margin_large"
                             android:layout_marginEnd="@dimen/margin_normal"
                             android:layout_marginBottom="@dimen/margin_ten"
                             android:backgroundTint="@color/blueFollow"
@@ -154,12 +181,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_ten"
+                            android:layout_marginTop="@dimen/margin_normal"
                             android:textColor="@color/black"
                             android:textSize="@dimen/text_size_b1"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toTopOf="@+id/profileArticlesText"
                             app:layout_constraintStart_toStartOf="@id/profileImageInfo"
-                            app:layout_constraintTop_toTopOf="@+id/followButton" />
+                            app:layout_constraintTop_toBottomOf="@+id/profileImageInfo" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/profileArticlesText"
@@ -169,7 +197,7 @@
                             android:textColor="@color/hint"
                             android:textSize="@dimen/text_size_small"
                             android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="@id/followButton"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@id/profileArticleCount"
                             app:layout_constraintStart_toStartOf="@id/profileArticleCount"
                             app:layout_constraintTop_toBottomOf="@id/profileArticleCount" />
@@ -183,10 +211,9 @@
                             android:textColor="@color/black"
                             android:textSize="@dimen/text_size_b1"
                             android:textStyle="bold"
-                            app:layout_constraintBottom_toTopOf="@+id/followersText"
                             app:layout_constraintEnd_toEndOf="@id/followersText"
                             app:layout_constraintStart_toEndOf="@+id/profileArticleCount"
-                            app:layout_constraintTop_toTopOf="@+id/followButton" />
+                            app:layout_constraintTop_toTopOf="@id/profileArticleCount" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/followersText"
@@ -197,9 +224,8 @@
                             android:textColor="@color/hint"
                             android:textSize="@dimen/text_size_small"
                             android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="@id/followButton"
                             app:layout_constraintStart_toEndOf="@+id/profileArticlesText"
-                            app:layout_constraintTop_toBottomOf="@id/followersCount" />
+                            app:layout_constraintTop_toTopOf="@id/profileArticlesText" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

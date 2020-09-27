@@ -30,6 +30,8 @@ class ArticleRepository(
         }
     }
 
+    fun logout() = localDataSource.logout()
+
     fun getTagArticlesDb(tag: String) = articleEntityListToView(localDataSource.getTagArticles(tag))
 
     fun getSingleArticleDb(slug: String) = articleEntityToView(localDataSource.getArticle(slug))
