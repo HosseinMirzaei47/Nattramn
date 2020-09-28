@@ -38,6 +38,8 @@ class ArticleHomeRepository(
 
     fun getAllTagsDb() = tagEntityListToString(localDataSource.getAllTags())
 
+    fun searchByTitle(title: String) = articleEntityListToView(localDataSource.searchByTitle(title))
+
     suspend fun getFeedArticles(): Resource<List<ArticleView>> {
         var responseArticles = Resource<List<ArticleView>>(Status.ERROR, null, null)
 

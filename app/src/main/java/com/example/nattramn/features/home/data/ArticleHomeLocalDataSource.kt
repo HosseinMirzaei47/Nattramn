@@ -23,6 +23,8 @@ class ArticleHomeLocalDataSource {
 
     fun getArticleComments(slug: String) = db.commentDao().getArticleComments(slug)
 
+    fun searchByTitle(title: String) = db.articleDao().searchByTitle(title)
+
     suspend fun updateAllArticles(articleNetworkList: List<ArticleNetwork>?) {
         articleNetworkList?.let { networkList ->
             db.withTransaction {

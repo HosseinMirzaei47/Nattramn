@@ -71,6 +71,8 @@ class HomeViewModel : ViewModel() {
 
     fun getSingleArticleDb(slug: String) = articleRepository.getSingleArticleDb(slug)
 
+    fun searchByTitle(title: String) = articleHomeRepository.searchByTitle(title)
+
     fun bookmarkArticle(slug: String) {
 
         _bookmarkResult.value = Resource.loading(null)

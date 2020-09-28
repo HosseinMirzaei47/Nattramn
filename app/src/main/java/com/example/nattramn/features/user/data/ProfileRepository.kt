@@ -105,6 +105,7 @@ class ProfileRepository(
             val request = profileRemoteDataSource.deleteArticle(slug)
             if (request.status == Status.SUCCESS) {
                 response = Resource.success(request.data as Response<Unit>)
+                localDataSource.deleteArticle(slug)
             }
         }
         return response

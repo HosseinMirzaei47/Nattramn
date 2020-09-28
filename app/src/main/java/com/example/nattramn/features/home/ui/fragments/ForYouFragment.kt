@@ -1,6 +1,8 @@
 package com.example.nattramn.features.home.ui.fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +28,7 @@ class ForYouFragment : Fragment(), OnArticleListener, SwipeRefreshLayout.OnRefre
     private lateinit var binding: FragmentForYouBinding
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var feedArticlesAdapter: VerticalArticleAdapter
+    private lateinit var filterArticlesAdapter: VerticalArticleAdapter
     private lateinit var topArticlesAdapter: HorizontalArticleAdapter
 
     private lateinit var feedArticles: MutableList<ArticleView>
@@ -141,6 +144,41 @@ class ForYouFragment : Fragment(), OnArticleListener, SwipeRefreshLayout.OnRefre
 
         binding.forYouFeedProgress.visibility = View.GONE
         binding.textInputSearch.visibility = View.VISIBLE
+    }
+
+    private fun onSearchArticle() {
+        binding.textInputSearch.setOnFocusChangeListener { _, b ->
+
+        }
+
+        binding.textInputSearch.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                val title = p0.toString()
+                val articleViews = homeViewModel.searchByTitle(title)
+
+                filterArticlesAdapter = VerticalArticleAdapter(
+                    articleViews,
+                    this@ForYouFragment
+                )
+
+                binding.recyclerSearchArticle.apply {
+                    adapter = filterArticlesAdapter
+                    layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                }
+                println("jalil ${articleViews.size}")
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                /*binding.recyclerSearchArticle.visibility = View.VISIBLE
+                binding.recyclerHomeTopArticles.visibility = View.GONE
+                binding.recyclerHomeArticle.visibility = View.GONE*/
+                println("jalil onTextChanged")
+            }
+        })
     }
 
     private fun openArticle(slug: String) {
