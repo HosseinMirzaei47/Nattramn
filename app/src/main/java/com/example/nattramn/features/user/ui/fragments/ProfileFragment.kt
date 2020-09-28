@@ -128,7 +128,7 @@ class ProfileFragment : Fragment(),
             if (it.status == Status.SUCCESS) {
                 showRecycler(it.data)
             } else if (it.status == Status.ERROR) {
-                snackMaker(requireView(), "خطا در جست و جوی مقالات")
+                snackMaker(requireView(), getString(R.string.messageArticleSearchError))
             }
         })
     }
@@ -146,7 +146,7 @@ class ProfileFragment : Fragment(),
                 }*/
                 showRecycler(resource.data)
             } else if (resource.status == Status.ERROR) {
-                snackMaker(requireView(), "خطا در ارتباط با سرور")
+                snackMaker(requireView(), getString(R.string.messageServerConnectionError))
             }
         })
     }
@@ -210,7 +210,7 @@ class ProfileFragment : Fragment(),
 
         binding.followButton.setOnSingleClickListener {
             binding.followButton.isClickable = false
-            if (binding.followButton.text == "در حال دنبال کردن") {
+            if (binding.followButton.text == getString(R.string.messageFollowing)) {
                 profileViewModel.unFollowUser(username)
             } else {
                 profileViewModel.followUser(username)
@@ -222,7 +222,7 @@ class ProfileFragment : Fragment(),
             if (resource.status == Status.SUCCESS) {
                 binding.user = resource.data
             } else if (resource.status == Status.ERROR) {
-                snackMaker(requireView(), "دنبال کردن ناموفق، دوباره امتحان کنید")
+                snackMaker(requireView(), getString(R.string.messageFollowRequestFailedTa))
             }
         })
 
@@ -231,7 +231,7 @@ class ProfileFragment : Fragment(),
             if (resource.status == Status.SUCCESS) {
                 binding.user = resource.data
             }
-            snackMaker(requireView(), "درخواست ناموفق، دوباره امتحان کنید")
+            snackMaker(requireView(), getString(R.string.messageRequestFailedTa))
         })
     }
 
@@ -244,11 +244,11 @@ class ProfileFragment : Fragment(),
     private fun setOnLogoutClick() {
         binding.logoutButton.setOnSingleClickListener {
             MaterialAlertDialogBuilder(requireContext())
-                .setTitle("خروج از حساب کاربری")
-                .setMessage("اطلاعات ورود شما از دست خواهند رفت!")
-                .setNegativeButton("خیر") { _, _ ->
+                .setTitle(getString(R.string.messageLogoutTitle))
+                .setMessage(getString(R.string.messageLogoutConfirmTitle))
+                .setNegativeButton(getString(R.string.messageNo)) { _, _ ->
                 }
-                .setPositiveButton("بله") { _, _ ->
+                .setPositiveButton(getString(R.string.messageYes)) { _, _ ->
                     logoutUser()
                 }
                 .show()
@@ -300,9 +300,9 @@ class ProfileFragment : Fragment(),
             if (result.status == Status.SUCCESS) {
                 recyclerArticlesList[position].bookmarked = true
                 profileArticleAdapter.notifyItemChanged(position)
-                snackMaker(requireView(), "این مقاله به لیست علاقه مندی ها اضافه شد")
+                snackMaker(requireView(), getString(R.string.messageBookmarkSuccess))
             } else if (result.status == Status.ERROR) {
-                snackMaker(requireView(), "خطا در ارتباط با سرور")
+                snackMaker(requireView(), getString(R.string.messageServerConnectionError))
             }
         })
 
@@ -310,9 +310,9 @@ class ProfileFragment : Fragment(),
             if (result.status == Status.SUCCESS) {
                 recyclerArticlesList[position].bookmarked = false
                 profileArticleAdapter.notifyItemChanged(position)
-                snackMaker(requireView(), "این مقاله از لیست علاقه مندی ها حذف شد")
+                snackMaker(requireView(), getString(R.string.messageRemoveBookmarkSuccess))
             } else if (result.status == Status.ERROR) {
-                snackMaker(requireView(), "خطا در ارتباط با سرور")
+                snackMaker(requireView(), getString(R.string.messageServerConnectionError))
             }
         })
     }
@@ -359,7 +359,7 @@ class ProfileFragment : Fragment(),
                 shareArticle(textToShare)
             } else if (it.status == Status.ERROR) {
                 dialogFragment.dismiss()
-                snackMaker(requireView(), "خطا در ارتباط با سرور")
+                snackMaker(requireView(), getString(R.string.messageServerConnectionError))
             }
         })
     }
@@ -367,11 +367,11 @@ class ProfileFragment : Fragment(),
     override fun onDeleteArticle(slug: String, position: Int) {
 
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("حذف مقاله")
-            .setMessage("آیا از حذف کردن مقاله مطمئن هستید؟")
-            .setNegativeButton("خیر") { _, _ ->
+            .setTitle(getString(R.string.messageDelete))
+            .setMessage(getString(R.string.messageDeleteArticleConfirm))
+            .setNegativeButton(getString(R.string.messageNo)) { _, _ ->
             }
-            .setPositiveButton("بله") { _, _ ->
+            .setPositiveButton(R.string.messageYes) { _, _ ->
                 profileViewModel.deleteArticle(slug)
             }
             .show()
@@ -381,20 +381,24 @@ class ProfileFragment : Fragment(),
             Observer { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        snackMaker(requireView(), "حذف مقاله با موفقیت انجام شد")
+                        snackMaker(requireView(), getString(R.string.messageArticleDeleteSuccess))
                         profileArticleAdapter.notifyItemRemoved(position)
                         dialogFragment.dismiss()
                     }
 
                     Status.LOADING -> {
                         Toast.makeText(
-                            requireContext(), "لطفا صبر کنید", Toast.LENGTH_SHORT
+                            requireContext(),
+                            getString(R.string.messagePleaseWait),
+                            Toast.LENGTH_SHORT
                         ).show()
                     }
 
                     Status.ERROR -> {
                         Toast.makeText(
-                            requireContext(), "خطا در ارتباط با سرور", Toast.LENGTH_SHORT
+                            requireContext(),
+                            getString(R.string.messageServerConnectionError),
+                            Toast.LENGTH_SHORT
                         ).show()
                     }
                 }

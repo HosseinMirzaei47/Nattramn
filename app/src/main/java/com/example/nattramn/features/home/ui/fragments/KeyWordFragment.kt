@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.nattramn.R
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.core.utils.snackMaker
 import com.example.nattramn.databinding.FragmentKeyWordsBinding
@@ -56,7 +57,7 @@ class KeyWordFragment : Fragment(), OnTagsItemListener, SwipeRefreshLayout.OnRef
                     showAllTagsRecycler(tags)
                 }
             } else if (resource.status == Status.ERROR) {
-                snackMaker(requireView(), "خطا در ارتباط با سرور")
+                snackMaker(requireView(), getString(R.string.messageServerConnectionError))
                 binding.progressAllTags.visibility = View.GONE
             }
         })

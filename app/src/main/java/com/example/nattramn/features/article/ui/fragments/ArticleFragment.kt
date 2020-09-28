@@ -130,7 +130,7 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
 
                 }
             } else if (resource.status == Status.ERROR) {
-                snackMaker(requireView(), "خطا در چک کردن آخرین تغییرات")
+                snackMaker(requireView(), getString(R.string.messageGetNewDataError))
             }
         })
     }
@@ -242,18 +242,18 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
         articleViewModel.bookmarkResult.observe(viewLifecycleOwner, Observer { result ->
             if (result.status == Status.SUCCESS) {
                 binding.isBookmarked = true
-                snackMaker(requireView(), "این مقاله به لیست علاقه مندی ها اضافه شد")
+                snackMaker(requireView(), getString(R.string.messageBookmarkSuccess))
             } else if (result.status == Status.ERROR) {
-                snackMaker(requireView(), "خطا در ارتباط با سرور")
+                snackMaker(requireView(), getString(R.string.messageServerConnectionError))
             }
         })
 
         articleViewModel.removeBookmark.observe(viewLifecycleOwner, Observer { result ->
             if (result.status == Status.SUCCESS) {
                 binding.isBookmarked = false
-                snackMaker(requireView(), "این مقاله از لیست علاقه مندی ها حذف شد")
+                snackMaker(requireView(), getString(R.string.messageRemoveBookmarkSuccess))
             } else if (result.status == Status.ERROR) {
-                snackMaker(requireView(), "خطا در ارتباط با سرور")
+                snackMaker(requireView(), getString(R.string.messageServerConnectionError))
             }
         })
     }
@@ -263,9 +263,9 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
 
         articleViewModel.sendCommentResult.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS) {
-                snackMaker(requireView(), "دیدگاه شما ثبت شد")
+                snackMaker(requireView(), getString(R.string.messageCommentSubmitSuccess))
             } else if (it.status == Status.ERROR) {
-                snackMaker(requireView(), "خطا در ارتباط با سرور")
+                snackMaker(requireView(), getString(R.string.messageServerConnectionError))
             }
             dialog.dismiss()
         })
@@ -298,7 +298,7 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
 
                     shareArticle(textToShare)
                 } else if (it.status == Status.ERROR) {
-                    snackMaker(requireView(), "خطا در ارتباط با سرور")
+                    snackMaker(requireView(), getString(R.string.messageServerConnectionError))
                 }
             })
         }
@@ -353,9 +353,9 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
             if (result.status == Status.SUCCESS) {
                 suggestionArticles[position].bookmarked = true
                 suggestedArticleAdapter.notifyItemChanged(position)
-                snackMaker(requireView(), "این مقاله به لیست علاقه مندی ها اضافه شد")
+                snackMaker(requireView(), getString(R.string.messageBookmarkSuccess))
             } else if (result.status == Status.ERROR) {
-                snackMaker(requireView(), "خطا در ارتباط با سرور")
+                snackMaker(requireView(), getString(R.string.messageServerConnectionError))
             }
         })
 
@@ -363,9 +363,9 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
             if (result.status == Status.SUCCESS) {
                 suggestionArticles[position].bookmarked = false
                 suggestedArticleAdapter.notifyItemChanged(position)
-                snackMaker(requireView(), "این مقاله از لیست علاقه مندی ها حذف شد")
+                snackMaker(requireView(), getString(R.string.messageRemoveBookmarkSuccess))
             } else if (result.status == Status.ERROR) {
-                snackMaker(requireView(), "خطا در ارتباط با سرور")
+                snackMaker(requireView(), getString(R.string.messageServerConnectionError))
             }
         })
     }

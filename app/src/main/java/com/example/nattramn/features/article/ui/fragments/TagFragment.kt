@@ -11,6 +11,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.nattramn.R
 import com.example.nattramn.core.commonAdapters.VerticalArticleAdapter
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.core.utils.setOnSingleClickListener
@@ -81,7 +82,7 @@ class TagFragment : Fragment(), OnArticleListener, SwipeRefreshLayout.OnRefreshL
                     showArticlesRecycler(articles)
                 }
             } else if (resource.status == Status.ERROR) {
-                snackMaker(requireView(), "خطا در ارتباط با سرور")
+                snackMaker(requireView(), getString(R.string.messageServerConnectionError))
             }
         })
     }
@@ -143,9 +144,9 @@ class TagFragment : Fragment(), OnArticleListener, SwipeRefreshLayout.OnRefreshL
             if (result.status == Status.SUCCESS) {
                 tagArticles[position].bookmarked = true
                 tagAdapter.notifyItemChanged(position)
-                snackMaker(requireView(), "این مقاله به لیست علاقه مندی ها اضافه شد")
+                snackMaker(requireView(), getString(R.string.messageBookmarkSuccess))
             } else if (result.status == Status.ERROR) {
-                snackMaker(requireView(), "خطا در ارتباط با سرور")
+                snackMaker(requireView(), getString(R.string.messageServerConnectionError))
             }
         })
 
@@ -153,9 +154,9 @@ class TagFragment : Fragment(), OnArticleListener, SwipeRefreshLayout.OnRefreshL
             if (result.status == Status.SUCCESS) {
                 tagArticles[position].bookmarked = false
                 tagAdapter.notifyItemChanged(position)
-                snackMaker(requireView(), "این مقاله از لیست علاقه مندی ها حذف شد")
+                snackMaker(requireView(), getString(R.string.messageRemoveBookmarkSuccess))
             } else if (result.status == Status.ERROR) {
-                snackMaker(requireView(), "خطا در ارتباط با سرور")
+                snackMaker(requireView(), getString(R.string.messageServerConnectionError))
             }
         })
     }

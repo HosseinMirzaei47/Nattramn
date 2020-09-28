@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
+import com.example.nattramn.R
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.core.utils.setOnSingleClickListener
 import com.example.nattramn.core.utils.snackMaker
@@ -84,9 +85,9 @@ class WriteFragment : Fragment() {
             binding.writeProgress.visibility = View.GONE
 
             if (resource.status == Status.SUCCESS) {
-                snackMaker(requireView(), "مقاله با موفقیت ویرایش گردید")
+                snackMaker(requireView(), getString(R.string.messageArticleEditSuccess))
             } else if (resource.status == Status.ERROR) {
-                snackMaker(requireView(), "خطا در ارتباط با سرور")
+                snackMaker(requireView(), getString(R.string.messageServerConnectionError))
             }
         })
 
@@ -102,9 +103,9 @@ class WriteFragment : Fragment() {
                             )
                         )
                 }*/
-                snackMaker(requireView(), "مقاله با موفقیت ثبت گردید")
+                snackMaker(requireView(), getString(R.string.messagePublishArticleSuccess))
             } else if (resource.status == Status.ERROR) {
-                snackMaker(requireView(), "خطا در ارتباط با سرور")
+                snackMaker(requireView(), getString(R.string.messageServerConnectionError))
             }
         })
     }
@@ -156,13 +157,13 @@ class WriteFragment : Fragment() {
 
                 changeViewsWhenEditing()
             } else if (it.status == Status.ERROR) {
-                snackMaker(requireView(), "خطا در دریافت مقاله. لطفا دوباره امتحان کنید")
+                snackMaker(requireView(), getString(R.string.messageGetArticleFailed))
             }
         })
     }
 
     private fun changeViewsWhenEditing() {
-        binding.publishButton.text = "اعمال ویرایش"
+        binding.publishButton.text = getString(R.string.messageApplyChanges)
         binding.articleTitle.isEnabled = false
         binding.chipGroupScroll.isEnabled = false
         binding.writeChipGroup.visibility = View.GONE
@@ -211,13 +212,13 @@ class WriteFragment : Fragment() {
                 }
                 if (titleLen < 15) {
                     binding.articleTitle.requestFocus()
-                    binding.articleTitle.error = "حداقل ۱۵ کاراکتر"
+                    binding.articleTitle.error = getString(R.string.messageArticleTitleLimit)
                     binding.writeProgress.visibility = View.GONE
                     return false
                 }
                 if (bodyLen < 30) {
                     binding.articleBody.requestFocus()
-                    binding.articleBody.error = "حداقل ۳۰ کاراکتر"
+                    binding.articleBody.error = getString(R.string.messageArticleBodyLimit)
                     binding.writeProgress.visibility = View.GONE
                     return false
                 }
@@ -232,12 +233,12 @@ class WriteFragment : Fragment() {
             val title = binding.articleTitle.text.toString()
             if (body.length > 29 && title.length > 14) {
                 writeViewModel.saveDraft(title, body)
-                snackMaker(requireView(), "مقاله در لیست پیش نویس ها ثبت شد")
+                snackMaker(requireView(), getString(R.string.messageSaveDraftSuccess))
                 Navigation.findNavController(requireView()).navigate(
                     WriteFragmentDirections.actionWriteFragmentToHomeFragment()
                 )
             } else {
-                snackMaker(requireView(), "خطا در ذخیره کردن مقاله. لطفا دوباره تلاش کنید.")
+                snackMaker(requireView(), getString(R.string.messageSaveDraftFailed))
             }
         }
     }

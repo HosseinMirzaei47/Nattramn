@@ -76,5 +76,9 @@
     <string name="messageRemoveBookmarkSuccess">این مقاله از لیست علاقه مندی ها حذف شد</string>
     <string name="messageBookmarkSuccess">این مقاله به لیست علاقه مندی ها اضافه شد</string>
     <string name="messageSaveDraftFailed">خطا در ذخیره کردن مقاله. لطفا دوباره تلاش کنید.</string>
+    <string name="messageGetArticleFailed">خطا در دریافت مقاله. لطفا دوباره امتحان کنید</string>
+    <string name="messageApplyChanges">اعمال ویرایش</string>
+    <string name="messageNo">خیر</string>
+    <string name="messageYes">بله</string>
 
 </resources>

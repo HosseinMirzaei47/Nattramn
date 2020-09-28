@@ -70,10 +70,10 @@ class LoginFragment : Fragment() {
                         .navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
                 }
                 Status.LOADING -> {
-                    snackMaker(requireView(), "لطفا صبر کنید.")
+                    snackMaker(requireView(), getString(R.string.messagePleaseWait))
                 }
                 Status.ERROR -> {
-                    snackMaker(requireView(), "خطا در ارتباط با سرور!")
+                    snackMaker(requireView(), getString(R.string.messageServerConnectionError))
                 }
             }
 
