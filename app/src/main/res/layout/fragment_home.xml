@@ -66,7 +66,7 @@
                 android:layout_marginRight="@dimen/padding_normal"
                 android:layout_marginBottom="@dimen/padding_small"
                 android:background="@android:color/transparent"
-                app:tabBackground="@drawable/tab_layout_selector"
+                app:tabBackground="@drawable/selector_tab_layout"
                 app:tabGravity="fill"
                 app:tabIndicatorHeight="@dimen/home_tab_indicator_height"
                 app:tabMaxWidth="@dimen/home_tab_max_width"

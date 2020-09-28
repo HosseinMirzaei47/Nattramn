@@ -186,7 +186,7 @@
                         android:id="@+id/tagsEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/edit_text_shape" />
+                        android:background="@drawable/shape_edit_text" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
