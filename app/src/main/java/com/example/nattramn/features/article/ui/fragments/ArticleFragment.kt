@@ -148,7 +148,7 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
                     suggestionArticles = articles.distinct().toMutableList()
                     suggestedArticleAdapter =
                         SuggestedArticleAdapter(
-                            articles.distinct(),
+                            suggestionArticles,
                             this
                         )
 

@@ -6,6 +6,7 @@ import com.example.nattramn.core.resource.Status
 import com.example.nattramn.core.utils.NetworkHelper
 import com.example.nattramn.core.utils.toArticleView
 import com.example.nattramn.features.article.data.models.CommentRequest
+import com.example.nattramn.features.article.data.models.TagAndArticleEntity
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.article.ui.CommentView
 import com.example.nattramn.features.user.data.UserEntity
@@ -128,10 +129,13 @@ class ArticleRepository(
                         }
                     }
 
-                    localDataSource.insertUser(userEntity!!)
-                    localDataSource.insertArticle(articleEntity!!)
-                    localDataSource.insertAllComments(commentsEntity!!)
+                    localDataSource.insertUser(userEntity)
+                    localDataSource.insertArticle(articleEntity)
+                    localDataSource.insertAllComments(commentsEntity)
                     localDataSource.insertAllTags(tagsEntity)
+                    articleRequest.data?.article?.tagList?.forEach { tag ->
+                        localDataSource.insertTagArticle(TagAndArticleEntity(tag, slug))
+                    }
 
                     val articleView =
                         toArticleView(userEntity, articleEntity, tagsEntity, commentsEntity)
@@ -181,7 +185,22 @@ class ArticleRepository(
                 val articleViews = tagArticles.data?.articleNetworks?.map {
                     it.toArticleView(Resource.success(null))
                 }
-                localDataSource.insertTagArticles(tag, tagArticles.data?.articleNetworks)
+
+                localDataSource.insertUsers(tagArticles.data?.articleNetworks)
+                localDataSource.insertArticle(tagArticles.data?.articleNetworks)
+                localDataSource.insertTags(tagArticles.data?.articleNetworks)
+                localDataSource.test(tagArticles.data?.articleNetworks)
+                /*tagArticles.data?.articleNetworks?.forEach { article ->
+                    localDataSource.insertTagArticle(TagAndArticleEntity(tag, article.slug))
+                }*/
+                /*tagArticles.data?.articleNetworks?.forEach { article ->
+                    localDataSource.insertTagArticle(
+                        article.tagList.map { tag ->
+                            TagAndArticleEntity(tag, article.slug)
+                        }
+                    )
+                }*/
+
                 responseArticles = Resource.success(articleViews)
             }
         }

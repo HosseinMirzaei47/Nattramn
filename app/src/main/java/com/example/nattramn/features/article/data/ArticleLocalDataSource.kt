@@ -1,9 +1,11 @@
 package com.example.nattramn.features.article.data
 
+import androidx.room.withTransaction
 import com.example.nattramn.core.config.MyApp
 import com.example.nattramn.core.database.AppDatabase
 import com.example.nattramn.core.storage.data.PreferenceProperty.Companion.getPreferences
 import com.example.nattramn.core.storage.data.Settings
+import com.example.nattramn.features.article.data.models.TagAndArticleEntity
 import com.example.nattramn.features.home.data.models.ArticleNetwork
 import com.example.nattramn.features.user.data.UserEntity
 
@@ -24,8 +26,18 @@ class ArticleLocalDataSource {
 
     fun unlikeArticle(slug: String) = db.likesDao().unlikeArticle(LikesEntity(slug))
 
-    suspend fun insertArticle(articleEntity: ArticleEntity) {
+    suspend fun insertArticle(articleEntity: ArticleEntity?) {
         db.articleDao().insertArticle(articleEntity)
+    }
+
+    suspend fun insertArticle(articleEntity: List<ArticleNetwork>?) {
+        articleEntity?.let { list ->
+            db.withTransaction {
+                db.articleDao().insertArticle(list.map { article ->
+                    article.toArticleEntity(article.user.following)
+                })
+            }
+        }
     }
 
     suspend fun insertAllArticlesAndTags(articles: List<ArticleEntity>?) {
@@ -37,30 +49,89 @@ class ArticleLocalDataSource {
         }
     }
 
-    suspend fun insertUser(userEntity: UserEntity) {
+    suspend fun insertUser(userEntity: UserEntity?) {
         db.userDao().insertUser(userEntity)
+    }
+
+    suspend fun insertUsers(articleNetworks: List<ArticleNetwork>?) {
+        db.withTransaction {
+            articleNetworks?.let { list ->
+                db.userDao().insertUser(list.map { articleNetwork ->
+                    UserEntity(
+                        articleNetwork.user.username,
+                        articleNetwork.user.following,
+                        articleNetwork.user.image
+                    )
+                })
+            }
+        }
     }
 
     suspend fun insertAllTags(tagEntityList: List<TagEntity>?) {
         db.tagDao().insertTag(tagEntityList)
     }
 
-    suspend fun insertAllComments(comments: List<CommentEntity>) {
-        for (comment in comments) {
-            insertComment(comment)
+    suspend fun insertAllComments(comments: List<CommentEntity>?) {
+        comments?.let {
+            for (comment in comments) {
+                insertComment(comment)
+            }
+        }
+    }
+
+    suspend fun insertTagArticle(tagArticleEntity: TagAndArticleEntity) {
+        db.withTransaction {
+            db.tagArticleDao().insertTagAndArticle(
+                tagArticleEntity
+            )
+        }
+    }
+
+    suspend fun insertTagArticle(tagArticleEntity: List<TagAndArticleEntity>) {
+        db.withTransaction {
+            db.tagArticleDao().insertTagAndArticle(
+                tagArticleEntity
+            )
+        }
+    }
+
+    suspend fun test(articleNetworks: List<ArticleNetwork>?) {
+        db.withTransaction {
+            articleNetworks?.forEach { article ->
+                db.tagArticleDao().insertTagAndArticle(
+                    article.tagList.map { tag ->
+                        TagAndArticleEntity(tag, article.slug)
+                    }
+                )
+            }
         }
     }
 
     suspend fun insertTagArticles(tag: String, articleNetworks: List<ArticleNetwork>?) {
-        /*articleNetworks?.let {
+        articleNetworks?.let {
             it.forEach { article ->
                 val isFeed = db.articleDao().getArticle(article.slug).isFeed
                 db.articleDao().insertArticle(article.toArticleEntity(isFeed))
                 db.tagArticleDao().insertTagAndArticle(
-                    TagAndArticleEntity(tag, article.slug)
+                    TagAndArticleEntity(
+                        tag = tag,
+                        slug = article.slug
+                    )
                 )
             }
-        }*/
+        }
+    }
+
+    suspend fun insertTags(allArticles: List<ArticleNetwork>?) {
+        allArticles?.let { articleNetworks ->
+            db.withTransaction {
+                articleNetworks.forEach {
+                    db.tagDao().insertTag(it.tagList.map { tag ->
+                        TagEntity(tag)
+                    })
+                }
+            }
+        }
     }
 
     private suspend fun insertComment(commentEntity: CommentEntity) {

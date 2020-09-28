@@ -113,14 +113,26 @@ class TagFragment : Fragment(), OnArticleListener, SwipeRefreshLayout.OnRefreshL
     }
 
     private fun openArticle(slug: String) {
-        Navigation.findNavController(requireView())
-            .navigate(
-                TagFragmentDirections.actionTagFragmentToArticleFragment(
-                    tagViewModel.getSingleArticleDb(slug)
-                )
-            )
+
+        tagViewModel.getSingleArticle(slug)
+
+        tagViewModel.singleArticleResult.observe(viewLifecycleOwner, Observer {
+            if (it.status == Status.SUCCESS) {
+                Navigation.findNavController(requireView())
+                    .navigate(
+                        TagFragmentDirections.actionTagFragmentToArticleFragment(
+                            tagViewModel.getSingleArticleDb(slug)
+                        )
+                    )
+            } else if (it.status == Status.LOADING) {
+                snackMaker(requireView(), getString(R.string.messagePleaseWait))
+            } else if (it.status == Status.ERROR) {
+                snackMaker(requireView(), getString(R.string.messageServerConnectionError))
+            }
+        })
     }
 
+    /*      INTERFACES IMPLEMENTATION       */
     override fun onCardClick(slug: String) {
         openArticle(slug)
     }

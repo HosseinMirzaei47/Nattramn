@@ -43,6 +43,8 @@ class HomeFragment : Fragment() {
         adapter.addFragment(ForYouFragment(), resources.getString(R.string.HomeForYou))
         adapter.addFragment(KeyWordFragment(), resources.getString(R.string.HomeTabTitleKeywords))
 
+        /*binding.viewPager.isHorizontalScrollBarEnabled = false*/
+
         binding.viewPager.adapter = adapter
         binding.homeTabLayout.setupWithViewPager(binding.viewPager)
 

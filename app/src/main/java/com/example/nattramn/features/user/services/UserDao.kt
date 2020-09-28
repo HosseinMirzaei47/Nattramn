@@ -20,7 +20,7 @@ interface UserDao {
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertUser(userEntity: UserEntity)
+    suspend fun insertUser(userEntity: UserEntity?)
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)

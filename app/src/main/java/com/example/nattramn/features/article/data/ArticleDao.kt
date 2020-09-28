@@ -14,7 +14,7 @@ interface ArticleDao {
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertArticle(articleEntity: ArticleEntity)
+    suspend fun insertArticle(articleEntity: ArticleEntity?)
 
     @Delete
     fun deleteArticle(articleEntity: ArticleEntity)

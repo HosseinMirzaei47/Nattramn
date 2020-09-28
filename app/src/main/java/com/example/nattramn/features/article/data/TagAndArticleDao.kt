@@ -15,6 +15,9 @@ interface TagAndArticleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTagAndArticle(tagAndArticleEntity: TagAndArticleEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertTagAndArticle(tagAndArticleEntity: List<TagAndArticleEntity>)
+
     @Query("select * from articles where slug in (select slug from tagsArticles where tag =:tag)")
     fun getTagArticles(tag: String): List<ArticleEntity>
 
