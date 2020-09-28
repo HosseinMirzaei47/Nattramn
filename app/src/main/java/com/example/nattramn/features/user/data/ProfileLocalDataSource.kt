@@ -3,7 +3,6 @@ package com.example.nattramn.features.user.data
 import androidx.room.withTransaction
 import com.example.nattramn.core.config.MyApp
 import com.example.nattramn.core.database.AppDatabase
-import com.example.nattramn.features.article.data.ArticleEntity
 import com.example.nattramn.features.article.data.TagEntity
 import com.example.nattramn.features.article.data.models.TagAndArticleEntity
 import com.example.nattramn.features.home.data.models.ArticleNetwork
@@ -14,10 +13,7 @@ class ProfileLocalDataSource {
 
     fun getUser(username: String) = db.userDao().getUser(username)
 
-    fun getUserArticles(username: String): List<ArticleEntity> {
-        val userArticles = db.articleDao().getUserArticles(username)
-        return userArticles
-    }
+    fun getUserArticles(username: String) = db.articleDao().getUserArticles(username)
 
     fun getBookmarkedArticles() = db.articleDao().getBookmarkedArticles()
 

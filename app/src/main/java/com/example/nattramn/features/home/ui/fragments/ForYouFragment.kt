@@ -212,19 +212,26 @@ class ForYouFragment : Fragment(), OnArticleListener, SwipeRefreshLayout.OnRefre
     ) {
         if (isBookmarked) {
             homeViewModel.removeFromBookmarks(slug)
+            if (item == Constants.FEED_OR_TAG) {
+                feedArticles[position].bookmarked = false
+                feedArticlesAdapter.notifyItemChanged(position)
+            } else if (item == Constants.LATEST) {
+                latestArticles[position].bookmarked = false
+                topArticlesAdapter.notifyItemChanged(position)
+            }
         } else {
             homeViewModel.bookmarkArticle(slug)
+            if (item == Constants.FEED_OR_TAG) {
+                feedArticles[position].bookmarked = true
+                feedArticlesAdapter.notifyItemChanged(position)
+            } else if (item == Constants.LATEST) {
+                latestArticles[position].bookmarked = true
+                topArticlesAdapter.notifyItemChanged(position)
+            }
         }
 
         homeViewModel.bookmarkResult.observe(viewLifecycleOwner, Observer { result ->
             if (result.status == Status.SUCCESS) {
-                if (item == Constants.FEED_OR_TAG) {
-                    feedArticles[position].bookmarked = true
-                    feedArticlesAdapter.notifyItemChanged(position)
-                } else if (item == Constants.LATEST) {
-                    latestArticles[position].bookmarked = true
-                    topArticlesAdapter.notifyItemChanged(position)
-                }
                 snackMaker(requireView(), "این مقاله به لیست علاقه مندی ها اضافه شد")
             } else if (result.status == Status.ERROR) {
                 snackMaker(requireView(), "خطا در ارتباط با سرور")
@@ -233,13 +240,6 @@ class ForYouFragment : Fragment(), OnArticleListener, SwipeRefreshLayout.OnRefre
 
         homeViewModel.removeBookmark.observe(viewLifecycleOwner, Observer { result ->
             if (result.status == Status.SUCCESS) {
-                if (item == Constants.FEED_OR_TAG) {
-                    feedArticles[position].bookmarked = false
-                    feedArticlesAdapter.notifyItemChanged(position)
-                } else if (item == Constants.LATEST) {
-                    latestArticles[position].bookmarked = false
-                    topArticlesAdapter.notifyItemChanged(position)
-                }
                 snackMaker(requireView(), "این مقاله از لیست علاقه مندی ها حذف شد")
             } else if (result.status == Status.ERROR) {
                 snackMaker(requireView(), "خطا در ارتباط با سرور")

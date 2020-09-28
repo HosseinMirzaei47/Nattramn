@@ -400,6 +400,7 @@ class ProfileFragment : Fragment(),
                             getString(R.string.messageServerConnectionError),
                             Toast.LENGTH_SHORT
                         ).show()
+                        dialogFragment.dismiss()
                     }
                 }
             })
