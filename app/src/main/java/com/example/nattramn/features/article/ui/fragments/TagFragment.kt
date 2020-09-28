@@ -76,6 +76,7 @@ class TagFragment : Fragment(), OnArticleListener, SwipeRefreshLayout.OnRefreshL
     private fun observeNetResponse() {
         tagViewModel.tagArticlesResult.observe(viewLifecycleOwner, Observer { resource ->
             binding.swipeLayout.isRefreshing = false
+            binding.progressTag.visibility = View.GONE
             if (resource.status == Status.SUCCESS) {
                 resource.data?.let { articles ->
                     tagArticles = articles.toMutableList()
