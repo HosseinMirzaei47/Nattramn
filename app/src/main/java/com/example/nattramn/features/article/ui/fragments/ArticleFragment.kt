@@ -146,6 +146,9 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
             if (resources.status == Status.SUCCESS) {
                 resources.data?.let { articles ->
                     suggestionArticles = articles.distinct().toMutableList()
+                    if (suggestionArticles.isNotEmpty()) {
+                        binding.relatedArticlesText.visibility = View.VISIBLE
+                    }
                     suggestedArticleAdapter =
                         SuggestedArticleAdapter(
                             suggestionArticles,
