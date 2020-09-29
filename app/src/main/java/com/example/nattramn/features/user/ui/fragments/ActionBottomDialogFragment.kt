@@ -40,10 +40,7 @@ class ActionBottomDialogFragment(val listener: OnBottomSheetItemsClick) :
             lifecycleOwner = viewLifecycleOwner
         }
 
-        if (currentTab == Constants.TAB_USER_FAVORITE_ARTICLES) {
-            binding.deleteArticleButton.visibility = View.GONE
-            binding.editArticleButton.visibility = View.GONE
-        }
+        setDeleteAndEditOptionsVisibility()
 
         return binding.root
     }
@@ -74,6 +71,16 @@ class ActionBottomDialogFragment(val listener: OnBottomSheetItemsClick) :
     private fun onEditArticleClick() {
         binding.editArticleButton.setOnSingleClickListener {
             listener.onEditArticle(slug)
+        }
+    }
+
+    private fun setDeleteAndEditOptionsVisibility() {
+        if (currentTab == Constants.TAB_USER_FAVORITE_ARTICLES || !requireArguments().getBoolean(
+                Constants.ARG_HAS_TOKEN
+            )
+        ) {
+            binding.deleteArticleButton.visibility = View.GONE
+            binding.editArticleButton.visibility = View.GONE
         }
     }
 

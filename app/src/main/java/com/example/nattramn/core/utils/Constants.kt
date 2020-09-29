@@ -10,4 +10,5 @@ object Constants {
     const val ARG_SLUG = "argSlug"
     const val ARG_POSITION = "argPosition"
     const val ARG_CURRENT_TAB = "argCurrentTab"
+    const val ARG_HAS_TOKEN = "argHasToken"
 }

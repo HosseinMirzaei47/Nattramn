@@ -134,6 +134,7 @@
                         android:id="@+id/articleBody"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:maxLines="6"
                         android:gravity="top"
                         android:minLines="4" />
 

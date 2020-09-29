@@ -31,15 +31,7 @@ class ProfileRepository(
     }
 
     fun getUserDb(username: String): UserView {
-        val user = localDataSource.getUser(username)
-        if (user.username.length > 1) {
-            return localDataSource.getUser(username).toUserView()
-        }
-        user.username = ""
-        user.following = false
-        user.image = "false"
-
-        return user.toUserView()
+        return localDataSource.getUser(username).toUserView()
     }
 
     suspend fun getUserArticlesDb(username: String) =

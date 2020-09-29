@@ -330,6 +330,10 @@ class ProfileFragment : Fragment(),
         bundle.putString(Constants.ARG_SLUG, slug)
         bundle.putInt(Constants.ARG_POSITION, position)
         bundle.putString(Constants.ARG_CURRENT_TAB, currentTab)
+        bundle.putBoolean(
+            Constants.ARG_HAS_TOKEN,
+            username == AuthLocalDataSource().getUsername()
+        )
         dialogFragment.arguments = bundle
 
         dialogFragment.show(childFragmentManager, ActionBottomDialogFragment.TAG)
