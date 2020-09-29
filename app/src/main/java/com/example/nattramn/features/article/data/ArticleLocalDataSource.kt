@@ -15,11 +15,7 @@ class ArticleLocalDataSource {
     private val db = AppDatabase.buildDatabase(MyApp.app)
 
     fun logout() {
-        db.userDao().clearUserTable()
-        db.articleDao().clearArticleTable()
-        db.tagDao().clearTagsTable()
-        db.commentDao().clearCommentsTable()
-        db.tagArticleDao().clearTagArticlesTable()
+        db.clearAllTables()
     }
 
     suspend fun insertArticle(articleEntity: ArticleEntity?) {

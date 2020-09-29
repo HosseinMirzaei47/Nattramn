@@ -42,10 +42,11 @@ class ProfileRepository(
         return user.toUserView()
     }
 
-    fun getUserArticlesDb(username: String) =
+    suspend fun getUserArticlesDb(username: String) =
         articleEntityListToView(localDataSource.getUserArticles(username))
 
-    fun getBookmarkedArticlesDb() = articleEntityListToView(localDataSource.getBookmarkedArticles())
+    suspend fun getBookmarkedArticlesDb() =
+        articleEntityListToView(localDataSource.getBookmarkedArticles())
 
     suspend fun getUserArticles(username: String): Resource<List<ArticleView>> {
         var responseArticles = Resource<List<ArticleView>>(Status.ERROR, null, null)

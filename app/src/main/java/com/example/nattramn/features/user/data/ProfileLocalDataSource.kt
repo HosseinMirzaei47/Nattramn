@@ -13,9 +13,9 @@ class ProfileLocalDataSource {
 
     fun getUser(username: String) = db.userDao().getUser(username)
 
-    fun getUserArticles(username: String) = db.articleDao().getUserArticles(username)
+    suspend fun getUserArticles(username: String) = db.articleDao().getUserArticles(username)
 
-    fun getBookmarkedArticles() = db.articleDao().getBookmarkedArticles()
+    suspend fun getBookmarkedArticles() = db.articleDao().getBookmarkedArticles()
 
     fun getArticleTags(slug: String) = db.tagDao().getArticleTags(slug)
 

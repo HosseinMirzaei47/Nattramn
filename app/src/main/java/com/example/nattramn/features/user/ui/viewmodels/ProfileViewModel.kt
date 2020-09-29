@@ -45,13 +45,27 @@ class ProfileViewModel : ViewModel() {
     private var _unFollowUserResult = MutableLiveData<Resource<UserView>>()
     val unFollowUserResult: LiveData<Resource<UserView>> get() = _unFollowUserResult
 
+    private var _userArticles = MutableLiveData<List<ArticleView>>()
+    val userArticles: LiveData<List<ArticleView>> get() = _userArticles
+
+    private var _userBookmarks = MutableLiveData<List<ArticleView>>()
+    val userBookmarks: LiveData<List<ArticleView>> get() = _userBookmarks
+
     fun logout() = articleRepository.logout()
 
     fun getUserDb(username: String) = profileRepository.getUserDb(username)
 
-    fun getUserArticlesDb(username: String) = profileRepository.getUserArticlesDb(username)
+    fun getUserArticlesDb(username: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _userArticles.postValue(profileRepository.getUserArticlesDb(username))
+        }
+    }
 
-    fun getBookmarkedArticlesDb() = profileRepository.getBookmarkedArticlesDb()
+    fun getBookmarkedArticlesDb() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _userBookmarks.postValue(profileRepository.getBookmarkedArticlesDb())
+        }
+    }
 
     fun getSingleArticleDb(slug: String) = articleRepository.getSingleArticleDb(slug)
 
@@ -139,3 +153,4 @@ class ProfileViewModel : ViewModel() {
     }
 
 }
+

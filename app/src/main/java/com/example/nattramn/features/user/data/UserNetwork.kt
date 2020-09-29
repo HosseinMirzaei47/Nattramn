@@ -22,7 +22,7 @@ data class UserNetwork(
     fun toUserView(): UserView {
         return UserView(
             name = username!!,
-            job = "مدرس زبان انگلیسی",
+            job = bio ?: "",
             image = image!!,
             followers = "85",
             following = following

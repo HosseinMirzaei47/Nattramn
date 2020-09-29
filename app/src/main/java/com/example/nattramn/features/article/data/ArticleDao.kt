@@ -35,10 +35,10 @@ interface ArticleDao {
     fun getArticle(slug: String): ArticleEntity
 
     @Query("select * from articles where ownerUsername =:username")
-    fun getUserArticles(username: String): List<ArticleEntity>
+    suspend fun getUserArticles(username: String): List<ArticleEntity>
 
     @Query("select * from articles where bookmarked = 1")
-    fun getBookmarkedArticles(): List<ArticleEntity>
+    suspend fun getBookmarkedArticles(): List<ArticleEntity>
 
     @Query("select * from articles where title like :title")
     fun searchByTitle(title: String): List<ArticleEntity>

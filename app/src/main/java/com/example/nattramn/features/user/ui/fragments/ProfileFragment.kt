@@ -66,8 +66,8 @@ class ProfileFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.profileArticleCount.text =
-            profileViewModel.getUserArticlesDb(username).size.toString()
+        /*binding.profileArticleCount.text =
+            profileViewModel.getUserArticlesDb(username).size.toString()*/
         onClickListeners()
 
         sendProfileInfoRequest()
@@ -114,11 +114,16 @@ class ProfileFragment : Fragment(),
     }
 
     private fun showBookmarkedArticles() {
-        if (username == AuthLocalDataSource().getUsername()) {
-            showRecycler(profileViewModel.getBookmarkedArticlesDb())
-        } else {
-            showRecycler(listOf())
-        }
+
+        profileViewModel.getBookmarkedArticlesDb()
+        profileViewModel.userBookmarks.observe(viewLifecycleOwner, Observer {
+            if (username == AuthLocalDataSource().getUsername()) {
+                showRecycler(it)
+            } else {
+                showRecycler(listOf())
+            }
+        })
+
         profileViewModel.setBookmarkedArticles(username)
         profileViewModel.profileBookmarkedArticlesResult.observe(viewLifecycleOwner, Observer {
             binding.swipeLayout.isRefreshing = false
@@ -131,7 +136,13 @@ class ProfileFragment : Fragment(),
     }
 
     private fun showUserArticles() {
-        showRecycler(profileViewModel.getUserArticlesDb(username))
+
+        profileViewModel.getUserArticlesDb(username)
+        profileViewModel.userArticles.observe(viewLifecycleOwner, Observer {
+            showRecycler(it)
+        })
+
+        /*showRecycler(profileViewModel.getUserArticlesDb(username))*/
         profileViewModel.getUserArticles(username)
         profileViewModel.userArticlesResult.observe(viewLifecycleOwner, Observer { resource ->
             binding.swipeLayout.isRefreshing = false

@@ -11,7 +11,9 @@ import com.example.nattramn.features.user.data.UserEntity
     primaryKeys = ["slug"],
     foreignKeys = [
         ForeignKey(
-            onDelete = CASCADE,
+            /*
+
+            onDelete = CASCADE,*/
             onUpdate = CASCADE,
             entity = UserEntity::class,
             parentColumns = ["username"],
