@@ -15,7 +15,7 @@ import com.example.nattramn.features.user.data.AuthLocalDataSource
 class SplashFragment : Fragment() {
 
     private lateinit var binding: FragmentSplashBinding
-    private val splashTimeOut = 1000.toLong()
+    private val splashTimeOut = 2000.toLong()
     private val localDataSource = AuthLocalDataSource()
 
     override fun onCreateView(

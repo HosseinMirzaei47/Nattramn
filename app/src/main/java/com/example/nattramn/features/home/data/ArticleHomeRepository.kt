@@ -63,15 +63,13 @@ class ArticleHomeRepository(
         if (NetworkHelper.isOnline(MyApp.app)) {
             val feedArticles = homeRemoteDataSource.getAllArticles()
             if (feedArticles.status == Status.SUCCESS) {
-                val articleViews = feedArticles.data?.articleNetworks?.map {
+                var articleViews = feedArticles.data?.articleNetworks?.map {
                     it.toArticleView(Resource.success(null))
                 }
                 localDataSource.updateAllArticles(feedArticles.data?.articleNetworks)
-
-                articleViews?.sortedByDescending {
+                articleViews = articleViews?.sortedByDescending {
                     it.likes
                 }
-
                 responseArticles = Resource.success(articleViews)
             }
         }

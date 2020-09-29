@@ -58,6 +58,9 @@ class ForYouFragment : Fragment(), OnArticleListener, SwipeRefreshLayout.OnRefre
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.swipeLayout.setOnRefreshListener(this)
+
+        filterFeedArticles()
+
         setRecyclers()
     }
 
@@ -146,38 +149,32 @@ class ForYouFragment : Fragment(), OnArticleListener, SwipeRefreshLayout.OnRefre
         binding.textInputSearch.visibility = View.VISIBLE
     }
 
-    private fun onSearchArticle() {
-        binding.textInputSearch.setOnFocusChangeListener { _, b ->
-
-        }
-
+    private fun filterFeedArticles() {
         binding.textInputSearch.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-                val title = p0.toString()
-                val articleViews = homeViewModel.searchByTitle(title)
-
-                filterArticlesAdapter = VerticalArticleAdapter(
-                    articleViews,
-                    this@ForYouFragment
-                )
-
-                binding.recyclerSearchArticle.apply {
-                    adapter = filterArticlesAdapter
-                    layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                }
-                println("jalil ${articleViews.size}")
-            }
-
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                /*binding.recyclerSearchArticle.visibility = View.VISIBLE
-                binding.recyclerHomeTopArticles.visibility = View.GONE
-                binding.recyclerHomeArticle.visibility = View.GONE*/
-                println("jalil onTextChanged")
+            override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                val target = charSequence.toString()
+
+                val filterResult = feedArticles.filter {
+                    it.title.contains(target) ||
+                            it.body.contains(target) ||
+                            it.userView.name.contains(target) ||
+                            it.tags?.let { tags ->
+                                var contain = false
+                                tags.forEach { tag ->
+                                    if (tag.contains(target)) contain = true
+                                }
+                                contain
+                            } ?: false
+                }
+                showFeedRecycler(filterResult)
             }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
         })
     }
 
