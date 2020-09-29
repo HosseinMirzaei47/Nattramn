@@ -67,6 +67,11 @@ class ArticleHomeRepository(
                     it.toArticleView(Resource.success(null))
                 }
                 localDataSource.updateAllArticles(feedArticles.data?.articleNetworks)
+
+                articleViews?.sortedByDescending {
+                    it.likes
+                }
+
                 responseArticles = Resource.success(articleViews)
             }
         }

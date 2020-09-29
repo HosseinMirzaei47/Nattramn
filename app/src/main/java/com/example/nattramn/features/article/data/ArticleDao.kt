@@ -25,7 +25,7 @@ interface ArticleDao {
     @Update
     fun updateArticle(articleEntity: ArticleEntity)
 
-    @Query("select * from articles")
+    @Query("select * from articles order by favoriteCount desc")
     fun getAllArticles(): List<ArticleEntity>
 
     @Query("select * from articles where isFeed = 1 order by date")
