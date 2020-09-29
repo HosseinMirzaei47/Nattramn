@@ -1,6 +1,5 @@
 package com.example.nattramn.features.user.ui.fragments
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -65,7 +64,6 @@ class ProfileFragment : Fragment(),
         return binding.root
     }
 
-    @SuppressLint("InflateParams")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.profileArticleCount.text =
@@ -82,7 +80,6 @@ class ProfileFragment : Fragment(),
 
         binding.profileTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
-            @SuppressLint("InflateParams")
             override fun onTabSelected(tab: TabLayout.Tab?) {
 
                 binding.profileTab.getTabAt(0)?.customView = null

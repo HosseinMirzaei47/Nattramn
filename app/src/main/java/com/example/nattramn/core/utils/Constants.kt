@@ -7,7 +7,7 @@ object Constants {
     const val SUGGESTION = "suggestion"
     const val TAB_USER_ARTICLES = "userArticles"
     const val TAB_USER_FAVORITE_ARTICLES = "userBookmarkedArticles"
-    const val ARG_SLUG = "userBookmarkedArticles"
-    const val ARG_POSITION = "userBookmarkedArticles"
-    const val ARG_CURRENT_TAB = "userBookmarkedArticles"
+    const val ARG_SLUG = "argSlug"
+    const val ARG_POSITION = "argPosition"
+    const val ARG_CURRENT_TAB = "argCurrentTab"
 }

@@ -30,41 +30,8 @@ class ArticleLocalDataSource {
         db.articleDao().insertArticle(articleEntity)
     }
 
-    suspend fun insertArticle(articleEntity: List<ArticleNetwork>?) {
-        articleEntity?.let { list ->
-            db.withTransaction {
-                db.articleDao().insertArticle(list.map { article ->
-                    article.toArticleEntity(article.user.following)
-                })
-            }
-        }
-    }
-
-    suspend fun insertAllArticlesAndTags(articles: List<ArticleEntity>?) {
-        if (articles != null) {
-            for (article in articles) {
-                insertArticle(article)
-                db.tagDao().insertTag(article.tags)
-            }
-        }
-    }
-
     suspend fun insertUser(userEntity: UserEntity?) {
         db.userDao().insertUser(userEntity)
-    }
-
-    suspend fun insertUsers(articleNetworks: List<ArticleNetwork>?) {
-        db.withTransaction {
-            articleNetworks?.let { list ->
-                db.userDao().insertUser(list.map { articleNetwork ->
-                    UserEntity(
-                        articleNetwork.user.username,
-                        articleNetwork.user.following,
-                        articleNetwork.user.image
-                    )
-                })
-            }
-        }
     }
 
     suspend fun insertAllTags(tagEntityList: List<TagEntity>?) {
@@ -87,26 +54,6 @@ class ArticleLocalDataSource {
         }
     }
 
-    suspend fun insertTagArticle(tagArticleEntity: List<TagAndArticleEntity>) {
-        db.withTransaction {
-            db.tagArticleDao().insertTagAndArticle(
-                tagArticleEntity
-            )
-        }
-    }
-
-    suspend fun test(articleNetworks: List<ArticleNetwork>?) {
-        db.withTransaction {
-            articleNetworks?.forEach { article ->
-                db.tagArticleDao().insertTagAndArticle(
-                    article.tagList.map { tag ->
-                        TagAndArticleEntity(tag, article.slug)
-                    }
-                )
-            }
-        }
-    }
-
     suspend fun insertTagArticles(tag: String, articleNetworks: List<ArticleNetwork>?) {
         articleNetworks?.let {
             it.forEach { article ->
@@ -118,18 +65,6 @@ class ArticleLocalDataSource {
                         slug = article.slug
                     )
                 )
-            }
-        }
-    }
-
-    suspend fun insertTags(allArticles: List<ArticleNetwork>?) {
-        allArticles?.let { articleNetworks ->
-            db.withTransaction {
-                articleNetworks.forEach {
-                    db.tagDao().insertTag(it.tagList.map { tag ->
-                        TagEntity(tag)
-                    })
-                }
             }
         }
     }
@@ -149,6 +84,35 @@ class ArticleLocalDataSource {
     fun getArticleComments(slug: String) = db.commentDao().getArticleComments(slug)
 
     fun getTagArticles(tag: String) = db.tagArticleDao().getTagArticles(tag)
+
+    suspend fun updateTagArticles(articleNetworks: List<ArticleNetwork>?) {
+        articleNetworks?.let { articles ->
+            db.withTransaction {
+                db.userDao().insertUser(articles.map { article ->
+                    UserEntity(
+                        article.user.username,
+                        article.user.following,
+                        article.user.image
+                    )
+                })
+                db.articleDao().insertArticle(articles.map { article ->
+                    article.toArticleEntity(isFeed = article.user.following)
+                })
+                articles.forEach {
+                    db.tagDao().insertTag(it.tagList.map { tag ->
+                        TagEntity(tag)
+                    })
+                }
+                articles.forEach { article ->
+                    db.tagArticleDao().insertTagAndArticle(
+                        article.tagList.map { tag ->
+                            TagAndArticleEntity(tag, article.slug)
+                        }
+                    )
+                }
+            }
+        }
+    }
 
     fun updateArticle(slug: String) {
         val article = getArticle(slug)

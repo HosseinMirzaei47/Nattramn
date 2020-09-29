@@ -185,22 +185,7 @@ class ArticleRepository(
                 val articleViews = tagArticles.data?.articleNetworks?.map {
                     it.toArticleView(Resource.success(null))
                 }
-
-                localDataSource.insertUsers(tagArticles.data?.articleNetworks)
-                localDataSource.insertArticle(tagArticles.data?.articleNetworks)
-                localDataSource.insertTags(tagArticles.data?.articleNetworks)
-                localDataSource.test(tagArticles.data?.articleNetworks)
-                /*tagArticles.data?.articleNetworks?.forEach { article ->
-                    localDataSource.insertTagArticle(TagAndArticleEntity(tag, article.slug))
-                }*/
-                /*tagArticles.data?.articleNetworks?.forEach { article ->
-                    localDataSource.insertTagArticle(
-                        article.tagList.map { tag ->
-                            TagAndArticleEntity(tag, article.slug)
-                        }
-                    )
-                }*/
-
+                localDataSource.updateTagArticles(tagArticles.data?.articleNetworks)
                 responseArticles = Resource.success(articleViews)
             }
         }
