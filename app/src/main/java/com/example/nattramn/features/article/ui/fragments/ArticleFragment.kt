@@ -64,7 +64,7 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
             lifecycleOwner = viewLifecycleOwner
             articleView = articleViewArg
             isBookmarked = articleViewArg.bookmarked
-            /*liked = articleViewModel.getLikedFlag(articleSlug)*/
+            liked = isLiked()
         }
 
         return binding.root
@@ -73,7 +73,7 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         snapHorizontal.attachToRecyclerView(recyclerArticleRelated)
-        /*setOnLikeArticleClick()*/
+        setOnLikeArticleClick()
         onBookmarkButtonClick()
         setOnShareArticleClick()
         setAddCommentAction()
@@ -281,9 +281,8 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
 
     private fun setOnLikeArticleClick() {
         binding.likeArticleButton.setOnSingleClickListener {
-            articleViewModel.likeArticleClicked(articleSlug)
-            println("jalil ${articleViewModel.getLikedArticlesSlugs()}")
-            /*binding.liked =*/
+            articleViewModel.applyLike(articleSlug)
+            binding.liked = isLiked()
         }
     }
 
@@ -332,6 +331,8 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
         val shareIntent = Intent.createChooser(sendIntent, null)
         startActivity(shareIntent)
     }
+
+    private fun isLiked() = articleSlug in articleViewModel.getLikedArticles()
 
     /*      INTERFACES IMPLEMENTATION      */
     override fun onCardClick(slug: String) {

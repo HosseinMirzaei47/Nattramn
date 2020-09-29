@@ -43,11 +43,9 @@ class ArticleRepository(
 
     fun getBodyDraft() = localDataSource.getBodyDraft()
 
-    suspend fun likeArticleClicked(slug: String) = localDataSource.likeArticle(slug)
+    fun applyLike(slug: String) = localDataSource.applyLike(slug)
 
-    fun getLikedArticlesSlugs() = localDataSource.getLikedArticlesSlugs()
-
-    fun unlikeArticle(slug: String) = localDataSource.unlikeArticle(slug)
+    fun getLikedArticles() = localDataSource.getLikedArticles()
 
     suspend fun bookmarkArticle(slug: String): Resource<ArticleView> {
         var response = Resource<ArticleView>(Status.ERROR, null, null)

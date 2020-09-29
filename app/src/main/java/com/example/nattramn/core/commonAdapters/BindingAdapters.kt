@@ -1,6 +1,5 @@
 package com.example.nattramn.core.commonAdapters
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
@@ -65,16 +64,11 @@ fun bookmarkSrcRecyclerItem(view: View, isBookmarked: Boolean) {
 fun setLikeIcon(view: View, liked: Boolean) {
     if (view is ImageView) {
         if (liked) {
-            load(view, R.drawable.ic_thumb_up_red)
+            load(view, R.drawable.ic_thumb_up_green)
         } else {
             load(view, R.drawable.ic_thumb_up_grey)
         }
     }
-}
-
-@BindingAdapter("textNumber")
-fun setTextNumber(textView: TextView, number: Int) {
-    textView.text = number.toString()
 }
 
 @BindingAdapter("app:visibleOnResult")
@@ -97,7 +91,6 @@ fun checkState(view: View, following: Boolean) {
     }
 }
 
-@SuppressLint("SimpleDateFormat")
 @BindingAdapter("app:convertDate")
 fun convertDate(view: View, string: String) {
 

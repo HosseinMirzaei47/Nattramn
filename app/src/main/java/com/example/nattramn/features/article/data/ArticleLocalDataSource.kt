@@ -22,10 +22,6 @@ class ArticleLocalDataSource {
         db.tagArticleDao().clearTagArticlesTable()
     }
 
-    suspend fun likeArticle(slug: String) = db.likesDao().insertLikedArticle(LikesEntity(slug))
-
-    fun unlikeArticle(slug: String) = db.likesDao().unlikeArticle(LikesEntity(slug))
-
     suspend fun insertArticle(articleEntity: ArticleEntity?) {
         db.articleDao().insertArticle(articleEntity)
     }
@@ -69,22 +65,6 @@ class ArticleLocalDataSource {
         }
     }
 
-    private suspend fun insertComment(commentEntity: CommentEntity) {
-        db.commentDao().insertComment(commentEntity)
-    }
-
-    fun getLikedArticlesSlugs() = db.likesDao().getLikedArticlesSlugs()
-
-    fun getUser(username: String) = db.userDao().getUser(username)
-
-    fun getArticle(slug: String) = db.articleDao().getArticle(slug)
-
-    fun getArticleTags(slug: String) = db.tagDao().getArticleTags(slug)
-
-    fun getArticleComments(slug: String) = db.commentDao().getArticleComments(slug)
-
-    fun getTagArticles(tag: String) = db.tagArticleDao().getTagArticles(tag)
-
     suspend fun updateTagArticles(articleNetworks: List<ArticleNetwork>?) {
         articleNetworks?.let { articles ->
             db.withTransaction {
@@ -114,13 +94,29 @@ class ArticleLocalDataSource {
         }
     }
 
-    fun updateArticle(slug: String) {
-        val article = getArticle(slug)
-        article.liked?.let { flag ->
-            article.liked = !flag
-        }
-        db.articleDao().updateArticle(article)
+    private suspend fun insertComment(commentEntity: CommentEntity) {
+        db.commentDao().insertComment(commentEntity)
     }
+
+    fun applyLike(slug: String) {
+        if (slug in db.likesDao().getLikedArticlesSlugs()) {
+            db.likesDao().unlikeArticle(slug)
+        } else {
+            db.likesDao().likeArticle(LikesEntity(0, slug))
+        }
+    }
+
+    fun getLikedArticles() = db.likesDao().getLikedArticlesSlugs()
+
+    fun getUser(username: String) = db.userDao().getUser(username)
+
+    fun getArticle(slug: String) = db.articleDao().getArticle(slug)
+
+    fun getArticleTags(slug: String) = db.tagDao().getArticleTags(slug)
+
+    fun getArticleComments(slug: String) = db.commentDao().getArticleComments(slug)
+
+    fun getTagArticles(tag: String) = db.tagArticleDao().getTagArticles(tag)
 
     /*      ARTICLE DRAFT      */
     fun saveDraft(title: String, body: String) {

@@ -7,12 +7,12 @@ interface LikesDao {
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertLikedArticle(likesEntity: LikesEntity)
+    fun likeArticle(likesEntity: LikesEntity)
 
-    @Delete
-    fun unlikeArticle(likesEntity: LikesEntity)
+    @Query("delete from likes where slug =:slug")
+    fun unlikeArticle(slug: String)
 
-    @Query("select * from likes")
-    fun getLikedArticlesSlugs(): List<LikesEntity>
+    @Query("select slug from likes")
+    fun getLikedArticlesSlugs(): List<String>
 
 }

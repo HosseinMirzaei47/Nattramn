@@ -18,7 +18,6 @@ class ArticleViewModel : ViewModel() {
 
     private val articleRepository = ArticleRepository.getInstance()
     private val profileRepository = ProfileRepository.getInstance()
-    var comments = MutableLiveData<ArrayList<CommentView>>()
 
     private var _bookmarkResult = MutableLiveData<Resource<ArticleView>>()
     val bookmarkResult: LiveData<Resource<ArticleView>> get() = _bookmarkResult
@@ -40,16 +39,6 @@ class ArticleViewModel : ViewModel() {
 
     private var _userArticlesResult = MutableLiveData<Resource<List<ArticleView>>>()
     val userArticlesResult: LiveData<Resource<List<ArticleView>>> get() = _userArticlesResult
-
-    fun getLikedArticlesSlugs() = articleRepository.getLikedArticlesSlugs()
-
-    fun likeArticleClicked(slug: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            articleRepository.likeArticleClicked(slug)
-        }
-    }
-
-    fun unlikeArticle(slug: String) = articleRepository.unlikeArticle(slug)
 
     fun bookmarkArticle(slug: String) {
 
@@ -79,6 +68,10 @@ class ArticleViewModel : ViewModel() {
             _sendCommentResult.postValue(articleRepository.sendComment(slug, commentRequest))
         }
     }
+
+    fun applyLike(slug: String) = articleRepository.applyLike(slug)
+
+    fun getLikedArticles() = articleRepository.getLikedArticles()
 
     fun getArticleComments(slug: String) {
 
