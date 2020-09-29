@@ -201,6 +201,7 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
     private fun applyArticleUpdatedData(
         resourceArticle: Resource<ArticleView>, articleView: ArticleView
     ) {
+        if (tags.isNullOrEmpty()) binding.progressSuggestions.visibility = View.GONE
         binding.articleView = resourceArticle.data
         articleView.commentViews?.let { showCommentsRecycler(it) }
         tags = articleView.tags?.toMutableList()
