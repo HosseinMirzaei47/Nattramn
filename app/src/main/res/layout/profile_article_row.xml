@@ -8,6 +8,10 @@
             name="profileData"
             type="com.example.nattramn.features.article.ui.ArticleView" />
 
+        <variable
+            name="likes"
+            type="String" />
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -147,7 +151,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/itemLikesIcon"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
-                persianText="@{profileData.likes}"
+                persianText="@{likes}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/profile_article_row_horizontal_margin"

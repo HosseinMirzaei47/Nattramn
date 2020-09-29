@@ -32,6 +32,7 @@ class ProfileArticleAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.profileData = profileArticleViews[position]
+        holder.binding.likes = profileArticleViews[position].likes.toString()
     }
 
     inner class ViewHolder(val binding: ProfileArticleRowBinding) :

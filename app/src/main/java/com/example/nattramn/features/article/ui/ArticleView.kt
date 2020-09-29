@@ -13,8 +13,15 @@ data class ArticleView(
     val body: String,
     val tags: @RawValue List<String>?,
     val commentViews: @RawValue List<CommentView>?,
-    val likes: String,
+    val likes: Int,
     var commentsNumber: Int?,
     var bookmarked: Boolean,
     val slug: String
-) : Parcelable
+) : Parcelable {
+
+    operator fun compareTo(other: ArticleView): Int {
+        if (likes > other.likes) return 1 else if (likes == other.likes) return 0
+        return -1
+    }
+
+}

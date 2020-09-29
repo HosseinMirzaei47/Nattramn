@@ -88,7 +88,7 @@ data class ArticleNetwork(
             body = body,
             tags = tagList,
             commentViews = comments,
-            likes = favoritesCount.toString(),
+            likes = favoritesCount,
             commentsNumber = comments.size,
             bookmarked = isBookmarked,
             slug = slug

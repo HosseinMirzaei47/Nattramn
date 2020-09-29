@@ -65,7 +65,7 @@ fun toArticleView(
         date = articleEntity!!.date,
         title = articleEntity.title,
         body = articleEntity.body,
-        likes = articleEntity.likes,
+        likes = articleEntity.likes.toInt(),
         tags = tagsEntity!!.map { it.toTagString() },
         commentViews = commentsEntity?.map { it.toCommentView() }!!,
         commentsNumber = commentsEntity.size,

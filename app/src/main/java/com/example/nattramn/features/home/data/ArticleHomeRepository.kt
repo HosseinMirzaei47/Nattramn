@@ -63,10 +63,10 @@ class ArticleHomeRepository(
         if (NetworkHelper.isOnline(MyApp.app)) {
             val feedArticles = homeRemoteDataSource.getAllArticles()
             if (feedArticles.status == Status.SUCCESS) {
-                localDataSource.updateAllArticles(feedArticles.data?.articleNetworks)
                 val articleViews = feedArticles.data?.articleNetworks?.map {
                     it.toArticleView(Resource.success(null))
                 }
+                localDataSource.updateAllArticles(feedArticles.data?.articleNetworks)
                 responseArticles = Resource.success(articleViews)
             }
         }
@@ -143,7 +143,7 @@ class ArticleHomeRepository(
                     body = articleEntity.body,
                     tags = articleEntity.tags?.map { tag -> tag.tag },
                     commentViews = articleEntity.comments?.map { comment -> comment.toCommentView() },
-                    likes = articleEntity.favoriteCount.toString(),
+                    likes = articleEntity.favoriteCount,
                     commentsNumber = articleEntity.comments?.size,
                     bookmarked = articleEntity.bookmarked,
                     slug = articleEntity.slug

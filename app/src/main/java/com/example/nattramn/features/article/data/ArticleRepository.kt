@@ -207,7 +207,7 @@ class ArticleRepository(
                     body = articleEntity.body,
                     tags = articleEntity.tags?.map { tag -> tag.tag },
                     commentViews = articleEntity.comments?.map { comment -> comment.toCommentView() },
-                    likes = articleEntity.favoriteCount.toString(),
+                    likes = articleEntity.favoriteCount,
                     commentsNumber = articleEntity.comments?.size,
                     bookmarked = articleEntity.bookmarked,
                     slug = articleEntity.slug
@@ -229,7 +229,7 @@ class ArticleRepository(
             body = articleEntity.body,
             tags = articleEntity.tags?.map { tag -> tag.tag },
             commentViews = articleEntity.comments?.map { comment -> comment.toCommentView() },
-            likes = articleEntity.favoriteCount.toString(),
+            likes = articleEntity.favoriteCount,
             commentsNumber = articleEntity.comments?.size,
             bookmarked = articleEntity.bookmarked,
             slug = articleEntity.slug
