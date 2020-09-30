@@ -68,6 +68,9 @@ class KeyWordFragment : Fragment(), OnTagsItemListener, SwipeRefreshLayout.OnRef
     }
 
     private fun showAllTagsRecycler(tags: List<String>) {
+
+        setGifVisibility(tags)
+
         tagAdapter = TagAdapter(
             tags,
             this
@@ -77,6 +80,16 @@ class KeyWordFragment : Fragment(), OnTagsItemListener, SwipeRefreshLayout.OnRef
             layoutManager = GridLayoutManager(requireContext(), 3)
         }
         binding.progressAllTags.visibility = View.GONE
+    }
+
+    private fun setGifVisibility(tags: List<String>) {
+        if (tags.isNullOrEmpty()) {
+            binding.keyWordsGif.visibility = View.VISIBLE
+            binding.gifSubtitle.visibility = View.VISIBLE
+        } else {
+            binding.keyWordsGif.visibility = View.GONE
+            binding.gifSubtitle.visibility = View.GONE
+        }
     }
 
     override fun onTagClick(tag: String) {

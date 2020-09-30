@@ -28,7 +28,6 @@ class ForYouFragment : Fragment(), OnArticleListener, SwipeRefreshLayout.OnRefre
     private lateinit var binding: FragmentForYouBinding
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var feedArticlesAdapter: VerticalArticleAdapter
-    private lateinit var filterArticlesAdapter: VerticalArticleAdapter
     private lateinit var topArticlesAdapter: HorizontalArticleAdapter
 
     private lateinit var feedArticles: MutableList<ArticleView>
@@ -133,6 +132,9 @@ class ForYouFragment : Fragment(), OnArticleListener, SwipeRefreshLayout.OnRefre
     }
 
     private fun showFeedRecycler(articles: List<ArticleView>) {
+
+        setGifVisibility(articles)
+
         feedArticlesAdapter =
             VerticalArticleAdapter(
                 articles,
@@ -147,6 +149,16 @@ class ForYouFragment : Fragment(), OnArticleListener, SwipeRefreshLayout.OnRefre
 
         binding.forYouFeedProgress.visibility = View.GONE
         binding.textInputSearch.visibility = View.VISIBLE
+    }
+
+    private fun setGifVisibility(articles: List<ArticleView>) {
+        if (articles.isNullOrEmpty()) {
+            binding.feedGif.visibility = View.VISIBLE
+            binding.gifSubtitle.visibility = View.VISIBLE
+        } else {
+            binding.feedGif.visibility = View.GONE
+            binding.gifSubtitle.visibility = View.GONE
+        }
     }
 
     private fun filterFeedArticles() {

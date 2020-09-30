@@ -157,6 +157,9 @@ class ProfileFragment : Fragment(),
     }
 
     private fun showRecycler(articles: List<ArticleView>?) {
+
+        setGifVisibility(articles)
+
         articles?.let { recyclerArticlesList = it.toMutableList() }
 
         articles?.let { articlesList ->
@@ -174,6 +177,16 @@ class ProfileFragment : Fragment(),
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
         hideProgressBar()
+    }
+
+    private fun setGifVisibility(articles: List<ArticleView>?) {
+        if (articles.isNullOrEmpty()) {
+            binding.profileGif.visibility = View.VISIBLE
+            binding.gifSubtitle.visibility = View.VISIBLE
+        } else {
+            binding.profileGif.visibility = View.GONE
+            binding.gifSubtitle.visibility = View.GONE
+        }
     }
 
     private fun sendProfileInfoRequest() {

@@ -81,5 +81,7 @@
     <string name="messageApplyChanges">اعمال ویرایش</string>
     <string name="messageNo">خیر</string>
     <string name="messageYes">بله</string>
+    <string name="noKeyWords">کلید واژه ای یافت نشد</string>
+    <string name="noArticles">مقاله ای پیدا نشد</string>
 
 </resources>

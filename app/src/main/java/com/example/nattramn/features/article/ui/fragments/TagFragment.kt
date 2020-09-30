@@ -89,6 +89,9 @@ class TagFragment : Fragment(), OnArticleListener, SwipeRefreshLayout.OnRefreshL
     }
 
     private fun showArticlesRecycler(articles: List<ArticleView>) {
+
+        setGifVisibility(articles)
+
         tagAdapter = VerticalArticleAdapter(
             articles,
             this
@@ -97,6 +100,16 @@ class TagFragment : Fragment(), OnArticleListener, SwipeRefreshLayout.OnRefreshL
         binding.recyclerTagArticles.apply {
             adapter = tagAdapter
             layoutManager = LinearLayoutManager(context)
+        }
+    }
+
+    private fun setGifVisibility(articles: List<ArticleView>) {
+        if (articles.isNullOrEmpty()) {
+            binding.tagGif.visibility = View.VISIBLE
+            binding.gifSubtitle.visibility = View.VISIBLE
+        } else {
+            binding.tagGif.visibility = View.GONE
+            binding.gifSubtitle.visibility = View.GONE
         }
     }
 
