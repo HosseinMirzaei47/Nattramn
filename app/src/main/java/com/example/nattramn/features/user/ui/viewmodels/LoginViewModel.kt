@@ -13,8 +13,6 @@ import kotlinx.coroutines.launch
 class LoginViewModel : ViewModel() {
 
     private val userRepository = AuthRepository.getInstance()
-    val email = MutableLiveData<String>()
-    val password = MutableLiveData<String>()
 
     var emailValidation = MutableLiveData<Resource<String>>()
     var passwordValidation = MutableLiveData<Resource<String>>()

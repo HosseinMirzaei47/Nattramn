@@ -9,10 +9,6 @@
             name="viewModel"
             type="com.example.nattramn.features.user.ui.viewmodels.LoginViewModel" />
 
-        <variable
-            name="loginRequest"
-            type="com.example.nattramn.features.user.data.models.AuthRequest" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -108,12 +104,10 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/loginUsername"
-                validation="@{viewModel.emailValidation}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:text="@={viewModel.email}" />
+                android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -141,12 +135,10 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/loginPassword"
-                validation="@{viewModel.passwordValidation}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:maxLines="1"
-                android:text="@={viewModel.password}" />
+                android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -155,7 +147,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
-            android:onClick="@{()->viewModel.loginUser(loginRequest)}"
             android:padding="@dimen/login_enter_button_padding"
             android:text="@string/enter"
             android:textColor="@color/whiteBackground"

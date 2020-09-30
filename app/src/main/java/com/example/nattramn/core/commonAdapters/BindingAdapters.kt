@@ -33,11 +33,6 @@ fun setImageUrl(imageView: ImageView, imageSource: String?) {
     }
 }
 
-@BindingAdapter("validation")
-fun validation(view: View, resource: Resource<*>?) {
-
-}
-
 @BindingAdapter("app:isBookmarked")
 fun bookmarkSrc(view: View, isBookmarked: Boolean) {
     if (view is ImageView) {

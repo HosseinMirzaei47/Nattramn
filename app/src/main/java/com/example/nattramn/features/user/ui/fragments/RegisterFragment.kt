@@ -13,8 +13,6 @@ import com.example.nattramn.R
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.core.utils.snackMaker
 import com.example.nattramn.databinding.FragmentRegisterBinding
-import com.example.nattramn.features.user.data.UserNetwork
-import com.example.nattramn.features.user.data.models.AuthRequest
 import com.example.nattramn.features.user.ui.viewmodels.RegisterViewModel
 
 class RegisterFragment : Fragment() {
@@ -35,13 +33,6 @@ class RegisterFragment : Fragment() {
         ).apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = registerViewModel
-            registerRequest = AuthRequest(
-                UserNetwork(
-                    email = registerViewModel.email.value,
-                    username = registerViewModel.username.value,
-                    password = registerViewModel.password.value
-                )
-            )
         }
 
         return binding.root
@@ -57,6 +48,21 @@ class RegisterFragment : Fragment() {
     }
 
     private fun onRegisterClick() {
+        binding.btnMembership.setOnClickListener {
+
+            val username = binding.registerUsername.text.toString()
+            val email = binding.registerUsernameConfirm.text.toString()
+            val password = binding.registerPassword.text.toString()
+            val passwordConfirmation = binding.registerPasswordConfirm.text.toString()
+
+            if (password != passwordConfirmation) {
+                binding.registerPassword.requestFocus()
+                binding.registerPassword.error = getString(R.string.errorPasswordConfirmation)
+            } else if (email.isValidEmail() && username.isValidUsername()) {
+                registerViewModel.registerUser(username, email, password)
+            }
+        }
+
         registerViewModel.registerResult.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.SUCCESS -> {
@@ -71,36 +77,6 @@ class RegisterFragment : Fragment() {
                     snackMaker(requireView(), "خطا در ارتباط با سرور")
                 }
             }
-        })
-
-        registerViewModel.username.observe(viewLifecycleOwner, Observer { username ->
-            binding.registerRequest = AuthRequest(
-                UserNetwork(
-                    email = registerViewModel.email.value,
-                    username = username,
-                    password = registerViewModel.password.value
-                )
-            )
-        })
-
-        registerViewModel.email.observe(viewLifecycleOwner, Observer { email ->
-            binding.registerRequest = AuthRequest(
-                UserNetwork(
-                    email = email,
-                    username = registerViewModel.username.value,
-                    password = registerViewModel.password.value
-                )
-            )
-        })
-
-        registerViewModel.password.observe(viewLifecycleOwner, Observer { password ->
-            binding.registerRequest = AuthRequest(
-                UserNetwork(
-                    email = registerViewModel.email.value,
-                    username = registerViewModel.username.value,
-                    password = password
-                )
-            )
         })
     }
 

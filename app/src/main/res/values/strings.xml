@@ -41,6 +41,7 @@
     <string name="errorEnterEmail">لطفا ایمیل خود را وارد نمایید</string>
     <string name="errorEmailOrUsernameFormat">نام کاربری یا ایمیل وارد شده صحیح نیست</string>
     <string name="errorEnterUsername">نام کاربری خود را وارد نمایید</string>
+    <string name="errorPasswordConfirmation">کلمات عبور یکسان نیستند!</string>
     <string name="publishArticle">انتشار مقاله</string>
     <string name="writePageTitle">نوشتن مقاله</string>
     <string name="articleDraft">پیش نویس</string>

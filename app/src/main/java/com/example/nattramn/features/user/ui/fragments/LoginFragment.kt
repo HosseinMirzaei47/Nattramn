@@ -41,12 +41,6 @@ class LoginFragment : Fragment() {
         ).apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = loginViewModel
-            loginRequest = AuthRequest(
-                UserNetwork(
-                    email = loginViewModel.email.value,
-                    password = loginViewModel.password.value
-                )
-            )
         }
 
         return binding.root
@@ -62,6 +56,23 @@ class LoginFragment : Fragment() {
     }
 
     private fun onEnterClick() {
+
+        binding.loginEnterButton.setOnClickListener {
+
+            val email = binding.loginUsername.text.toString()
+            val password = binding.loginPassword.text.toString()
+
+            if (email.isValidEmail()) {
+                loginViewModel.loginUser(
+                    AuthRequest(
+                        UserNetwork(
+                            email = email,
+                            password = password
+                        )
+                    )
+                )
+            }
+        }
 
         loginViewModel.loginResult.observe(viewLifecycleOwner, Observer {
             when (it.status) {
@@ -79,27 +90,6 @@ class LoginFragment : Fragment() {
 
         })
 
-        loginViewModel.email.observe(
-            viewLifecycleOwner,
-            Observer { username ->
-                binding.loginRequest = AuthRequest(
-                    UserNetwork(
-                        email = username,
-                        password = loginViewModel.password.value
-                    )
-                )
-            })
-
-        loginViewModel.password.observe(
-            viewLifecycleOwner,
-            Observer { password ->
-                binding.loginRequest = AuthRequest(
-                    UserNetwork(
-                        email = loginViewModel.email.value,
-                        password = password
-                    )
-                )
-            })
     }
 
     private fun onRegisterClick() {
@@ -107,6 +97,23 @@ class LoginFragment : Fragment() {
             Navigation.findNavController(view)
                 .navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
         }
+    }
+
+    private fun CharSequence?.isValidEmail(): Boolean {
+
+        if (isNullOrEmpty()) {
+            binding.loginUsername.requestFocus()
+            binding.loginUsername.error = getString(R.string.errorEnterEmail)
+            return false
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(this!!).matches()) {
+            binding.loginUsername.requestFocus()
+            binding.loginUsername.error = getString(R.string.errorEmailFormat)
+            return false
+        }
+
+        return true
     }
 
     private fun CharSequence?.isValidUsername(): Boolean {

@@ -15,10 +15,7 @@ import kotlinx.coroutines.launch
 class RegisterViewModel : ViewModel() {
 
     private val userRepository = AuthRepository.getInstance()
-    val username = MutableLiveData<String>()
-    val email = MutableLiveData<String>()
-    val password = MutableLiveData<String>()
-    val passwordConfirmation = MutableLiveData<String>()
+
     private val _registerResult = MutableLiveData<Resource<AuthResponse>>()
     val registerResult: LiveData<Resource<AuthResponse>> get() = _registerResult
 

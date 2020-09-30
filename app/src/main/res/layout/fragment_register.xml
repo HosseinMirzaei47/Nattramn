@@ -6,10 +6,6 @@
     <data>
 
         <variable
-            name="registerRequest"
-            type="com.example.nattramn.features.user.data.models.AuthRequest" />
-
-        <variable
             name="viewModel"
             type="com.example.nattramn.features.user.ui.viewmodels.RegisterViewModel" />
 
@@ -110,7 +106,6 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:text="@={viewModel.username}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_b1" />
 
@@ -143,7 +138,6 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:text="@={viewModel.email}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_b1" />
 
@@ -176,7 +170,6 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:text="@={viewModel.password}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_b1" />
 
@@ -210,7 +203,6 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:text="@={viewModel.passwordConfirmation}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_b1" />
 
@@ -224,7 +216,6 @@
             android:layout_marginTop="@dimen/register_join_button_margin_top"
             android:layout_marginEnd="@dimen/register_horizontal_margin"
             android:ems="10"
-            android:onClick="@{()->viewModel.registerUser(viewModel.username, viewModel.email, viewModel.password)}"
             android:padding="@dimen/padding_large"
             android:text="@string/membership"
             android:textColor="@color/whiteBackground"
