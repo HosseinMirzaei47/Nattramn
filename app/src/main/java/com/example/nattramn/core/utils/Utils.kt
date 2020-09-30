@@ -10,9 +10,9 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.nattramn.R
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
-import com.example.nattramn.features.article.data.ArticleEntity
-import com.example.nattramn.features.article.data.CommentEntity
-import com.example.nattramn.features.article.data.TagEntity
+import com.example.nattramn.features.article.data.entities.ArticleEntity
+import com.example.nattramn.features.article.data.entities.CommentEntity
+import com.example.nattramn.features.article.data.entities.TagEntity
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.user.data.UserEntity
 import com.google.android.material.snackbar.Snackbar

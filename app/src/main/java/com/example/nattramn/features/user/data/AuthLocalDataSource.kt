@@ -1,14 +1,12 @@
 package com.example.nattramn.features.user.data
 
 import com.example.nattramn.core.config.MyApp
-import com.example.nattramn.core.database.AppDatabase
 import com.example.nattramn.core.storage.data.PreferenceProperty.Companion.getPreferences
 import com.example.nattramn.core.storage.data.Settings
 
 class AuthLocalDataSource {
 
     private val settings = Settings(MyApp.app.getPreferences())
-    private val db = AppDatabase.buildDatabase(MyApp.app)
 
     fun saveToken(token: String) {
         settings.authToken = token

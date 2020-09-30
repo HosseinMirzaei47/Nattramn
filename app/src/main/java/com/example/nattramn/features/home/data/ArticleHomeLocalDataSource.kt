@@ -3,7 +3,7 @@ package com.example.nattramn.features.home.data
 import androidx.room.withTransaction
 import com.example.nattramn.core.config.MyApp
 import com.example.nattramn.core.database.AppDatabase
-import com.example.nattramn.features.article.data.TagEntity
+import com.example.nattramn.features.article.data.entities.TagEntity
 import com.example.nattramn.features.article.data.models.TagAndArticleEntity
 import com.example.nattramn.features.home.data.models.ArticleNetwork
 import com.example.nattramn.features.user.data.UserEntity
@@ -23,8 +23,6 @@ class ArticleHomeLocalDataSource {
 
     fun getArticleComments(slug: String) = db.commentDao().getArticleComments(slug)
 
-    fun searchByTitle(title: String) = db.articleDao().searchByTitle(title)
-
     suspend fun updateAllArticles(articleNetworkList: List<ArticleNetwork>?) {
         articleNetworkList?.let { networkList ->
             db.withTransaction {
@@ -40,7 +38,9 @@ class ArticleHomeLocalDataSource {
                 })
                 networkList.forEach {
                     db.tagDao().insertTag(it.tagList.map { tag ->
-                        TagEntity(tag)
+                        TagEntity(
+                            tag
+                        )
                     })
                 }
                 networkList.forEach { articleNetwork ->
@@ -72,7 +72,9 @@ class ArticleHomeLocalDataSource {
                 })
                 networkList.forEach {
                     db.tagDao().insertTag(it.tagList.map { tag ->
-                        TagEntity(tag)
+                        TagEntity(
+                            tag
+                        )
                     })
                 }
                 networkList.forEach { articleNetwork ->
@@ -93,7 +95,9 @@ class ArticleHomeLocalDataSource {
         tagList?.let { list ->
             db.withTransaction {
                 db.tagDao().insertTag(list.map { tag ->
-                    TagEntity(tag)
+                    TagEntity(
+                        tag
+                    )
                 })
             }
         }

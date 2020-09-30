@@ -121,7 +121,6 @@ fun convertDate(view: View, string: String) {
             view.text = out
 
         } catch (e: ParseException) {
-            println(e.message)
             view.text = "خطا در محاسبه تاریخ"
         }
     }

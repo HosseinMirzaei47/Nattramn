@@ -2,8 +2,8 @@ package com.example.nattramn.features.article.data.models
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import com.example.nattramn.features.article.data.ArticleEntity
-import com.example.nattramn.features.article.data.TagEntity
+import com.example.nattramn.features.article.data.entities.ArticleEntity
+import com.example.nattramn.features.article.data.entities.TagEntity
 
 @Entity(
     tableName = "tagsArticles",

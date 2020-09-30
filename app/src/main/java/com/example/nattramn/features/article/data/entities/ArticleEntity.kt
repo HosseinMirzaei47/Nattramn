@@ -1,4 +1,4 @@
-package com.example.nattramn.features.article.data
+package com.example.nattramn.features.article.data.entities
 
 import androidx.room.Entity
 import androidx.room.ForeignKey

@@ -4,7 +4,7 @@ import android.os.Parcelable
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Relation
-import com.example.nattramn.features.article.data.ArticleEntity
+import com.example.nattramn.features.article.data.entities.ArticleEntity
 import com.example.nattramn.features.user.ui.UserView
 import kotlinx.android.parcel.Parcelize
 

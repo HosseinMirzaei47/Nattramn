@@ -4,8 +4,8 @@ import com.example.nattramn.core.config.MyApp
 import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.core.utils.NetworkHelper
-import com.example.nattramn.features.article.data.ArticleEntity
-import com.example.nattramn.features.article.data.TagEntity
+import com.example.nattramn.features.article.data.entities.ArticleEntity
+import com.example.nattramn.features.article.data.entities.TagEntity
 import com.example.nattramn.features.article.data.models.EditArticleRequest
 import com.example.nattramn.features.article.ui.ArticleView
 import com.example.nattramn.features.home.data.models.AllTagsResponse
@@ -37,8 +37,6 @@ class ArticleHomeRepository(
         articleEntityListToView(localDataSource.getAllArticles())
 
     fun getAllTagsDb() = tagEntityListToString(localDataSource.getAllTags())
-
-    fun searchByTitle(title: String) = articleEntityListToView(localDataSource.searchByTitle(title))
 
     suspend fun getFeedArticles(): Resource<List<ArticleView>> {
         var responseArticles = Resource<List<ArticleView>>(Status.ERROR, null, null)

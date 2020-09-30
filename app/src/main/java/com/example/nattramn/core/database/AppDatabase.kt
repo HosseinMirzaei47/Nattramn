@@ -4,7 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.nattramn.features.article.data.*
+import com.example.nattramn.features.article.data.daos.*
+import com.example.nattramn.features.article.data.entities.ArticleEntity
+import com.example.nattramn.features.article.data.entities.CommentEntity
+import com.example.nattramn.features.article.data.entities.LikesEntity
+import com.example.nattramn.features.article.data.entities.TagEntity
 import com.example.nattramn.features.article.data.models.TagAndArticleEntity
 import com.example.nattramn.features.user.data.UserEntity
 import com.example.nattramn.features.user.services.UserDao

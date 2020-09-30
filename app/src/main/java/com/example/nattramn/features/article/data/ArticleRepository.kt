@@ -5,6 +5,9 @@ import com.example.nattramn.core.resource.Resource
 import com.example.nattramn.core.resource.Status
 import com.example.nattramn.core.utils.NetworkHelper
 import com.example.nattramn.core.utils.toArticleView
+import com.example.nattramn.features.article.data.entities.ArticleEntity
+import com.example.nattramn.features.article.data.entities.CommentEntity
+import com.example.nattramn.features.article.data.entities.TagEntity
 import com.example.nattramn.features.article.data.models.CommentRequest
 import com.example.nattramn.features.article.data.models.TagAndArticleEntity
 import com.example.nattramn.features.article.ui.ArticleView

@@ -5,6 +5,10 @@ import com.example.nattramn.core.config.MyApp
 import com.example.nattramn.core.database.AppDatabase
 import com.example.nattramn.core.storage.data.PreferenceProperty.Companion.getPreferences
 import com.example.nattramn.core.storage.data.Settings
+import com.example.nattramn.features.article.data.entities.ArticleEntity
+import com.example.nattramn.features.article.data.entities.CommentEntity
+import com.example.nattramn.features.article.data.entities.LikesEntity
+import com.example.nattramn.features.article.data.entities.TagEntity
 import com.example.nattramn.features.article.data.models.TagAndArticleEntity
 import com.example.nattramn.features.home.data.models.ArticleNetwork
 import com.example.nattramn.features.user.data.UserEntity
@@ -46,21 +50,6 @@ class ArticleLocalDataSource {
         }
     }
 
-    suspend fun insertTagArticles(tag: String, articleNetworks: List<ArticleNetwork>?) {
-        articleNetworks?.let {
-            it.forEach { article ->
-                val isFeed = db.articleDao().getArticle(article.slug).isFeed
-                db.articleDao().insertArticle(article.toArticleEntity(isFeed))
-                db.tagArticleDao().insertTagAndArticle(
-                    TagAndArticleEntity(
-                        tag = tag,
-                        slug = article.slug
-                    )
-                )
-            }
-        }
-    }
-
     suspend fun updateTagArticles(articleNetworks: List<ArticleNetwork>?) {
         articleNetworks?.let { articles ->
             db.withTransaction {
@@ -76,7 +65,9 @@ class ArticleLocalDataSource {
                 })
                 articles.forEach {
                     db.tagDao().insertTag(it.tagList.map { tag ->
-                        TagEntity(tag)
+                        TagEntity(
+                            tag
+                        )
                     })
                 }
                 articles.forEach { article ->
@@ -98,7 +89,12 @@ class ArticleLocalDataSource {
         if (slug in db.likesDao().getLikedArticlesSlugs()) {
             db.likesDao().unlikeArticle(slug)
         } else {
-            db.likesDao().likeArticle(LikesEntity(0, slug))
+            db.likesDao().likeArticle(
+                LikesEntity(
+                    0,
+                    slug
+                )
+            )
         }
     }
 
