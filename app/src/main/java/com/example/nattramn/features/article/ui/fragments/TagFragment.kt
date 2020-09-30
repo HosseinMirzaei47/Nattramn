@@ -76,7 +76,6 @@ class TagFragment : Fragment(), OnArticleListener, SwipeRefreshLayout.OnRefreshL
     private fun observeNetResponse() {
         tagViewModel.tagArticlesResult.observe(viewLifecycleOwner, Observer { resource ->
             binding.swipeLayout.isRefreshing = false
-            binding.progressTag.visibility = View.GONE
             if (resource.status == Status.SUCCESS) {
                 resource.data?.let { articles ->
                     tagArticles = articles.toMutableList()
@@ -85,6 +84,7 @@ class TagFragment : Fragment(), OnArticleListener, SwipeRefreshLayout.OnRefreshL
             } else if (resource.status == Status.ERROR) {
                 snackMaker(requireView(), getString(R.string.messageServerConnectionError))
             }
+            hideProgressBar()
         })
     }
 
@@ -131,6 +131,10 @@ class TagFragment : Fragment(), OnArticleListener, SwipeRefreshLayout.OnRefreshL
                 snackMaker(requireView(), getString(R.string.messageServerConnectionError))
             }
         })
+    }
+
+    private fun hideProgressBar() {
+        binding.progressTag.visibility = View.GONE
     }
 
     /*      INTERFACES IMPLEMENTATION       */

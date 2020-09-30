@@ -73,12 +73,7 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         snapHorizontal.attachToRecyclerView(recyclerArticleRelated)
-        setOnLikeArticleClick()
-        onBookmarkButtonClick()
-        setOnShareArticleClick()
-        setAddCommentAction()
-        setOnProfileClick()
-        setBackButtonClick()
+        setOnClickListeners()
 
         articleViewArg.commentViews?.let { showCommentsRecycler(it) }
 
@@ -90,6 +85,15 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
 
         updateCurrentOrOpenSuggestion(articleSlug)
 
+    }
+
+    private fun setOnClickListeners() {
+        setOnLikeArticleClick()
+        onBookmarkButtonClick()
+        setOnShareArticleClick()
+        setAddCommentAction()
+        setOnProfileClick()
+        setBackButtonClick()
     }
 
     private fun showTagsInChipGroup() {
@@ -161,8 +165,10 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     }
                 }
+            } else {
+                snackMaker(requireView(), getString(R.string.messageSuggestionsArticleSearchError))
             }
-            binding.progressSuggestions.visibility = View.GONE
+            hideSuggestionsProgressBar()
         })
 
     }
@@ -172,8 +178,9 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
         comments.forEach { userNames.add(it.username) }
         userNames = userNames.distinct().toMutableList()
         userNames.forEach { username -> articleViewModel.getUserArticles(username) }
+
         if (comments.isEmpty()) {
-            binding.commentsTitleSA.visibility = View.GONE
+            hideCommentsProgressBar()
         }
 
         commentAdapter =
@@ -188,7 +195,6 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
 
-        binding.progressComments.visibility = View.GONE
     }
 
     private fun openProfile(username: String) {
@@ -201,7 +207,7 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
     private fun applyArticleUpdatedData(
         resourceArticle: Resource<ArticleView>, articleView: ArticleView
     ) {
-        if (tags.isNullOrEmpty()) binding.progressSuggestions.visibility = View.GONE
+        if (tags.isNullOrEmpty()) hideSuggestionsProgressBar()
         binding.articleView = resourceArticle.data
         articleView.commentViews?.let { showCommentsRecycler(it) }
         tags = articleView.tags?.toMutableList()
@@ -334,6 +340,14 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
     }
 
     private fun isLiked() = articleSlug in articleViewModel.getLikedArticles()
+
+    private fun hideSuggestionsProgressBar() {
+        binding.progressSuggestions.visibility = View.GONE
+    }
+
+    private fun hideCommentsProgressBar() {
+        binding.commentsTitleSA.visibility = View.GONE
+    }
 
     /*      INTERFACES IMPLEMENTATION      */
     override fun onCardClick(slug: String) {

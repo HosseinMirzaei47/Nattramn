@@ -76,14 +76,13 @@ class ProfileFragment : Fragment(),
     }
 
     private fun setTabItemsView() {
-        binding.profileProgressBar.visibility = View.VISIBLE
-
         binding.profileTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
 
                 binding.profileTab.getTabAt(0)?.customView = null
                 binding.profileTab.getTabAt(1)?.customView = null
+                showProgressBar()
 
                 val tabSelectedView: View? =
                     LayoutInflater.from(context).inflate(R.layout.custom_tab_selected, null)
@@ -136,13 +135,11 @@ class ProfileFragment : Fragment(),
     }
 
     private fun showUserArticles() {
-
         profileViewModel.getUserArticlesDb(username)
         profileViewModel.userArticles.observe(viewLifecycleOwner, Observer {
             showRecycler(it)
         })
 
-        /*showRecycler(profileViewModel.getUserArticlesDb(username))*/
         profileViewModel.getUserArticles(username)
         profileViewModel.userArticlesResult.observe(viewLifecycleOwner, Observer { resource ->
             binding.swipeLayout.isRefreshing = false
@@ -176,7 +173,7 @@ class ProfileFragment : Fragment(),
             layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
-        binding.profileProgressBar.visibility = View.GONE
+        hideProgressBar()
     }
 
     private fun sendProfileInfoRequest() {
@@ -290,6 +287,14 @@ class ProfileFragment : Fragment(),
         setBackButtonClick()
         setOnFollowButtonAction()
         setTabItemsView()
+    }
+
+    private fun hideProgressBar() {
+        binding.profileProgressBar.visibility = View.GONE
+    }
+
+    private fun showProgressBar() {
+        binding.profileProgressBar.visibility = View.VISIBLE
     }
 
     /*      INTERFACES IMPLEMENTATION       */

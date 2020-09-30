@@ -65,6 +65,7 @@
     <string name="messageLogoutTitle">خروج از حساب کاربری</string>
     <string name="messagePublishArticleSuccess">مقاله با موفقیت ثبت گردید</string>
     <string name="messageArticleSearchError">خطا در جست و جوی مقالات</string>
+    <string name="messageSuggestionsArticleSearchError">خطا در جست و جوی مقالات مرتبط</string>
     <string name="messageArticleEditSuccess">مقاله با موفقیت ویرایش گردید</string>
     <string name="messageGetNewDataError">خطا در چک کردن آخرین تغییرات</string>
     <string name="messageArticleDeleteSuccess">حذف مقاله با موفقیت انجام شد</string>
