@@ -346,7 +346,7 @@ class ArticleFragment : Fragment(), OnCommentListener, OnArticleListener {
     }
 
     private fun hideCommentsProgressBar() {
-        binding.commentsTitleSA.visibility = View.GONE
+        binding.progressComments.visibility = View.GONE
     }
 
     /*      INTERFACES IMPLEMENTATION      */

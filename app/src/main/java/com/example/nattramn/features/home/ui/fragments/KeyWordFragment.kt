@@ -43,7 +43,7 @@ class KeyWordFragment : Fragment(), OnTagsItemListener, SwipeRefreshLayout.OnRef
         super.onViewCreated(view, savedInstanceState)
         binding.swipeLayout.setOnRefreshListener(this)
 
-        showAllTagsRecycler(keyWordsViewModel.getAllTagsDb())
+        showAllTagsRecycler(keyWordsViewModel.getAllTagsDb().toMutableList())
         sendAllTagsRequest()
         observeAllTagsResponse()
 
@@ -54,7 +54,7 @@ class KeyWordFragment : Fragment(), OnTagsItemListener, SwipeRefreshLayout.OnRef
             binding.swipeLayout.isRefreshing = false
             if (resource.status == Status.SUCCESS) {
                 resource.data?.tags?.let { tags ->
-                    showAllTagsRecycler(tags)
+                    showAllTagsRecycler(tags.toMutableList())
                 }
             } else if (resource.status == Status.ERROR) {
                 snackMaker(requireView(), getString(R.string.messageServerConnectionError))
@@ -67,9 +67,12 @@ class KeyWordFragment : Fragment(), OnTagsItemListener, SwipeRefreshLayout.OnRef
         keyWordsViewModel.getAllTags()
     }
 
-    private fun showAllTagsRecycler(tags: List<String>) {
+    private fun showAllTagsRecycler(tags: MutableList<String>) {
 
         setGifVisibility(tags)
+
+        tags.remove("dragons")
+        tags.remove("training")
 
         tagAdapter = TagAdapter(
             tags,
