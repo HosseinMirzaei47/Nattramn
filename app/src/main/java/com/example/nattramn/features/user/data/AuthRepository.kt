@@ -58,7 +58,29 @@ class AuthRepository(
         var response: Resource<AuthResponse> = Resource<AuthResponse>(Status.ERROR, null, null)
 
         if (NetworkHelper.isOnline(MyApp.app)) {
-            response = authRemoteDataSource.register(user)
+            val request = authRemoteDataSource.register(user)
+            if (request.status == Status.SUCCESS) {
+                val token =
+                    request.data?.userNetwork?.token ?: return Resource.error(
+                        "Authentication failed",
+                        request.data
+                    )
+                val username =
+                    request.data.userNetwork.username ?: return Resource.error(
+                        "Authentication failed",
+                        request.data
+                    )
+
+                authLocalDataSource.saveToken(token)
+                authLocalDataSource.saveUsername(username)
+
+                response = Resource.success(request.data)
+
+            } else if (request.status == Status.ERROR) {
+                request.message?.let {
+                    response = Resource.error(it, null)
+                }
+            }
         }
 
         return response

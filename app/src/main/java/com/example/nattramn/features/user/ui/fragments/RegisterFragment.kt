@@ -71,10 +71,14 @@ class RegisterFragment : Fragment() {
                         .navigate(RegisterFragmentDirections.actionRegisterFragmentToHomerFragment())
                 }
                 Status.LOADING -> {
-
+                    snackMaker(requireView(), getString(R.string.messagePleaseWait))
                 }
                 else -> {
-                    snackMaker(requireView(), "خطا در ارتباط با سرور")
+                    if (it.message == "422") {
+                        snackMaker(requireView(), getString(R.string.errorUsernameTaken))
+                    } else {
+                        snackMaker(requireView(), getString(R.string.messageServerConnectionError))
+                    }
                 }
             }
         })

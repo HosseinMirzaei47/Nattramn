@@ -84,5 +84,6 @@
     <string name="messageYes">بله</string>
     <string name="noKeyWords">کلید واژه ای یافت نشد</string>
     <string name="noArticles">مقاله ای پیدا نشد</string>
+    <string name="errorUsernameTaken">این نام کاربری در دسترس نیست</string>
 
 </resources>
