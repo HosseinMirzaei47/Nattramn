@@ -10,6 +10,11 @@ see articles of users who are currently in their *following* list and on the bot
 of the page the app displays latest published articles. Nattramn allows users to publish 
 their articles online. A user can share, comment on, like and search articles.
 
+<div>
+  <img align="center" src="app/src/main/java/com/example/nattramn/core/screenshots/home_tab_one.jpg" alt="Schedule screenshot" height="640" width="320">
+  <img align="center" src="app/src/main/java/com/example/nattramn/core/screenshots/article.jpg" alt="Schedule screenshot" height="640" width="320">
+</div>
+
 # Development Environment
 
 The app is written entirely in Kotlin and uses the Gradle build system.
