@@ -13,9 +13,7 @@ their articles online. A user can share, comment on, like and search articles.
 <img align="center" src="app/src/main/java/com/example/nattramn/core/screenshots/home_tab_one.jpg" alt="Article Fragment" height="640" width="320">
 <img align="center" src="app/src/main/java/com/example/nattramn/core/screenshots/article.jpg" alt="Article Fragment" height="640" width="320">
 <img align="center" src="app/src/main/java/com/example/nattramn/core/screenshots/profile.jpg" alt="Article Fragment" height="640" width="320">
-<img align="center" src="app/src/main/java/com/example/nattramn/core/screenshots/login.jpg" alt="Article Fragment" height="640" width="320">
 <img align="center" src="app/src/main/java/com/example/nattramn/core/screenshots/register.jpg" alt="Article Fragment" height="640" width="320">
-<img align="center" src="app/src/main/java/com/example/nattramn/core/screenshots/hashTag.jpg" alt="Article Fragment" height="640" width="320">
 
 # Development Environment
 
